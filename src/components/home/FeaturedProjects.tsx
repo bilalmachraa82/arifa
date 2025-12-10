@@ -1,35 +1,58 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, MapPin } from "lucide-react";
+import { ArrowRight, MapPin, Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
-const projects = [
-  {
-    id: 1,
-    title: "Casa da Serra",
-    category: "Residencial",
-    location: "Sintra",
-    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-    status: "Concluído",
-  },
-  {
-    id: 2,
-    title: "Escritórios Tejo",
-    category: "Corporativo",
-    location: "Lisboa",
-    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-    status: "Concluído",
-  },
-  {
-    id: 3,
-    title: "Hotel Atlântico",
-    category: "Hospitalidade",
-    location: "Cascais",
-    image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-    status: "Em construção",
-  },
-];
+interface Project {
+  id: string;
+  title: string;
+  slug: string;
+  category: string;
+  location: string | null;
+  featured_image: string | null;
+  status: string | null;
+}
 
 export function FeaturedProjects() {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchProjects() {
+      const { data, error } = await supabase
+        .from("projects")
+        .select("id, title, slug, category, location, featured_image, status")
+        .eq("is_published", true)
+        .eq("is_featured", true)
+        .order("created_at", { ascending: false })
+        .limit(3);
+
+      if (error) {
+        console.error("Error fetching featured projects:", error);
+      } else {
+        setProjects(data || []);
+      }
+      setLoading(false);
+    }
+
+    fetchProjects();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="py-24 lg:py-32 bg-background">
+        <div className="container-arifa flex items-center justify-center">
+          <Loader2 className="h-8 w-8 animate-spin text-arifa-teal" />
+        </div>
+      </section>
+    );
+  }
+
+  if (projects.length === 0) {
+    return null;
+  }
+
   return (
     <section className="py-24 lg:py-32 bg-background">
       <div className="container-arifa">
@@ -51,15 +74,15 @@ export function FeaturedProjects() {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
+          {projects.map((project) => (
             <Link
               key={project.id}
-              to={`/portfolio/${project.id}`}
+              to={`/portfolio/${project.slug}`}
               className="group relative block overflow-hidden rounded-sm"
             >
               <div className="aspect-[4/5] overflow-hidden">
                 <img
-                  src={project.image}
+                  src={project.featured_image || "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"}
                   alt={project.title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
@@ -69,15 +92,17 @@ export function FeaturedProjects() {
               <div className="absolute inset-0 bg-gradient-to-t from-arifa-charcoal/90 via-arifa-charcoal/20 to-transparent" />
               
               {/* Status badge */}
-              <div className="absolute top-4 left-4">
-                <span className={`inline-block px-3 py-1 text-xs font-medium rounded-sm ${
-                  project.status === "Concluído" 
-                    ? "bg-arifa-green/90 text-accent-foreground" 
-                    : "bg-arifa-gold/90 text-accent-foreground"
-                }`}>
-                  {project.status}
-                </span>
-              </div>
+              {project.status && (
+                <div className="absolute top-4 left-4">
+                  <span className={`inline-block px-3 py-1 text-xs font-medium rounded-sm ${
+                    project.status === "Concluído" 
+                      ? "bg-arifa-green/90 text-accent-foreground" 
+                      : "bg-arifa-gold/90 text-accent-foreground"
+                  }`}>
+                    {project.status}
+                  </span>
+                </div>
+              )}
 
               {/* Content */}
               <div className="absolute bottom-0 left-0 right-0 p-6">
@@ -87,10 +112,12 @@ export function FeaturedProjects() {
                 <h3 className="font-display text-2xl font-medium text-primary-foreground mb-2">
                   {project.title}
                 </h3>
-                <div className="flex items-center text-sm text-primary-foreground/70">
-                  <MapPin className="h-4 w-4 mr-1" />
-                  {project.location}
-                </div>
+                {project.location && (
+                  <div className="flex items-center text-sm text-primary-foreground/70">
+                    <MapPin className="h-4 w-4 mr-1" />
+                    {project.location}
+                  </div>
+                )}
               </div>
 
               {/* Hover indicator */}
