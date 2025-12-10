@@ -1,23 +1,28 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogIn, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { LanguageSelector } from "@/components/LanguageSelector";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { useAuth } from "@/contexts/AuthContext";
 import arifaLogo from "@/assets/arifa-logo.png";
 import { cn } from "@/lib/utils";
-
-const navigation = [
-  { name: "Início", href: "/" },
-  { name: "Privado", href: "/privado" },
-  { name: "Empresas", href: "/empresas" },
-  { name: "Investidores", href: "/investidores" },
-  { name: "Portfolio", href: "/portfolio" },
-  { name: "Blog", href: "/blog" },
-  { name: "Contacto", href: "/contacto" },
-];
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { t } = useLanguage();
+  const { user, signOut } = useAuth();
+
+  const navigation = [
+    { name: t("nav.home"), href: "/" },
+    { name: t("nav.private"), href: "/privado" },
+    { name: t("nav.companies"), href: "/empresas" },
+    { name: t("nav.investors"), href: "/investidores" },
+    { name: t("nav.portfolio"), href: "/portfolio" },
+    { name: t("nav.blog"), href: "/blog" },
+    { name: t("nav.contact"), href: "/contacto" },
+  ];
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border/50">
@@ -35,7 +40,7 @@ export function Header() {
             className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-foreground"
             onClick={() => setMobileMenuOpen(true)}
           >
-            <span className="sr-only">Abrir menu</span>
+            <span className="sr-only">{t("nav.openMenu")}</span>
             <Menu className="h-6 w-6" aria-hidden="true" />
           </button>
         </div>
@@ -57,9 +62,25 @@ export function Header() {
           ))}
         </div>
 
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-3">
+          <LanguageSelector />
+          
+          {user ? (
+            <Button variant="ghost" size="sm" onClick={signOut} className="gap-2">
+              <LogOut className="h-4 w-4" />
+              Sair
+            </Button>
+          ) : (
+            <Button variant="ghost" size="sm" asChild className="gap-2">
+              <Link to="/auth">
+                <LogIn className="h-4 w-4" />
+                {t("nav.login")}
+              </Link>
+            </Button>
+          )}
+          
           <Button variant="outline" size="sm" asChild>
-            <Link to="/contacto">Pedir Orçamento</Link>
+            <Link to="/contacto">{t("nav.quote")}</Link>
           </Button>
         </div>
       </nav>
@@ -78,7 +99,7 @@ export function Header() {
               className="-m-2.5 rounded-md p-2.5 text-foreground"
               onClick={() => setMobileMenuOpen(false)}
             >
-              <span className="sr-only">Fechar menu</span>
+              <span className="sr-only">{t("nav.closeMenu")}</span>
               <X className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
@@ -101,10 +122,36 @@ export function Header() {
                   </Link>
                 ))}
               </div>
-              <div className="py-6">
+              <div className="py-6 space-y-3">
+                <div className="flex items-center justify-between px-3">
+                  <span className="text-sm text-muted-foreground">Idioma</span>
+                  <LanguageSelector />
+                </div>
+                
+                {user ? (
+                  <Button 
+                    variant="outline" 
+                    className="w-full" 
+                    onClick={() => {
+                      signOut();
+                      setMobileMenuOpen(false);
+                    }}
+                  >
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Sair
+                  </Button>
+                ) : (
+                  <Button variant="outline" className="w-full" asChild>
+                    <Link to="/auth" onClick={() => setMobileMenuOpen(false)}>
+                      <LogIn className="h-4 w-4 mr-2" />
+                      {t("nav.login")}
+                    </Link>
+                  </Button>
+                )}
+                
                 <Button className="w-full" asChild>
                   <Link to="/contacto" onClick={() => setMobileMenuOpen(false)}>
-                    Pedir Orçamento
+                    {t("nav.quote")}
                   </Link>
                 </Button>
               </div>
