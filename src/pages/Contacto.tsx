@@ -1,52 +1,25 @@
 import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { MapPin, Phone, Mail, Clock, ArrowRight, CheckCircle2 } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { supabase } from "@/integrations/supabase/client";
+import { z } from "zod";
 
-const contactInfo = [
-  {
-    icon: MapPin,
-    title: "Morada",
-    details: ["Avenida de Berna, 31, 2º Dto, sala 9", "1050-038 Lisboa, Portugal"],
-  },
-  {
-    icon: Phone,
-    title: "Telefone / WhatsApp",
-    details: ["+351 928 272 198"],
-    href: "tel:+351928272198",
-  },
-  {
-    icon: Mail,
-    title: "Email",
-    details: ["info@arifa.studio"],
-    href: "mailto:info@arifa.studio",
-  },
-  {
-    icon: Clock,
-    title: "Horário",
-    details: ["Seg - Sex: 9h - 18h", "Sáb: Com marcação"],
-  },
-];
-
-const segmentOptions = [
-  { value: "privado", label: "Cliente Privado" },
-  { value: "empresa", label: "Empresa" },
-  { value: "investidor", label: "Investidor" },
-];
-
-const serviceOptions = [
-  { value: "consultoria", label: "Consultoria Estratégica e Viabilidade" },
-  { value: "design", label: "Design Arquitetónico e Técnico" },
-  { value: "bim", label: "Modelação e Coordenação BIM" },
-  { value: "simulacoes", label: "Análise Preditiva e Simulações" },
-  { value: "construcao", label: "Gestão de Construção" },
-  { value: "sustentabilidade", label: "Eficiência e Sustentabilidade" },
-  { value: "outro", label: "Outro" },
-];
+const contactSchema = z.object({
+  name: z.string().trim().min(2, "Nome muito curto").max(100),
+  email: z.string().trim().email("Email inválido").max(255),
+  phone: z.string().optional(),
+  segment: z.string().min(1, "Selecione um segmento"),
+  service: z.string().min(1, "Selecione um serviço"),
+  message: z.string().trim().min(10, "Mensagem muito curta").max(2000),
+});
 
 export default function Contacto() {
   const { toast } = useToast();
+  const { t } = useLanguage();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -55,21 +28,120 @@ export default function Contacto() {
     service: "",
     message: "",
   });
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const contactInfo = [
+    {
+      icon: MapPin,
+      title: t("contact.address"),
+      details: ["Avenida de Berna, 31, 2º Dto, sala 9", "1050-038 Lisboa, Portugal"],
+    },
+    {
+      icon: Phone,
+      title: t("contact.phone"),
+      details: ["+351 928 272 198"],
+      href: "tel:+351928272198",
+    },
+    {
+      icon: Mail,
+      title: t("contact.email"),
+      details: ["info@arifa.studio"],
+      href: "mailto:info@arifa.studio",
+    },
+    {
+      icon: Clock,
+      title: t("contact.hours"),
+      details: [t("contact.weekdays"), t("contact.saturday")],
+    },
+  ];
+
+  const segmentOptions = [
+    { value: "privado", label: t("contact.privateClient") },
+    { value: "empresa", label: t("contact.company") },
+    { value: "investidor", label: t("contact.investor") },
+  ];
+
+  const serviceOptions = [
+    { value: "consultoria", label: t("contact.consulting") },
+    { value: "design", label: t("contact.design") },
+    { value: "bim", label: t("contact.bim") },
+    { value: "simulacoes", label: t("contact.simulations") },
+    { value: "construcao", label: t("contact.construction") },
+    { value: "sustentabilidade", label: t("contact.sustainability") },
+    { value: "outro", label: t("contact.other") },
+  ];
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Mensagem enviada!",
-      description: "Entraremos em contacto consigo em breve.",
-    });
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      segment: "",
-      service: "",
-      message: "",
-    });
+    setErrors({});
+    
+    const result = contactSchema.safeParse(formData);
+    if (!result.success) {
+      const fieldErrors: Record<string, string> = {};
+      result.error.errors.forEach((err) => {
+        if (err.path[0]) fieldErrors[err.path[0] as string] = err.message;
+      });
+      setErrors(fieldErrors);
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      // Save lead to database
+      const { error: dbError } = await supabase.from("leads").insert({
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone.trim() || null,
+        segment: formData.segment,
+        service: formData.service,
+        message: formData.message.trim(),
+        source: "website",
+        status: "new",
+      });
+
+      if (dbError) throw dbError;
+
+      // Try to send email (will fail silently if RESEND_API_KEY not configured)
+      try {
+        await supabase.functions.invoke("send-contact-email", {
+          body: {
+            name: formData.name.trim(),
+            email: formData.email.trim(),
+            phone: formData.phone.trim(),
+            segment: formData.segment,
+            service: formData.service,
+            message: formData.message.trim(),
+          },
+        });
+      } catch {
+        // Email sending failed, but lead was saved - that's OK
+        console.log("Email not sent - RESEND_API_KEY may not be configured");
+      }
+
+      toast({
+        title: t("contact.successTitle"),
+        description: t("contact.successMessage"),
+      });
+
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        segment: "",
+        service: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast({
+        title: t("contact.errorTitle"),
+        description: t("contact.errorMessage"),
+        variant: "destructive",
+      });
+    }
+
+    setLoading(false);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -77,6 +149,7 @@ export default function Contacto() {
       ...prev,
       [e.target.name]: e.target.value,
     }));
+    setErrors((prev) => ({ ...prev, [e.target.name]: "" }));
   };
 
   return (
@@ -86,14 +159,13 @@ export default function Contacto() {
         <div className="container-arifa">
           <div className="max-w-3xl">
             <p className="text-sm font-medium tracking-[0.3em] text-arifa-teal uppercase mb-4">
-              Contacto
+              {t("contact.subtitle")}
             </p>
             <h1 className="font-display text-5xl md:text-6xl font-light leading-tight text-foreground mb-6">
-              Vamos conversar sobre o seu projeto
+              {t("contact.title")}
             </h1>
             <p className="text-lg text-muted-foreground">
-              Tem um projeto em mente? Queremos conhecê-lo. 
-              A primeira consulta é gratuita e sem compromisso.
+              {t("contact.description")}
             </p>
           </div>
         </div>
@@ -129,20 +201,20 @@ export default function Contacto() {
 
               <div className="pt-8 border-t border-border">
                 <h3 className="font-display text-xl font-medium text-foreground mb-4">
-                  O que esperar
+                  {t("contact.whatToExpect")}
                 </h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
                     <CheckCircle2 className="h-5 w-5 text-arifa-teal flex-shrink-0 mt-0.5" />
-                    <span className="text-sm text-muted-foreground">Resposta em até 24 horas</span>
+                    <span className="text-sm text-muted-foreground">{t("contact.response24h")}</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle2 className="h-5 w-5 text-arifa-teal flex-shrink-0 mt-0.5" />
-                    <span className="text-sm text-muted-foreground">Consulta inicial gratuita</span>
+                    <span className="text-sm text-muted-foreground">{t("contact.freeConsultation")}</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle2 className="h-5 w-5 text-arifa-teal flex-shrink-0 mt-0.5" />
-                    <span className="text-sm text-muted-foreground">Proposta detalhada sem compromisso</span>
+                    <span className="text-sm text-muted-foreground">{t("contact.detailedProposal")}</span>
                   </li>
                 </ul>
               </div>
@@ -154,7 +226,7 @@ export default function Contacto() {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label htmlFor="name" className="text-sm font-medium text-foreground">
-                      Nome completo *
+                      {t("contact.fullName")} *
                     </label>
                     <input
                       type="text"
@@ -164,12 +236,13 @@ export default function Contacto() {
                       value={formData.name}
                       onChange={handleChange}
                       className="w-full h-12 px-4 rounded-sm bg-background border border-input text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-arifa-teal"
-                      placeholder="O seu nome"
+                      placeholder={t("contact.namePlaceholder")}
                     />
+                    {errors.name && <p className="text-sm text-destructive">{errors.name}</p>}
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="email" className="text-sm font-medium text-foreground">
-                      Email *
+                      {t("contact.emailLabel")} *
                     </label>
                     <input
                       type="email"
@@ -179,15 +252,16 @@ export default function Contacto() {
                       value={formData.email}
                       onChange={handleChange}
                       className="w-full h-12 px-4 rounded-sm bg-background border border-input text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-arifa-teal"
-                      placeholder="email@exemplo.pt"
+                      placeholder={t("contact.emailPlaceholder")}
                     />
+                    {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
                   </div>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label htmlFor="phone" className="text-sm font-medium text-foreground">
-                      Telefone
+                      {t("contact.phoneLabel")}
                     </label>
                     <input
                       type="tel"
@@ -196,12 +270,12 @@ export default function Contacto() {
                       value={formData.phone}
                       onChange={handleChange}
                       className="w-full h-12 px-4 rounded-sm bg-background border border-input text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-arifa-teal"
-                      placeholder="+351 900 000 000"
+                      placeholder={t("contact.phonePlaceholder")}
                     />
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="segment" className="text-sm font-medium text-foreground">
-                      Tipo de cliente *
+                      {t("contact.clientType")} *
                     </label>
                     <select
                       id="segment"
@@ -211,17 +285,18 @@ export default function Contacto() {
                       onChange={handleChange}
                       className="w-full h-12 px-4 rounded-sm bg-background border border-input text-foreground focus:outline-none focus:ring-2 focus:ring-arifa-teal"
                     >
-                      <option value="">Selecione...</option>
+                      <option value="">{t("contact.selectOption")}</option>
                       {segmentOptions.map((opt) => (
                         <option key={opt.value} value={opt.value}>{opt.label}</option>
                       ))}
                     </select>
+                    {errors.segment && <p className="text-sm text-destructive">{errors.segment}</p>}
                   </div>
                 </div>
 
                 <div className="space-y-2">
                   <label htmlFor="service" className="text-sm font-medium text-foreground">
-                    Serviço pretendido *
+                    {t("contact.service")} *
                   </label>
                   <select
                     id="service"
@@ -231,16 +306,17 @@ export default function Contacto() {
                     onChange={handleChange}
                     className="w-full h-12 px-4 rounded-sm bg-background border border-input text-foreground focus:outline-none focus:ring-2 focus:ring-arifa-teal"
                   >
-                    <option value="">Selecione...</option>
+                    <option value="">{t("contact.selectOption")}</option>
                     {serviceOptions.map((opt) => (
                       <option key={opt.value} value={opt.value}>{opt.label}</option>
                     ))}
                   </select>
+                  {errors.service && <p className="text-sm text-destructive">{errors.service}</p>}
                 </div>
 
                 <div className="space-y-2">
                   <label htmlFor="message" className="text-sm font-medium text-foreground">
-                    Mensagem *
+                    {t("contact.message")} *
                   </label>
                   <textarea
                     id="message"
@@ -250,13 +326,23 @@ export default function Contacto() {
                     value={formData.message}
                     onChange={handleChange}
                     className="w-full px-4 py-3 rounded-sm bg-background border border-input text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-arifa-teal resize-none"
-                    placeholder="Descreva brevemente o seu projeto..."
+                    placeholder={t("contact.messagePlaceholder")}
                   />
+                  {errors.message && <p className="text-sm text-destructive">{errors.message}</p>}
                 </div>
 
-                <Button type="submit" variant="hero" size="lg" className="w-full md:w-auto">
-                  Enviar mensagem
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                <Button type="submit" variant="hero" size="lg" className="w-full md:w-auto" disabled={loading}>
+                  {loading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      {t("contact.sending")}
+                    </>
+                  ) : (
+                    <>
+                      {t("contact.send")}
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </>
+                  )}
                 </Button>
               </form>
             </div>
@@ -267,7 +353,7 @@ export default function Contacto() {
       {/* Map placeholder */}
       <section className="h-96 bg-secondary">
         <div className="w-full h-full flex items-center justify-center">
-          <p className="text-muted-foreground">Mapa — Avenida de Berna, 31, 1050-038 Lisboa</p>
+          <p className="text-muted-foreground">{t("contact.mapPlaceholder")}</p>
         </div>
       </section>
     </Layout>
