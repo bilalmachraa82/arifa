@@ -62,9 +62,9 @@ export function CTASection() {
                 </Link>
               </Button>
               <Button variant="hero-outline" size="lg" asChild>
-                <a href="tel:+351210000000">
+                <a href="tel:+351928272198">
                   <Phone className="mr-2 h-4 w-4" />
-                  +351 210 000 000
+                  +351 928 272 198
                 </a>
               </Button>
             </div>
