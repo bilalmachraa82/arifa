@@ -6,28 +6,28 @@ import { ArrowRight, Building2, Store, UtensilsCrossed, CheckCircle2 } from "luc
 const services = [
   {
     icon: Building2,
-    title: "Escritórios",
-    description: "Espaços de trabalho que potenciam produtividade e bem-estar. Design centrado nas pessoas e na cultura da sua empresa.",
+    title: "Escritórios & Espaços de Trabalho",
+    description: "Design centrado nas pessoas com integração BIM. Espaços que potenciam produtividade, bem-estar e retenção de talento.",
   },
   {
     icon: Store,
-    title: "Espaços Comerciais",
-    description: "Lojas e showrooms que criam experiências memoráveis. Da identidade visual ao layout funcional.",
+    title: "Instalações Educativas & Saúde",
+    description: "Escolas, centros de formação e instalações de saúde projetadas para alto desempenho e conforto dos utilizadores.",
   },
   {
     icon: UtensilsCrossed,
-    title: "Hospitalidade",
-    description: "Hotéis, restaurantes e bares com atmosfera única. Conceitos que atraem clientes e geram retorno.",
+    title: "Residências Seniores & Hospitalidade",
+    description: "Espaços de vida assistida e hospitalidade com foco em acessibilidade, sustentabilidade e experiência do utilizador.",
   },
 ];
 
 const benefits = [
-  "Aumento da produtividade em até 20%",
-  "Melhoria na retenção de talento",
-  "Redução de custos operacionais",
-  "Fortalecimento da marca empregadora",
-  "Otimização do espaço disponível",
-  "Conformidade com normas de segurança",
+  "Digitalização inteligente com BIM integrado",
+  "Redução de riscos e otimização de recursos",
+  "Análise preditiva e simulações paramétricas",
+  "Controlo de qualidade em todas as fases",
+  "Ativos de alto desempenho e sustentáveis",
+  "Colaboração estratégica de longo prazo",
 ];
 
 const projects = [

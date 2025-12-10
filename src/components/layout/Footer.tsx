@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Instagram, Linkedin, Facebook } from "lucide-react";
+import { Mail, Phone, MapPin, Instagram, Linkedin } from "lucide-react";
 import arifaLogo from "@/assets/arifa-logo.png";
 
 const navigation = {
@@ -21,9 +21,8 @@ const navigation = {
 };
 
 const social = [
-  { name: "Instagram", href: "#", icon: Instagram },
-  { name: "LinkedIn", href: "#", icon: Linkedin },
-  { name: "Facebook", href: "#", icon: Facebook },
+  { name: "Instagram", href: "https://www.instagram.com/arifastudio", icon: Instagram },
+  { name: "LinkedIn", href: "https://www.linkedin.com/company/arifastudio", icon: Linkedin },
 ];
 
 export function Footer() {
@@ -37,7 +36,7 @@ export function Footer() {
           <div className="lg:col-span-1">
             <img className="h-12 w-auto brightness-0 invert" src={arifaLogo} alt="ARIFA Studio" />
             <p className="mt-6 text-sm text-primary-foreground/70 leading-relaxed">
-              Arquitetura e design de interiores com visão contemporânea e respeito pela tradição portuguesa.
+              We design future-ready ecosystems for living, working and learning.
             </p>
             <div className="mt-8 flex gap-4">
               {social.map((item) => (
@@ -109,20 +108,20 @@ export function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-arifa-teal flex-shrink-0 mt-0.5" />
                 <span className="text-sm text-primary-foreground/70">
-                  Rua da Arquitetura, 123<br />
-                  1100-001 Lisboa, Portugal
+                  Avenida de Berna, 31, 2º Dto, sala 9<br />
+                  1050-038 Lisboa, Portugal
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-arifa-teal flex-shrink-0" />
-                <a href="tel:+351210000000" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">
-                  +351 210 000 000
+                <a href="tel:+351928272198" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+                  +351 928 272 198
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-arifa-teal flex-shrink-0" />
-                <a href="mailto:geral@arifastudio.pt" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">
-                  geral@arifastudio.pt
+                <a href="mailto:info@arifa.studio" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+                  info@arifa.studio
                 </a>
               </li>
             </ul>

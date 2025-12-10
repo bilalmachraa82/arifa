@@ -6,18 +6,18 @@ import { ArrowRight, TrendingUp, FileSearch, Building, BarChart3 } from "lucide-
 const services = [
   {
     icon: FileSearch,
-    title: "Estudos de Viabilidade",
-    description: "Análise técnica e financeira completa para fundamentar decisões de investimento. Maximização do potencial construtivo.",
+    title: "Consultoria Estratégica e Viabilidade",
+    description: "Análise técnica e financeira completa com simulações paramétricas para fundamentar decisões de investimento.",
   },
   {
     icon: Building,
-    title: "Promoção Imobiliária",
-    description: "Acompanhamento integral de empreendimentos, do licenciamento à comercialização. Projetos que vendem.",
+    title: "Design Arquitetónico e Técnico",
+    description: "Projetos integrados com modelação BIM, coordenação de especialidades e gestão de construção.",
   },
   {
     icon: TrendingUp,
-    title: "Reabilitação Urbana",
-    description: "Transformação de edifícios existentes em ativos de alto valor. Aproveitamento de benefícios fiscais.",
+    title: "Eficiência e Sustentabilidade",
+    description: "Soluções inovadoras para reduzir riscos, otimizar recursos e garantir ativos de alto desempenho.",
   },
 ];
 
