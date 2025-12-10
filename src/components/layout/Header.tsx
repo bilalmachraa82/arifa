@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, LogIn, LogOut } from "lucide-react";
+import { Menu, X, LogIn, LogOut, LayoutDashboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -66,10 +66,18 @@ export function Header() {
           <LanguageSelector />
           
           {user ? (
-            <Button variant="ghost" size="sm" onClick={signOut} className="gap-2">
-              <LogOut className="h-4 w-4" />
-              Sair
-            </Button>
+            <>
+              <Button variant="ghost" size="sm" asChild className="gap-2">
+                <Link to="/dashboard">
+                  <LayoutDashboard className="h-4 w-4" />
+                  Área Cliente
+                </Link>
+              </Button>
+              <Button variant="ghost" size="sm" onClick={signOut} className="gap-2">
+                <LogOut className="h-4 w-4" />
+                Sair
+              </Button>
+            </>
           ) : (
             <Button variant="ghost" size="sm" asChild className="gap-2">
               <Link to="/auth">
@@ -129,17 +137,25 @@ export function Header() {
                 </div>
                 
                 {user ? (
-                  <Button 
-                    variant="outline" 
-                    className="w-full" 
-                    onClick={() => {
-                      signOut();
-                      setMobileMenuOpen(false);
-                    }}
-                  >
-                    <LogOut className="h-4 w-4 mr-2" />
-                    Sair
-                  </Button>
+                  <>
+                    <Button variant="outline" className="w-full" asChild>
+                      <Link to="/dashboard" onClick={() => setMobileMenuOpen(false)}>
+                        <LayoutDashboard className="h-4 w-4 mr-2" />
+                        Área Cliente
+                      </Link>
+                    </Button>
+                    <Button 
+                      variant="ghost" 
+                      className="w-full" 
+                      onClick={() => {
+                        signOut();
+                        setMobileMenuOpen(false);
+                      }}
+                    >
+                      <LogOut className="h-4 w-4 mr-2" />
+                      Sair
+                    </Button>
+                  </>
                 ) : (
                   <Button variant="outline" className="w-full" asChild>
                     <Link to="/auth" onClick={() => setMobileMenuOpen(false)}>
