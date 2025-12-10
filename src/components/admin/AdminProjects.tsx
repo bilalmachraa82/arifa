@@ -31,6 +31,8 @@ import {
 } from "@/components/ui/table";
 import { Plus, Pencil, Trash2, Loader2, Eye } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import FileUpload from "./FileUpload";
+import MultiImageUpload from "./MultiImageUpload";
 
 interface Project {
   id: string;
@@ -74,7 +76,7 @@ const AdminProjects = () => {
     description: "",
     full_description: "",
     featured_image: "",
-    images: "",
+    images: [] as string[],
     is_published: false,
     is_featured: false,
   });
@@ -127,7 +129,7 @@ const AdminProjects = () => {
       description: "",
       full_description: "",
       featured_image: "",
-      images: "",
+      images: [],
       is_published: false,
       is_featured: false,
     });
@@ -154,7 +156,7 @@ const AdminProjects = () => {
         description: data.description || "",
         full_description: data.full_description || "",
         featured_image: data.featured_image || "",
-        images: data.images?.join("\n") || "",
+        images: data.images || [],
         is_published: data.is_published || false,
         is_featured: data.is_featured || false,
       });
@@ -178,8 +180,8 @@ const AdminProjects = () => {
       segment: formData.segment.trim() || null,
       description: formData.description.trim() || null,
       full_description: formData.full_description.trim() || null,
-      featured_image: formData.featured_image.trim() || null,
-      images: formData.images.trim() ? formData.images.split("\n").map(i => i.trim()).filter(Boolean) : null,
+      featured_image: formData.featured_image || null,
+      images: formData.images.length > 0 ? formData.images : null,
       is_published: formData.is_published,
       is_featured: formData.is_featured,
     };
@@ -358,24 +360,21 @@ const AdminProjects = () => {
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label>Imagem destaque (URL)</Label>
-                <Input
-                  value={formData.featured_image}
-                  onChange={(e) => setFormData({ ...formData, featured_image: e.target.value })}
-                  placeholder="https://..."
-                />
-              </div>
+              <FileUpload
+                bucket="project-images"
+                folder="featured"
+                label="Imagem de destaque"
+                currentUrl={formData.featured_image}
+                onUploadComplete={(url) => setFormData({ ...formData, featured_image: url })}
+              />
 
-              <div className="space-y-2">
-                <Label>Galeria (URLs, uma por linha)</Label>
-                <Textarea
-                  value={formData.images}
-                  onChange={(e) => setFormData({ ...formData, images: e.target.value })}
-                  rows={3}
-                  placeholder="https://...&#10;https://..."
-                />
-              </div>
+              <MultiImageUpload
+                bucket="project-images"
+                folder="gallery"
+                label="Galeria de imagens"
+                currentImages={formData.images}
+                onImagesChange={(urls) => setFormData({ ...formData, images: urls })}
+              />
 
               <div className="flex gap-6">
                 <div className="flex items-center gap-2">

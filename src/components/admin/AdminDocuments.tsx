@@ -28,8 +28,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Plus, Trash2, Loader2, Download, Eye } from "lucide-react";
+import { Plus, Trash2, Loader2, Eye } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import FileUpload from "./FileUpload";
 
 interface Document {
   id: string;
@@ -258,34 +259,23 @@ const AdminDocuments = () => {
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label>URL do Ficheiro *</Label>
-                <Input
-                  value={formData.file_url}
-                  onChange={(e) => setFormData({ ...formData, file_url: e.target.value })}
-                  placeholder="https://..."
-                  required
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label>Tipo de ficheiro</Label>
-                  <Input
-                    value={formData.file_type}
-                    onChange={(e) => setFormData({ ...formData, file_type: e.target.value })}
-                    placeholder="pdf, dwg, etc"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label>Tamanho (bytes)</Label>
-                  <Input
-                    type="number"
-                    value={formData.file_size}
-                    onChange={(e) => setFormData({ ...formData, file_size: e.target.value })}
-                  />
-                </div>
-              </div>
+              <FileUpload
+                bucket="client-documents"
+                folder={formData.client_id || "uploads"}
+                label="Ficheiro *"
+                accept=".pdf,.doc,.docx,.xls,.xlsx,.zip,.dwg,.jpg,.jpeg,.png"
+                maxSize={50}
+                currentUrl={formData.file_url}
+                onUploadComplete={(url, fileName, fileSize) => {
+                  const ext = fileName.split(".").pop()?.toLowerCase() || "";
+                  setFormData({ 
+                    ...formData, 
+                    file_url: url,
+                    file_type: ext,
+                    file_size: fileSize.toString()
+                  });
+                }}
+              />
 
               <div className="flex justify-end gap-3">
                 <Button type="button" variant="outline" onClick={() => setDialogOpen(false)}>

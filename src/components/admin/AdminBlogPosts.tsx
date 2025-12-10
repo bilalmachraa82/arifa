@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/table";
 import { Plus, Pencil, Trash2, Loader2, Eye } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import FileUpload from "./FileUpload";
 
 interface BlogPost {
   id: string;
@@ -312,14 +313,13 @@ const AdminBlogPosts = () => {
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label>Imagem destaque (URL)</Label>
-                <Input
-                  value={formData.featured_image}
-                  onChange={(e) => setFormData({ ...formData, featured_image: e.target.value })}
-                  placeholder="https://..."
-                />
-              </div>
+              <FileUpload
+                bucket="blog-images"
+                folder="posts"
+                label="Imagem de destaque"
+                currentUrl={formData.featured_image}
+                onUploadComplete={(url) => setFormData({ ...formData, featured_image: url })}
+              />
 
               <div className="flex gap-6">
                 <div className="flex items-center gap-2">
