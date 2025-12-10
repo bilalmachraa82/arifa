@@ -12,6 +12,7 @@ import Investidores from "./pages/Investidores";
 import Portfolio from "./pages/Portfolio";
 import ProjectDetail from "./pages/ProjectDetail";
 import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import Contacto from "./pages/Contacto";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
@@ -34,6 +35,7 @@ const App = () => (
               <Route path="/portfolio" element={<Portfolio />} />
               <Route path="/portfolio/:slug" element={<ProjectDetail />} />
               <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/contacto" element={<Contacto />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="*" element={<NotFound />} />
