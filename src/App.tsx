@@ -16,6 +16,7 @@ import BlogPost from "./pages/BlogPost";
 import Contacto from "./pages/Contacto";
 import Auth from "./pages/Auth";
 import ClientDashboard from "./pages/ClientDashboard";
+import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
               <Route path="/contacto" element={<Contacto />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/dashboard" element={<ClientDashboard />} />
+              <Route path="/admin" element={<AdminDashboard />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

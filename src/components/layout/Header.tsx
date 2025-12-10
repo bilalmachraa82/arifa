@@ -1,18 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, LogIn, LogOut, LayoutDashboard } from "lucide-react";
+import { Menu, X, LogIn, LogOut, LayoutDashboard, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
 import arifaLogo from "@/assets/arifa-logo.png";
 import { cn } from "@/lib/utils";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const location = useLocation();
   const { t } = useLanguage();
   const { user, signOut } = useAuth();
+
+  useEffect(() => {
+    const checkAdminRole = async () => {
+      if (!user) {
+        setIsAdmin(false);
+        return;
+      }
+      const { data } = await supabase.rpc("has_role", { _user_id: user.id, _role: "admin" });
+      setIsAdmin(data === true);
+    };
+    checkAdminRole();
+  }, [user]);
 
   const navigation = [
     { name: t("nav.home"), href: "/" },
@@ -67,6 +81,14 @@ export function Header() {
           
           {user ? (
             <>
+              {isAdmin && (
+                <Button variant="ghost" size="sm" asChild className="gap-2">
+                  <Link to="/admin">
+                    <Shield className="h-4 w-4" />
+                    Admin
+                  </Link>
+                </Button>
+              )}
               <Button variant="ghost" size="sm" asChild className="gap-2">
                 <Link to="/dashboard">
                   <LayoutDashboard className="h-4 w-4" />
@@ -138,6 +160,14 @@ export function Header() {
                 
                 {user ? (
                   <>
+                    {isAdmin && (
+                      <Button variant="default" className="w-full" asChild>
+                        <Link to="/admin" onClick={() => setMobileMenuOpen(false)}>
+                          <Shield className="h-4 w-4 mr-2" />
+                          Admin
+                        </Link>
+                      </Button>
+                    )}
                     <Button variant="outline" className="w-full" asChild>
                       <Link to="/dashboard" onClick={() => setMobileMenuOpen(false)}>
                         <LayoutDashboard className="h-4 w-4 mr-2" />
