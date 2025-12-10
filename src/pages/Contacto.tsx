@@ -8,19 +8,19 @@ const contactInfo = [
   {
     icon: MapPin,
     title: "Morada",
-    details: ["Rua da Arquitetura, 123", "1100-001 Lisboa, Portugal"],
+    details: ["Avenida de Berna, 31, 2º Dto, sala 9", "1050-038 Lisboa, Portugal"],
   },
   {
     icon: Phone,
-    title: "Telefone",
-    details: ["+351 210 000 000"],
-    href: "tel:+351210000000",
+    title: "Telefone / WhatsApp",
+    details: ["+351 928 272 198"],
+    href: "tel:+351928272198",
   },
   {
     icon: Mail,
     title: "Email",
-    details: ["geral@arifastudio.pt"],
-    href: "mailto:geral@arifastudio.pt",
+    details: ["info@arifa.studio"],
+    href: "mailto:info@arifa.studio",
   },
   {
     icon: Clock,
@@ -36,10 +36,12 @@ const segmentOptions = [
 ];
 
 const serviceOptions = [
-  { value: "projeto-novo", label: "Projeto de raiz" },
-  { value: "remodelacao", label: "Remodelação" },
-  { value: "interiores", label: "Design de interiores" },
-  { value: "viabilidade", label: "Estudo de viabilidade" },
+  { value: "consultoria", label: "Consultoria Estratégica e Viabilidade" },
+  { value: "design", label: "Design Arquitetónico e Técnico" },
+  { value: "bim", label: "Modelação e Coordenação BIM" },
+  { value: "simulacoes", label: "Análise Preditiva e Simulações" },
+  { value: "construcao", label: "Gestão de Construção" },
+  { value: "sustentabilidade", label: "Eficiência e Sustentabilidade" },
   { value: "outro", label: "Outro" },
 ];
 
@@ -265,7 +267,7 @@ export default function Contacto() {
       {/* Map placeholder */}
       <section className="h-96 bg-secondary">
         <div className="w-full h-full flex items-center justify-center">
-          <p className="text-muted-foreground">Mapa — Rua da Arquitetura, 123, Lisboa</p>
+          <p className="text-muted-foreground">Mapa — Avenida de Berna, 31, 1050-038 Lisboa</p>
         </div>
       </section>
     </Layout>

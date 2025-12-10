@@ -26,8 +26,8 @@ export function HeroSection() {
             </div>
             
             <p className="text-lg text-muted-foreground max-w-lg leading-relaxed animate-fade-in animation-delay-200">
-              Da visão à realidade, transformamos sonhos em projetos arquitetónicos únicos. 
-              Servimos clientes privados, empresas e investidores com a mesma dedicação à excelência.
+              Desenhamos ecossistemas prontos para o futuro — para viver, trabalhar e aprender. 
+              Combinamos 20+ anos de experiência internacional com inovação digital e sustentabilidade.
             </p>
 
             <div className="flex flex-wrap gap-4 animate-fade-in animation-delay-300">
@@ -52,8 +52,8 @@ export function HeroSection() {
               />
             </div>
             <div className="absolute -bottom-8 -left-8 bg-card p-6 shadow-card rounded-sm max-w-xs">
-              <p className="font-display text-2xl font-medium text-foreground">15+</p>
-              <p className="text-sm text-muted-foreground">Anos de experiência em arquitetura de excelência</p>
+              <p className="font-display text-2xl font-medium text-foreground">20+</p>
+              <p className="text-sm text-muted-foreground">Anos de experiência internacional em arquitetura</p>
             </div>
           </div>
         </div>

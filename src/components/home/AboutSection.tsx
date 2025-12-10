@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const stats = [
-  { value: "150+", label: "Projetos concluídos" },
-  { value: "15", label: "Anos de experiência" },
-  { value: "98%", label: "Clientes satisfeitos" },
-  { value: "12", label: "Prémios recebidos" },
+  { value: "20+", label: "Anos de experiência" },
+  { value: "4", label: "Países de atuação" },
+  { value: "BIM", label: "Especialização digital" },
+  { value: "2022", label: "Fundação do estúdio" },
 ];
 
 export function AboutSection() {
@@ -61,13 +61,14 @@ export function AboutSection() {
 
             <div className="space-y-6 text-muted-foreground leading-relaxed">
               <p>
-                O ARIFA Studio nasceu da paixão pela arquitetura e do compromisso com a excelência. 
-                Desde 2009, desenvolvemos projetos que combinam inovação técnica com sensibilidade estética, 
-                sempre respeitando a identidade de cada cliente e contexto.
+                A ARIFA Studio combina mais de 20 anos de experiência internacional em arquitetura, 
+                com projetos desenvolvidos em Portugal, Noruega, Suécia e Angola. Fundada em 2022, 
+                trazemos uma visão contemporânea focada na transformação digital do setor da construção.
               </p>
               <p>
-                A nossa equipa multidisciplinar integra arquitetos, designers de interiores e engenheiros 
-                que trabalham em perfeita sintonia para entregar soluções completas — do conceito à construção.
+                Especializamo-nos em BIM, design sustentável, eficiência energética e soluções inovadoras. 
+                Acreditamos na digitalização inteligente, na colaboração estratégica e em práticas 
+                éticas e sustentáveis para criar ativos de alto desempenho.
               </p>
             </div>
 
