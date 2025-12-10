@@ -12,7 +12,7 @@ import Blog from "./pages/Blog";
 import Contacto from "./pages/Contacto";
 import NotFound from "./pages/NotFound";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient(); // rebuild trigger
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
