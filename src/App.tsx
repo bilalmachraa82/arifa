@@ -10,6 +10,7 @@ import Privado from "./pages/Privado";
 import Empresas from "./pages/Empresas";
 import Investidores from "./pages/Investidores";
 import Portfolio from "./pages/Portfolio";
+import ProjectDetail from "./pages/ProjectDetail";
 import Blog from "./pages/Blog";
 import Contacto from "./pages/Contacto";
 import Auth from "./pages/Auth";
@@ -31,6 +32,7 @@ const App = () => (
               <Route path="/empresas" element={<Empresas />} />
               <Route path="/investidores" element={<Investidores />} />
               <Route path="/portfolio" element={<Portfolio />} />
+              <Route path="/portfolio/:slug" element={<ProjectDetail />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/contacto" element={<Contacto />} />
               <Route path="/auth" element={<Auth />} />
