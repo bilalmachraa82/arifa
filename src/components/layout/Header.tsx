@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, LogIn, LogOut, LayoutDashboard, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageSelector } from "@/components/LanguageSelector";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
@@ -77,6 +78,7 @@ export function Header() {
         </div>
 
         <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-3">
+          <ThemeToggle />
           <LanguageSelector />
           
           {user ? (
@@ -153,6 +155,10 @@ export function Header() {
                 ))}
               </div>
               <div className="py-6 space-y-3">
+                <div className="flex items-center justify-between px-3">
+                  <span className="text-sm text-muted-foreground">Tema</span>
+                  <ThemeToggle />
+                </div>
                 <div className="flex items-center justify-between px-3">
                   <span className="text-sm text-muted-foreground">Idioma</span>
                   <LanguageSelector />
