@@ -21,16 +21,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Plus, Trash2, Loader2, Eye } from "lucide-react";
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import { Plus, Trash2, Loader2, Eye, ChevronDown } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import FileUpload from "./FileUpload";
+import DocumentVersionHistory from "./DocumentVersionHistory";
 
 interface Document {
   id: string;
@@ -42,6 +40,7 @@ interface Document {
   file_type: string | null;
   file_size: number | null;
   created_at: string | null;
+  current_version: number;
 }
 
 interface Client {
@@ -300,53 +299,86 @@ const AdminDocuments = () => {
             Nenhum documento partilhado.
           </p>
         ) : (
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Título</TableHead>
-                <TableHead>Cliente</TableHead>
-                <TableHead>Projeto</TableHead>
-                <TableHead>Tipo</TableHead>
-                <TableHead>Data</TableHead>
-                <TableHead className="text-right">Ações</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {documents.map((doc) => (
-                <TableRow key={doc.id}>
-                  <TableCell className="font-medium">{doc.title}</TableCell>
-                  <TableCell>{getClientName(doc.client_id)}</TableCell>
-                  <TableCell>{getProjectTitle(doc.project_id)}</TableCell>
-                  <TableCell>
-                    {doc.file_type && (
-                      <Badge variant="outline">{doc.file_type.toUpperCase()}</Badge>
-                    )}
-                  </TableCell>
-                  <TableCell>{formatDate(doc.created_at)}</TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-2">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        asChild
-                      >
-                        <a href={doc.file_url} target="_blank" rel="noopener noreferrer">
-                          <Eye className="h-4 w-4" />
-                        </a>
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => handleDelete(doc.id)}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
+          <div className="space-y-4">
+            {documents.map((doc) => (
+              <Collapsible key={doc.id}>
+                <Card className="overflow-hidden">
+                  <div className="p-4">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h4 className="font-medium truncate">{doc.title}</h4>
+                          <Badge variant="secondary" className="text-xs">
+                            v{doc.current_version || 1}
+                          </Badge>
+                          {doc.file_type && (
+                            <Badge variant="outline" className="text-xs">
+                              {doc.file_type.toUpperCase()}
+                            </Badge>
+                          )}
+                        </div>
+                        <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+                          <span>{getClientName(doc.client_id)}</span>
+                          <span>•</span>
+                          <span>{getProjectTitle(doc.project_id)}</span>
+                          <span>•</span>
+                          <span>{formatDate(doc.created_at)}</span>
+                          {doc.file_size && (
+                            <>
+                              <span>•</span>
+                              <span>{formatFileSize(doc.file_size)}</span>
+                            </>
+                          )}
+                        </div>
+                        {doc.description && (
+                          <p className="text-sm text-muted-foreground mt-1 line-clamp-1">
+                            {doc.description}
+                          </p>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-2 flex-shrink-0">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          asChild
+                        >
+                          <a href={doc.file_url} target="_blank" rel="noopener noreferrer">
+                            <Eye className="h-4 w-4" />
+                          </a>
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleDelete(doc.id)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                        <CollapsibleTrigger asChild>
+                          <Button variant="ghost" size="icon">
+                            <ChevronDown className="h-4 w-4" />
+                          </Button>
+                        </CollapsibleTrigger>
+                      </div>
                     </div>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+                  </div>
+                  
+                  <CollapsibleContent>
+                    <div className="px-4 pb-4 pt-0 border-t">
+                      <div className="pt-4">
+                        <DocumentVersionHistory
+                          documentId={doc.id}
+                          documentTitle={doc.title}
+                          clientId={doc.client_id}
+                          currentVersion={doc.current_version || 1}
+                          onVersionUploaded={fetchData}
+                        />
+                      </div>
+                    </div>
+                  </CollapsibleContent>
+                </Card>
+              </Collapsible>
+            ))}
+          </div>
         )}
       </CardContent>
     </Card>

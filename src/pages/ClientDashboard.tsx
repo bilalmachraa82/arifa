@@ -24,6 +24,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import ClientMessageForm from "@/components/client/ClientMessageForm";
 import ProjectTimeline from "@/components/client/ProjectTimeline";
+import ClientDocumentVersions from "@/components/client/ClientDocumentVersions";
 
 interface Project {
   id: string;
@@ -45,6 +46,7 @@ interface Document {
   file_size: number | null;
   created_at: string;
   project_id: string | null;
+  current_version: number;
 }
 
 interface Message {
@@ -353,56 +355,71 @@ const ClientDashboard = () => {
               <div className="grid gap-4">
                 {documents.map((doc) => (
                   <Card key={doc.id}>
-                    <CardContent className="flex items-center justify-between p-4">
-                      <div className="flex items-center gap-4">
-                        <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                          <FileText className="h-6 w-6 text-primary" />
-                        </div>
-                        <div>
-                          <h4 className="font-medium">{doc.title}</h4>
-                          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <span>{formatDate(doc.created_at)}</span>
-                            {doc.file_size && (
-                              <>
-                                <span>•</span>
-                                <span>{formatFileSize(doc.file_size)}</span>
-                              </>
-                            )}
-                            {doc.file_type && (
-                              <>
-                                <span>•</span>
-                                <Badge variant="outline" className="text-xs">
-                                  {doc.file_type.toUpperCase()}
-                                </Badge>
-                              </>
-                            )}
+                    <CardContent className="p-4">
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="flex items-start gap-4 flex-1 min-w-0">
+                          <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                            <FileText className="h-6 w-6 text-primary" />
                           </div>
-                          {doc.description && (
-                            <p className="text-sm text-muted-foreground mt-1">
-                              {doc.description}
-                            </p>
-                          )}
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <h4 className="font-medium">{doc.title}</h4>
+                              {doc.current_version > 1 && (
+                                <Badge variant="secondary" className="text-xs">
+                                  v{doc.current_version}
+                                </Badge>
+                              )}
+                            </div>
+                            <div className="flex items-center gap-2 text-sm text-muted-foreground flex-wrap">
+                              <span>{formatDate(doc.created_at)}</span>
+                              {doc.file_size && (
+                                <>
+                                  <span>•</span>
+                                  <span>{formatFileSize(doc.file_size)}</span>
+                                </>
+                              )}
+                              {doc.file_type && (
+                                <>
+                                  <span>•</span>
+                                  <Badge variant="outline" className="text-xs">
+                                    {doc.file_type.toUpperCase()}
+                                  </Badge>
+                                </>
+                              )}
+                            </div>
+                            {doc.description && (
+                              <p className="text-sm text-muted-foreground mt-1">
+                                {doc.description}
+                              </p>
+                            )}
+                            
+                            {/* Version History */}
+                            <ClientDocumentVersions 
+                              documentId={doc.id}
+                              currentVersion={doc.current_version || 1}
+                            />
+                          </div>
                         </div>
-                      </div>
-                      <div className="flex gap-2">
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          asChild
-                        >
-                          <a href={doc.file_url} target="_blank" rel="noopener noreferrer">
-                            <Eye className="h-4 w-4" />
-                          </a>
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          asChild
-                        >
-                          <a href={doc.file_url} download>
-                            <Download className="h-4 w-4" />
-                          </a>
-                        </Button>
+                        <div className="flex gap-2 flex-shrink-0">
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            asChild
+                          >
+                            <a href={doc.file_url} target="_blank" rel="noopener noreferrer">
+                              <Eye className="h-4 w-4" />
+                            </a>
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            asChild
+                          >
+                            <a href={doc.file_url} download>
+                              <Download className="h-4 w-4" />
+                            </a>
+                          </Button>
+                        </div>
                       </div>
                     </CardContent>
                   </Card>

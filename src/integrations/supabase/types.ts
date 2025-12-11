@@ -77,6 +77,7 @@ export type Database = {
         Row: {
           client_id: string
           created_at: string
+          current_version: number
           description: string | null
           file_size: number | null
           file_type: string | null
@@ -90,6 +91,7 @@ export type Database = {
         Insert: {
           client_id: string
           created_at?: string
+          current_version?: number
           description?: string | null
           file_size?: number | null
           file_type?: string | null
@@ -103,6 +105,7 @@ export type Database = {
         Update: {
           client_id?: string
           created_at?: string
+          current_version?: number
           description?: string | null
           file_size?: number | null
           file_type?: string | null
@@ -160,6 +163,50 @@ export type Database = {
             columns: ["project_id"]
             isOneToOne: false
             referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      document_versions: {
+        Row: {
+          created_at: string
+          document_id: string
+          file_size: number | null
+          file_type: string | null
+          file_url: string
+          id: string
+          notes: string | null
+          uploaded_by: string | null
+          version_number: number
+        }
+        Insert: {
+          created_at?: string
+          document_id: string
+          file_size?: number | null
+          file_type?: string | null
+          file_url: string
+          id?: string
+          notes?: string | null
+          uploaded_by?: string | null
+          version_number?: number
+        }
+        Update: {
+          created_at?: string
+          document_id?: string
+          file_size?: number | null
+          file_type?: string | null
+          file_url?: string
+          id?: string
+          notes?: string | null
+          uploaded_by?: string | null
+          version_number?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "document_versions_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "client_documents"
             referencedColumns: ["id"]
           },
         ]
