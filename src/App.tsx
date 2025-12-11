@@ -7,6 +7,7 @@ import { ThemeProvider } from "next-themes";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { AnalyticsScripts, AnalyticsProvider } from "@/components/Analytics";
+import { InstallPWAPrompt } from "@/components/InstallPWAPrompt";
 import Index from "./pages/Index";
 import Privado from "./pages/Privado";
 import Empresas from "./pages/Empresas";
@@ -22,6 +23,7 @@ import ClientDashboard from "./pages/ClientDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import Privacidade from "./pages/Privacidade";
 import Termos from "./pages/Termos";
+import Install from "./pages/Install";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -35,6 +37,7 @@ const App = () => (
             <Toaster />
             <Sonner />
             <AnalyticsScripts />
+            <InstallPWAPrompt />
             <BrowserRouter>
               <AnalyticsProvider>
               <Routes>
@@ -53,6 +56,7 @@ const App = () => (
                 <Route path="/admin" element={<AdminDashboard />} />
                 <Route path="/privacidade" element={<Privacidade />} />
                 <Route path="/termos" element={<Termos />} />
+                <Route path="/install" element={<Install />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
               </AnalyticsProvider>
