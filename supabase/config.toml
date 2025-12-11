@@ -11,3 +11,6 @@ verify_jwt = true
 
 [functions.score-lead]
 verify_jwt = true
+
+[functions.send-invitation]
+verify_jwt = true
