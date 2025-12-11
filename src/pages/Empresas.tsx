@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Building2, Store, UtensilsCrossed, CheckCircle2 } from "lucide-react";
+import { SegmentTestimonials } from "@/components/SegmentTestimonials";
+import { LeadMagnetSection } from "@/components/LeadMagnetSection";
 
 const services = [
   {
@@ -197,6 +199,11 @@ export default function Empresas() {
           </div>
         </div>
       </section>
+      {/* Testimonials */}
+      <SegmentTestimonials segment="empresas" />
+
+      {/* Lead Magnet */}
+      <LeadMagnetSection segment="empresas" />
 
       {/* CTA */}
       <section className="py-24 lg:py-32 bg-arifa-charcoal text-primary-foreground">
