@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 import {
   Table,
   TableBody,
@@ -19,9 +20,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Loader2, Mail, Phone, Calendar, Building2, Download, Sparkles, TrendingUp, LayoutGrid, List } from "lucide-react";
+import { Loader2, Mail, Phone, Calendar, Building2, Download, Sparkles, TrendingUp, LayoutGrid, List, History } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import LeadsKanban from "./LeadsKanban";
+import LeadActivities from "./LeadActivities";
 
 interface Lead {
   id: string;
@@ -441,6 +443,11 @@ const AdminLeads = () => {
                         </Button>
                       )}
                     </div>
+
+                    <Separator className="my-4" />
+
+                    {/* Lead Activities Timeline */}
+                    <LeadActivities leadId={selectedLead.id} leadName={selectedLead.name} />
                   </CardContent>
                 </Card>
               ) : (
