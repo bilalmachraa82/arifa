@@ -357,11 +357,19 @@ export default function Contacto() {
         </div>
       </section>
 
-      {/* Map placeholder */}
+      {/* Google Maps */}
       <section className="h-96 bg-secondary">
-        <div className="w-full h-full flex items-center justify-center">
-          <p className="text-muted-foreground">{t("contact.mapPlaceholder")}</p>
-        </div>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3112.7584856561986!2d-9.155252684678986!3d38.74431497959374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd19331a0e7c6477%3A0x8c7c7c7c7c7c7c7c!2sAv.%20de%20Berna%2031%2C%201050-038%20Lisboa!5e0!3m2!1spt-PT!2spt!4v1702000000000!5m2!1spt-PT!2spt"
+          width="100%"
+          height="100%"
+          style={{ border: 0 }}
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          title="Localização ARIFA Studio"
+          className="grayscale hover:grayscale-0 transition-all duration-500"
+        />
       </section>
     </Layout>
   );

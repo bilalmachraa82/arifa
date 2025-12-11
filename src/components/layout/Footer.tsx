@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Instagram, Linkedin } from "lucide-react";
 import arifaLogo from "@/assets/arifa-logo.png";
+import { NewsletterForm } from "@/components/NewsletterForm";
 
 const navigation = {
   segments: [
@@ -101,30 +102,40 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Contact */}
-          <div>
-            <h3 className="text-sm font-semibold tracking-wider uppercase">Contacto</h3>
-            <ul role="list" className="mt-6 space-y-4">
-              <li className="flex items-start gap-3">
-                <MapPin className="h-5 w-5 text-arifa-teal flex-shrink-0 mt-0.5" />
-                <span className="text-sm text-primary-foreground/70">
-                  Avenida de Berna, 31, 2º Dto, sala 9<br />
-                  1050-038 Lisboa, Portugal
-                </span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Phone className="h-5 w-5 text-arifa-teal flex-shrink-0" />
-                <a href="tel:+351928272198" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">
-                  +351 928 272 198
-                </a>
-              </li>
-              <li className="flex items-center gap-3">
-                <Mail className="h-5 w-5 text-arifa-teal flex-shrink-0" />
-                <a href="mailto:info@arifa.studio" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">
-                  info@arifa.studio
-                </a>
-              </li>
-            </ul>
+          {/* Contact & Newsletter */}
+          <div className="space-y-8">
+            <div>
+              <h3 className="text-sm font-semibold tracking-wider uppercase">Contacto</h3>
+              <ul role="list" className="mt-6 space-y-4">
+                <li className="flex items-start gap-3">
+                  <MapPin className="h-5 w-5 text-arifa-teal flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-primary-foreground/70">
+                    Avenida de Berna, 31, 2º Dto, sala 9<br />
+                    1050-038 Lisboa, Portugal
+                  </span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Phone className="h-5 w-5 text-arifa-teal flex-shrink-0" />
+                  <a href="tel:+351928272198" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+                    +351 928 272 198
+                  </a>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Mail className="h-5 w-5 text-arifa-teal flex-shrink-0" />
+                  <a href="mailto:info@arifa.studio" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+                    info@arifa.studio
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-sm font-semibold tracking-wider uppercase">Newsletter</h3>
+              <p className="mt-4 text-sm text-primary-foreground/70 mb-4">
+                Receba novidades e dicas de arquitetura.
+              </p>
+              <NewsletterForm />
+            </div>
           </div>
         </div>
 

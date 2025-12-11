@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Home, Palette, Ruler, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Home, Palette, Ruler } from "lucide-react";
+import { SegmentTestimonials } from "@/components/SegmentTestimonials";
+import { LeadMagnetSection } from "@/components/LeadMagnetSection";
 
 const services = [
   {
@@ -182,6 +184,11 @@ export default function Privado() {
           </div>
         </div>
       </section>
+      {/* Testimonials */}
+      <SegmentTestimonials segment="privado" />
+
+      {/* Lead Magnet */}
+      <LeadMagnetSection segment="privado" />
 
       {/* CTA */}
       <section className="py-24 lg:py-32 bg-arifa-charcoal text-primary-foreground">
