@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export function HeroSection() {
+  const { t } = useLanguage();
+  
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-arifa-warm-white">
       {/* Background geometric elements */}
@@ -17,28 +20,27 @@ export function HeroSection() {
           <div className="space-y-8">
             <div className="space-y-4">
               <p className="text-sm font-medium tracking-[0.3em] text-arifa-teal uppercase animate-fade-in">
-                Arquitetura & Design
+                {t("hero.tagline")}
               </p>
               <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-light leading-[1.1] text-foreground animate-fade-in animation-delay-100">
-                Criamos espaços que{" "}
-                <span className="italic text-arifa-teal">inspiram</span>
+                {t("hero.title")}{" "}
+                <span className="italic text-arifa-teal">{t("hero.titleHighlight")}</span>
               </h1>
             </div>
             
             <p className="text-lg text-muted-foreground max-w-lg leading-relaxed animate-fade-in animation-delay-200">
-              Desenhamos ecossistemas prontos para o futuro — para viver, trabalhar e aprender. 
-              Combinamos 20+ anos de experiência internacional com inovação digital e sustentabilidade.
+              {t("hero.description")}
             </p>
 
             <div className="flex flex-wrap gap-4 animate-fade-in animation-delay-300">
               <Button variant="hero" size="lg" asChild>
                 <Link to="/contacto">
-                  Pedir Orçamento
+                  {t("hero.cta")}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
               <Button variant="hero-outline" size="lg" asChild>
-                <Link to="/portfolio">Ver Portfolio</Link>
+                <Link to="/portfolio">{t("hero.viewPortfolio")}</Link>
               </Button>
             </div>
           </div>
@@ -47,13 +49,13 @@ export function HeroSection() {
             <div className="aspect-[4/5] bg-secondary rounded-sm overflow-hidden shadow-elevated">
               <img
                 src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-                alt="Projeto de arquitetura ARIFA Studio"
+                alt={t("hero.imageAlt")}
                 className="w-full h-full object-cover"
               />
             </div>
             <div className="absolute -bottom-8 -left-8 bg-card p-6 shadow-card rounded-sm max-w-xs">
               <p className="font-display text-2xl font-medium text-foreground">20+</p>
-              <p className="text-sm text-muted-foreground">Anos de experiência internacional em arquitetura</p>
+              <p className="text-sm text-muted-foreground">{t("hero.experience")}</p>
             </div>
           </div>
         </div>

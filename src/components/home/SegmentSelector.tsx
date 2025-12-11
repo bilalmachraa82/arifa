@@ -1,49 +1,64 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Home, Building2, TrendingUp } from "lucide-react";
-
-const segments = [
-  {
-    id: "privado",
-    icon: Home,
-    title: "Clientes Privados",
-    description: "Transformamos a sua visão numa casa de sonho. Desde moradias a apartamentos, criamos espaços que refletem a sua personalidade.",
-    features: ["Moradias unifamiliares", "Remodelações", "Design de interiores"],
-    href: "/privado",
-    color: "arifa-teal",
-  },
-  {
-    id: "empresas",
-    icon: Building2,
-    title: "Empresas",
-    description: "Espaços corporativos que potenciam produtividade e bem-estar. Soluções para escritórios, retalho e hospitalidade.",
-    features: ["Escritórios", "Espaços comerciais", "Hotéis e restaurantes"],
-    href: "/empresas",
-    color: "arifa-coral",
-  },
-  {
-    id: "investidores",
-    icon: TrendingUp,
-    title: "Investidores",
-    description: "Maximizamos o retorno do seu investimento imobiliário. Estudos de viabilidade, projetos de promoção e reabilitação urbana.",
-    features: ["Estudos de viabilidade", "Promoção imobiliária", "Reabilitação urbana"],
-    href: "/investidores",
-    color: "arifa-gold",
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export function SegmentSelector() {
+  const { t } = useLanguage();
+  
+  const segments = [
+    {
+      id: "privado",
+      icon: Home,
+      title: t("segments.private.title"),
+      description: t("segments.private.description"),
+      features: [
+        t("segments.private.feature1"),
+        t("segments.private.feature2"),
+        t("segments.private.feature3"),
+      ],
+      href: "/privado",
+      color: "arifa-teal",
+    },
+    {
+      id: "empresas",
+      icon: Building2,
+      title: t("segments.companies.title"),
+      description: t("segments.companies.description"),
+      features: [
+        t("segments.companies.feature1"),
+        t("segments.companies.feature2"),
+        t("segments.companies.feature3"),
+      ],
+      href: "/empresas",
+      color: "arifa-coral",
+    },
+    {
+      id: "investidores",
+      icon: TrendingUp,
+      title: t("segments.investors.title"),
+      description: t("segments.investors.description"),
+      features: [
+        t("segments.investors.feature1"),
+        t("segments.investors.feature2"),
+        t("segments.investors.feature3"),
+      ],
+      href: "/investidores",
+      color: "arifa-gold",
+    },
+  ];
+
   return (
     <section className="py-24 lg:py-32 bg-background" id="segmentos">
       <div className="container-arifa">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <p className="text-sm font-medium tracking-[0.3em] text-arifa-teal uppercase mb-4">
-            Como podemos ajudar
+            {t("segments.subtitle")}
           </p>
           <h2 className="font-display text-4xl md:text-5xl font-light text-foreground mb-6">
-            Soluções adaptadas às suas necessidades
+            {t("segments.title")}
           </h2>
           <p className="text-muted-foreground text-lg">
-            Cada cliente é único. Por isso, oferecemos serviços especializados para diferentes perfis e objetivos.
+            {t("segments.description")}
           </p>
         </div>
 
@@ -77,7 +92,7 @@ export function SegmentSelector() {
               </ul>
 
               <div className="flex items-center text-sm font-medium text-foreground group-hover:text-arifa-teal transition-colors">
-                Saber mais
+                {t("segments.learnMore")}
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </div>
 
