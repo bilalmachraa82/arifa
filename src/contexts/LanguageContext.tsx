@@ -12,6 +12,7 @@ const translations = {
   pt: {
     // Navigation
     "nav.home": "Início",
+    "nav.services": "Serviços",
     "nav.private": "Privado",
     "nav.companies": "Empresas",
     "nav.investors": "Investidores",
@@ -101,6 +102,7 @@ const translations = {
   en: {
     // Navigation
     "nav.home": "Home",
+    "nav.services": "Services",
     "nav.private": "Private",
     "nav.companies": "Companies",
     "nav.investors": "Investors",
