@@ -5,13 +5,14 @@ import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Shield, FolderOpen, FileText, MessageSquare, Users, Mail } from "lucide-react";
+import { Shield, FolderOpen, FileText, MessageSquare, Users, Mail, LayoutDashboard } from "lucide-react";
 import AdminProjects from "@/components/admin/AdminProjects";
 import AdminBlogPosts from "@/components/admin/AdminBlogPosts";
 import AdminDocuments from "@/components/admin/AdminDocuments";
 import AdminMessages from "@/components/admin/AdminMessages";
 import AdminLeads from "@/components/admin/AdminLeads";
 import AdminClients from "@/components/admin/AdminClients";
+import AdminDashboardOverview from "@/components/admin/AdminDashboardOverview";
 
 const AdminDashboard = () => {
   const { user, loading: authLoading } = useAuth();
@@ -91,8 +92,12 @@ const AdminDashboard = () => {
       </div>
 
       <div className="container mx-auto px-4 py-6">
-        <Tabs defaultValue="projects" className="space-y-6">
+        <Tabs defaultValue="overview" className="space-y-6">
           <TabsList className="flex flex-wrap h-auto gap-2">
+            <TabsTrigger value="overview" className="gap-2">
+              <LayoutDashboard className="h-4 w-4" />
+              Dashboard
+            </TabsTrigger>
             <TabsTrigger value="projects" className="gap-2">
               <FolderOpen className="h-4 w-4" />
               Projetos
@@ -118,6 +123,10 @@ const AdminDashboard = () => {
               Clientes
             </TabsTrigger>
           </TabsList>
+
+          <TabsContent value="overview">
+            <AdminDashboardOverview />
+          </TabsContent>
 
           <TabsContent value="projects">
             <AdminProjects />
