@@ -24,6 +24,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import Privacidade from "./pages/Privacidade";
 import Termos from "./pages/Termos";
 import Install from "./pages/Install";
+import AcceptInvitation from "./pages/AcceptInvitation";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -57,6 +58,7 @@ const App = () => (
                 <Route path="/privacidade" element={<Privacidade />} />
                 <Route path="/termos" element={<Termos />} />
                 <Route path="/install" element={<Install />} />
+                <Route path="/convite/:token" element={<AcceptInvitation />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
               </AnalyticsProvider>
