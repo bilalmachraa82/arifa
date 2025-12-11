@@ -80,6 +80,7 @@ export function Header() {
 
   const navigation = [
     { name: t("nav.home"), href: "/" },
+    { name: t("nav.services"), href: "/servicos" },
     { name: t("nav.private"), href: "/privado" },
     { name: t("nav.companies"), href: "/empresas" },
     { name: t("nav.investors"), href: "/investidores" },

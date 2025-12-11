@@ -15,6 +15,7 @@ import ProjectDetail from "./pages/ProjectDetail";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import Contacto from "./pages/Contacto";
+import Servicos from "./pages/Servicos";
 import Auth from "./pages/Auth";
 import ClientDashboard from "./pages/ClientDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -41,6 +42,7 @@ const App = () => (
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/blog/:slug" element={<BlogPost />} />
                 <Route path="/contacto" element={<Contacto />} />
+                <Route path="/servicos" element={<Servicos />} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/dashboard" element={<ClientDashboard />} />
                 <Route path="/admin" element={<AdminDashboard />} />
