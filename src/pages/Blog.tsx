@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Calendar, Clock, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { SearchFilters } from "@/components/SearchFilters";
 
 interface BlogPost {
   id: string;
@@ -23,6 +24,8 @@ export default function Blog() {
   const [loading, setLoading] = useState(true);
   const [email, setEmail] = useState("");
   const [subscribing, setSubscribing] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeCategory, setActiveCategory] = useState("Todos");
   const { toast } = useToast();
 
   useEffect(() => {
@@ -45,8 +48,28 @@ export default function Blog() {
     fetchPosts();
   }, []);
 
-  const featuredPost = posts.find(p => p.is_featured) || posts[0];
-  const otherPosts = posts.filter(p => p.id !== featuredPost?.id);
+  // Extract unique categories
+  const categories = useMemo(() => {
+    const postCategories = [...new Set(posts.map(p => p.category).filter(Boolean))] as string[];
+    return ["Todos", ...postCategories.sort()];
+  }, [posts]);
+
+  // Filter posts
+  const filteredPosts = useMemo(() => {
+    return posts.filter((post) => {
+      const matchesSearch = !searchQuery ||
+        post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        post.excerpt?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        post.category?.toLowerCase().includes(searchQuery.toLowerCase());
+
+      const matchesCategory = activeCategory === "Todos" || post.category === activeCategory;
+
+      return matchesSearch && matchesCategory;
+    });
+  }, [posts, searchQuery, activeCategory]);
+
+  const featuredPost = filteredPosts.find(p => p.is_featured) || filteredPosts[0];
+  const otherPosts = filteredPosts.filter(p => p.id !== featuredPost?.id);
 
   const formatDate = (dateString: string | null) => {
     if (!dateString) return "";
@@ -108,20 +131,59 @@ export default function Blog() {
         </div>
       </section>
 
+      {/* Filters */}
+      <section className="py-6 bg-background border-b border-border sticky top-[73px] z-40">
+        <div className="container-arifa">
+          <SearchFilters
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            categories={categories}
+            activeCategory={activeCategory}
+            onCategoryChange={setActiveCategory}
+            placeholder="Pesquisar artigos..."
+          />
+        </div>
+      </section>
+
       {loading ? (
         <section className="py-24 bg-background">
           <div className="container-arifa flex items-center justify-center">
             <Loader2 className="h-8 w-8 animate-spin text-arifa-teal" />
           </div>
         </section>
-      ) : posts.length === 0 ? (
+      ) : filteredPosts.length === 0 ? (
         <section className="py-24 bg-background">
           <div className="container-arifa text-center">
-            <p className="text-lg text-muted-foreground">Ainda não há artigos publicados. Volte em breve!</p>
+            <p className="text-lg text-muted-foreground mb-4">
+              {searchQuery || activeCategory !== "Todos"
+                ? "Nenhum artigo encontrado com os filtros selecionados."
+                : "Ainda não há artigos publicados. Volte em breve!"
+              }
+            </p>
+            {(searchQuery || activeCategory !== "Todos") && (
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setSearchQuery("");
+                  setActiveCategory("Todos");
+                }}
+              >
+                Limpar filtros
+              </Button>
+            )}
           </div>
         </section>
       ) : (
         <>
+          {/* Results count */}
+          <section className="pt-8 pb-0 bg-background">
+            <div className="container-arifa">
+              <p className="text-sm text-muted-foreground">
+                {filteredPosts.length} {filteredPosts.length === 1 ? "artigo encontrado" : "artigos encontrados"}
+              </p>
+            </div>
+          </section>
+
           {/* Featured Post */}
           {featuredPost && (
             <section className="py-16 lg:py-24 bg-background">
