@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { AnalyticsScripts, AnalyticsProvider } from "@/components/Analytics";
 import Index from "./pages/Index";
 import Privado from "./pages/Privado";
 import Empresas from "./pages/Empresas";
@@ -33,7 +34,9 @@ const App = () => (
           <TooltipProvider>
             <Toaster />
             <Sonner />
+            <AnalyticsScripts />
             <BrowserRouter>
+              <AnalyticsProvider>
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/privado" element={<Privado />} />
@@ -52,6 +55,7 @@ const App = () => (
                 <Route path="/termos" element={<Termos />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
+              </AnalyticsProvider>
             </BrowserRouter>
           </TooltipProvider>
         </AuthProvider>

@@ -7,6 +7,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
 import { z } from "zod";
 import { SEO } from "@/components/SEO";
+import { trackEvent } from "@/components/Analytics";
 
 const contactSchema = z.object({
   name: z.string().trim().min(2, "Nome muito curto").max(100),
@@ -123,6 +124,12 @@ export default function Contacto() {
       toast({
         title: t("contact.successTitle"),
         description: t("contact.successMessage"),
+      });
+
+      // Track successful form submission
+      trackEvent("contact_form_submitted", {
+        segment: formData.segment,
+        service: formData.service,
       });
 
       setFormData({
