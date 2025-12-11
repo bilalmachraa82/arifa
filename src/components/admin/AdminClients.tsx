@@ -24,8 +24,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Loader2, UserPlus, Shield, User } from "lucide-react";
+import { Loader2, UserPlus, Shield, User, ShieldCheck, ShieldOff } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface Profile {
   id: string;
@@ -49,6 +50,7 @@ interface Project {
 
 const AdminClients = () => {
   const { toast } = useToast();
+  const { user } = useAuth();
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [userRoles, setUserRoles] = useState<UserRole[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
@@ -56,6 +58,7 @@ const AdminClients = () => {
   const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
   const [assignDialogOpen, setAssignDialogOpen] = useState(false);
   const [selectedProjectId, setSelectedProjectId] = useState("");
+  const [promotingUser, setPromotingUser] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -122,6 +125,50 @@ const AdminClients = () => {
     if (!error) {
       fetchData();
     }
+  };
+
+  const handleToggleRole = async (profile: Profile) => {
+    if (!profile.email) {
+      toast({
+        title: "Erro",
+        description: "Utilizador não tem email definido.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Prevent self-demotion
+    if (profile.id === user?.id && getUserRole(profile.id) === "admin") {
+      toast({
+        title: "Ação não permitida",
+        description: "Não pode remover os seus próprios privilégios de administrador.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setPromotingUser(true);
+    const currentRole = getUserRole(profile.id);
+    const functionName = currentRole === "admin" ? "demote_from_admin" : "promote_to_admin";
+
+    const { error } = await supabase.rpc(functionName, { _email: profile.email });
+
+    if (error) {
+      toast({
+        title: "Erro",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: currentRole === "admin" ? "Administrador removido" : "Administrador promovido",
+        description: currentRole === "admin" 
+          ? `${profile.full_name || profile.email} já não é administrador.`
+          : `${profile.full_name || profile.email} é agora administrador.`,
+      });
+      fetchData();
+    }
+    setPromotingUser(false);
   };
 
   const unassignedProjects = projects.filter(p => !p.client_id);
@@ -232,45 +279,72 @@ const AdminClients = () => {
                       </div>
                     </div>
 
+                    {/* Role Toggle Button */}
+                    <div className="pt-2 border-t">
+                      <p className="text-sm font-medium mb-2">Função do utilizador:</p>
+                      {selectedProfile.id === user?.id ? (
+                        <p className="text-sm text-muted-foreground">
+                          Não pode alterar a sua própria função.
+                        </p>
+                      ) : (
+                        <Button
+                          variant={getUserRole(selectedProfile.id) === "admin" ? "destructive" : "default"}
+                          size="sm"
+                          className="w-full"
+                          onClick={() => handleToggleRole(selectedProfile)}
+                          disabled={promotingUser}
+                        >
+                          {promotingUser ? (
+                            <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                          ) : getUserRole(selectedProfile.id) === "admin" ? (
+                            <ShieldOff className="h-4 w-4 mr-2" />
+                          ) : (
+                            <ShieldCheck className="h-4 w-4 mr-2" />
+                          )}
+                          {getUserRole(selectedProfile.id) === "admin" 
+                            ? "Remover Admin" 
+                            : "Promover a Admin"}
+                        </Button>
+                      )}
+                    </div>
+
                     {getUserRole(selectedProfile.id) !== "admin" && (
-                      <>
-                        <div>
-                          <div className="flex items-center justify-between mb-2">
-                            <p className="text-sm font-medium">Projetos atribuídos:</p>
-                            {unassignedProjects.length > 0 && (
-                              <Button 
-                                size="sm" 
-                                variant="outline"
-                                onClick={() => setAssignDialogOpen(true)}
-                              >
-                                <UserPlus className="h-4 w-4 mr-1" />
-                                Atribuir
-                              </Button>
-                            )}
-                          </div>
-                          <div className="space-y-2">
-                            {getClientProjects(selectedProfile.id).length === 0 ? (
-                              <p className="text-sm text-muted-foreground">Nenhum projeto atribuído</p>
-                            ) : (
-                              getClientProjects(selectedProfile.id).map((project) => (
-                                <div 
-                                  key={project.id}
-                                  className="flex items-center justify-between bg-muted p-2 rounded text-sm"
-                                >
-                                  <span>{project.title}</span>
-                                  <Button
-                                    size="sm"
-                                    variant="ghost"
-                                    onClick={() => handleRemoveProjectAssignment(project.id)}
-                                  >
-                                    Remover
-                                  </Button>
-                                </div>
-                              ))
-                            )}
-                          </div>
+                      <div className="pt-2 border-t">
+                        <div className="flex items-center justify-between mb-2">
+                          <p className="text-sm font-medium">Projetos atribuídos:</p>
+                          {unassignedProjects.length > 0 && (
+                            <Button 
+                              size="sm" 
+                              variant="outline"
+                              onClick={() => setAssignDialogOpen(true)}
+                            >
+                              <UserPlus className="h-4 w-4 mr-1" />
+                              Atribuir
+                            </Button>
+                          )}
                         </div>
-                      </>
+                        <div className="space-y-2">
+                          {getClientProjects(selectedProfile.id).length === 0 ? (
+                            <p className="text-sm text-muted-foreground">Nenhum projeto atribuído</p>
+                          ) : (
+                            getClientProjects(selectedProfile.id).map((project) => (
+                              <div 
+                                key={project.id}
+                                className="flex items-center justify-between bg-muted p-2 rounded text-sm"
+                              >
+                                <span>{project.title}</span>
+                                <Button
+                                  size="sm"
+                                  variant="ghost"
+                                  onClick={() => handleRemoveProjectAssignment(project.id)}
+                                >
+                                  Remover
+                                </Button>
+                              </div>
+                            ))
+                          )}
+                        </div>
+                      </div>
                     )}
                   </CardContent>
                 </Card>
