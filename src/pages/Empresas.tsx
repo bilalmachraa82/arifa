@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Building2, Store, UtensilsCrossed, CheckCircle2 } from "lucide-react";
 import { SegmentTestimonials } from "@/components/SegmentTestimonials";
 import { LeadMagnetSection } from "@/components/LeadMagnetSection";
+import { SegmentProjects } from "@/components/SegmentProjects";
 
 const services = [
   {
@@ -30,27 +31,6 @@ const benefits = [
   "Controlo de qualidade em todas as fases",
   "Ativos de alto desempenho e sustentáveis",
   "Colaboração estratégica de longo prazo",
-];
-
-const projects = [
-  {
-    title: "Escritórios TechStart",
-    location: "Lisboa",
-    area: "1.200 m²",
-    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    title: "Restaurante Mar & Terra",
-    location: "Porto",
-    area: "350 m²",
-    image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    title: "Boutique Hotel Fado",
-    location: "Lisboa",
-    area: "2.500 m²",
-    image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-  },
 ];
 
 export default function Empresas() {
@@ -163,42 +143,7 @@ export default function Empresas() {
       </section>
 
       {/* Featured Projects */}
-      <section className="py-24 lg:py-32 bg-background">
-        <div className="container-arifa">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
-            <div className="space-y-4">
-              <p className="text-sm font-medium tracking-[0.3em] text-arifa-coral uppercase">
-                Portfolio
-              </p>
-              <h2 className="font-display text-4xl md:text-5xl font-light text-foreground">
-                Projetos corporativos
-              </h2>
-            </div>
-            <Button variant="minimal" asChild>
-              <Link to="/portfolio">
-                Ver todos
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {projects.map((project) => (
-              <div key={project.title} className="group">
-                <div className="aspect-[4/5] rounded-sm overflow-hidden mb-4">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <h3 className="font-display text-xl font-medium text-foreground">{project.title}</h3>
-                <p className="text-sm text-muted-foreground">{project.location} · {project.area}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <SegmentProjects segment="empresas" />
       {/* Testimonials */}
       <SegmentTestimonials segment="empresas" />
 

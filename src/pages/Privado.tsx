@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Home, Palette, Ruler } from "lucide-react";
 import { SegmentTestimonials } from "@/components/SegmentTestimonials";
 import { LeadMagnetSection } from "@/components/LeadMagnetSection";
+import { SegmentProjects } from "@/components/SegmentProjects";
 
 const services = [
   {
@@ -28,27 +29,6 @@ const process = [
   { step: "02", title: "Estudo Preliminar", description: "Apresentação de conceitos e soluções espaciais para aprovação." },
   { step: "03", title: "Projeto de Execução", description: "Desenvolvimento detalhado de todos os elementos técnicos." },
   { step: "04", title: "Acompanhamento de Obra", description: "Supervisão da construção para garantir qualidade e conformidade." },
-];
-
-const projects = [
-  {
-    title: "Casa da Serra",
-    location: "Sintra",
-    area: "280 m²",
-    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    title: "Apartamento Chiado",
-    location: "Lisboa",
-    area: "120 m²",
-    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    title: "Villa Oceano",
-    location: "Cascais",
-    area: "450 m²",
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-  },
 ];
 
 export default function Privado() {
@@ -148,42 +128,7 @@ export default function Privado() {
       </section>
 
       {/* Featured Projects */}
-      <section className="py-24 lg:py-32 bg-background">
-        <div className="container-arifa">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
-            <div className="space-y-4">
-              <p className="text-sm font-medium tracking-[0.3em] text-arifa-teal uppercase">
-                Portfolio
-              </p>
-              <h2 className="font-display text-4xl md:text-5xl font-light text-foreground">
-                Projetos residenciais
-              </h2>
-            </div>
-            <Button variant="minimal" asChild>
-              <Link to="/portfolio">
-                Ver todos
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {projects.map((project) => (
-              <div key={project.title} className="group">
-                <div className="aspect-[4/5] rounded-sm overflow-hidden mb-4">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <h3 className="font-display text-xl font-medium text-foreground">{project.title}</h3>
-                <p className="text-sm text-muted-foreground">{project.location} · {project.area}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <SegmentProjects segment="privado" />
       {/* Testimonials */}
       <SegmentTestimonials segment="privado" />
 

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, TrendingUp, FileSearch, Building } from "lucide-react";
 import { SegmentTestimonials } from "@/components/SegmentTestimonials";
 import { LeadMagnetSection } from "@/components/LeadMagnetSection";
+import { SegmentProjects } from "@/components/SegmentProjects";
 
 const services = [
   {
@@ -215,6 +216,10 @@ export default function Investidores() {
           </div>
         </div>
       </section>
+
+      {/* Featured Projects */}
+      <SegmentProjects segment="investidores" />
+
       {/* Testimonials */}
       <SegmentTestimonials segment="investidores" />
 
