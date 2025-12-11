@@ -301,6 +301,47 @@ export type Database = {
           },
         ]
       }
+      lead_activities: {
+        Row: {
+          activity_type: Database["public"]["Enums"]["lead_activity_type"]
+          created_at: string
+          description: string | null
+          id: string
+          lead_id: string
+          metadata: Json | null
+          title: string
+          user_id: string | null
+        }
+        Insert: {
+          activity_type: Database["public"]["Enums"]["lead_activity_type"]
+          created_at?: string
+          description?: string | null
+          id?: string
+          lead_id: string
+          metadata?: Json | null
+          title: string
+          user_id?: string | null
+        }
+        Update: {
+          activity_type?: Database["public"]["Enums"]["lead_activity_type"]
+          created_at?: string
+          description?: string | null
+          id?: string
+          lead_id?: string
+          metadata?: Json | null
+          title?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lead_activities_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       leads: {
         Row: {
           ai_score: number | null
@@ -517,6 +558,13 @@ export type Database = {
     Enums: {
       app_role: "admin" | "client" | "investor"
       audit_action: "INSERT" | "UPDATE" | "DELETE" | "LOGIN" | "LOGOUT"
+      lead_activity_type:
+        | "call"
+        | "email"
+        | "note"
+        | "meeting"
+        | "whatsapp"
+        | "status_change"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -646,6 +694,14 @@ export const Constants = {
     Enums: {
       app_role: ["admin", "client", "investor"],
       audit_action: ["INSERT", "UPDATE", "DELETE", "LOGIN", "LOGOUT"],
+      lead_activity_type: [
+        "call",
+        "email",
+        "note",
+        "meeting",
+        "whatsapp",
+        "status_change",
+      ],
     },
   },
 } as const
