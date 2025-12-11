@@ -5,7 +5,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Shield, FolderOpen, FileText, MessageSquare, Users, Mail, LayoutDashboard } from "lucide-react";
+import { Shield, FolderOpen, FileText, MessageSquare, Users, Mail, LayoutDashboard, History } from "lucide-react";
 import AdminProjects from "@/components/admin/AdminProjects";
 import AdminBlogPosts from "@/components/admin/AdminBlogPosts";
 import AdminDocuments from "@/components/admin/AdminDocuments";
@@ -13,6 +13,7 @@ import AdminMessages from "@/components/admin/AdminMessages";
 import AdminLeads from "@/components/admin/AdminLeads";
 import AdminClients from "@/components/admin/AdminClients";
 import AdminDashboardOverview from "@/components/admin/AdminDashboardOverview";
+import AdminAuditLogs from "@/components/admin/AdminAuditLogs";
 
 const AdminDashboard = () => {
   const { user, loading: authLoading } = useAuth();
@@ -122,6 +123,10 @@ const AdminDashboard = () => {
               <Users className="h-4 w-4" />
               Clientes
             </TabsTrigger>
+            <TabsTrigger value="audit" className="gap-2">
+              <History className="h-4 w-4" />
+              Auditoria
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview">
@@ -150,6 +155,10 @@ const AdminDashboard = () => {
 
           <TabsContent value="clients">
             <AdminClients />
+          </TabsContent>
+
+          <TabsContent value="audit">
+            <AdminAuditLogs />
           </TabsContent>
         </Tabs>
       </div>
