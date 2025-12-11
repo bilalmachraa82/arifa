@@ -1,3 +1,6 @@
+# ARIFA Studio - robots.txt
+# https://www.robotstxt.org/robotstxt.html
+
 User-agent: Googlebot
 Allow: /
 
@@ -12,3 +15,11 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+# Disallow admin and auth pages
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /auth
+
+# Sitemap
+Sitemap: https://arifa.studio/sitemap.xml
