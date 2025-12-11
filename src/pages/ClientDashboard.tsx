@@ -25,6 +25,7 @@ import { useToast } from "@/hooks/use-toast";
 import ClientMessageForm from "@/components/client/ClientMessageForm";
 import ProjectTimeline from "@/components/client/ProjectTimeline";
 import ClientDocumentVersions from "@/components/client/ClientDocumentVersions";
+import { MessageAttachmentDisplay, Attachment } from "@/components/chat/MessageAttachments";
 
 interface Project {
   id: string;
@@ -57,6 +58,7 @@ interface Message {
   created_at: string;
   sender_id: string;
   project_id: string | null;
+  attachments: Attachment[] | null;
 }
 
 const ClientDashboard = () => {
@@ -107,9 +109,14 @@ const ClientDashboard = () => {
         .eq("client_id", user.id)
         .order("created_at", { ascending: false });
 
+      const messagesWithAttachments = (messagesData || []).map((msg) => ({
+        ...msg,
+        attachments: Array.isArray(msg.attachments) ? (msg.attachments as unknown as Attachment[]) : [],
+      }));
+
       setProjects(projectsData || []);
       setDocuments(documentsData || []);
-      setMessages(messagesData || []);
+      setMessages(messagesWithAttachments);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -506,6 +513,10 @@ const ClientDashboard = () => {
                       <div className="prose prose-sm max-w-none">
                         <p className="whitespace-pre-wrap">{selectedMessage.content}</p>
                       </div>
+                      
+                      {selectedMessage.attachments && selectedMessage.attachments.length > 0 && (
+                        <MessageAttachmentDisplay attachments={selectedMessage.attachments} />
+                      )}
                       
                       {selectedMessage.sender_id !== user?.id && (
                         <div className="mt-6 pt-6 border-t">

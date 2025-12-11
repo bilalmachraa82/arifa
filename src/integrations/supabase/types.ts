@@ -128,6 +128,7 @@ export type Database = {
       }
       client_messages: {
         Row: {
+          attachments: Json | null
           client_id: string
           content: string
           created_at: string
@@ -138,6 +139,7 @@ export type Database = {
           subject: string
         }
         Insert: {
+          attachments?: Json | null
           client_id: string
           content: string
           created_at?: string
@@ -148,6 +150,7 @@ export type Database = {
           subject: string
         }
         Update: {
+          attachments?: Json | null
           client_id?: string
           content?: string
           created_at?: string
