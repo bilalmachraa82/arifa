@@ -4,6 +4,7 @@ import { Download, Loader2, FileText, CheckCircle2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
+import { trackEvent } from "@/components/Analytics";
 
 const emailSchema = z.string().email("Email inválido").max(255);
 
@@ -89,6 +90,10 @@ export function LeadMagnetSection({ segment }: LeadMagnetSectionProps) {
 
       setSuccess(true);
       setEmail("");
+      trackEvent("lead_magnet_downloaded", { 
+        segment, 
+        resource: resource.title 
+      });
       toast({
         title: "Download disponível!",
         description: "O recurso foi enviado para o seu email. Obrigado!",

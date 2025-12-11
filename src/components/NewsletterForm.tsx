@@ -4,6 +4,7 @@ import { ArrowRight, Loader2, CheckCircle2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
+import { trackEvent } from "@/components/Analytics";
 
 const emailSchema = z.string().email("Email inválido").max(255);
 
@@ -46,6 +47,7 @@ export function NewsletterForm() {
       } else {
         setSuccess(true);
         setEmail("");
+        trackEvent("newsletter_subscribed", { source: "footer" });
         toast({
           title: "Subscrito com sucesso!",
           description: "Obrigado por subscrever a nossa newsletter.",
