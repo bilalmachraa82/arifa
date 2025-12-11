@@ -149,7 +149,7 @@ export function Header() {
               <Button variant="ghost" size="sm" asChild className="gap-2 relative">
                 <Link to="/dashboard">
                   <LayoutDashboard className="h-4 w-4" />
-                  Área Cliente
+                  {t("nav.clientArea")}
                   {!isAdmin && unreadCount > 0 && (
                     <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 min-w-5 px-1 text-xs">
                       {unreadCount > 99 ? "99+" : unreadCount}
@@ -159,7 +159,7 @@ export function Header() {
               </Button>
               <Button variant="ghost" size="sm" onClick={signOut} className="gap-2">
                 <LogOut className="h-4 w-4" />
-                Sair
+                {t("nav.logout")}
               </Button>
             </>
           ) : (
@@ -216,11 +216,11 @@ export function Header() {
               </div>
               <div className="py-6 space-y-3">
                 <div className="flex items-center justify-between px-3">
-                  <span className="text-sm text-muted-foreground">Tema</span>
+                  <span className="text-sm text-muted-foreground">{t("nav.theme")}</span>
                   <ThemeToggle />
                 </div>
                 <div className="flex items-center justify-between px-3">
-                  <span className="text-sm text-muted-foreground">Idioma</span>
+                  <span className="text-sm text-muted-foreground">{t("nav.language")}</span>
                   <LanguageSelector />
                 </div>
                 
@@ -242,7 +242,7 @@ export function Header() {
                     <Button variant="outline" className="w-full relative" asChild>
                       <Link to="/dashboard" onClick={() => setMobileMenuOpen(false)}>
                         <LayoutDashboard className="h-4 w-4 mr-2" />
-                        Área Cliente
+                        {t("nav.clientArea")}
                         {!isAdmin && unreadCount > 0 && (
                           <Badge variant="destructive" className="ml-2 h-5 min-w-5 px-1 text-xs">
                             {unreadCount > 99 ? "99+" : unreadCount}
@@ -259,7 +259,7 @@ export function Header() {
                       }}
                     >
                       <LogOut className="h-4 w-4 mr-2" />
-                      Sair
+                      {t("nav.logout")}
                     </Button>
                   </>
                 ) : (

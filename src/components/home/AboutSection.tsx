@@ -1,14 +1,17 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-
-const stats = [
-  { value: "20+", label: "Anos de experiência" },
-  { value: "4", label: "Países de atuação" },
-  { value: "BIM", label: "Especialização digital" },
-  { value: "2022", label: "Fundação do estúdio" },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export function AboutSection() {
+  const { t } = useLanguage();
+  
+  const stats = [
+    { value: "20+", label: t("about.stat1") },
+    { value: "4", label: t("about.stat2") },
+    { value: "BIM", label: t("about.stat3") },
+    { value: "2022", label: t("about.stat4") },
+  ];
+
   return (
     <section className="py-24 lg:py-32 bg-arifa-cream" id="sobre">
       <div className="container-arifa">
@@ -25,7 +28,7 @@ export function AboutSection() {
                 </div>
                 <div className="aspect-square bg-arifa-teal rounded-sm flex items-center justify-center p-6">
                   <p className="font-display text-3xl text-accent-foreground text-center font-light">
-                    "Design é inteligência tornada visível"
+                    "{t("about.quote")}"
                   </p>
                 </div>
               </div>
@@ -51,25 +54,17 @@ export function AboutSection() {
           <div className="space-y-8">
             <div className="space-y-4">
               <p className="text-sm font-medium tracking-[0.3em] text-arifa-teal uppercase">
-                Sobre Nós
+                {t("about.subtitle")}
               </p>
               <h2 className="font-display text-4xl md:text-5xl font-light text-foreground leading-tight">
-                Arquitetura com alma portuguesa,{" "}
-                <span className="italic">visão global</span>
+                {t("about.title")}{" "}
+                <span className="italic">{t("about.titleHighlight")}</span>
               </h2>
             </div>
 
             <div className="space-y-6 text-muted-foreground leading-relaxed">
-              <p>
-                A ARIFA Studio combina mais de 20 anos de experiência internacional em arquitetura, 
-                com projetos desenvolvidos em Portugal, Noruega, Suécia e Angola. Fundada em 2022, 
-                trazemos uma visão contemporânea focada na transformação digital do setor da construção.
-              </p>
-              <p>
-                Especializamo-nos em BIM, design sustentável, eficiência energética e soluções inovadoras. 
-                Acreditamos na digitalização inteligente, na colaboração estratégica e em práticas 
-                éticas e sustentáveis para criar ativos de alto desempenho.
-              </p>
+              <p>{t("about.description1")}</p>
+              <p>{t("about.description2")}</p>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 py-8 border-y border-border">
@@ -82,7 +77,7 @@ export function AboutSection() {
             </div>
 
             <Button variant="outline" size="lg" asChild>
-              <Link to="/portfolio">Explorar Portfolio</Link>
+              <Link to="/portfolio">{t("about.explorePortfolio")}</Link>
             </Button>
           </div>
         </div>

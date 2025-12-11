@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, MapPin, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface Project {
   id: string;
@@ -17,6 +18,7 @@ interface Project {
 export function FeaturedProjects() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+  const { t } = useLanguage();
 
   useEffect(() => {
     async function fetchProjects() {
@@ -59,15 +61,15 @@ export function FeaturedProjects() {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
           <div className="space-y-4">
             <p className="text-sm font-medium tracking-[0.3em] text-arifa-teal uppercase">
-              Portfolio
+              {t("projects.subtitle")}
             </p>
             <h2 className="font-display text-4xl md:text-5xl font-light text-foreground">
-              Projetos em destaque
+              {t("projects.title")}
             </h2>
           </div>
           <Button variant="minimal" asChild>
             <Link to="/portfolio">
-              Ver todos os projetos
+              {t("projects.viewAll")}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>

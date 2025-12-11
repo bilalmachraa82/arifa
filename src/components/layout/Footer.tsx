@@ -2,24 +2,7 @@ import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Instagram, Linkedin } from "lucide-react";
 import arifaLogo from "@/assets/arifa-logo.png";
 import { NewsletterForm } from "@/components/NewsletterForm";
-
-const navigation = {
-  segments: [
-    { name: "Clientes Privados", href: "/privado" },
-    { name: "Empresas", href: "/empresas" },
-    { name: "Investidores", href: "/investidores" },
-  ],
-  company: [
-    { name: "Sobre Nós", href: "/#sobre" },
-    { name: "Portfolio", href: "/portfolio" },
-    { name: "Blog", href: "/blog" },
-    { name: "Contacto", href: "/contacto" },
-  ],
-  legal: [
-    { name: "Política de Privacidade", href: "/privacidade" },
-    { name: "Termos e Condições", href: "/termos" },
-  ],
-};
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const social = [
   { name: "Instagram", href: "https://www.instagram.com/arifastudio", icon: Instagram },
@@ -27,6 +10,26 @@ const social = [
 ];
 
 export function Footer() {
+  const { t } = useLanguage();
+  
+  const navigation = {
+    segments: [
+      { name: t("segments.private.title"), href: "/privado" },
+      { name: t("segments.companies.title"), href: "/empresas" },
+      { name: t("segments.investors.title"), href: "/investidores" },
+    ],
+    company: [
+      { name: t("footer.aboutUs"), href: "/#sobre" },
+      { name: t("nav.portfolio"), href: "/portfolio" },
+      { name: t("nav.blog"), href: "/blog" },
+      { name: t("nav.contact"), href: "/contacto" },
+    ],
+    legal: [
+      { name: t("footer.privacyPolicy"), href: "/privacidade" },
+      { name: t("footer.terms"), href: "/termos" },
+    ],
+  };
+
   return (
     <footer className="bg-arifa-charcoal text-primary-foreground" aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">Footer</h2>
@@ -37,7 +40,7 @@ export function Footer() {
           <div className="lg:col-span-1">
             <img className="h-12 w-auto brightness-0 invert" src={arifaLogo} alt="ARIFA Studio" />
             <p className="mt-6 text-sm text-primary-foreground/70 leading-relaxed">
-              We design future-ready ecosystems for living, working and learning.
+              {t("footer.tagline")}
             </p>
             <div className="mt-8 flex gap-4">
               {social.map((item) => (
@@ -56,7 +59,7 @@ export function Footer() {
           {/* Navigation */}
           <div className="grid grid-cols-2 gap-8 lg:col-span-2 lg:grid-cols-3">
             <div>
-              <h3 className="text-sm font-semibold tracking-wider uppercase">Segmentos</h3>
+              <h3 className="text-sm font-semibold tracking-wider uppercase">{t("footer.segments")}</h3>
               <ul role="list" className="mt-6 space-y-4">
                 {navigation.segments.map((item) => (
                   <li key={item.name}>
@@ -71,7 +74,7 @@ export function Footer() {
               </ul>
             </div>
             <div>
-              <h3 className="text-sm font-semibold tracking-wider uppercase">Empresa</h3>
+              <h3 className="text-sm font-semibold tracking-wider uppercase">{t("footer.company")}</h3>
               <ul role="list" className="mt-6 space-y-4">
                 {navigation.company.map((item) => (
                   <li key={item.name}>
@@ -86,7 +89,7 @@ export function Footer() {
               </ul>
             </div>
             <div>
-              <h3 className="text-sm font-semibold tracking-wider uppercase">Legal</h3>
+              <h3 className="text-sm font-semibold tracking-wider uppercase">{t("footer.legal")}</h3>
               <ul role="list" className="mt-6 space-y-4">
                 {navigation.legal.map((item) => (
                   <li key={item.name}>
@@ -105,7 +108,7 @@ export function Footer() {
           {/* Contact & Newsletter */}
           <div className="space-y-8">
             <div>
-              <h3 className="text-sm font-semibold tracking-wider uppercase">Contacto</h3>
+              <h3 className="text-sm font-semibold tracking-wider uppercase">{t("footer.contact")}</h3>
               <ul role="list" className="mt-6 space-y-4">
                 <li className="flex items-start gap-3">
                   <MapPin className="h-5 w-5 text-arifa-teal flex-shrink-0 mt-0.5" />
@@ -130,9 +133,9 @@ export function Footer() {
             </div>
 
             <div>
-              <h3 className="text-sm font-semibold tracking-wider uppercase">Newsletter</h3>
+              <h3 className="text-sm font-semibold tracking-wider uppercase">{t("footer.newsletter")}</h3>
               <p className="mt-4 text-sm text-primary-foreground/70 mb-4">
-                Receba novidades e dicas de arquitetura.
+                {t("footer.newsletterDesc")}
               </p>
               <NewsletterForm />
             </div>
@@ -141,7 +144,7 @@ export function Footer() {
 
         <div className="mt-16 pt-8 border-t border-primary-foreground/10">
           <p className="text-xs text-primary-foreground/50 text-center">
-            &copy; {new Date().getFullYear()} ARIFA Studio. Todos os direitos reservados.
+            &copy; {new Date().getFullYear()} ARIFA Studio. {t("footer.copyright")}
           </p>
         </div>
       </div>
