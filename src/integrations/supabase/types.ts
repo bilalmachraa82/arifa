@@ -351,6 +351,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      demote_from_admin: { Args: { _email: string }; Returns: undefined }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -358,6 +359,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      promote_to_admin: { Args: { _email: string }; Returns: undefined }
     }
     Enums: {
       app_role: "admin" | "client" | "investor"
