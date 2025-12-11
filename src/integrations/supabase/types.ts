@@ -213,6 +213,9 @@ export type Database = {
       }
       leads: {
         Row: {
+          ai_score: number | null
+          ai_score_reason: string | null
+          ai_scored_at: string | null
           created_at: string | null
           email: string
           id: string
@@ -225,6 +228,9 @@ export type Database = {
           status: string | null
         }
         Insert: {
+          ai_score?: number | null
+          ai_score_reason?: string | null
+          ai_scored_at?: string | null
           created_at?: string | null
           email: string
           id?: string
@@ -237,6 +243,9 @@ export type Database = {
           status?: string | null
         }
         Update: {
+          ai_score?: number | null
+          ai_score_reason?: string | null
+          ai_scored_at?: string | null
           created_at?: string | null
           email?: string
           id?: string
