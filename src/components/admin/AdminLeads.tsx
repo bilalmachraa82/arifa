@@ -18,8 +18,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Loader2, Mail, Phone, Calendar, Building2, Download, Sparkles, TrendingUp } from "lucide-react";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Loader2, Mail, Phone, Calendar, Building2, Download, Sparkles, TrendingUp, LayoutGrid, List } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import LeadsKanban from "./LeadsKanban";
 
 interface Lead {
   id: string;
@@ -51,6 +53,7 @@ const AdminLeads = () => {
   const [loading, setLoading] = useState(true);
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
   const [scoringLeadId, setScoringLeadId] = useState<string | null>(null);
+  const [viewMode, setViewMode] = useState<"table" | "kanban">("kanban");
 
   useEffect(() => {
     fetchLeads();
@@ -212,12 +215,26 @@ const AdminLeads = () => {
 
   return (
     <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
+      <CardHeader className="flex flex-row items-center justify-between flex-wrap gap-4">
         <CardTitle>Leads / Contactos</CardTitle>
-        <Button variant="outline" size="sm" onClick={exportToCSV} disabled={leads.length === 0}>
-          <Download className="h-4 w-4 mr-2" />
-          Exportar CSV
-        </Button>
+        <div className="flex items-center gap-3">
+          <Tabs value={viewMode} onValueChange={(v) => setViewMode(v as "table" | "kanban")}>
+            <TabsList className="h-9">
+              <TabsTrigger value="kanban" className="gap-2">
+                <LayoutGrid className="h-4 w-4" />
+                Kanban
+              </TabsTrigger>
+              <TabsTrigger value="table" className="gap-2">
+                <List className="h-4 w-4" />
+                Tabela
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>
+          <Button variant="outline" size="sm" onClick={exportToCSV} disabled={leads.length === 0}>
+            <Download className="h-4 w-4 mr-2" />
+            Exportar CSV
+          </Button>
+        </div>
       </CardHeader>
       <CardContent>
         {loading ? (
@@ -230,93 +247,102 @@ const AdminLeads = () => {
           </p>
         ) : (
           <div className="grid lg:grid-cols-3 gap-6">
-            {/* Leads List */}
-            <div className="lg:col-span-2">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Nome</TableHead>
-                    <TableHead>Contacto</TableHead>
-                    <TableHead>Segmento</TableHead>
-                    <TableHead>AI Score</TableHead>
-                    <TableHead>Estado</TableHead>
-                    <TableHead>Data</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {leads.map((lead) => (
-                    <TableRow 
-                      key={lead.id} 
-                      className={`cursor-pointer ${selectedLead?.id === lead.id ? "bg-muted" : ""}`}
-                      onClick={() => setSelectedLead(lead)}
-                    >
-                      <TableCell className="font-medium">{lead.name}</TableCell>
-                      <TableCell>
-                        <div className="flex flex-col gap-1 text-sm">
-                          <span className="flex items-center gap-1">
-                            <Mail className="h-3 w-3" />
-                            {lead.email}
-                          </span>
-                          {lead.phone && (
-                            <span className="flex items-center gap-1 text-muted-foreground">
-                              <Phone className="h-3 w-3" />
-                              {lead.phone}
-                            </span>
-                          )}
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        {lead.segment && <Badge variant="outline">{lead.segment}</Badge>}
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex items-center gap-2">
-                          {getScoreBadge(lead.ai_score)}
-                          {!lead.ai_score && (
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                scoreLead(lead.id);
-                              }}
-                              disabled={scoringLeadId === lead.id}
-                            >
-                              {scoringLeadId === lead.id ? (
-                                <Loader2 className="h-4 w-4 animate-spin" />
-                              ) : (
-                                <Sparkles className="h-4 w-4" />
-                              )}
-                            </Button>
-                          )}
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <Select
-                          value={lead.status || "new"}
-                          onValueChange={(v) => updateStatus(lead.id, v)}
-                        >
-                          <SelectTrigger className="w-32" onClick={(e) => e.stopPropagation()}>
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {statusOptions.map((status) => (
-                              <SelectItem key={status.value} value={status.value}>
-                                <span className="flex items-center gap-2">
-                                  <span className={`w-2 h-2 rounded-full ${status.color}`} />
-                                  {status.label}
-                                </span>
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </TableCell>
-                      <TableCell className="text-sm text-muted-foreground">
-                        {formatDate(lead.created_at)}
-                      </TableCell>
+            {/* Leads List / Kanban */}
+            <div className={viewMode === "kanban" ? "lg:col-span-3 xl:col-span-2" : "lg:col-span-2"}>
+              {viewMode === "kanban" ? (
+                <LeadsKanban
+                  leads={leads}
+                  onLeadSelect={setSelectedLead}
+                  selectedLead={selectedLead}
+                  onRefresh={fetchLeads}
+                />
+              ) : (
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Nome</TableHead>
+                      <TableHead>Contacto</TableHead>
+                      <TableHead>Segmento</TableHead>
+                      <TableHead>AI Score</TableHead>
+                      <TableHead>Estado</TableHead>
+                      <TableHead>Data</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHeader>
+                  <TableBody>
+                    {leads.map((lead) => (
+                      <TableRow 
+                        key={lead.id} 
+                        className={`cursor-pointer ${selectedLead?.id === lead.id ? "bg-muted" : ""}`}
+                        onClick={() => setSelectedLead(lead)}
+                      >
+                        <TableCell className="font-medium">{lead.name}</TableCell>
+                        <TableCell>
+                          <div className="flex flex-col gap-1 text-sm">
+                            <span className="flex items-center gap-1">
+                              <Mail className="h-3 w-3" />
+                              {lead.email}
+                            </span>
+                            {lead.phone && (
+                              <span className="flex items-center gap-1 text-muted-foreground">
+                                <Phone className="h-3 w-3" />
+                                {lead.phone}
+                              </span>
+                            )}
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          {lead.segment && <Badge variant="outline">{lead.segment}</Badge>}
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex items-center gap-2">
+                            {getScoreBadge(lead.ai_score)}
+                            {!lead.ai_score && (
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  scoreLead(lead.id);
+                                }}
+                                disabled={scoringLeadId === lead.id}
+                              >
+                                {scoringLeadId === lead.id ? (
+                                  <Loader2 className="h-4 w-4 animate-spin" />
+                                ) : (
+                                  <Sparkles className="h-4 w-4" />
+                                )}
+                              </Button>
+                            )}
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <Select
+                            value={lead.status || "new"}
+                            onValueChange={(v) => updateStatus(lead.id, v)}
+                          >
+                            <SelectTrigger className="w-32" onClick={(e) => e.stopPropagation()}>
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {statusOptions.map((status) => (
+                                <SelectItem key={status.value} value={status.value}>
+                                  <span className="flex items-center gap-2">
+                                    <span className={`w-2 h-2 rounded-full ${status.color}`} />
+                                    {status.label}
+                                  </span>
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </TableCell>
+                        <TableCell className="text-sm text-muted-foreground">
+                          {formatDate(lead.created_at)}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              )}
             </div>
 
             {/* Lead Detail */}
