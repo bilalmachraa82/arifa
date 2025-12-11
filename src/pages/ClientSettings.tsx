@@ -12,6 +12,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 import MFASetup from "@/components/auth/MFASetup";
 import { useMFA } from "@/hooks/useMFA";
+import PushNotificationSettings from "@/components/settings/PushNotificationSettings";
 
 interface Profile {
   full_name: string | null;
@@ -220,6 +221,9 @@ export default function ClientSettings() {
           ) : (
             <MFASetup mfaEnabled={mfaEnabled} onMFAChange={refreshMFAStatus} />
           )}
+
+          {/* Push Notifications Section */}
+          <PushNotificationSettings />
         </div>
       </div>
     </Layout>
