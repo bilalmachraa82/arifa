@@ -126,8 +126,22 @@ const AcceptInvitation = () => {
         })
         .eq("id", invitation.id);
 
+      // Send welcome email using Lovable AI (non-blocking)
+      supabase.functions.invoke('send-welcome-email', {
+        body: { 
+          name: invitation.name, 
+          email: invitation.email 
+        }
+      }).then(({ error: emailError }) => {
+        if (emailError) {
+          console.error('Welcome email error:', emailError);
+        } else {
+          console.log('Welcome email sent successfully');
+        }
+      });
+
       setSuccess(true);
-      toast.success("Conta criada com sucesso!");
+      toast.success("Conta criada com sucesso! Verifique o seu email.");
       
       // Redirect after a short delay
       setTimeout(() => {
