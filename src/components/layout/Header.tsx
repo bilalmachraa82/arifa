@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, LogIn, LogOut, LayoutDashboard, Shield, MessageSquare } from "lucide-react";
+import { Menu, X, LogIn, LogOut, LayoutDashboard, Shield, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { LanguageSelector } from "@/components/LanguageSelector";
@@ -157,6 +157,11 @@ export function Header() {
                   )}
                 </Link>
               </Button>
+              <Button variant="ghost" size="icon" asChild title="Definições">
+                <Link to="/dashboard/settings">
+                  <Settings className="h-4 w-4" />
+                </Link>
+              </Button>
               <Button variant="ghost" size="sm" onClick={signOut} className="gap-2">
                 <LogOut className="h-4 w-4" />
                 {t("nav.logout")}
@@ -248,6 +253,12 @@ export function Header() {
                             {unreadCount > 99 ? "99+" : unreadCount}
                           </Badge>
                         )}
+                      </Link>
+                    </Button>
+                    <Button variant="ghost" className="w-full" asChild>
+                      <Link to="/dashboard/settings" onClick={() => setMobileMenuOpen(false)}>
+                        <Settings className="h-4 w-4 mr-2" />
+                        Definições
                       </Link>
                     </Button>
                     <Button 
