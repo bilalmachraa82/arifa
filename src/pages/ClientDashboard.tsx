@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import ClientMessageForm from "@/components/client/ClientMessageForm";
+import ProjectTimeline from "@/components/client/ProjectTimeline";
 
 interface Project {
   id: string;
@@ -266,62 +267,71 @@ const ClientDashboard = () => {
                 </CardContent>
               </Card>
             ) : (
-              <div className="grid gap-6">
+              <div className="space-y-8">
                 {projects.map((project) => (
-                  <Card key={project.id} className="overflow-hidden">
-                    <div className="flex flex-col md:flex-row">
-                      {project.featured_image && (
-                        <div className="md:w-64 h-48 md:h-auto">
-                          <img
-                            src={project.featured_image}
-                            alt={project.title}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                      )}
-                      <div className="flex-1 p-6">
-                        <div className="flex items-start justify-between mb-4">
-                          <div>
-                            <Badge variant="outline" className="mb-2">
-                              {project.category}
-                            </Badge>
-                            <h3 className="text-xl font-semibold">{project.title}</h3>
+                  <div key={project.id} className="space-y-4">
+                    {/* Project Header Card */}
+                    <Card className="overflow-hidden">
+                      <div className="flex flex-col md:flex-row">
+                        {project.featured_image && (
+                          <div className="md:w-64 h-48 md:h-auto">
+                            <img
+                              src={project.featured_image}
+                              alt={project.title}
+                              className="w-full h-full object-cover"
+                            />
                           </div>
-                          {project.status && (
-                            <Badge 
-                              variant={project.status === "Concluído" ? "default" : "secondary"}
-                            >
-                              {project.status}
-                            </Badge>
-                          )}
-                        </div>
-                        
-                        {project.description && (
-                          <p className="text-muted-foreground mb-4 line-clamp-2">
-                            {project.description}
-                          </p>
                         )}
-
-                        <div className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-4">
-                          {project.location && (
-                            <span className="flex items-center gap-1">
-                              <MapPin className="h-4 w-4" />
-                              {project.location}
-                            </span>
+                        <div className="flex-1 p-6">
+                          <div className="flex items-start justify-between mb-4">
+                            <div>
+                              <Badge variant="outline" className="mb-2">
+                                {project.category}
+                              </Badge>
+                              <h3 className="text-xl font-semibold">{project.title}</h3>
+                            </div>
+                            {project.status && (
+                              <Badge 
+                                variant={project.status === "Concluído" ? "default" : "secondary"}
+                              >
+                                {project.status}
+                              </Badge>
+                            )}
+                          </div>
+                          
+                          {project.description && (
+                            <p className="text-muted-foreground mb-4 line-clamp-2">
+                              {project.description}
+                            </p>
                           )}
-                        </div>
 
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          onClick={() => navigate(`/portfolio/${project.slug}`)}
-                        >
-                          Ver Detalhes
-                          <ChevronRight className="ml-2 h-4 w-4" />
-                        </Button>
+                          <div className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-4">
+                            {project.location && (
+                              <span className="flex items-center gap-1">
+                                <MapPin className="h-4 w-4" />
+                                {project.location}
+                              </span>
+                            )}
+                          </div>
+
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => navigate(`/portfolio/${project.slug}`)}
+                          >
+                            Ver Detalhes
+                            <ChevronRight className="ml-2 h-4 w-4" />
+                          </Button>
+                        </div>
                       </div>
-                    </div>
-                  </Card>
+                    </Card>
+                    
+                    {/* Project Timeline */}
+                    <ProjectTimeline 
+                      projectStatus={project.status} 
+                      projectTitle={project.title}
+                    />
+                  </div>
                 ))}
               </div>
             )}
