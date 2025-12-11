@@ -6,6 +6,7 @@ import { MapPin, ArrowRight, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { SearchFilters } from "@/components/SearchFilters";
+import { SEO } from "@/components/SEO";
 
 interface Project {
   id: string;
@@ -78,6 +79,12 @@ export default function Portfolio() {
 
   return (
     <Layout>
+      <SEO 
+        title="Portfolio"
+        description="Explore o nosso portfolio de projetos de arquitetura e design de interiores. Residencial, corporativo, hotelaria e mais."
+        url="https://arifa.studio/portfolio"
+        keywords="portfolio arquitetura, projetos residenciais, design interiores Lisboa, arquitetura corporativa"
+      />
       {/* Hero */}
       <section className="py-24 lg:py-32 bg-arifa-warm-white">
         <div className="container-arifa">

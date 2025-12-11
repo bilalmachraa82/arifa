@@ -6,6 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
 import { z } from "zod";
+import { SEO } from "@/components/SEO";
 
 const contactSchema = z.object({
   name: z.string().trim().min(2, "Nome muito curto").max(100),
@@ -154,6 +155,12 @@ export default function Contacto() {
 
   return (
     <Layout>
+      <SEO 
+        title="Contacto"
+        description="Entre em contacto com a ARIFA Studio. Consulta inicial gratuita para o seu projeto de arquitetura ou design de interiores."
+        url="https://arifa.studio/contacto"
+        keywords="contacto arquitetura Lisboa, orçamento arquitetura, consulta arquitetura gratuita"
+      />
       {/* Hero */}
       <section className="py-24 lg:py-32 bg-arifa-warm-white">
         <div className="container-arifa">

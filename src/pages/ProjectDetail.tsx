@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight, MapPin, Calendar, Ruler, Building, ChevronLeft, 
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
+import { SEO } from "@/components/SEO";
 
 interface Project {
   id: string;
@@ -141,6 +142,13 @@ export default function ProjectDetail() {
 
   return (
     <Layout>
+      <SEO 
+        title={project.title}
+        description={project.description || `Projeto ${project.title} - ${project.category} em ${project.location || "Portugal"}`}
+        image={project.featured_image || undefined}
+        url={`https://arifa.studio/portfolio/${project.slug}`}
+        keywords={`${project.category}, arquitetura ${project.location || "Lisboa"}, ${project.title}`}
+      />
       {/* Hero */}
       <section className="py-24 lg:py-32 bg-arifa-warm-white">
         <div className="container-arifa">
