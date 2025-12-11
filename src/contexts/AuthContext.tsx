@@ -13,6 +13,18 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// Log auth events for RGPD compliance
+const logAuthEvent = async (action: 'LOGIN' | 'LOGOUT', metadata?: object) => {
+  try {
+    await supabase.rpc('log_auth_event', {
+      _action: action,
+      _metadata: metadata as Record<string, never> || {}
+    });
+  } catch (error) {
+    console.error('Error logging auth event:', error);
+  }
+};
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
@@ -25,6 +37,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setSession(session);
         setUser(session?.user ?? null);
         setLoading(false);
+
+        // Log auth events with setTimeout to avoid deadlock
+        if (event === 'SIGNED_IN' && session?.user) {
+          setTimeout(() => {
+            logAuthEvent('LOGIN', {
+              email: session.user.email,
+              provider: session.user.app_metadata?.provider || 'email',
+              timestamp: new Date().toISOString()
+            });
+          }, 0);
+        } else if (event === 'SIGNED_OUT') {
+          setTimeout(() => {
+            logAuthEvent('LOGOUT', {
+              timestamp: new Date().toISOString()
+            });
+          }, 0);
+        }
       }
     );
 
