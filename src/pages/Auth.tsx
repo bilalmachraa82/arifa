@@ -7,6 +7,8 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Mail, Lock, User } from "lucide-react";
 import { z } from "zod";
+import { checkMFARequired } from "@/hooks/useMFA";
+import MFAChallenge from "@/components/auth/MFAChallenge";
 
 const loginSchema = z.object({
   email: z.string().email("Email inválido"),
@@ -33,17 +35,19 @@ export default function Auth() {
     confirmPassword: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [mfaRequired, setMfaRequired] = useState(false);
+  const [mfaFactorId, setMfaFactorId] = useState<string | null>(null);
   
-  const { signIn, signUp, user } = useAuth();
+  const { signIn, signUp, user, signOut } = useAuth();
   const { t } = useLanguage();
   const { toast } = useToast();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) {
+    if (user && !mfaRequired) {
       navigate("/");
     }
-  }, [user, navigate]);
+  }, [user, mfaRequired, navigate]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
@@ -78,6 +82,13 @@ export default function Auth() {
             description: error.message,
             variant: "destructive",
           });
+        } else {
+          // Check if MFA is required after login
+          const mfaCheck = await checkMFARequired();
+          if (mfaCheck.required && mfaCheck.factorId) {
+            setMfaRequired(true);
+            setMfaFactorId(mfaCheck.factorId);
+          }
         }
       } else {
         const result = signupSchema.safeParse(formData);
@@ -117,6 +128,35 @@ export default function Auth() {
 
     setLoading(false);
   };
+
+  const handleMFASuccess = () => {
+    setMfaRequired(false);
+    setMfaFactorId(null);
+    navigate("/");
+  };
+
+  const handleMFACancel = async () => {
+    await signOut();
+    setMfaRequired(false);
+    setMfaFactorId(null);
+  };
+
+  // Show MFA Challenge screen
+  if (mfaRequired && mfaFactorId) {
+    return (
+      <Layout>
+        <section className="py-24 lg:py-32 bg-arifa-warm-white min-h-[calc(100vh-73px)] flex items-center">
+          <div className="container-arifa">
+            <MFAChallenge
+              factorId={mfaFactorId}
+              onSuccess={handleMFASuccess}
+              onCancel={handleMFACancel}
+            />
+          </div>
+        </section>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>

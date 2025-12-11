@@ -20,6 +20,7 @@ import Contacto from "./pages/Contacto";
 import Servicos from "./pages/Servicos";
 import Auth from "./pages/Auth";
 import ClientDashboard from "./pages/ClientDashboard";
+import ClientSettings from "./pages/ClientSettings";
 import AdminDashboard from "./pages/AdminDashboard";
 import Privacidade from "./pages/Privacidade";
 import Termos from "./pages/Termos";
@@ -54,6 +55,7 @@ const App = () => (
                 <Route path="/servicos" element={<Servicos />} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/dashboard" element={<ClientDashboard />} />
+                <Route path="/dashboard/settings" element={<ClientSettings />} />
                 <Route path="/admin" element={<AdminDashboard />} />
                 <Route path="/privacidade" element={<Privacidade />} />
                 <Route path="/termos" element={<Termos />} />
