@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Loader2, Mail, Phone, Calendar, Building2, Download } from "lucide-react";
+import { Loader2, Mail, Phone, Calendar, Building2, Download, Sparkles, TrendingUp } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface Lead {
@@ -32,6 +32,9 @@ interface Lead {
   status: string | null;
   source: string | null;
   created_at: string | null;
+  ai_score: number | null;
+  ai_score_reason: string | null;
+  ai_scored_at: string | null;
 }
 
 const statusOptions = [
@@ -47,6 +50,7 @@ const AdminLeads = () => {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
+  const [scoringLeadId, setScoringLeadId] = useState<string | null>(null);
 
   useEffect(() => {
     fetchLeads();
@@ -104,10 +108,76 @@ const AdminLeads = () => {
     );
   };
 
+  const getScoreBadge = (score: number | null) => {
+    if (score === null) return null;
+    
+    let bgColor = "bg-muted";
+    let textColor = "text-muted-foreground";
+    
+    if (score >= 80) {
+      bgColor = "bg-green-100 dark:bg-green-900/30";
+      textColor = "text-green-700 dark:text-green-400";
+    } else if (score >= 60) {
+      bgColor = "bg-yellow-100 dark:bg-yellow-900/30";
+      textColor = "text-yellow-700 dark:text-yellow-400";
+    } else if (score >= 40) {
+      bgColor = "bg-orange-100 dark:bg-orange-900/30";
+      textColor = "text-orange-700 dark:text-orange-400";
+    } else {
+      bgColor = "bg-red-100 dark:bg-red-900/30";
+      textColor = "text-red-700 dark:text-red-400";
+    }
+
+    return (
+      <Badge className={`${bgColor} ${textColor} gap-1 border-0`}>
+        <TrendingUp className="h-3 w-3" />
+        {score}
+      </Badge>
+    );
+  };
+
+  const scoreLead = async (leadId: string) => {
+    setScoringLeadId(leadId);
+    
+    try {
+      const { data, error } = await supabase.functions.invoke('score-lead', {
+        body: { leadId }
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Lead classificado",
+        description: `Score: ${data.score}/100 - ${data.reason}`,
+      });
+
+      fetchLeads();
+      
+      // Update selected lead if it's the one being scored
+      if (selectedLead?.id === leadId) {
+        setSelectedLead(prev => prev ? {
+          ...prev,
+          ai_score: data.score,
+          ai_score_reason: data.reason,
+          ai_scored_at: data.scoredAt
+        } : null);
+      }
+    } catch (error: any) {
+      console.error('Error scoring lead:', error);
+      toast({
+        title: "Erro",
+        description: error.message || "Não foi possível classificar o lead.",
+        variant: "destructive",
+      });
+    } finally {
+      setScoringLeadId(null);
+    }
+  };
+
   const exportToCSV = () => {
     if (leads.length === 0) return;
 
-    const headers = ["Nome", "Email", "Telefone", "Segmento", "Serviço", "Mensagem", "Estado", "Fonte", "Data"];
+    const headers = ["Nome", "Email", "Telefone", "Segmento", "Serviço", "Mensagem", "Estado", "AI Score", "Fonte", "Data"];
     const csvContent = [
       headers.join(";"),
       ...leads.map(lead => [
@@ -118,6 +188,7 @@ const AdminLeads = () => {
         `"${lead.service || ""}"`,
         `"${lead.message.replace(/"/g, '""').replace(/\n/g, ' ')}"`,
         `"${statusOptions.find(s => s.value === lead.status)?.label || "Novo"}"`,
+        `"${lead.ai_score || ""}"`,
         `"${lead.source || "website"}"`,
         `"${formatDate(lead.created_at)}"`
       ].join(";"))
@@ -167,6 +238,7 @@ const AdminLeads = () => {
                     <TableHead>Nome</TableHead>
                     <TableHead>Contacto</TableHead>
                     <TableHead>Segmento</TableHead>
+                    <TableHead>AI Score</TableHead>
                     <TableHead>Estado</TableHead>
                     <TableHead>Data</TableHead>
                   </TableRow>
@@ -195,6 +267,28 @@ const AdminLeads = () => {
                       </TableCell>
                       <TableCell>
                         {lead.segment && <Badge variant="outline">{lead.segment}</Badge>}
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          {getScoreBadge(lead.ai_score)}
+                          {!lead.ai_score && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                scoreLead(lead.id);
+                              }}
+                              disabled={scoringLeadId === lead.id}
+                            >
+                              {scoringLeadId === lead.id ? (
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                              ) : (
+                                <Sparkles className="h-4 w-4" />
+                              )}
+                            </Button>
+                          )}
+                        </div>
                       </TableCell>
                       <TableCell>
                         <Select
@@ -274,6 +368,36 @@ const AdminLeads = () => {
                         {selectedLead.message}
                       </p>
                     </div>
+
+                    {/* AI Score Section */}
+                    {selectedLead.ai_score ? (
+                      <div className="bg-muted/50 p-3 rounded-lg">
+                        <div className="flex items-center justify-between mb-2">
+                          <p className="text-sm font-medium flex items-center gap-2">
+                            <Sparkles className="h-4 w-4 text-primary" />
+                            AI Score
+                          </p>
+                          {getScoreBadge(selectedLead.ai_score)}
+                        </div>
+                        <p className="text-sm text-muted-foreground">
+                          {selectedLead.ai_score_reason}
+                        </p>
+                      </div>
+                    ) : (
+                      <Button
+                        variant="outline"
+                        className="w-full"
+                        onClick={() => scoreLead(selectedLead.id)}
+                        disabled={scoringLeadId === selectedLead.id}
+                      >
+                        {scoringLeadId === selectedLead.id ? (
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        ) : (
+                          <Sparkles className="mr-2 h-4 w-4" />
+                        )}
+                        Classificar com AI
+                      </Button>
+                    )}
 
                     <div className="flex gap-2 pt-2">
                       <Button size="sm" asChild>

@@ -29,10 +29,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Plus, Pencil, Trash2, Loader2, Eye } from "lucide-react";
+import { Plus, Pencil, Trash2, Loader2, Eye, Sparkles, Copy } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import FileUpload from "./FileUpload";
 import MultiImageUpload from "./MultiImageUpload";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 
 interface Project {
   id: string;
@@ -63,6 +68,8 @@ const AdminProjects = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [saving, setSaving] = useState(false);
+  const [generatingUpdate, setGeneratingUpdate] = useState<string | null>(null);
+  const [weeklyUpdate, setWeeklyUpdate] = useState<{ projectId: string; summary: string } | null>(null);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -240,6 +247,43 @@ const AdminProjects = () => {
     if (!error) {
       fetchProjects();
     }
+  };
+
+  const generateWeeklyUpdate = async (projectId: string) => {
+    setGeneratingUpdate(projectId);
+    setWeeklyUpdate(null);
+
+    try {
+      const { data, error } = await supabase.functions.invoke('generate-weekly-update', {
+        body: { projectId, language: 'pt' }
+      });
+
+      if (error) throw error;
+
+      setWeeklyUpdate({ projectId, summary: data.summary });
+      
+      toast({
+        title: "Resumo gerado",
+        description: "O resumo semanal foi gerado com sucesso.",
+      });
+    } catch (error: any) {
+      console.error('Error generating update:', error);
+      toast({
+        title: "Erro",
+        description: error.message || "Não foi possível gerar o resumo.",
+        variant: "destructive",
+      });
+    } finally {
+      setGeneratingUpdate(null);
+    }
+  };
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    toast({
+      title: "Copiado",
+      description: "Resumo copiado para a área de transferência.",
+    });
   };
 
   return (
@@ -424,44 +468,92 @@ const AdminProjects = () => {
             </TableHeader>
             <TableBody>
               {projects.map((project) => (
-                <TableRow key={project.id}>
-                  <TableCell className="font-medium">{project.title}</TableCell>
-                  <TableCell>
-                    <Badge variant="outline">{project.category}</Badge>
-                  </TableCell>
-                  <TableCell>{project.status}</TableCell>
-                  <TableCell>
-                    <Switch
-                      checked={project.is_published || false}
-                      onCheckedChange={() => togglePublished(project)}
-                    />
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-2">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => window.open(`/portfolio/${project.slug}`, "_blank")}
-                      >
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => handleEdit(project)}
-                      >
-                        <Pencil className="h-4 w-4" />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => handleDelete(project.id)}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </TableCell>
-                </TableRow>
+                <Collapsible key={project.id}>
+                  <TableRow>
+                    <TableCell className="font-medium">{project.title}</TableCell>
+                    <TableCell>
+                      <Badge variant="outline">{project.category}</Badge>
+                    </TableCell>
+                    <TableCell>{project.status}</TableCell>
+                    <TableCell>
+                      <Switch
+                        checked={project.is_published || false}
+                        onCheckedChange={() => togglePublished(project)}
+                      />
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <div className="flex justify-end gap-2">
+                        <CollapsibleTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => generateWeeklyUpdate(project.id)}
+                            disabled={generatingUpdate === project.id}
+                            title="Gerar resumo AI"
+                          >
+                            {generatingUpdate === project.id ? (
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                            ) : (
+                              <Sparkles className="h-4 w-4" />
+                            )}
+                          </Button>
+                        </CollapsibleTrigger>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => window.open(`/portfolio/${project.slug}`, "_blank")}
+                        >
+                          <Eye className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleEdit(project)}
+                        >
+                          <Pencil className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleDelete(project.id)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                  <CollapsibleContent asChild>
+                    <TableRow>
+                      <TableCell colSpan={5} className="bg-muted/30 p-4">
+                        {weeklyUpdate?.projectId === project.id ? (
+                          <div className="space-y-3">
+                            <div className="flex items-center justify-between">
+                              <p className="text-sm font-medium flex items-center gap-2">
+                                <Sparkles className="h-4 w-4 text-primary" />
+                                Resumo Semanal AI
+                              </p>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => copyToClipboard(weeklyUpdate.summary)}
+                              >
+                                <Copy className="h-4 w-4 mr-2" />
+                                Copiar
+                              </Button>
+                            </div>
+                            <p className="text-sm text-muted-foreground whitespace-pre-wrap bg-background p-4 rounded-lg border">
+                              {weeklyUpdate.summary}
+                            </p>
+                          </div>
+                        ) : (
+                          <p className="text-sm text-muted-foreground">
+                            Clique no botão ✨ para gerar um resumo semanal com AI.
+                          </p>
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  </CollapsibleContent>
+                </Collapsible>
               ))}
             </TableBody>
           </Table>
