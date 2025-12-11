@@ -14,6 +14,57 @@ export type Database = {
   }
   public: {
     Tables: {
+      audit_logs: {
+        Row: {
+          action: Database["public"]["Enums"]["audit_action"]
+          changed_fields: string[] | null
+          created_at: string
+          id: string
+          ip_address: string | null
+          metadata: Json | null
+          new_values: Json | null
+          old_values: Json | null
+          record_id: string | null
+          session_id: string | null
+          table_name: string
+          user_agent: string | null
+          user_email: string | null
+          user_id: string | null
+        }
+        Insert: {
+          action: Database["public"]["Enums"]["audit_action"]
+          changed_fields?: string[] | null
+          created_at?: string
+          id?: string
+          ip_address?: string | null
+          metadata?: Json | null
+          new_values?: Json | null
+          old_values?: Json | null
+          record_id?: string | null
+          session_id?: string | null
+          table_name: string
+          user_agent?: string | null
+          user_email?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          action?: Database["public"]["Enums"]["audit_action"]
+          changed_fields?: string[] | null
+          created_at?: string
+          id?: string
+          ip_address?: string | null
+          metadata?: Json | null
+          new_values?: Json | null
+          old_values?: Json | null
+          record_id?: string | null
+          session_id?: string | null
+          table_name?: string
+          user_agent?: string | null
+          user_email?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       blog_posts: {
         Row: {
           author_id: string | null
@@ -454,10 +505,18 @@ export type Database = {
         }
         Returns: boolean
       }
+      log_auth_event: {
+        Args: {
+          _action: Database["public"]["Enums"]["audit_action"]
+          _metadata?: Json
+        }
+        Returns: undefined
+      }
       promote_to_admin: { Args: { _email: string }; Returns: undefined }
     }
     Enums: {
       app_role: "admin" | "client" | "investor"
+      audit_action: "INSERT" | "UPDATE" | "DELETE" | "LOGIN" | "LOGOUT"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -586,6 +645,7 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "client", "investor"],
+      audit_action: ["INSERT", "UPDATE", "DELETE", "LOGIN", "LOGOUT"],
     },
   },
 } as const

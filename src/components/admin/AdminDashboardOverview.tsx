@@ -10,7 +10,9 @@ import {
   CheckCircle2, 
   Clock, 
   AlertCircle,
-  Building2
+  Building2,
+  History,
+  Shield
 } from "lucide-react";
 import {
   ChartContainer,
@@ -41,6 +43,8 @@ interface DashboardMetrics {
   conversionRate: number;
   recentLeads: number;
   totalClients: number;
+  todayAuditActions: number;
+  recentAuditActions: { action: string; count: number }[];
 }
 
 const statusColors: Record<string, string> = {
@@ -107,6 +111,17 @@ const AdminDashboardOverview = () => {
 
       if (clientsError) throw clientsError;
 
+      // Fetch audit logs for today
+      const todayStart = new Date();
+      todayStart.setHours(0, 0, 0, 0);
+      
+      const { data: auditLogs, error: auditError } = await supabase
+        .from("audit_logs")
+        .select("action, created_at")
+        .gte("created_at", todayStart.toISOString());
+
+      if (auditError) throw auditError;
+
       // Process projects by status
       const projectStatusCounts: Record<string, number> = {};
       projects?.forEach((p) => {
@@ -157,6 +172,17 @@ const AdminDashboardOverview = () => {
         (l) => new Date(l.created_at || "") > sevenDaysAgo
       ).length || 0;
 
+      // Process audit actions
+      const auditActionCounts: Record<string, number> = {};
+      auditLogs?.forEach((log) => {
+        const action = log.action || "unknown";
+        auditActionCounts[action] = (auditActionCounts[action] || 0) + 1;
+      });
+
+      const recentAuditActions = Object.entries(auditActionCounts).map(
+        ([action, count]) => ({ action, count })
+      );
+
       setMetrics({
         totalProjects: projects?.length || 0,
         publishedProjects: projects?.filter((p) => p.is_published).length || 0,
@@ -167,6 +193,8 @@ const AdminDashboardOverview = () => {
         conversionRate,
         recentLeads,
         totalClients: clients?.length || 0,
+        todayAuditActions: auditLogs?.length || 0,
+        recentAuditActions,
       });
     } catch (error) {
       console.error("Error fetching metrics:", error);
@@ -283,6 +311,25 @@ const AdminDashboardOverview = () => {
               </div>
               <div className="h-12 w-12 rounded-full bg-[hsl(43,74%,49%)]/10 flex items-center justify-center">
                 <Users className="h-6 w-6 text-[hsl(43,74%,49%)]" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-l-4 border-l-[hsl(220,70%,55%)]">
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">
+                  Ações Hoje
+                </p>
+                <p className="text-3xl font-bold">{metrics.todayAuditActions}</p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Registos de auditoria
+                </p>
+              </div>
+              <div className="h-12 w-12 rounded-full bg-[hsl(220,70%,55%)]/10 flex items-center justify-center">
+                <History className="h-6 w-6 text-[hsl(220,70%,55%)]" />
               </div>
             </div>
           </CardContent>
