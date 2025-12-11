@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, LogIn, LogOut, LayoutDashboard, Shield } from "lucide-react";
+import { Menu, X, LogIn, LogOut, LayoutDashboard, Shield, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -13,6 +14,7 @@ import { cn } from "@/lib/utils";
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
   const location = useLocation();
   const { t } = useLanguage();
   const { user, signOut } = useAuth();
@@ -27,6 +29,53 @@ export function Header() {
       setIsAdmin(data === true);
     };
     checkAdminRole();
+  }, [user]);
+
+  // Fetch unread messages count
+  useEffect(() => {
+    if (!user) {
+      setUnreadCount(0);
+      return;
+    }
+
+    const fetchUnreadCount = async () => {
+      const isAdminUser = await supabase.rpc("has_role", { _user_id: user.id, _role: "admin" });
+      
+      let query = supabase
+        .from("client_messages")
+        .select("id", { count: "exact", head: true })
+        .eq("is_read", false);
+
+      // Admins see all unread, clients see their own
+      if (!isAdminUser.data) {
+        query = query.eq("client_id", user.id);
+      }
+
+      const { count } = await query;
+      setUnreadCount(count || 0);
+    };
+
+    fetchUnreadCount();
+
+    // Realtime subscription for new messages
+    const channel = supabase
+      .channel("header-messages")
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "client_messages",
+        },
+        () => {
+          fetchUnreadCount();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, [user]);
 
   const navigation = [
@@ -84,17 +133,27 @@ export function Header() {
           {user ? (
             <>
               {isAdmin && (
-                <Button variant="ghost" size="sm" asChild className="gap-2">
+                <Button variant="ghost" size="sm" asChild className="gap-2 relative">
                   <Link to="/admin">
                     <Shield className="h-4 w-4" />
                     Admin
+                    {unreadCount > 0 && (
+                      <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 min-w-5 px-1 text-xs">
+                        {unreadCount > 99 ? "99+" : unreadCount}
+                      </Badge>
+                    )}
                   </Link>
                 </Button>
               )}
-              <Button variant="ghost" size="sm" asChild className="gap-2">
+              <Button variant="ghost" size="sm" asChild className="gap-2 relative">
                 <Link to="/dashboard">
                   <LayoutDashboard className="h-4 w-4" />
                   Área Cliente
+                  {!isAdmin && unreadCount > 0 && (
+                    <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 min-w-5 px-1 text-xs">
+                      {unreadCount > 99 ? "99+" : unreadCount}
+                    </Badge>
+                  )}
                 </Link>
               </Button>
               <Button variant="ghost" size="sm" onClick={signOut} className="gap-2">
@@ -167,17 +226,27 @@ export function Header() {
                 {user ? (
                   <>
                     {isAdmin && (
-                      <Button variant="default" className="w-full" asChild>
+                      <Button variant="default" className="w-full relative" asChild>
                         <Link to="/admin" onClick={() => setMobileMenuOpen(false)}>
                           <Shield className="h-4 w-4 mr-2" />
                           Admin
+                          {unreadCount > 0 && (
+                            <Badge variant="secondary" className="ml-2 h-5 min-w-5 px-1 text-xs">
+                              {unreadCount > 99 ? "99+" : unreadCount}
+                            </Badge>
+                          )}
                         </Link>
                       </Button>
                     )}
-                    <Button variant="outline" className="w-full" asChild>
+                    <Button variant="outline" className="w-full relative" asChild>
                       <Link to="/dashboard" onClick={() => setMobileMenuOpen(false)}>
                         <LayoutDashboard className="h-4 w-4 mr-2" />
                         Área Cliente
+                        {!isAdmin && unreadCount > 0 && (
+                          <Badge variant="destructive" className="ml-2 h-5 min-w-5 px-1 text-xs">
+                            {unreadCount > 99 ? "99+" : unreadCount}
+                          </Badge>
+                        )}
                       </Link>
                     </Button>
                     <Button 
