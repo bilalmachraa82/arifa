@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Loader2, Mail, Phone, Calendar, Building2 } from "lucide-react";
+import { Loader2, Mail, Phone, Calendar, Building2, Download } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface Lead {
@@ -104,10 +104,49 @@ const AdminLeads = () => {
     );
   };
 
+  const exportToCSV = () => {
+    if (leads.length === 0) return;
+
+    const headers = ["Nome", "Email", "Telefone", "Segmento", "Serviço", "Mensagem", "Estado", "Fonte", "Data"];
+    const csvContent = [
+      headers.join(";"),
+      ...leads.map(lead => [
+        `"${lead.name}"`,
+        `"${lead.email}"`,
+        `"${lead.phone || ""}"`,
+        `"${lead.segment || ""}"`,
+        `"${lead.service || ""}"`,
+        `"${lead.message.replace(/"/g, '""').replace(/\n/g, ' ')}"`,
+        `"${statusOptions.find(s => s.value === lead.status)?.label || "Novo"}"`,
+        `"${lead.source || "website"}"`,
+        `"${formatDate(lead.created_at)}"`
+      ].join(";"))
+    ].join("\n");
+
+    const blob = new Blob(["\ufeff" + csvContent], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", `leads_arifa_${new Date().toISOString().split("T")[0]}.csv`);
+    link.style.visibility = "hidden";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    toast({
+      title: "Exportação concluída",
+      description: `${leads.length} leads exportados para CSV.`,
+    });
+  };
+
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle>Leads / Contactos</CardTitle>
+        <Button variant="outline" size="sm" onClick={exportToCSV} disabled={leads.length === 0}>
+          <Download className="h-4 w-4 mr-2" />
+          Exportar CSV
+        </Button>
       </CardHeader>
       <CardContent>
         {loading ? (

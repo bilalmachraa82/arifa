@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowLeft, Calendar, Clock, Share2, Facebook, Twitter, Linkedin, Copy, Check } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { SEO } from "@/components/SEO";
 
 interface BlogPost {
   id: string;
@@ -154,6 +155,14 @@ const BlogPost = () => {
 
   return (
     <Layout>
+      <SEO 
+        title={post.title}
+        description={post.excerpt || `Leia o artigo "${post.title}" no blog da ARIFA Studio.`}
+        image={post.featured_image || undefined}
+        url={`https://arifa.studio/blog/${post.slug}`}
+        type="article"
+        publishedTime={post.published_at || undefined}
+      />
       {/* Header */}
       <section className="bg-muted/30 py-12">
         <div className="container mx-auto px-4">

@@ -6,6 +6,7 @@ import { ArrowRight, Calendar, Clock, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { SearchFilters } from "@/components/SearchFilters";
+import { SEO } from "@/components/SEO";
 
 interface BlogPost {
   id: string;
@@ -114,6 +115,12 @@ export default function Blog() {
 
   return (
     <Layout>
+      <SEO 
+        title="Blog"
+        description="Artigos, guias e dicas sobre arquitetura, design de interiores e investimento imobiliário. Inspiração para o seu próximo projeto."
+        url="https://arifa.studio/blog"
+        keywords="blog arquitetura, dicas design interiores, tendências arquitetura, investimento imobiliário"
+      />
       {/* Hero */}
       <section className="py-24 lg:py-32 bg-arifa-warm-white">
         <div className="container-arifa">

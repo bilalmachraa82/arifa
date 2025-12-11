@@ -15,6 +15,7 @@ import {
   Target
 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { SEO } from "@/components/SEO";
 
 const services = [
   {
@@ -210,6 +211,15 @@ export default function Servicos() {
 
   return (
     <Layout>
+      <SEO 
+        title={isPt ? "Serviços" : "Services"}
+        description={isPt 
+          ? "Serviços completos de arquitetura: consultoria, design, BIM, simulações, gestão de construção e sustentabilidade."
+          : "Complete architecture services: consulting, design, BIM, simulations, construction management and sustainability."
+        }
+        url="https://arifa.studio/servicos"
+        keywords="serviços arquitetura, consultoria arquitetura, BIM, design interiores, gestão construção, sustentabilidade"
+      />
       {/* Hero */}
       <section className="relative py-24 lg:py-32 bg-gradient-to-b from-arifa-warm-white to-background">
         <div className="container-arifa">
