@@ -20,8 +20,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Loader2, Send, MessageSquare, Clock, User } from "lucide-react";
+import { Loader2, Send, MessageSquare, Clock, User, Paperclip } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { 
+  MessageAttachmentUpload, 
+  MessageAttachmentDisplay, 
+  Attachment 
+} from "@/components/chat/MessageAttachments";
 
 interface Message {
   id: string;
@@ -32,6 +37,7 @@ interface Message {
   content: string;
   is_read: boolean | null;
   created_at: string | null;
+  attachments: Attachment[] | null;
 }
 
 interface Client {
@@ -54,6 +60,7 @@ const AdminMessages = () => {
     subject: "",
     content: "",
   });
+  const [replyAttachments, setReplyAttachments] = useState<Attachment[]>([]);
 
   useEffect(() => {
     fetchData();
@@ -70,7 +77,12 @@ const AdminMessages = () => {
         .select("id, full_name, email"),
     ]);
 
-    setMessages(messagesRes.data || []);
+    const messagesWithAttachments = (messagesRes.data || []).map((msg) => ({
+      ...msg,
+      attachments: Array.isArray(msg.attachments) ? (msg.attachments as unknown as Attachment[]) : [],
+    }));
+    
+    setMessages(messagesWithAttachments);
     setClients(clientsRes.data || []);
     setLoading(false);
   };
@@ -101,6 +113,7 @@ const AdminMessages = () => {
       subject: `Re: ${message.subject}`,
       content: "",
     });
+    setReplyAttachments([]);
     setReplyDialogOpen(true);
   };
 
@@ -117,6 +130,7 @@ const AdminMessages = () => {
       subject: replyData.subject.trim(),
       content: replyData.content.trim(),
       is_read: false,
+      attachments: JSON.parse(JSON.stringify(replyAttachments)),
     });
 
     if (error) {
@@ -132,6 +146,7 @@ const AdminMessages = () => {
       });
       setReplyDialogOpen(false);
       setReplyData({ subject: "", content: "" });
+      setReplyAttachments([]);
       fetchData();
     }
     setSending(false);
@@ -228,15 +243,21 @@ const AdminMessages = () => {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="prose prose-sm max-w-none mb-6">
+                    <div className="prose prose-sm max-w-none">
                       <p className="whitespace-pre-wrap">{selectedMessage.content}</p>
                     </div>
                     
+                    {selectedMessage.attachments && selectedMessage.attachments.length > 0 && (
+                      <MessageAttachmentDisplay attachments={selectedMessage.attachments} />
+                    )}
+                    
                     {selectedMessage.sender_id !== user?.id && (
-                      <Button onClick={() => handleReply(selectedMessage)}>
-                        <Send className="mr-2 h-4 w-4" />
-                        Responder
-                      </Button>
+                      <div className="mt-6 pt-4 border-t">
+                        <Button onClick={() => handleReply(selectedMessage)}>
+                          <Send className="mr-2 h-4 w-4" />
+                          Responder
+                        </Button>
+                      </div>
                     )}
                   </CardContent>
                 </Card>
@@ -278,6 +299,10 @@ const AdminMessages = () => {
                   required
                 />
               </div>
+              <MessageAttachmentUpload
+                attachments={replyAttachments}
+                onAttachmentsChange={setReplyAttachments}
+              />
               <div className="flex justify-end gap-3">
                 <Button type="button" variant="outline" onClick={() => setReplyDialogOpen(false)}>
                   Cancelar

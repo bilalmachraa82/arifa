@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/select";
 import { Loader2, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { MessageAttachmentUpload, Attachment } from "@/components/chat/MessageAttachments";
 
 interface Project {
   id: string;
@@ -50,9 +51,19 @@ const ClientMessageForm = ({
   const { user } = useAuth();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
-  const [subject, setSubject] = useState(replyTo ? `Re: ${replyTo.subject}` : "");
+  const [subject, setSubject] = useState("");
   const [content, setContent] = useState("");
   const [projectId, setProjectId] = useState<string>("");
+  const [attachments, setAttachments] = useState<Attachment[]>([]);
+
+  useEffect(() => {
+    if (open) {
+      setSubject(replyTo ? `Re: ${replyTo.subject}` : "");
+      setContent("");
+      setProjectId("");
+      setAttachments([]);
+    }
+  }, [open, replyTo]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -68,6 +79,7 @@ const ClientMessageForm = ({
         subject: subject.trim(),
         content: content.trim(),
         project_id: projectId || null,
+        attachments: JSON.parse(JSON.stringify(attachments)),
       });
 
       if (error) throw error;
@@ -75,6 +87,7 @@ const ClientMessageForm = ({
       setSubject("");
       setContent("");
       setProjectId("");
+      setAttachments([]);
       onOpenChange(false);
       onSuccess();
     } catch (error) {
@@ -143,6 +156,11 @@ const ClientMessageForm = ({
               required
             />
           </div>
+
+          <MessageAttachmentUpload
+            attachments={attachments}
+            onAttachmentsChange={setAttachments}
+          />
 
           <div className="flex justify-end gap-3">
             <Button
