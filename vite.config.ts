@@ -15,7 +15,13 @@ export default defineConfig(({ mode }) => ({
     mode === "development" && componentTagger(),
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: ["favicon.ico", "apple-touch-icon.png", "pwa-192x192.png", "pwa-512x512.png"],
+      includeAssets: [
+        "favicon.ico", 
+        "apple-touch-icon.png", 
+        "pwa-192x192.png", 
+        "pwa-512x512.png",
+        "offline.html"
+      ],
       manifest: {
         name: "ARIFA Studio",
         short_name: "ARIFA",
@@ -26,6 +32,9 @@ export default defineConfig(({ mode }) => ({
         orientation: "portrait",
         scope: "/",
         start_url: "/",
+        categories: ["business", "productivity"],
+        lang: "pt-PT",
+        dir: "ltr",
         icons: [
           {
             src: "pwa-192x192.png",
@@ -44,10 +53,71 @@ export default defineConfig(({ mode }) => ({
             purpose: "maskable",
           },
         ],
+        shortcuts: [
+          {
+            name: "Portfolio",
+            short_name: "Portfolio",
+            url: "/portfolio",
+            icons: [{ src: "pwa-192x192.png", sizes: "192x192" }]
+          },
+          {
+            name: "Contacto",
+            short_name: "Contacto",
+            url: "/contacto",
+            icons: [{ src: "pwa-192x192.png", sizes: "192x192" }]
+          }
+        ]
       },
       workbox: {
-        globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2}"],
+        globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2,woff,ttf}"],
+        navigateFallback: "/offline.html",
+        navigateFallbackDenylist: [/^\/api/, /^\/supabase/],
+        cleanupOutdatedCaches: true,
+        skipWaiting: true,
+        clientsClaim: true,
         runtimeCaching: [
+          // Static assets - Cache First
+          {
+            urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp|avif)$/i,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "static-images",
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          // Google Fonts
+          {
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "google-fonts-stylesheets",
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
+              },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "google-fonts-webfonts",
+              expiration: {
+                maxEntries: 30,
+                maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          // Unsplash images
           {
             urlPattern: /^https:\/\/images\.unsplash\.com\/.*/i,
             handler: "CacheFirst",
@@ -55,22 +125,62 @@ export default defineConfig(({ mode }) => ({
               cacheName: "unsplash-images",
               expiration: {
                 maxEntries: 50,
-                maxAgeSeconds: 60 * 60 * 24 * 30,
+                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
               },
             },
           },
+          // Supabase Storage
+          {
+            urlPattern: /^https:\/\/.*supabase.*\/storage\/.*/i,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "supabase-storage",
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 60 * 60 * 24 * 7, // 7 days
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          // Supabase API - Network First with fallback
           {
             urlPattern: /^https:\/\/.*supabase.*\/rest\/v1\/.*/i,
             handler: "NetworkFirst",
             options: {
-              cacheName: "api-cache",
+              cacheName: "supabase-api",
+              networkTimeoutSeconds: 10,
               expiration: {
                 maxEntries: 50,
-                maxAgeSeconds: 60 * 5,
+                maxAgeSeconds: 60 * 5, // 5 minutes
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          // Edge Functions - Network Only
+          {
+            urlPattern: /^https:\/\/.*supabase.*\/functions\/.*/i,
+            handler: "NetworkOnly",
+            options: {
+              backgroundSync: {
+                name: "edge-functions-queue",
+                options: {
+                  maxRetentionTime: 24 * 60, // 24 hours
+                },
               },
             },
           },
         ],
+      },
+      devOptions: {
+        enabled: false, // Enable for development testing
+        type: "module",
       },
     }),
   ].filter(Boolean),
