@@ -225,16 +225,16 @@ export default function Servicos() {
         ]}
       />
       {/* Hero */}
-      <section className="relative py-24 lg:py-32 bg-gradient-to-b from-arifa-warm-white to-background">
+      <section className="relative py-24 lg:py-32 bg-gradient-to-b from-card to-background">
         <div className="container-arifa">
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <div className="space-y-4">
               <p className="text-sm font-medium tracking-[0.3em] text-arifa-coral uppercase">
                 {isPt ? "Serviços" : "Services"}
               </p>
-              <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-light leading-tight text-foreground">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight text-foreground">
                 {isPt ? "Soluções completas para " : "Complete solutions for "}
-                <span className="italic text-arifa-coral">
+                <span className="text-arifa-coral">
                   {isPt ? "arquitetura" : "architecture"}
                 </span>
               </h1>
@@ -279,7 +279,7 @@ export default function Servicos() {
                     <div className="w-14 h-14 rounded-full bg-arifa-coral/10 flex items-center justify-center">
                       <service.icon className="h-6 w-6 text-arifa-coral" />
                     </div>
-                    <h2 className="font-display text-3xl md:text-4xl font-light text-foreground">
+                    <h2 className="text-3xl md:text-4xl font-bold text-foreground">
                       {isPt ? service.titlePt : service.titleEn}
                     </h2>
                   </div>
@@ -317,13 +317,13 @@ export default function Servicos() {
       </section>
 
       {/* Process */}
-      <section className="py-24 lg:py-32 bg-arifa-cream">
+      <section className="py-24 lg:py-32 bg-card">
         <div className="container-arifa">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <p className="text-sm font-medium tracking-[0.3em] text-arifa-coral uppercase mb-4">
               {isPt ? "Como Trabalhamos" : "How We Work"}
             </p>
-            <h2 className="font-display text-4xl md:text-5xl font-light text-foreground">
+            <h2 className="text-4xl md:text-5xl font-extrabold text-foreground">
               {isPt ? "O nosso processo" : "Our process"}
             </h2>
           </div>
@@ -334,7 +334,7 @@ export default function Servicos() {
                 <div className="w-16 h-16 rounded-full bg-arifa-coral/10 flex items-center justify-center mx-auto">
                   <step.iconPt className="h-7 w-7 text-arifa-coral" />
                 </div>
-                <h3 className="font-display text-xl font-medium text-foreground">
+                <h3 className="text-xl font-bold text-foreground">
                   {isPt ? step.titlePt : step.titleEn}
                 </h3>
                 <p className="text-sm text-muted-foreground">
@@ -347,13 +347,13 @@ export default function Servicos() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 lg:py-32 bg-arifa-charcoal text-primary-foreground">
+      <section className="py-24 lg:py-32 bg-foreground text-background">
         <div className="container-arifa text-center max-w-3xl mx-auto">
-          <h2 className="font-display text-4xl md:text-5xl font-light mb-6">
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-6">
             {isPt ? "Pronto para começar?" : "Ready to start?"}
           </h2>
-          <p className="text-lg text-primary-foreground/70 mb-8">
-            {isPt 
+          <p className="text-lg text-background/70 mb-8">
+            {isPt
               ? "A primeira consulta é gratuita e sem compromisso. Vamos conversar sobre como podemos ajudar no seu projeto."
               : "The first consultation is free and without obligation. Let's talk about how we can help with your project."
             }
@@ -365,7 +365,7 @@ export default function Servicos() {
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-            <Button variant="outline" size="lg" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
+            <Button variant="outline" size="lg" className="border-background/30 text-background hover:bg-background/10" asChild>
               <a href="tel:+351912345678">
                 {isPt ? "Ligar Agora" : "Call Now"}
               </a>

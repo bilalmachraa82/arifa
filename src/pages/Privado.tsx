@@ -40,14 +40,14 @@ export default function Privado() {
           { name: isPt ? "Clientes Privados" : "Private Clients", url: "https://arifa.studio/privado" }
         ]}
       />
-      <section className="relative py-24 lg:py-32 bg-arifa-warm-white">
+      <section className="relative py-24 lg:py-32 bg-card">
         <div className="container-arifa">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div className="space-y-8">
               <div className="space-y-4">
-                <p className="text-sm font-medium tracking-[0.3em] text-arifa-teal uppercase">{t("private.subtitle")}</p>
-                <h1 className="font-display text-5xl md:text-6xl font-light leading-tight text-foreground">
-                  {t("private.title")} <span className="italic text-arifa-teal">{t("private.titleHighlight")}</span>
+                <p className="text-sm font-medium tracking-[0.3em] text-accent uppercase">{t("private.subtitle")}</p>
+                <h1 className="text-5xl md:text-6xl font-extrabold leading-tight text-foreground">
+                  {t("private.title")} <span className="text-accent">{t("private.titleHighlight")}</span>
                 </h1>
               </div>
               <p className="text-lg text-muted-foreground leading-relaxed max-w-lg">{t("private.description")}</p>
@@ -69,14 +69,14 @@ export default function Privado() {
       <section className="py-24 lg:py-32 bg-background">
         <div className="container-arifa">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <p className="text-sm font-medium tracking-[0.3em] text-arifa-teal uppercase mb-4">{t("private.services.subtitle")}</p>
-            <h2 className="font-display text-4xl md:text-5xl font-light text-foreground">{t("private.services.title")}</h2>
+            <p className="text-sm font-medium tracking-[0.3em] text-accent uppercase mb-4">{t("private.services.subtitle")}</p>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-foreground">{t("private.services.title")}</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {services.map((service) => (
               <div key={service.title} className="bg-card border border-border rounded-sm p-8 hover:shadow-card transition-shadow">
-                <div className="w-14 h-14 rounded-full bg-arifa-teal/10 flex items-center justify-center mb-6"><service.icon className="h-6 w-6 text-arifa-teal" /></div>
-                <h3 className="font-display text-2xl font-medium text-foreground mb-4">{service.title}</h3>
+                <div className="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center mb-6"><service.icon className="h-6 w-6 text-accent" /></div>
+                <h3 className="text-2xl font-bold text-foreground mb-4">{service.title}</h3>
                 <p className="text-muted-foreground leading-relaxed">{service.description}</p>
               </div>
             ))}
@@ -84,17 +84,17 @@ export default function Privado() {
         </div>
       </section>
 
-      <section className="py-24 lg:py-32 bg-arifa-cream">
+      <section className="py-24 lg:py-32 bg-card">
         <div className="container-arifa">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <p className="text-sm font-medium tracking-[0.3em] text-arifa-teal uppercase mb-4">{t("private.process.subtitle")}</p>
-            <h2 className="font-display text-4xl md:text-5xl font-light text-foreground">{t("private.process.title")}</h2>
+            <p className="text-sm font-medium tracking-[0.3em] text-accent uppercase mb-4">{t("private.process.subtitle")}</p>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-foreground">{t("private.process.title")}</h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {process.map((item, index) => (
               <div key={item.step} className="relative">
-                <div className="text-6xl font-display font-light text-arifa-teal/20 mb-4">{item.step}</div>
-                <h3 className="font-display text-xl font-medium text-foreground mb-2">{item.title}</h3>
+                <div className="text-6xl font-extrabold text-accent/20 mb-4">{item.step}</div>
+                <h3 className="text-xl font-bold text-foreground mb-2">{item.title}</h3>
                 <p className="text-sm text-muted-foreground">{item.description}</p>
                 {index < process.length - 1 && <div className="hidden lg:block absolute top-8 left-full w-full h-px bg-border -translate-x-1/2" />}
               </div>
@@ -107,10 +107,10 @@ export default function Privado() {
       <SegmentTestimonials segment="privado" />
       <LeadMagnetSection segment="privado" />
 
-      <section className="py-24 lg:py-32 bg-arifa-charcoal text-primary-foreground">
+      <section className="py-24 lg:py-32 bg-foreground text-background">
         <div className="container-arifa text-center max-w-3xl mx-auto">
-          <h2 className="font-display text-4xl md:text-5xl font-light mb-6">{t("private.cta2.title")}</h2>
-          <p className="text-lg text-primary-foreground/70 mb-8">{t("private.cta2.description")}</p>
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-6">{t("private.cta2.title")}</h2>
+          <p className="text-lg text-background/70 mb-8">{t("private.cta2.description")}</p>
           <Button variant="accent" size="lg" asChild>
             <Link to="/contacto">{t("private.cta2.button")}<ArrowRight className="ml-2 h-4 w-4" /></Link>
           </Button>

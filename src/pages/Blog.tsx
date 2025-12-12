@@ -139,13 +139,13 @@ export default function Blog() {
         ]}
       />
       {/* Hero */}
-      <section className="py-24 lg:py-32 bg-arifa-warm-white">
+      <section className="py-24 lg:py-32 bg-card">
         <div className="container-arifa">
           <div className="max-w-3xl">
-            <p className="text-sm font-medium tracking-[0.3em] text-arifa-teal uppercase mb-4">
+            <p className="text-sm font-medium tracking-[0.3em] text-accent uppercase mb-4">
               Blog
             </p>
-            <h1 className="font-display text-5xl md:text-6xl font-light leading-tight text-foreground mb-6">
+            <h1 className="text-5xl md:text-6xl font-extrabold leading-tight text-foreground mb-6">
               Ideias e inspiração
             </h1>
             <p className="text-lg text-muted-foreground">
@@ -172,7 +172,7 @@ export default function Blog() {
       {loading ? (
         <section className="py-24 bg-background">
           <div className="container-arifa flex items-center justify-center">
-            <Loader2 className="h-8 w-8 animate-spin text-arifa-teal" />
+            <Loader2 className="h-8 w-8 animate-spin text-accent" />
           </div>
         </section>
       ) : filteredPosts.length === 0 ? (
@@ -224,7 +224,7 @@ export default function Blog() {
                     <div className="space-y-6">
                       <div className="flex items-center gap-4 text-sm text-muted-foreground">
                         {featuredPost.category && (
-                          <span className="px-3 py-1 bg-arifa-teal/10 text-arifa-teal rounded-sm text-xs font-medium">
+                          <span className="px-3 py-1 bg-accent/10 text-accent rounded-sm text-xs font-medium">
                             {featuredPost.category}
                           </span>
                         )}
@@ -239,7 +239,7 @@ export default function Blog() {
                           </span>
                         )}
                       </div>
-                      <h2 className="font-display text-3xl md:text-4xl font-medium text-foreground group-hover:text-arifa-teal transition-colors">
+                      <h2 className="text-3xl md:text-4xl font-bold text-foreground group-hover:text-accent transition-colors">
                         {featuredPost.title}
                       </h2>
                       {featuredPost.excerpt && (
@@ -260,9 +260,9 @@ export default function Blog() {
 
           {/* Posts Grid */}
           {otherPosts.length > 0 && (
-            <section className="py-16 lg:py-24 bg-arifa-cream">
+            <section className="py-16 lg:py-24 bg-background">
               <div className="container-arifa">
-                <h2 className="font-display text-3xl font-light text-foreground mb-12">
+                <h2 className="text-3xl font-bold text-foreground mb-12">
                   Artigos recentes
                 </h2>
                 
@@ -283,13 +283,13 @@ export default function Blog() {
                       <div className="p-6 space-y-4">
                         <div className="flex items-center gap-4 text-xs text-muted-foreground">
                           {post.category && (
-                            <span className="px-2 py-1 bg-arifa-teal/10 text-arifa-teal rounded-sm font-medium">
+                            <span className="px-2 py-1 bg-accent/10 text-accent rounded-sm font-medium">
                               {post.category}
                             </span>
                           )}
                           {post.read_time && <span>{post.read_time}</span>}
                         </div>
-                        <h3 className="font-display text-xl font-medium text-foreground group-hover:text-arifa-teal transition-colors line-clamp-2">
+                        <h3 className="text-xl font-bold text-foreground group-hover:text-accent transition-colors line-clamp-2">
                           {post.title}
                         </h3>
                         {post.excerpt && (
@@ -299,7 +299,7 @@ export default function Blog() {
                         )}
                         <div className="flex items-center justify-between pt-4 border-t border-border">
                           <span className="text-xs text-muted-foreground">{formatDate(post.published_at)}</span>
-                          <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-arifa-teal transition-colors" />
+                          <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-accent transition-colors" />
                         </div>
                       </div>
                     </Link>
@@ -312,12 +312,12 @@ export default function Blog() {
       )}
 
       {/* Newsletter */}
-      <section className="py-24 lg:py-32 bg-arifa-charcoal text-primary-foreground">
+      <section className="py-24 lg:py-32 bg-foreground text-background">
         <div className="container-arifa text-center max-w-2xl mx-auto">
-          <h2 className="font-display text-4xl md:text-5xl font-light mb-6">
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-6">
             Receba as nossas novidades
           </h2>
-          <p className="text-lg text-primary-foreground/70 mb-8">
+          <p className="text-lg text-background/70 mb-8">
             Subscreva a newsletter e receba guias exclusivos, tendências e dicas de arquitetura diretamente no seu email.
           </p>
           <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
@@ -327,7 +327,7 @@ export default function Blog() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="O seu email"
               required
-              className="flex-1 h-12 px-4 rounded-sm bg-primary-foreground/10 border border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50 focus:outline-none focus:ring-2 focus:ring-arifa-teal"
+              className="flex-1 h-12 px-4 rounded-sm bg-background/10 border border-background/20 text-background placeholder:text-background/50 focus:outline-none focus:ring-2 focus:ring-accent"
             />
             <Button variant="accent" size="lg" type="submit" disabled={subscribing}>
               {subscribing ? <Loader2 className="h-4 w-4 animate-spin" /> : "Subscrever"}

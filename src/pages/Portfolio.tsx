@@ -110,13 +110,13 @@ export default function Portfolio() {
         ]}
       />
       {/* Hero */}
-      <section className="py-24 lg:py-32 bg-arifa-warm-white">
+      <section className="py-24 lg:py-32 bg-card">
         <div className="container-arifa">
           <div className="max-w-3xl">
-            <p className="text-sm font-medium tracking-[0.3em] text-arifa-teal uppercase mb-4">
+            <p className="text-sm font-medium tracking-[0.3em] text-accent uppercase mb-4">
               Portfolio
             </p>
-            <h1 className="font-display text-5xl md:text-6xl font-light leading-tight text-foreground mb-6">
+            <h1 className="text-5xl md:text-6xl font-extrabold leading-tight text-foreground mb-6">
               Os nossos projetos
             </h1>
             <p className="text-lg text-muted-foreground">
@@ -164,7 +164,7 @@ export default function Portfolio() {
         <div className="container-arifa">
           {loading ? (
             <div className="flex items-center justify-center py-24">
-              <Loader2 className="h-8 w-8 animate-spin text-arifa-teal" />
+              <Loader2 className="h-8 w-8 animate-spin text-accent" />
             </div>
           ) : filteredProjects.length === 0 ? (
             <div className="text-center py-24">
@@ -206,7 +206,7 @@ export default function Portfolio() {
                         alt={project.title}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-arifa-charcoal/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       
                       {/* Status badge */}
                       {project.status && (
@@ -214,10 +214,10 @@ export default function Portfolio() {
                           <span className={cn(
                             "inline-block px-3 py-1 text-xs font-medium rounded-sm",
                             project.status === "Concluído"
-                              ? "bg-arifa-green/90 text-primary-foreground"
+                              ? "bg-accent/90 text-accent-foreground"
                               : project.status === "Em construção"
-                              ? "bg-arifa-gold/90 text-primary-foreground"
-                              : "bg-arifa-teal/90 text-primary-foreground"
+                              ? "bg-arifa-yellow/90 text-foreground"
+                              : "bg-accent/90 text-accent-foreground"
                           )}>
                             {project.status}
                           </span>
@@ -225,16 +225,16 @@ export default function Portfolio() {
                       )}
 
                       {/* Hover arrow */}
-                      <div className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-primary-foreground flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                      <div className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-background flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
                         <ArrowRight className="h-5 w-5 text-foreground" />
                       </div>
                     </div>
 
                     <div className="space-y-2">
-                      <p className="text-xs font-medium tracking-wider text-arifa-teal uppercase">
+                      <p className="text-xs font-medium tracking-wider text-accent uppercase">
                         {project.category}
                       </p>
-                      <h3 className="font-display text-2xl font-medium text-foreground group-hover:text-arifa-teal transition-colors">
+                      <h3 className="text-2xl font-bold text-foreground group-hover:text-accent transition-colors">
                         {project.title}
                       </h3>
                       <div className="flex items-center gap-4 text-sm text-muted-foreground">
@@ -260,9 +260,9 @@ export default function Portfolio() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 lg:py-32 bg-arifa-cream">
+      <section className="py-24 lg:py-32 bg-card">
         <div className="container-arifa text-center max-w-3xl mx-auto">
-          <h2 className="font-display text-4xl md:text-5xl font-light text-foreground mb-6">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">
             Tem um projeto em mente?
           </h2>
           <p className="text-lg text-muted-foreground mb-8">
