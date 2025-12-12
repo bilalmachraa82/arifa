@@ -189,20 +189,20 @@ const AdminDocuments = () => {
               </div>
               <div className="space-y-2">
                 <Label>Pasta (opcional)</Label>
-                <Select value={formData.folder_id} onValueChange={(v) => setFormData({ ...formData, folder_id: v })} disabled={!formData.client_id}>
+                <Select value={formData.folder_id || "__root__"} onValueChange={(v) => setFormData({ ...formData, folder_id: v === "__root__" ? "" : v })} disabled={!formData.client_id}>
                   <SelectTrigger><SelectValue placeholder="Raiz" /></SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">Raiz</SelectItem>
+                    <SelectItem value="__root__">Raiz</SelectItem>
                     {folders.map((folder) => (<SelectItem key={folder.id} value={folder.id}><Folder className="h-4 w-4 inline mr-2" />{folder.path}</SelectItem>))}
                   </SelectContent>
                 </Select>
               </div>
               <div className="space-y-2">
                 <Label>Projeto (opcional)</Label>
-                <Select value={formData.project_id} onValueChange={(v) => setFormData({ ...formData, project_id: v })}>
+                <Select value={formData.project_id || "__none__"} onValueChange={(v) => setFormData({ ...formData, project_id: v === "__none__" ? "" : v })}>
                   <SelectTrigger><SelectValue placeholder="Nenhum projeto" /></SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">Nenhum projeto</SelectItem>
+                    <SelectItem value="__none__">Nenhum projeto</SelectItem>
                     {projects.map((project) => (<SelectItem key={project.id} value={project.id}>{project.title}</SelectItem>))}
                   </SelectContent>
                 </Select>
@@ -227,10 +227,10 @@ const AdminDocuments = () => {
       <CardContent>
         <div className="mb-4">
           <Label className="text-sm text-muted-foreground">Filtrar por cliente</Label>
-          <Select value={selectedClientId} onValueChange={(v) => { setSelectedClientId(v); setCurrentFolderId(null); }}>
+          <Select value={selectedClientId || "__all__"} onValueChange={(v) => { setSelectedClientId(v === "__all__" ? "" : v); setCurrentFolderId(null); }}>
             <SelectTrigger className="mt-1 w-full max-w-xs"><SelectValue placeholder="Todos os clientes" /></SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Todos os clientes</SelectItem>
+              <SelectItem value="__all__">Todos os clientes</SelectItem>
               {clients.map((client) => (<SelectItem key={client.id} value={client.id}>{client.full_name || client.email}</SelectItem>))}
             </SelectContent>
           </Select>
