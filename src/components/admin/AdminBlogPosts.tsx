@@ -29,7 +29,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Plus, Pencil, Trash2, Loader2, Eye, Tags } from "lucide-react";
+import { Plus, Pencil, Trash2, Loader2, Eye, Tags, Search } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import FileUpload from "./FileUpload";
 
@@ -60,7 +60,12 @@ const AdminBlogPosts = () => {
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
   const [saving, setSaving] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState("");
+  const [categorySearch, setCategorySearch] = useState("");
   const [savingCategory, setSavingCategory] = useState(false);
+
+  const filteredCategories = categories.filter(cat =>
+    cat.name.toLowerCase().includes(categorySearch.toLowerCase())
+  );
 
   const [formData, setFormData] = useState({
     title: "",
@@ -330,11 +335,25 @@ const AdminBlogPosts = () => {
                     {savingCategory ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
                   </Button>
                 </div>
+                
+                {/* Search field */}
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    value={categorySearch}
+                    onChange={(e) => setCategorySearch(e.target.value)}
+                    placeholder="Pesquisar categorias..."
+                    className="pl-9"
+                  />
+                </div>
+                
                 <div className="border rounded-md divide-y max-h-64 overflow-y-auto">
-                  {categories.length === 0 ? (
-                    <p className="p-4 text-sm text-muted-foreground text-center">Nenhuma categoria</p>
+                  {filteredCategories.length === 0 ? (
+                    <p className="p-4 text-sm text-muted-foreground text-center">
+                      {categorySearch ? "Nenhuma categoria encontrada" : "Nenhuma categoria"}
+                    </p>
                   ) : (
-                    categories.map((cat) => (
+                    filteredCategories.map((cat) => (
                       <div key={cat.id} className="flex items-center justify-between px-4 py-2">
                         <span className="text-sm">{cat.name}</span>
                         <Button
@@ -348,6 +367,9 @@ const AdminBlogPosts = () => {
                     ))
                   )}
                 </div>
+                <p className="text-xs text-muted-foreground">
+                  {categories.length} {categories.length === 1 ? "categoria" : "categorias"}
+                </p>
               </div>
           </DialogContent>
         </Dialog>
