@@ -26,6 +26,7 @@ import ClientMessageForm from "@/components/client/ClientMessageForm";
 import ProjectTimeline from "@/components/client/ProjectTimeline";
 import ClientDocumentVersions from "@/components/client/ClientDocumentVersions";
 import { MessageAttachmentDisplay, Attachment } from "@/components/chat/MessageAttachments";
+import { FolderNavigation } from "@/components/documents/FolderNavigation";
 
 interface Project {
   id: string;
@@ -47,6 +48,7 @@ interface Document {
   file_size: number | null;
   created_at: string;
   project_id: string | null;
+  folder_id: string | null;
   current_version: number;
 }
 
@@ -72,6 +74,7 @@ const ClientDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
   const [showMessageForm, setShowMessageForm] = useState(false);
+  const [currentFolderId, setCurrentFolderId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -161,6 +164,9 @@ const ClientDashboard = () => {
   };
 
   const unreadCount = messages.filter(m => !m.is_read && m.sender_id !== user?.id).length;
+
+  // Filter documents by current folder
+  const filteredDocuments = documents.filter(doc => doc.folder_id === currentFolderId);
 
   if (authLoading || loading) {
     return (
@@ -348,19 +354,35 @@ const ClientDashboard = () => {
 
           {/* Documents Tab */}
           <TabsContent value="documents">
-            {documents.length === 0 ? (
+            {/* Folder Navigation */}
+            {user && (
+              <div className="mb-6 p-4 bg-muted/30 rounded-lg">
+                <FolderNavigation
+                  clientId={user.id}
+                  currentFolderId={currentFolderId}
+                  onFolderChange={setCurrentFolderId}
+                  showCreateButton={false}
+                />
+              </div>
+            )}
+            
+            {filteredDocuments.length === 0 ? (
               <Card>
                 <CardContent className="flex flex-col items-center justify-center py-12">
                   <FileText className="h-12 w-12 text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">Sem documentos</h3>
+                  <h3 className="text-lg font-semibold mb-2">
+                    {currentFolderId ? "Pasta vazia" : "Sem documentos"}
+                  </h3>
                   <p className="text-muted-foreground text-center max-w-md">
-                    Ainda não existem documentos partilhados consigo. Os documentos do seu projeto aparecerão aqui.
+                    {currentFolderId 
+                      ? "Esta pasta não contém documentos." 
+                      : "Ainda não existem documentos partilhados consigo. Os documentos do seu projeto aparecerão aqui."}
                   </p>
                 </CardContent>
               </Card>
             ) : (
               <div className="grid gap-4">
-                {documents.map((doc) => (
+                {filteredDocuments.map((doc) => (
                   <Card key={doc.id}>
                     <CardContent className="p-4">
                       <div className="flex items-start justify-between gap-4">
