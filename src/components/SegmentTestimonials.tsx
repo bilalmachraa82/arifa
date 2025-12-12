@@ -55,15 +55,15 @@ const testimonials: Record<Segment, Testimonial[]> = {
 };
 
 const accentColors: Record<Segment, string> = {
-  privado: "text-arifa-teal",
+  privado: "text-accent",
   empresas: "text-arifa-coral",
-  investidores: "text-arifa-gold",
+  investidores: "text-arifa-yellow",
 };
 
 const bgColors: Record<Segment, string> = {
-  privado: "bg-arifa-teal/10",
+  privado: "bg-accent/10",
   empresas: "bg-arifa-coral/10",
-  investidores: "bg-arifa-gold/10",
+  investidores: "bg-arifa-yellow/10",
 };
 
 interface SegmentTestimonialsProps {
@@ -82,7 +82,7 @@ export function SegmentTestimonials({ segment }: SegmentTestimonialsProps) {
           <p className={`text-sm font-medium tracking-[0.3em] uppercase mb-4 ${accentColor}`}>
             Testemunhos
           </p>
-          <h2 className="font-display text-4xl md:text-5xl font-light text-foreground">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground">
             O que dizem os nossos clientes
           </h2>
         </div>
@@ -101,7 +101,7 @@ export function SegmentTestimonials({ segment }: SegmentTestimonialsProps) {
               </blockquote>
               <div className="flex items-center gap-4">
                 <div className={`w-12 h-12 rounded-full ${bgColor} flex items-center justify-center`}>
-                  <span className={`font-display text-lg font-medium ${accentColor}`}>
+                  <span className={`text-lg font-bold ${accentColor}`}>
                     {testimonial.author.split(' ').map(n => n[0]).join('')}
                   </span>
                 </div>

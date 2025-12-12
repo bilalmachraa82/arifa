@@ -7,9 +7,15 @@ import { ArrowRight, Loader2 } from "lucide-react";
 type Segment = "privado" | "empresas" | "investidores";
 
 const accentColors: Record<Segment, string> = {
-  privado: "text-arifa-teal",
+  privado: "text-accent",
   empresas: "text-arifa-coral",
-  investidores: "text-arifa-gold",
+  investidores: "text-arifa-yellow",
+};
+
+const hoverColors: Record<Segment, string> = {
+  privado: "group-hover:text-accent",
+  empresas: "group-hover:text-arifa-coral",
+  investidores: "group-hover:text-arifa-yellow",
 };
 
 const titles: Record<Segment, string> = {
@@ -25,6 +31,7 @@ interface SegmentProjectsProps {
 
 export function SegmentProjects({ segment, limit = 3 }: SegmentProjectsProps) {
   const accentColor = accentColors[segment];
+  const hoverColor = hoverColors[segment];
   const title = titles[segment];
 
   const { data: projects, isLoading } = useQuery({
@@ -99,7 +106,7 @@ export function SegmentProjects({ segment, limit = 3 }: SegmentProjectsProps) {
             <p className={`text-sm font-medium tracking-[0.3em] uppercase ${accentColor}`}>
               Portfolio
             </p>
-            <h2 className="font-display text-4xl md:text-5xl font-light text-foreground">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground">
               {title}
             </h2>
           </div>
@@ -130,7 +137,7 @@ export function SegmentProjects({ segment, limit = 3 }: SegmentProjectsProps) {
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
-                <h3 className="font-display text-xl font-medium text-foreground group-hover:text-arifa-teal transition-colors">
+                <h3 className={`text-xl font-bold text-foreground ${hoverColor} transition-colors`}>
                   {project.title}
                 </h3>
                 <p className="text-sm text-muted-foreground">
