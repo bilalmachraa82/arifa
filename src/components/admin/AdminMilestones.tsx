@@ -195,8 +195,6 @@ const AdminMilestones = () => {
     milestones: milestones.filter(m => m.phase === phaseId),
   }));
 
-  const selectedProjectData = projects.find(p => p.id === selectedProject);
-
   return (
     <Tabs defaultValue="kanban" className="space-y-4">
       <div className="flex items-center justify-between">
@@ -232,192 +230,187 @@ const AdminMilestones = () => {
                 Gerir etapas e datas de entrega dos projetos
               </p>
             </div>
-          <CardTitle>Milestones de Projetos</CardTitle>
-          <p className="text-sm text-muted-foreground mt-1">
-            Gerir etapas e datas de entrega dos projetos
-          </p>
-        </div>
-        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-          <DialogTrigger asChild>
-            <Button disabled={!selectedProject}>
-              <Plus className="mr-2 h-4 w-4" />
-              Novo Milestone
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Adicionar Milestone</DialogTitle>
-            </DialogHeader>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label>Fase *</Label>
-                <Select 
-                  value={formData.phase} 
-                  onValueChange={(v) => setFormData({ ...formData, phase: v })}
-                >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {Object.entries(phaseConfig).map(([key, { name, icon: Icon }]) => (
-                      <SelectItem key={key} value={key}>
-                        <div className="flex items-center gap-2">
-                          <Icon className="h-4 w-4" />
-                          {name}
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <Label>Nome *</Label>
-                <Input
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  placeholder="Ex: Aprovação do projeto"
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label>Descrição</Label>
-                <Textarea
-                  value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  placeholder="Detalhes sobre este milestone..."
-                  rows={2}
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label>Data Prevista</Label>
-                <Input
-                  type="date"
-                  value={formData.target_date}
-                  onChange={(e) => setFormData({ ...formData, target_date: e.target.value })}
-                />
-              </div>
-
-              <div className="flex justify-end gap-3">
-                <Button type="button" variant="outline" onClick={() => setDialogOpen(false)}>
-                  Cancelar
+            <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+              <DialogTrigger asChild>
+                <Button disabled={!selectedProject}>
+                  <Plus className="mr-2 h-4 w-4" />
+                  Novo Milestone
                 </Button>
-                <Button type="submit" disabled={saving || !formData.name}>
-                  {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  Criar Milestone
-                </Button>
-              </div>
-            </form>
-          </DialogContent>
-        </Dialog>
-      </CardHeader>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Adicionar Milestone</DialogTitle>
+                </DialogHeader>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label>Fase *</Label>
+                    <Select 
+                      value={formData.phase} 
+                      onValueChange={(v) => setFormData({ ...formData, phase: v })}
+                    >
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {Object.entries(phaseConfig).map(([key, { name, icon: Icon }]) => (
+                          <SelectItem key={key} value={key}>
+                            <div className="flex items-center gap-2">
+                              <Icon className="h-4 w-4" />
+                              {name}
+                            </div>
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
 
-      <CardContent className="space-y-6">
-        {/* Project Selector */}
-        <div className="space-y-2">
-          <Label>Selecionar Projeto</Label>
-          <Select value={selectedProject} onValueChange={setSelectedProject}>
-            <SelectTrigger className="max-w-md">
-              <SelectValue placeholder="Escolha um projeto..." />
-            </SelectTrigger>
-            <SelectContent>
-              {projects.map((project) => (
-                <SelectItem key={project.id} value={project.id}>
-                  <div className="flex items-center gap-2">
-                    <span>{project.title}</span>
-                    {project.status && (
-                      <Badge variant="outline" className="text-xs">
-                        {project.status}
+                  <div className="space-y-2">
+                    <Label>Nome *</Label>
+                    <Input
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder="Ex: Aprovação do projeto"
+                      required
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>Descrição</Label>
+                    <Textarea
+                      value={formData.description}
+                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                      placeholder="Detalhes sobre este milestone..."
+                      rows={2}
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>Data Prevista</Label>
+                    <Input
+                      type="date"
+                      value={formData.target_date}
+                      onChange={(e) => setFormData({ ...formData, target_date: e.target.value })}
+                    />
+                  </div>
+
+                  <div className="flex justify-end gap-3">
+                    <Button type="button" variant="outline" onClick={() => setDialogOpen(false)}>
+                      Cancelar
+                    </Button>
+                    <Button type="submit" disabled={saving || !formData.name}>
+                      {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                      Criar Milestone
+                    </Button>
+                  </div>
+                </form>
+              </DialogContent>
+            </Dialog>
+          </CardHeader>
+
+          <CardContent className="space-y-6">
+            {/* Project Selector */}
+            <div className="space-y-2">
+              <Label>Selecionar Projeto</Label>
+              <Select value={selectedProject} onValueChange={setSelectedProject}>
+                <SelectTrigger className="max-w-md">
+                  <SelectValue placeholder="Escolha um projeto..." />
+                </SelectTrigger>
+                <SelectContent>
+                  {projects.map((project) => (
+                    <SelectItem key={project.id} value={project.id}>
+                      <div className="flex items-center gap-2">
+                        <span>{project.title}</span>
+                        {project.status && (
+                          <Badge variant="outline" className="text-xs">
+                            {project.status}
+                          </Badge>
+                        )}
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {loading ? (
+              <div className="flex justify-center py-8">
+                <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+              </div>
+            ) : !selectedProject ? (
+              <p className="text-center text-muted-foreground py-8">
+                Selecione um projeto para gerir os milestones
+              </p>
+            ) : (
+              <div className="space-y-6">
+                {milestonesByPhase.map(({ phaseId, name, icon: PhaseIcon, milestones: phaseMilestones }) => (
+                  <div key={phaseId} className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <PhaseIcon className="h-5 w-5 text-muted-foreground" />
+                      <h3 className="font-medium">{name}</h3>
+                      <Badge variant="secondary" className="text-xs">
+                        {phaseMilestones.filter(m => m.is_completed).length}/{phaseMilestones.length}
                       </Badge>
+                    </div>
+
+                    {phaseMilestones.length === 0 ? (
+                      <p className="text-sm text-muted-foreground pl-7">
+                        Nenhum milestone nesta fase
+                      </p>
+                    ) : (
+                      <div className="space-y-2 pl-7">
+                        {phaseMilestones.map((milestone) => (
+                          <div
+                            key={milestone.id}
+                            className="flex items-center gap-3 p-3 rounded-lg bg-muted/30 border"
+                          >
+                            <Checkbox
+                              checked={milestone.is_completed}
+                              onCheckedChange={() => toggleComplete(milestone)}
+                            />
+                            
+                            <div className="flex-1 min-w-0">
+                              <p className={milestone.is_completed ? "line-through text-muted-foreground" : "font-medium"}>
+                                {milestone.name}
+                              </p>
+                              {milestone.description && (
+                                <p className="text-sm text-muted-foreground truncate">
+                                  {milestone.description}
+                                </p>
+                              )}
+                            </div>
+
+                            <div className="flex items-center gap-2 flex-shrink-0">
+                              {milestone.target_date && (
+                                <Badge variant="outline" className="text-xs">
+                                  <Target className="h-3 w-3 mr-1" />
+                                  {formatDate(milestone.target_date)}
+                                </Badge>
+                              )}
+                              {milestone.completed_date && (
+                                <Badge className="text-xs bg-emerald-500">
+                                  <CheckCircle2 className="h-3 w-3 mr-1" />
+                                  {formatDate(milestone.completed_date)}
+                                </Badge>
+                              )}
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-8 w-8 text-destructive hover:text-destructive"
+                                onClick={() => deleteMilestone(milestone.id)}
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     )}
                   </div>
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
-        {loading ? (
-          <div className="flex justify-center py-8">
-            <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
-          </div>
-        ) : !selectedProject ? (
-          <p className="text-center text-muted-foreground py-8">
-            Selecione um projeto para gerir os milestones
-          </p>
-        ) : (
-          <div className="space-y-6">
-            {milestonesByPhase.map(({ phaseId, name, icon: PhaseIcon, milestones: phaseMilestones }) => (
-              <div key={phaseId} className="space-y-3">
-                <div className="flex items-center gap-2">
-                  <PhaseIcon className="h-5 w-5 text-muted-foreground" />
-                  <h3 className="font-medium">{name}</h3>
-                  <Badge variant="secondary" className="text-xs">
-                    {phaseMilestones.filter(m => m.is_completed).length}/{phaseMilestones.length}
-                  </Badge>
-                </div>
-
-                {phaseMilestones.length === 0 ? (
-                  <p className="text-sm text-muted-foreground pl-7">
-                    Nenhum milestone nesta fase
-                  </p>
-                ) : (
-                  <div className="space-y-2 pl-7">
-                    {phaseMilestones.map((milestone) => (
-                      <div
-                        key={milestone.id}
-                        className="flex items-center gap-3 p-3 rounded-lg bg-muted/30 border"
-                      >
-                        <Checkbox
-                          checked={milestone.is_completed}
-                          onCheckedChange={() => toggleComplete(milestone)}
-                        />
-                        
-                        <div className="flex-1 min-w-0">
-                          <p className={milestone.is_completed ? "line-through text-muted-foreground" : "font-medium"}>
-                            {milestone.name}
-                          </p>
-                          {milestone.description && (
-                            <p className="text-sm text-muted-foreground truncate">
-                              {milestone.description}
-                            </p>
-                          )}
-                        </div>
-
-                        <div className="flex items-center gap-2 flex-shrink-0">
-                          {milestone.target_date && (
-                            <Badge variant="outline" className="text-xs">
-                              <Target className="h-3 w-3 mr-1" />
-                              {formatDate(milestone.target_date)}
-                            </Badge>
-                          )}
-                          {milestone.completed_date && (
-                            <Badge className="text-xs bg-emerald-500">
-                              <CheckCircle2 className="h-3 w-3 mr-1" />
-                              {formatDate(milestone.completed_date)}
-                            </Badge>
-                          )}
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            className="h-8 w-8 text-destructive hover:text-destructive"
-                            onClick={() => deleteMilestone(milestone.id)}
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                ))}
               </div>
-            ))}
-          </div>
-        )}
-      </CardContent>
-    </Card>
+            )}
+          </CardContent>
+        </Card>
       </TabsContent>
     </Tabs>
   );
