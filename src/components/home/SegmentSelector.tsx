@@ -17,7 +17,9 @@ export function SegmentSelector() {
         t("segments.private.feature3"),
       ],
       href: "/privado",
-      color: "arifa-teal",
+      colorClass: "bg-accent/10 text-accent",
+      bulletClass: "bg-accent",
+      hoverClass: "bg-accent",
     },
     {
       id: "empresas",
@@ -30,7 +32,9 @@ export function SegmentSelector() {
         t("segments.companies.feature3"),
       ],
       href: "/empresas",
-      color: "arifa-coral",
+      colorClass: "bg-arifa-coral/10 text-arifa-coral",
+      bulletClass: "bg-arifa-coral",
+      hoverClass: "bg-arifa-coral",
     },
     {
       id: "investidores",
@@ -43,7 +47,9 @@ export function SegmentSelector() {
         t("segments.investors.feature3"),
       ],
       href: "/investidores",
-      color: "arifa-gold",
+      colorClass: "bg-arifa-yellow/10 text-arifa-yellow",
+      bulletClass: "bg-arifa-yellow",
+      hoverClass: "bg-arifa-yellow",
     },
   ];
 
@@ -51,10 +57,10 @@ export function SegmentSelector() {
     <section className="py-24 lg:py-32 bg-background" id="segmentos">
       <div className="container-arifa">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <p className="text-sm font-medium tracking-[0.3em] text-arifa-teal uppercase mb-4">
+          <p className="text-sm font-medium tracking-[0.3em] text-accent uppercase mb-4">
             {t("segments.subtitle")}
           </p>
-          <h2 className="font-display text-4xl md:text-5xl font-light text-foreground mb-6">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">
             {t("segments.title")}
           </h2>
           <p className="text-muted-foreground text-lg">
@@ -70,11 +76,11 @@ export function SegmentSelector() {
               className="group relative bg-card border border-border rounded-sm p-8 lg:p-10 transition-all duration-500 hover:shadow-elevated hover:-translate-y-1"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <div className={`inline-flex items-center justify-center w-14 h-14 rounded-full bg-${segment.color}/10 text-${segment.color} mb-6 transition-transform duration-300 group-hover:scale-110`}>
+              <div className={`inline-flex items-center justify-center w-14 h-14 rounded-full ${segment.colorClass} mb-6 transition-transform duration-300 group-hover:scale-110`}>
                 <segment.icon className="h-6 w-6" />
               </div>
               
-              <h3 className="font-display text-2xl font-medium text-foreground mb-4">
+              <h3 className="text-2xl font-bold text-foreground mb-4">
                 {segment.title}
               </h3>
               
@@ -85,19 +91,19 @@ export function SegmentSelector() {
               <ul className="space-y-2 mb-8">
                 {segment.features.map((feature) => (
                   <li key={feature} className="flex items-center text-sm text-muted-foreground">
-                    <span className={`w-1.5 h-1.5 rounded-full bg-${segment.color} mr-3`} />
+                    <span className={`w-1.5 h-1.5 rounded-full ${segment.bulletClass} mr-3`} />
                     {feature}
                   </li>
                 ))}
               </ul>
 
-              <div className="flex items-center text-sm font-medium text-foreground group-hover:text-arifa-teal transition-colors">
+              <div className="flex items-center text-sm font-medium text-foreground group-hover:text-accent transition-colors">
                 {t("segments.learnMore")}
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </div>
 
               {/* Hover accent */}
-              <div className={`absolute bottom-0 left-0 right-0 h-1 bg-${segment.color} scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left`} />
+              <div className={`absolute bottom-0 left-0 right-0 h-1 ${segment.hoverClass} scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left`} />
             </Link>
           ))}
         </div>

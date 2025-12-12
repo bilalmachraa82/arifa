@@ -14,8 +14,20 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ["Cormorant Garamond", "Georgia", "serif"],
+        display: ["Inter", "system-ui", "sans-serif"],
         body: ["Inter", "system-ui", "sans-serif"],
+      },
+      fontSize: {
+        // Brand Book Typography
+        'h1': ['36px', { lineHeight: '1.2', fontWeight: '800' }],
+        'h2': ['24px', { lineHeight: '1.3', fontWeight: '700' }],
+        'h3': ['12px', { lineHeight: '1.4', fontWeight: '700', letterSpacing: '0.1em' }],
+        'h4': ['10px', { lineHeight: '1.4', fontWeight: '700', letterSpacing: '0.1em' }],
+        'body': ['12px', { lineHeight: '1.6', fontWeight: '300' }],
+        'quote': ['36px', { lineHeight: '1.3', fontWeight: '700' }],
+        'subhead': ['18px', { lineHeight: '1.4', fontWeight: '200' }],
+        'footer': ['8px', { lineHeight: '1.4', fontWeight: '300' }],
+        'button': ['10px', { lineHeight: '1', fontWeight: '300' }],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -52,13 +64,14 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
         arifa: {
-          teal: "hsl(var(--arifa-teal))",
           coral: "hsl(var(--arifa-coral))",
-          gold: "hsl(var(--arifa-gold))",
-          green: "hsl(var(--arifa-green))",
-          charcoal: "hsl(var(--arifa-charcoal))",
-          "warm-white": "hsl(var(--arifa-warm-white))",
-          cream: "hsl(var(--arifa-cream))",
+          yellow: "hsl(var(--arifa-yellow))",
+          blue: "hsl(var(--arifa-blue))",
+          gray: "hsl(var(--arifa-gray))",
+          "gray-2": "hsl(var(--arifa-gray-2))",
+          "gray-3": "hsl(var(--arifa-gray-3))",
+          black: "hsl(var(--arifa-black))",
+          white: "hsl(var(--arifa-white))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",

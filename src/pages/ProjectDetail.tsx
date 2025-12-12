@@ -102,7 +102,7 @@ export default function ProjectDetail() {
   if (loading) {
     return (
       <Layout>
-        <section className="py-24 lg:py-32 bg-arifa-warm-white">
+        <section className="py-24 lg:py-32 bg-card">
           <div className="container-arifa">
             <Skeleton className="h-8 w-32 mb-4" />
             <Skeleton className="h-16 w-3/4 mb-6" />
@@ -121,9 +121,9 @@ export default function ProjectDetail() {
   if (!project) {
     return (
       <Layout>
-        <section className="py-24 lg:py-32 bg-arifa-warm-white">
+        <section className="py-24 lg:py-32 bg-card">
           <div className="container-arifa text-center">
-            <h1 className="font-display text-4xl font-light text-foreground mb-6">
+            <h1 className="text-4xl font-extrabold text-foreground mb-6">
               Projeto não encontrado
             </h1>
             <p className="text-muted-foreground mb-8">
@@ -164,7 +164,7 @@ export default function ProjectDetail() {
         ]}
       />
       {/* Hero */}
-      <section className="py-24 lg:py-32 bg-arifa-warm-white">
+      <section className="py-24 lg:py-32 bg-card">
         <div className="container-arifa">
           <Link
             to="/portfolio"
@@ -176,10 +176,10 @@ export default function ProjectDetail() {
 
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             <div>
-              <p className="text-sm font-medium tracking-[0.3em] text-arifa-teal uppercase mb-4">
+              <p className="text-sm font-medium tracking-[0.3em] text-accent uppercase mb-4">
                 {project.category}
               </p>
-              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-light leading-tight text-foreground mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-foreground mb-6">
                 {project.title}
               </h1>
               {project.description && (
@@ -189,15 +189,15 @@ export default function ProjectDetail() {
               )}
             </div>
 
-            <div className="bg-card border border-border rounded-sm p-6 lg:p-8 space-y-6">
-              <h3 className="font-display text-xl font-medium text-foreground">
+            <div className="bg-background border border-border rounded-sm p-6 lg:p-8 space-y-6">
+              <h3 className="text-xl font-bold text-foreground">
                 Detalhes do projeto
               </h3>
               
               <div className="grid grid-cols-2 gap-6">
                 {project.location && (
                   <div className="flex items-start gap-3">
-                    <MapPin className="h-5 w-5 text-arifa-teal flex-shrink-0 mt-0.5" />
+                    <MapPin className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Localização</p>
                       <p className="text-foreground font-medium">{project.location}</p>
@@ -207,7 +207,7 @@ export default function ProjectDetail() {
                 
                 {project.area && (
                   <div className="flex items-start gap-3">
-                    <Ruler className="h-5 w-5 text-arifa-teal flex-shrink-0 mt-0.5" />
+                    <Ruler className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Área</p>
                       <p className="text-foreground font-medium">{project.area}</p>
@@ -217,7 +217,7 @@ export default function ProjectDetail() {
                 
                 {project.year && (
                   <div className="flex items-start gap-3">
-                    <Calendar className="h-5 w-5 text-arifa-teal flex-shrink-0 mt-0.5" />
+                    <Calendar className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Ano</p>
                       <p className="text-foreground font-medium">{project.year}</p>
@@ -227,16 +227,16 @@ export default function ProjectDetail() {
                 
                 {project.status && (
                   <div className="flex items-start gap-3">
-                    <Building className="h-5 w-5 text-arifa-teal flex-shrink-0 mt-0.5" />
+                    <Building className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Estado</p>
                       <span className={cn(
                         "inline-block px-2 py-1 text-xs font-medium rounded-sm",
                         project.status === "Concluído"
-                          ? "bg-arifa-green/10 text-arifa-green"
+                          ? "bg-accent/10 text-accent"
                           : project.status === "Em construção"
-                          ? "bg-arifa-gold/10 text-arifa-gold"
-                          : "bg-arifa-teal/10 text-arifa-teal"
+                          ? "bg-arifa-yellow/10 text-arifa-yellow"
+                          : "bg-accent/10 text-accent"
                       )}>
                         {project.status}
                       </span>
@@ -272,8 +272,8 @@ export default function ProjectDetail() {
                 alt={`${project.title} - Imagem ${activeImage + 1}`}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-arifa-charcoal/0 group-hover:bg-arifa-charcoal/20 transition-colors flex items-center justify-center">
-                <span className="opacity-0 group-hover:opacity-100 transition-opacity text-primary-foreground text-sm font-medium bg-arifa-charcoal/50 px-4 py-2 rounded-sm">
+              <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/20 transition-colors flex items-center justify-center">
+                <span className="opacity-0 group-hover:opacity-100 transition-opacity text-background text-sm font-medium bg-foreground/50 px-4 py-2 rounded-sm">
                   Clique para ampliar
                 </span>
               </div>
@@ -306,7 +306,7 @@ export default function ProjectDetail() {
                     className={cn(
                       "flex-shrink-0 w-24 h-16 rounded-sm overflow-hidden transition-all",
                       activeImage === index
-                        ? "ring-2 ring-arifa-teal"
+                        ? "ring-2 ring-accent"
                         : "opacity-60 hover:opacity-100"
                     )}
                   >
@@ -325,10 +325,10 @@ export default function ProjectDetail() {
 
       {/* Full Description */}
       {project.full_description && (
-        <section className="py-16 lg:py-24 bg-arifa-cream">
+        <section className="py-16 lg:py-24 bg-background">
           <div className="container-arifa">
             <div className="max-w-3xl mx-auto">
-              <h2 className="font-display text-3xl font-light text-foreground mb-8">
+              <h2 className="text-3xl font-bold text-foreground mb-8">
                 Sobre o projeto
               </h2>
               <div className="prose prose-lg text-muted-foreground">
@@ -345,7 +345,7 @@ export default function ProjectDetail() {
       {relatedProjects.length > 0 && (
         <section className="py-16 lg:py-24 bg-background">
           <div className="container-arifa">
-            <h2 className="font-display text-3xl font-light text-foreground mb-12">
+            <h2 className="text-3xl font-bold text-foreground mb-12">
               Projetos relacionados
             </h2>
             
@@ -362,14 +362,14 @@ export default function ProjectDetail() {
                       alt={related.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-arifa-charcoal/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
 
                   <div className="space-y-2">
-                    <p className="text-xs font-medium tracking-wider text-arifa-teal uppercase">
+                    <p className="text-xs font-medium tracking-wider text-accent uppercase">
                       {related.category}
                     </p>
-                    <h3 className="font-display text-xl font-medium text-foreground group-hover:text-arifa-teal transition-colors">
+                    <h3 className="text-xl font-bold text-foreground group-hover:text-accent transition-colors">
                       {related.title}
                     </h3>
                     {related.location && (
@@ -387,9 +387,9 @@ export default function ProjectDetail() {
       )}
 
       {/* CTA */}
-      <section className="py-24 lg:py-32 bg-arifa-warm-white">
+      <section className="py-24 lg:py-32 bg-card">
         <div className="container-arifa text-center max-w-3xl mx-auto">
-          <h2 className="font-display text-4xl md:text-5xl font-light text-foreground mb-6">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">
             Gostou deste projeto?
           </h2>
           <p className="text-lg text-muted-foreground mb-8">

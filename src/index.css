@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,97 +6,103 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 8%;
+    /* ARIFA Brand Book - Cores Principais */
+    --background: 0 0% 93%;           /* #ECECEC - Cinza principal */
+    --foreground: 0 0% 6%;            /* #101010 - Preto */
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 8%;
+    --card: 0 0% 100%;                /* #FFFFFF - Branco */
+    --card-foreground: 0 0% 6%;       /* #101010 */
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 8%;
+    --popover-foreground: 0 0% 6%;
 
-    --primary: 0 0% 8%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 0 0% 6%;               /* #101010 - Preto */
+    --primary-foreground: 0 0% 100%;  /* #FFFFFF */
 
-    --secondary: 30 10% 96%;
-    --secondary-foreground: 0 0% 8%;
+    --secondary: 0 0% 93%;            /* #ECECEC */
+    --secondary-foreground: 0 0% 6%;
 
-    --muted: 30 10% 96%;
-    --muted-foreground: 0 0% 45%;
+    --muted: 40 1% 75%;               /* #C0BFBD - Cinza II */
+    --muted-foreground: 0 0% 29%;     /* #4A4A4A - Cinza III */
 
-    --accent: 174 45% 45%;
+    --accent: 195 36% 37%;            /* #3D7081 - Azul Academy */
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 30 10% 90%;
-    --input: 30 10% 90%;
-    --ring: 174 45% 45%;
+    --border: 40 1% 75%;              /* #C0BFBD */
+    --input: 40 1% 75%;
+    --ring: 195 36% 37%;              /* #3D7081 */
 
     --radius: 0.25rem;
 
-    /* Custom ARIFA brand colors */
-    --arifa-teal: 174 45% 45%;
-    --arifa-coral: 12 76% 61%;
-    --arifa-gold: 43 74% 49%;
-    --arifa-green: 142 42% 45%;
-    --arifa-charcoal: 0 0% 15%;
-    --arifa-warm-white: 40 33% 98%;
-    --arifa-cream: 40 20% 95%;
+    /* ARIFA Brand Book - Sub-marcas */
+    --arifa-coral: 4 80% 66%;         /* #ED6E65 - Living */
+    --arifa-yellow: 44 83% 51%;       /* #E6B21E - Consult */
+    --arifa-blue: 195 36% 37%;        /* #3D7081 - Academy */
+    
+    /* ARIFA Brand Book - Cores Base */
+    --arifa-gray: 0 0% 93%;           /* #ECECEC */
+    --arifa-gray-2: 40 1% 75%;        /* #C0BFBD */
+    --arifa-gray-3: 0 0% 29%;         /* #4A4A4A */
+    --arifa-black: 0 0% 6%;           /* #101010 */
+    --arifa-white: 0 0% 100%;         /* #FFFFFF */
 
     /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(var(--arifa-warm-white)) 0%, hsl(var(--background)) 100%);
-    --gradient-accent: linear-gradient(90deg, hsl(var(--arifa-teal)) 0%, hsl(var(--arifa-green)) 100%);
-    --gradient-warm: linear-gradient(180deg, hsl(var(--arifa-cream)) 0%, hsl(var(--background)) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(var(--arifa-white)) 0%, hsl(var(--background)) 100%);
+    --gradient-accent: linear-gradient(90deg, hsl(var(--arifa-blue)) 0%, hsl(var(--arifa-coral)) 100%);
+    --gradient-warm: linear-gradient(180deg, hsl(var(--arifa-gray)) 0%, hsl(var(--background)) 100%);
 
     /* Shadows */
     --shadow-soft: 0 4px 20px -2px hsla(0, 0%, 0%, 0.08);
     --shadow-card: 0 8px 30px -6px hsla(0, 0%, 0%, 0.1);
     --shadow-elevated: 0 20px 50px -12px hsla(0, 0%, 0%, 0.15);
 
-    /* Typography */
-    --font-display: 'Cormorant Garamond', Georgia, serif;
+    /* Typography - Brand Book: APENAS Inter */
+    --font-display: 'Inter', system-ui, sans-serif;
     --font-body: 'Inter', system-ui, sans-serif;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Sidebar */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 0 0% 6%;
+    --sidebar-primary: 0 0% 6%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 93%;
+    --sidebar-accent-foreground: 0 0% 6%;
+    --sidebar-border: 40 1% 75%;
+    --sidebar-ring: 195 36% 37%;
   }
 
   .dark {
-    --background: 0 0% 6%;
-    --foreground: 40 20% 95%;
+    --background: 0 0% 6%;            /* #101010 */
+    --foreground: 0 0% 93%;           /* #ECECEC */
 
-    --card: 0 0% 9%;
-    --card-foreground: 40 20% 95%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 93%;
 
-    --popover: 0 0% 9%;
-    --popover-foreground: 40 20% 95%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 93%;
 
-    --primary: 40 20% 95%;
-    --primary-foreground: 0 0% 8%;
+    --primary: 0 0% 93%;
+    --primary-foreground: 0 0% 6%;
 
-    --secondary: 0 0% 14%;
-    --secondary-foreground: 40 20% 95%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 93%;
 
-    --muted: 0 0% 14%;
-    --muted-foreground: 0 0% 60%;
+    --muted: 0 0% 20%;
+    --muted-foreground: 40 1% 75%;
 
-    --accent: 174 45% 45%;
+    --accent: 195 36% 45%;            /* Azul mais claro para dark */
     --accent-foreground: 0 0% 100%;
 
-    --border: 0 0% 18%;
-    --input: 0 0% 18%;
-    --ring: 174 45% 45%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 195 36% 45%;
 
-    --arifa-warm-white: 0 0% 12%;
-    --arifa-cream: 0 0% 10%;
+    /* Sub-marcas em dark mode */
+    --arifa-gray: 0 0% 15%;
+    --arifa-gray-2: 0 0% 25%;
   }
 }
 
@@ -113,8 +119,30 @@
     @apply bg-background text-foreground font-body antialiased;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-display;
+  /* Brand Book Typography - Apenas Inter */
+  h1 {
+    @apply font-extrabold text-4xl tracking-tight;
+    font-family: var(--font-display);
+  }
+
+  h2 {
+    @apply font-bold text-2xl tracking-tight;
+    font-family: var(--font-display);
+  }
+
+  h3 {
+    @apply font-bold text-xs uppercase tracking-widest;
+    font-family: var(--font-display);
+  }
+
+  h4 {
+    @apply font-bold text-[10px] uppercase tracking-widest;
+    font-family: var(--font-display);
+  }
+
+  h5, h6 {
+    @apply font-semibold;
+    font-family: var(--font-display);
   }
 }
 
