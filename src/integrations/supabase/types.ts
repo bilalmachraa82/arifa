@@ -133,6 +133,7 @@ export type Database = {
           file_size: number | null
           file_type: string | null
           file_url: string
+          folder_id: string | null
           id: string
           project_id: string | null
           title: string
@@ -147,6 +148,7 @@ export type Database = {
           file_size?: number | null
           file_type?: string | null
           file_url: string
+          folder_id?: string | null
           id?: string
           project_id?: string | null
           title: string
@@ -161,6 +163,7 @@ export type Database = {
           file_size?: number | null
           file_type?: string | null
           file_url?: string
+          folder_id?: string | null
           id?: string
           project_id?: string | null
           title?: string
@@ -168,6 +171,13 @@ export type Database = {
           uploaded_by?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "client_documents_folder_id_fkey"
+            columns: ["folder_id"]
+            isOneToOne: false
+            referencedRelation: "document_folders"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "client_documents_project_id_fkey"
             columns: ["project_id"]
@@ -253,6 +263,44 @@ export type Database = {
             columns: ["project_id"]
             isOneToOne: false
             referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      document_folders: {
+        Row: {
+          client_id: string
+          created_at: string
+          id: string
+          name: string
+          parent_id: string | null
+          path: string
+          updated_at: string
+        }
+        Insert: {
+          client_id: string
+          created_at?: string
+          id?: string
+          name: string
+          parent_id?: string | null
+          path?: string
+          updated_at?: string
+        }
+        Update: {
+          client_id?: string
+          created_at?: string
+          id?: string
+          name?: string
+          parent_id?: string | null
+          path?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "document_folders_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "document_folders"
             referencedColumns: ["id"]
           },
         ]

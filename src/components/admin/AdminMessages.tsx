@@ -27,6 +27,8 @@ import {
   MessageAttachmentDisplay, 
   Attachment 
 } from "@/components/chat/MessageAttachments";
+import { useTypingIndicator } from "@/hooks/useTypingIndicator";
+import { TypingIndicator } from "@/components/chat/TypingIndicator";
 
 interface Message {
   id: string;
@@ -61,6 +63,11 @@ const AdminMessages = () => {
     content: "",
   });
   const [replyAttachments, setReplyAttachments] = useState<Attachment[]>([]);
+  
+  // Typing indicator for admin replies
+  const { typingUsers, handleInputChange, stopTyping } = useTypingIndicator(
+    selectedMessage?.client_id || "admin-chat"
+  );
 
   useEffect(() => {
     fetchData();
@@ -122,6 +129,7 @@ const AdminMessages = () => {
     if (!selectedMessage || !user) return;
 
     setSending(true);
+    stopTyping(); // Stop typing indicator on submit
 
     const { error } = await supabase.from("client_messages").insert({
       client_id: selectedMessage.client_id,
@@ -150,6 +158,11 @@ const AdminMessages = () => {
       fetchData();
     }
     setSending(false);
+  };
+
+  const handleReplyContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setReplyData({ ...replyData, content: e.target.value });
+    handleInputChange(); // Trigger typing indicator
   };
 
   // Group messages by client
@@ -294,10 +307,11 @@ const AdminMessages = () => {
                 <Label>Mensagem</Label>
                 <Textarea
                   value={replyData.content}
-                  onChange={(e) => setReplyData({ ...replyData, content: e.target.value })}
+                  onChange={handleReplyContentChange}
                   rows={6}
                   required
                 />
+                <TypingIndicator typingUsers={typingUsers} />
               </div>
               <MessageAttachmentUpload
                 attachments={replyAttachments}

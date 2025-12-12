@@ -22,6 +22,8 @@ import {
 import { Loader2, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { MessageAttachmentUpload, Attachment } from "@/components/chat/MessageAttachments";
+import { useTypingIndicator } from "@/hooks/useTypingIndicator";
+import { TypingIndicator } from "@/components/chat/TypingIndicator";
 
 interface Project {
   id: string;
@@ -55,6 +57,11 @@ const ClientMessageForm = ({
   const [content, setContent] = useState("");
   const [projectId, setProjectId] = useState<string>("");
   const [attachments, setAttachments] = useState<Attachment[]>([]);
+  
+  // Typing indicator - use user.id as conversation ID for simplicity
+  const { typingUsers, handleInputChange, stopTyping } = useTypingIndicator(
+    user?.id || "default"
+  );
 
   useEffect(() => {
     if (open) {
@@ -71,6 +78,7 @@ const ClientMessageForm = ({
     if (!user) return;
 
     setLoading(true);
+    stopTyping(); // Stop typing indicator on submit
 
     try {
       const { error } = await supabase.from("client_messages").insert({
@@ -100,6 +108,11 @@ const ClientMessageForm = ({
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setContent(e.target.value);
+    handleInputChange(); // Trigger typing indicator
   };
 
   return (
@@ -150,11 +163,12 @@ const ClientMessageForm = ({
             <Textarea
               id="content"
               value={content}
-              onChange={(e) => setContent(e.target.value)}
+              onChange={handleContentChange}
               placeholder="Escreva a sua mensagem..."
               rows={6}
               required
             />
+            <TypingIndicator typingUsers={typingUsers} />
           </div>
 
           <MessageAttachmentUpload

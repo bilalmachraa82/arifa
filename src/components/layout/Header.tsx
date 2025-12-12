@@ -95,7 +95,7 @@ export function Header() {
         <div className="flex lg:flex-1">
           <Link to="/" className="-m-1.5 p-1.5">
             <span className="sr-only">ARIFA Studio</span>
-            <img className="h-10 w-auto" src={arifaLogo} alt="ARIFA Studio" />
+            <img className="h-10 w-auto dark:brightness-0 dark:invert" src={arifaLogo} alt="ARIFA Studio" />
           </Link>
         </div>
         
@@ -189,7 +189,7 @@ export function Header() {
           <div className="flex items-center justify-between">
             <Link to="/" className="-m-1.5 p-1.5" onClick={() => setMobileMenuOpen(false)}>
               <span className="sr-only">ARIFA Studio</span>
-              <img className="h-10 w-auto" src={arifaLogo} alt="ARIFA Studio" />
+              <img className="h-10 w-auto dark:brightness-0 dark:invert" src={arifaLogo} alt="ARIFA Studio" />
             </Link>
             <button
               type="button"
