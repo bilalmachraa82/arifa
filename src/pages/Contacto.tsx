@@ -169,13 +169,13 @@ export default function Contacto() {
         keywords="contacto arquitetura Lisboa, orçamento arquitetura, consulta arquitetura gratuita"
       />
       {/* Hero */}
-      <section className="py-24 lg:py-32 bg-arifa-warm-white">
+      <section className="py-24 lg:py-32 bg-card">
         <div className="container-arifa">
           <div className="max-w-3xl">
-            <p className="text-sm font-medium tracking-[0.3em] text-arifa-teal uppercase mb-4">
+            <p className="text-sm font-medium tracking-[0.3em] text-accent uppercase mb-4">
               {t("contact.subtitle")}
             </p>
-            <h1 className="font-display text-5xl md:text-6xl font-light leading-tight text-foreground mb-6">
+            <h1 className="text-5xl md:text-6xl font-extrabold leading-tight text-foreground mb-6">
               {t("contact.title")}
             </h1>
             <p className="text-lg text-muted-foreground">
@@ -194,14 +194,14 @@ export default function Contacto() {
               <div className="space-y-6">
                 {contactInfo.map((item) => (
                   <div key={item.title} className="flex gap-4">
-                    <div className="w-12 h-12 rounded-full bg-arifa-teal/10 flex items-center justify-center flex-shrink-0">
-                      <item.icon className="h-5 w-5 text-arifa-teal" />
+                    <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+                      <item.icon className="h-5 w-5 text-accent" />
                     </div>
                     <div>
                       <p className="font-medium text-foreground">{item.title}</p>
                       {item.details.map((detail, i) => (
                         item.href ? (
-                          <a key={i} href={item.href} className="text-muted-foreground hover:text-arifa-teal transition-colors block">
+                          <a key={i} href={item.href} className="text-muted-foreground hover:text-accent transition-colors block">
                             {detail}
                           </a>
                         ) : (
@@ -214,20 +214,20 @@ export default function Contacto() {
               </div>
 
               <div className="pt-8 border-t border-border">
-                <h3 className="font-display text-xl font-medium text-foreground mb-4">
+                <h3 className="text-xl font-bold text-foreground mb-4">
                   {t("contact.whatToExpect")}
                 </h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-arifa-teal flex-shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
                     <span className="text-sm text-muted-foreground">{t("contact.response24h")}</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-arifa-teal flex-shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
                     <span className="text-sm text-muted-foreground">{t("contact.freeConsultation")}</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-arifa-teal flex-shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
                     <span className="text-sm text-muted-foreground">{t("contact.detailedProposal")}</span>
                   </li>
                 </ul>
@@ -249,7 +249,7 @@ export default function Contacto() {
                       required
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full h-12 px-4 rounded-sm bg-background border border-input text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-arifa-teal"
+                      className="w-full h-12 px-4 rounded-sm bg-background border border-input text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent"
                       placeholder={t("contact.namePlaceholder")}
                     />
                     {errors.name && <p className="text-sm text-destructive">{errors.name}</p>}
@@ -265,7 +265,7 @@ export default function Contacto() {
                       required
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full h-12 px-4 rounded-sm bg-background border border-input text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-arifa-teal"
+                      className="w-full h-12 px-4 rounded-sm bg-background border border-input text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent"
                       placeholder={t("contact.emailPlaceholder")}
                     />
                     {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
@@ -283,7 +283,7 @@ export default function Contacto() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full h-12 px-4 rounded-sm bg-background border border-input text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-arifa-teal"
+                      className="w-full h-12 px-4 rounded-sm bg-background border border-input text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent"
                       placeholder={t("contact.phonePlaceholder")}
                     />
                   </div>
@@ -297,7 +297,7 @@ export default function Contacto() {
                       required
                       value={formData.segment}
                       onChange={handleChange}
-                      className="w-full h-12 px-4 rounded-sm bg-background border border-input text-foreground focus:outline-none focus:ring-2 focus:ring-arifa-teal"
+                      className="w-full h-12 px-4 rounded-sm bg-background border border-input text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
                     >
                       <option value="">{t("contact.selectOption")}</option>
                       {segmentOptions.map((opt) => (
@@ -318,7 +318,7 @@ export default function Contacto() {
                     required
                     value={formData.service}
                     onChange={handleChange}
-                    className="w-full h-12 px-4 rounded-sm bg-background border border-input text-foreground focus:outline-none focus:ring-2 focus:ring-arifa-teal"
+                    className="w-full h-12 px-4 rounded-sm bg-background border border-input text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
                   >
                     <option value="">{t("contact.selectOption")}</option>
                     {serviceOptions.map((opt) => (
@@ -339,7 +339,7 @@ export default function Contacto() {
                     rows={5}
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-sm bg-background border border-input text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-arifa-teal resize-none"
+                    className="w-full px-4 py-3 rounded-sm bg-background border border-input text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent resize-none"
                     placeholder={t("contact.messagePlaceholder")}
                   />
                   {errors.message && <p className="text-sm text-destructive">{errors.message}</p>}
