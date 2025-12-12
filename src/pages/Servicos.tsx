@@ -219,6 +219,10 @@ export default function Servicos() {
         }
         url="https://arifa.studio/servicos"
         keywords="serviços arquitetura, consultoria arquitetura, BIM, design interiores, gestão construção, sustentabilidade"
+        breadcrumbs={[
+          { name: isPt ? "Início" : "Home", url: "https://arifa.studio" },
+          { name: isPt ? "Serviços" : "Services", url: "https://arifa.studio/servicos" }
+        ]}
       />
       {/* Hero */}
       <section className="relative py-24 lg:py-32 bg-gradient-to-b from-arifa-warm-white to-background">
