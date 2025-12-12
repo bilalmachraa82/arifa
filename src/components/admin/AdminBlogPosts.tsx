@@ -29,7 +29,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Plus, Pencil, Trash2, Loader2, Eye } from "lucide-react";
+import { Plus, Pencil, Trash2, Loader2, Eye, Tags } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import FileUpload from "./FileUpload";
 
@@ -44,21 +44,23 @@ interface BlogPost {
   published_at: string | null;
 }
 
-const categories = [
-  "Arquitetura",
-  "Sustentabilidade",
-  "Design",
-  "Tendências",
-  "Projetos",
-];
+interface BlogCategory {
+  id: string;
+  name: string;
+  slug: string;
+}
 
 const AdminBlogPosts = () => {
   const { toast } = useToast();
   const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [categories, setCategories] = useState<BlogCategory[]>([]);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [categoryDialogOpen, setCategoryDialogOpen] = useState(false);
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
   const [saving, setSaving] = useState(false);
+  const [newCategoryName, setNewCategoryName] = useState("");
+  const [savingCategory, setSavingCategory] = useState(false);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -74,6 +76,7 @@ const AdminBlogPosts = () => {
 
   useEffect(() => {
     fetchPosts();
+    fetchCategories();
   }, []);
 
   const fetchPosts = async () => {
@@ -88,6 +91,77 @@ const AdminBlogPosts = () => {
       setPosts(data || []);
     }
     setLoading(false);
+  };
+
+  const fetchCategories = async () => {
+    const { data, error } = await supabase
+      .from("blog_categories")
+      .select("id, name, slug")
+      .order("name");
+
+    if (error) {
+      console.error("Error fetching categories:", error);
+    } else {
+      setCategories(data || []);
+    }
+  };
+
+  const generateCategorySlug = (name: string) => {
+    return name
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "");
+  };
+
+  const handleAddCategory = async () => {
+    if (!newCategoryName.trim()) return;
+    setSavingCategory(true);
+
+    const { error } = await supabase.from("blog_categories").insert({
+      name: newCategoryName.trim(),
+      slug: generateCategorySlug(newCategoryName),
+    });
+
+    if (error) {
+      if (error.code === "23505") {
+        toast({
+          title: "Categoria já existe",
+          description: "Já existe uma categoria com este nome.",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Erro",
+          description: error.message,
+          variant: "destructive",
+        });
+      }
+    } else {
+      toast({ title: "Categoria criada com sucesso!" });
+      setNewCategoryName("");
+      setCategoryDialogOpen(false);
+      fetchCategories();
+    }
+    setSavingCategory(false);
+  };
+
+  const handleDeleteCategory = async (id: string, name: string) => {
+    if (!confirm(`Eliminar a categoria "${name}"?`)) return;
+
+    const { error } = await supabase.from("blog_categories").delete().eq("id", id);
+
+    if (error) {
+      toast({
+        title: "Erro",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({ title: "Categoria eliminada" });
+      fetchCategories();
+    }
   };
 
   const generateSlug = (title: string) => {
@@ -231,16 +305,65 @@ const AdminBlogPosts = () => {
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle>Blog Posts</CardTitle>
-        <Dialog open={dialogOpen} onOpenChange={(open) => {
-          setDialogOpen(open);
-          if (!open) resetForm();
-        }}>
-          <DialogTrigger asChild>
-            <Button>
-              <Plus className="mr-2 h-4 w-4" />
-              Novo Artigo
-            </Button>
-          </DialogTrigger>
+        <div className="flex gap-2">
+          {/* Category Management Dialog */}
+          <Dialog open={categoryDialogOpen} onOpenChange={setCategoryDialogOpen}>
+            <DialogTrigger asChild>
+              <Button variant="outline">
+                <Tags className="mr-2 h-4 w-4" />
+                Categorias
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Gerir Categorias</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4">
+                <div className="flex gap-2">
+                  <Input
+                    value={newCategoryName}
+                    onChange={(e) => setNewCategoryName(e.target.value)}
+                    placeholder="Nova categoria..."
+                    onKeyDown={(e) => e.key === "Enter" && handleAddCategory()}
+                  />
+                  <Button onClick={handleAddCategory} disabled={savingCategory || !newCategoryName.trim()}>
+                    {savingCategory ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
+                  </Button>
+                </div>
+                <div className="border rounded-md divide-y max-h-64 overflow-y-auto">
+                  {categories.length === 0 ? (
+                    <p className="p-4 text-sm text-muted-foreground text-center">Nenhuma categoria</p>
+                  ) : (
+                    categories.map((cat) => (
+                      <div key={cat.id} className="flex items-center justify-between px-4 py-2">
+                        <span className="text-sm">{cat.name}</span>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleDeleteCategory(cat.id, cat.name)}
+                        >
+                          <Trash2 className="h-4 w-4 text-destructive" />
+                        </Button>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+          </DialogContent>
+        </Dialog>
+        </div>
+
+          {/* New Post Dialog */}
+          <Dialog open={dialogOpen} onOpenChange={(open) => {
+            setDialogOpen(open);
+            if (!open) resetForm();
+          }}>
+            <DialogTrigger asChild>
+              <Button>
+                <Plus className="mr-2 h-4 w-4" />
+                Novo Artigo
+              </Button>
+            </DialogTrigger>
           <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>
@@ -275,11 +398,11 @@ const AdminBlogPosts = () => {
                     onValueChange={(v) => setFormData({ ...formData, category: v })}
                   >
                     <SelectTrigger>
-                      <SelectValue placeholder="Selecione" />
+                      <SelectValue placeholder="Selecione uma categoria" />
                     </SelectTrigger>
                     <SelectContent>
                       {categories.map((c) => (
-                        <SelectItem key={c} value={c}>{c}</SelectItem>
+                        <SelectItem key={c.id} value={c.name}>{c.name}</SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
