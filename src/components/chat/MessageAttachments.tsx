@@ -2,8 +2,9 @@ import { useState, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Paperclip, X, FileText, Image, File, Loader2, Download } from "lucide-react";
+import { Paperclip, X, FileText, Image, File, Loader2, Download, Eye } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { FilePreviewDialog } from "@/components/preview";
 
 export interface Attachment {
   url: string;
@@ -183,6 +184,8 @@ interface MessageAttachmentDisplayProps {
 }
 
 export const MessageAttachmentDisplay = ({ attachments }: MessageAttachmentDisplayProps) => {
+  const [previewAttachment, setPreviewAttachment] = useState<Attachment | null>(null);
+  
   if (!attachments || attachments.length === 0) return null;
 
   const formatFileSize = (bytes: number) => {
@@ -197,52 +200,79 @@ export const MessageAttachmentDisplay = ({ attachments }: MessageAttachmentDispl
     return File;
   };
 
-  return (
-    <div className="mt-4 pt-4 border-t">
-      <p className="text-sm font-medium mb-2 flex items-center gap-2">
-        <Paperclip className="h-4 w-4" />
-        Anexos ({attachments.length})
-      </p>
-      <div className="space-y-2">
-        {attachments.map((attachment, index) => {
-          const IconComponent = getFileIcon(attachment.type);
-          const isImage = attachment.type.startsWith("image/");
+  const getFileExtension = (name: string, type: string): string => {
+    const parts = name.split(".");
+    if (parts.length > 1) return parts.pop()!.toLowerCase();
+    if (type.includes("pdf")) return "pdf";
+    if (type.startsWith("image/")) return type.split("/")[1];
+    return "";
+  };
 
-          return (
-            <div key={index} className="flex items-center gap-3">
-              {isImage ? (
-                <a
-                  href={attachment.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block"
-                >
-                  <img
-                    src={attachment.url}
-                    alt={attachment.name}
-                    className="h-16 w-16 object-cover rounded border"
-                  />
-                </a>
-              ) : (
-                <div className="h-10 w-10 rounded bg-muted flex items-center justify-center">
-                  <IconComponent className="h-5 w-5 text-muted-foreground" />
+  return (
+    <>
+      <div className="mt-4 pt-4 border-t">
+        <p className="text-sm font-medium mb-2 flex items-center gap-2">
+          <Paperclip className="h-4 w-4" />
+          Anexos ({attachments.length})
+        </p>
+        <div className="space-y-2">
+          {attachments.map((attachment, index) => {
+            const IconComponent = getFileIcon(attachment.type);
+            const isImage = attachment.type.startsWith("image/");
+
+            return (
+              <div key={index} className="flex items-center gap-3">
+                {isImage ? (
+                  <button
+                    onClick={() => setPreviewAttachment(attachment)}
+                    className="block cursor-pointer hover:opacity-80 transition-opacity"
+                  >
+                    <img
+                      src={attachment.url}
+                      alt={attachment.name}
+                      className="h-16 w-16 object-cover rounded border"
+                    />
+                  </button>
+                ) : (
+                  <div className="h-10 w-10 rounded bg-muted flex items-center justify-center">
+                    <IconComponent className="h-5 w-5 text-muted-foreground" />
+                  </div>
+                )}
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium truncate">{attachment.name}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {formatFileSize(attachment.size)}
+                  </p>
                 </div>
-              )}
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium truncate">{attachment.name}</p>
-                <p className="text-xs text-muted-foreground">
-                  {formatFileSize(attachment.size)}
-                </p>
+                <div className="flex gap-1">
+                  <Button 
+                    variant="ghost" 
+                    size="icon"
+                    onClick={() => setPreviewAttachment(attachment)}
+                  >
+                    <Eye className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" size="icon" asChild>
+                    <a href={attachment.url} download={attachment.name} target="_blank" rel="noopener noreferrer">
+                      <Download className="h-4 w-4" />
+                    </a>
+                  </Button>
+                </div>
               </div>
-              <Button variant="ghost" size="icon" asChild>
-                <a href={attachment.url} download={attachment.name} target="_blank" rel="noopener noreferrer">
-                  <Download className="h-4 w-4" />
-                </a>
-              </Button>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
-    </div>
+      
+      {/* File Preview Dialog */}
+      <FilePreviewDialog
+        isOpen={!!previewAttachment}
+        onClose={() => setPreviewAttachment(null)}
+        fileUrl={previewAttachment?.url || ""}
+        fileName={previewAttachment?.name || ""}
+        fileType={previewAttachment ? getFileExtension(previewAttachment.name, previewAttachment.type) : undefined}
+        fileSize={previewAttachment?.size}
+      />
+    </>
   );
 };

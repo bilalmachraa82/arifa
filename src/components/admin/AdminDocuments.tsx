@@ -30,6 +30,7 @@ import { useToast } from "@/hooks/use-toast";
 import FileUpload from "./FileUpload";
 import DocumentVersionHistory from "./DocumentVersionHistory";
 import { FolderNavigation } from "@/components/documents/FolderNavigation";
+import { FilePreviewDialog } from "@/components/preview";
 
 interface Document {
   id: string;
@@ -73,6 +74,7 @@ const AdminDocuments = () => {
   const [saving, setSaving] = useState(false);
   const [selectedClientId, setSelectedClientId] = useState<string>("");
   const [currentFolderId, setCurrentFolderId] = useState<string | null>(null);
+  const [previewDoc, setPreviewDoc] = useState<Document | null>(null);
 
   const [formData, setFormData] = useState({
     client_id: "",
@@ -264,7 +266,7 @@ const AdminDocuments = () => {
                         {doc.description && <p className="text-sm text-muted-foreground mt-1 line-clamp-1">{doc.description}</p>}
                       </div>
                       <div className="flex items-center gap-2 flex-shrink-0">
-                        <Button variant="ghost" size="icon" asChild><a href={doc.file_url} target="_blank" rel="noopener noreferrer"><Eye className="h-4 w-4" /></a></Button>
+                        <Button variant="ghost" size="icon" onClick={() => setPreviewDoc(doc)}><Eye className="h-4 w-4" /></Button>
                         <Button variant="ghost" size="icon" onClick={() => handleDelete(doc.id)}><Trash2 className="h-4 w-4" /></Button>
                         <CollapsibleTrigger asChild><Button variant="ghost" size="icon"><ChevronDown className="h-4 w-4" /></Button></CollapsibleTrigger>
                       </div>
@@ -278,6 +280,16 @@ const AdminDocuments = () => {
             ))}
           </div>
         )}
+        
+        {/* File Preview Dialog */}
+        <FilePreviewDialog
+          isOpen={!!previewDoc}
+          onClose={() => setPreviewDoc(null)}
+          fileUrl={previewDoc?.file_url || ""}
+          fileName={previewDoc?.title || ""}
+          fileType={previewDoc?.file_type || undefined}
+          fileSize={previewDoc?.file_size || undefined}
+        />
       </CardContent>
     </Card>
   );

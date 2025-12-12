@@ -27,6 +27,7 @@ import ProjectTimeline from "@/components/client/ProjectTimeline";
 import ClientDocumentVersions from "@/components/client/ClientDocumentVersions";
 import { MessageAttachmentDisplay, Attachment } from "@/components/chat/MessageAttachments";
 import { FolderNavigation } from "@/components/documents/FolderNavigation";
+import { FilePreviewDialog } from "@/components/preview";
 
 interface Project {
   id: string;
@@ -75,6 +76,7 @@ const ClientDashboard = () => {
   const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
   const [showMessageForm, setShowMessageForm] = useState(false);
   const [currentFolderId, setCurrentFolderId] = useState<string | null>(null);
+  const [previewDoc, setPreviewDoc] = useState<Document | null>(null);
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -433,11 +435,9 @@ const ClientDashboard = () => {
                           <Button
                             variant="outline"
                             size="icon"
-                            asChild
+                            onClick={() => setPreviewDoc(doc)}
                           >
-                            <a href={doc.file_url} target="_blank" rel="noopener noreferrer">
-                              <Eye className="h-4 w-4" />
-                            </a>
+                            <Eye className="h-4 w-4" />
                           </Button>
                           <Button
                             variant="outline"
@@ -579,6 +579,16 @@ const ClientDashboard = () => {
         }}
         projects={projects}
         replyTo={selectedMessage?.sender_id !== user?.id ? selectedMessage : null}
+      />
+      
+      {/* File Preview Dialog */}
+      <FilePreviewDialog
+        isOpen={!!previewDoc}
+        onClose={() => setPreviewDoc(null)}
+        fileUrl={previewDoc?.file_url || ""}
+        fileName={previewDoc?.title || ""}
+        fileType={previewDoc?.file_type || undefined}
+        fileSize={previewDoc?.file_size || undefined}
       />
     </Layout>
   );

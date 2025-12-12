@@ -25,6 +25,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import FileUpload from "./FileUpload";
 import { cn } from "@/lib/utils";
+import { FilePreviewDialog } from "@/components/preview";
 
 interface DocumentVersion {
   id: string;
@@ -59,6 +60,7 @@ const DocumentVersionHistory = ({
   const [uploadDialogOpen, setUploadDialogOpen] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [previewVersion, setPreviewVersion] = useState<DocumentVersion | null>(null);
   
   const [newVersionData, setNewVersionData] = useState({
     file_url: "",
@@ -270,11 +272,9 @@ const DocumentVersionHistory = ({
                       variant="ghost"
                       size="icon"
                       className="h-8 w-8"
-                      asChild
+                      onClick={() => setPreviewVersion(version)}
                     >
-                      <a href={version.file_url} target="_blank" rel="noopener noreferrer">
-                        <Eye className="h-4 w-4" />
-                      </a>
+                      <Eye className="h-4 w-4" />
                     </Button>
                     <Button
                       variant="ghost"
@@ -355,6 +355,16 @@ const DocumentVersionHistory = ({
           </div>
         </DialogContent>
       </Dialog>
+      
+      {/* File Preview Dialog */}
+      <FilePreviewDialog
+        isOpen={!!previewVersion}
+        onClose={() => setPreviewVersion(null)}
+        fileUrl={previewVersion?.file_url || ""}
+        fileName={`${documentTitle} - v${previewVersion?.version_number || ""}`}
+        fileType={previewVersion?.file_type || undefined}
+        fileSize={previewVersion?.file_size || undefined}
+      />
     </div>
   );
 };
