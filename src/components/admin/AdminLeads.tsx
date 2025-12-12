@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -20,10 +20,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Loader2, Mail, Phone, Calendar, Building2, Download, Sparkles, TrendingUp, LayoutGrid, List, History } from "lucide-react";
+import { Loader2, Mail, Phone, Calendar, Building2, Download, Sparkles, TrendingUp, LayoutGrid, List } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useLeadStages } from "@/hooks/useLeadStages";
+import { useLeadsRealtime } from "@/hooks/useLeadsRealtime";
 import LeadsKanban from "./LeadsKanban";
 import LeadActivities from "./LeadActivities";
+import KanbanSettings from "./KanbanSettings";
+import KanbanFilters from "./KanbanFilters";
 
 interface Lead {
   id: string;
@@ -41,14 +45,6 @@ interface Lead {
   ai_scored_at: string | null;
 }
 
-const statusOptions = [
-  { value: "new", label: "Novo", color: "bg-blue-500" },
-  { value: "contacted", label: "Contactado", color: "bg-yellow-500" },
-  { value: "qualified", label: "Qualificado", color: "bg-green-500" },
-  { value: "converted", label: "Convertido", color: "bg-purple-500" },
-  { value: "lost", label: "Perdido", color: "bg-red-500" },
-];
-
 const AdminLeads = () => {
   const { toast } = useToast();
   const [leads, setLeads] = useState<Lead[]>([]);
@@ -57,11 +53,16 @@ const AdminLeads = () => {
   const [scoringLeadId, setScoringLeadId] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<"table" | "kanban">("kanban");
 
-  useEffect(() => {
-    fetchLeads();
-  }, []);
+  // Filters state
+  const [searchTerm, setSearchTerm] = useState("");
+  const [segmentFilter, setSegmentFilter] = useState("all");
+  const [scoreFilter, setScoreFilter] = useState("all");
+  const [periodFilter, setPeriodFilter] = useState("all");
 
-  const fetchLeads = async () => {
+  // Custom hooks
+  const { stages, refetch: refetchStages, getStageByName } = useLeadStages();
+
+  const fetchLeads = useCallback(async () => {
     const { data, error } = await supabase
       .from("leads")
       .select("*")
@@ -73,6 +74,86 @@ const AdminLeads = () => {
       setLeads(data || []);
     }
     setLoading(false);
+  }, []);
+
+  // Realtime subscription
+  useLeadsRealtime({ onLeadChange: fetchLeads });
+
+  useEffect(() => {
+    fetchLeads();
+  }, [fetchLeads]);
+
+  // Get unique segments from leads
+  const segments = useMemo(() => {
+    return [...new Set(leads.filter((l) => l.segment).map((l) => l.segment!))]
+      .sort();
+  }, [leads]);
+
+  // Filter leads
+  const filteredLeads = useMemo(() => {
+    return leads.filter((lead) => {
+      // Search filter
+      if (searchTerm) {
+        const search = searchTerm.toLowerCase();
+        const matchesSearch =
+          lead.name.toLowerCase().includes(search) ||
+          lead.email.toLowerCase().includes(search) ||
+          (lead.phone && lead.phone.includes(search)) ||
+          (lead.message && lead.message.toLowerCase().includes(search));
+        if (!matchesSearch) return false;
+      }
+
+      // Segment filter
+      if (segmentFilter !== "all" && lead.segment !== segmentFilter) {
+        return false;
+      }
+
+      // Score filter
+      if (scoreFilter !== "all") {
+        if (scoreFilter === "high" && (lead.ai_score === null || lead.ai_score < 80)) return false;
+        if (scoreFilter === "medium" && (lead.ai_score === null || lead.ai_score < 60 || lead.ai_score >= 80)) return false;
+        if (scoreFilter === "low" && (lead.ai_score === null || lead.ai_score >= 60)) return false;
+        if (scoreFilter === "none" && lead.ai_score !== null) return false;
+      }
+
+      // Period filter
+      if (periodFilter !== "all" && lead.created_at) {
+        const createdAt = new Date(lead.created_at);
+        const now = new Date();
+        
+        if (periodFilter === "today") {
+          const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+          if (createdAt < today) return false;
+        } else if (periodFilter === "week") {
+          const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+          if (createdAt < weekAgo) return false;
+        } else if (periodFilter === "month") {
+          const monthAgo = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
+          if (createdAt < monthAgo) return false;
+        } else if (periodFilter === "quarter") {
+          const quarterAgo = new Date(now.getFullYear(), now.getMonth() - 3, now.getDate());
+          if (createdAt < quarterAgo) return false;
+        }
+      }
+
+      return true;
+    });
+  }, [leads, searchTerm, segmentFilter, scoreFilter, periodFilter]);
+
+  const activeFiltersCount = useMemo(() => {
+    let count = 0;
+    if (searchTerm) count++;
+    if (segmentFilter !== "all") count++;
+    if (scoreFilter !== "all") count++;
+    if (periodFilter !== "all") count++;
+    return count;
+  }, [searchTerm, segmentFilter, scoreFilter, periodFilter]);
+
+  const clearFilters = () => {
+    setSearchTerm("");
+    setSegmentFilter("all");
+    setScoreFilter("all");
+    setPeriodFilter("all");
   };
 
   const updateStatus = async (leadId: string, status: string) => {
@@ -104,11 +185,14 @@ const AdminLeads = () => {
   };
 
   const getStatusBadge = (status: string | null) => {
-    const statusInfo = statusOptions.find(s => s.value === status) || statusOptions[0];
+    const stage = getStageByName(status);
     return (
       <Badge variant="outline" className="gap-1">
-        <span className={`w-2 h-2 rounded-full ${statusInfo.color}`} />
-        {statusInfo.label}
+        <span
+          className="w-2 h-2 rounded-full"
+          style={{ backgroundColor: stage.color }}
+        />
+        {stage.name}
       </Badge>
     );
   };
@@ -158,7 +242,6 @@ const AdminLeads = () => {
 
       fetchLeads();
       
-      // Update selected lead if it's the one being scored
       if (selectedLead?.id === leadId) {
         setSelectedLead(prev => prev ? {
           ...prev,
@@ -180,19 +263,19 @@ const AdminLeads = () => {
   };
 
   const exportToCSV = () => {
-    if (leads.length === 0) return;
+    if (filteredLeads.length === 0) return;
 
     const headers = ["Nome", "Email", "Telefone", "Segmento", "Serviço", "Mensagem", "Estado", "AI Score", "Fonte", "Data"];
     const csvContent = [
       headers.join(";"),
-      ...leads.map(lead => [
+      ...filteredLeads.map(lead => [
         `"${lead.name}"`,
         `"${lead.email}"`,
         `"${lead.phone || ""}"`,
         `"${lead.segment || ""}"`,
         `"${lead.service || ""}"`,
         `"${lead.message.replace(/"/g, '""').replace(/\n/g, ' ')}"`,
-        `"${statusOptions.find(s => s.value === lead.status)?.label || "Novo"}"`,
+        `"${getStageByName(lead.status).name}"`,
         `"${lead.ai_score || ""}"`,
         `"${lead.source || "website"}"`,
         `"${formatDate(lead.created_at)}"`
@@ -211,14 +294,14 @@ const AdminLeads = () => {
 
     toast({
       title: "Exportação concluída",
-      description: `${leads.length} leads exportados para CSV.`,
+      description: `${filteredLeads.length} leads exportados para CSV.`,
     });
   };
 
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between flex-wrap gap-4">
-        <CardTitle>Leads / Contactos</CardTitle>
+        <CardTitle>Leads / CRM</CardTitle>
         <div className="flex items-center gap-3">
           <Tabs value={viewMode} onValueChange={(v) => setViewMode(v as "table" | "kanban")}>
             <TabsList className="h-9">
@@ -232,13 +315,29 @@ const AdminLeads = () => {
               </TabsTrigger>
             </TabsList>
           </Tabs>
-          <Button variant="outline" size="sm" onClick={exportToCSV} disabled={leads.length === 0}>
+          <KanbanSettings stages={stages} onStagesChange={refetchStages} />
+          <Button variant="outline" size="sm" onClick={exportToCSV} disabled={filteredLeads.length === 0}>
             <Download className="h-4 w-4 mr-2" />
             Exportar CSV
           </Button>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="space-y-4">
+        {/* Filters */}
+        <KanbanFilters
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
+          segmentFilter={segmentFilter}
+          onSegmentChange={setSegmentFilter}
+          scoreFilter={scoreFilter}
+          onScoreChange={setScoreFilter}
+          periodFilter={periodFilter}
+          onPeriodChange={setPeriodFilter}
+          onClearFilters={clearFilters}
+          segments={segments}
+          activeFiltersCount={activeFiltersCount}
+        />
+
         {loading ? (
           <div className="flex justify-center py-8">
             <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
@@ -247,16 +346,27 @@ const AdminLeads = () => {
           <p className="text-center text-muted-foreground py-8">
             Nenhum lead registado.
           </p>
+        ) : filteredLeads.length === 0 ? (
+          <div className="text-center py-8">
+            <p className="text-muted-foreground mb-2">
+              Nenhum lead corresponde aos filtros aplicados.
+            </p>
+            <Button variant="outline" size="sm" onClick={clearFilters}>
+              Limpar filtros
+            </Button>
+          </div>
         ) : (
           <div className="grid lg:grid-cols-3 gap-6">
             {/* Leads List / Kanban */}
             <div className={viewMode === "kanban" ? "lg:col-span-3 xl:col-span-2" : "lg:col-span-2"}>
               {viewMode === "kanban" ? (
                 <LeadsKanban
-                  leads={leads}
+                  leads={filteredLeads}
+                  stages={stages}
                   onLeadSelect={setSelectedLead}
                   selectedLead={selectedLead}
                   onRefresh={fetchLeads}
+                  getStageByName={getStageByName}
                 />
               ) : (
                 <Table>
@@ -271,7 +381,7 @@ const AdminLeads = () => {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {leads.map((lead) => (
+                    {filteredLeads.map((lead) => (
                       <TableRow 
                         key={lead.id} 
                         className={`cursor-pointer ${selectedLead?.id === lead.id ? "bg-muted" : ""}`}
@@ -326,11 +436,14 @@ const AdminLeads = () => {
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
-                              {statusOptions.map((status) => (
-                                <SelectItem key={status.value} value={status.value}>
+                              {stages.map((stage) => (
+                                <SelectItem key={stage.id} value={stage.name.toLowerCase()}>
                                   <span className="flex items-center gap-2">
-                                    <span className={`w-2 h-2 rounded-full ${status.color}`} />
-                                    {status.label}
+                                    <span
+                                      className="w-2 h-2 rounded-full"
+                                      style={{ backgroundColor: stage.color }}
+                                    />
+                                    {stage.name}
                                   </span>
                                 </SelectItem>
                               ))}
