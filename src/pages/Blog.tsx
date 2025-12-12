@@ -49,11 +49,24 @@ export default function Blog() {
     fetchPosts();
   }, []);
 
-  // Extract unique categories
-  const categories = useMemo(() => {
-    const postCategories = [...new Set(posts.map(p => p.category).filter(Boolean))] as string[];
-    return ["Todos", ...postCategories.sort()];
-  }, [posts]);
+  // Fetch categories from database
+  const [dbCategories, setDbCategories] = useState<string[]>([]);
+  
+  useEffect(() => {
+    async function fetchCategories() {
+      const { data } = await supabase
+        .from("blog_categories")
+        .select("name")
+        .order("name");
+      
+      if (data) {
+        setDbCategories(data.map(c => c.name));
+      }
+    }
+    fetchCategories();
+  }, []);
+
+  const categories = useMemo(() => ["Todos", ...dbCategories], [dbCategories]);
 
   // Filter posts
   const filteredPosts = useMemo(() => {
