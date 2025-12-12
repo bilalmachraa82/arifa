@@ -302,7 +302,7 @@ const translations = {
     
     // WhatsApp
     "whatsapp.tooltip": "Fale connosco no WhatsApp",
-    "whatsapp.message": "Olá, gostaria de mais informações sobre os vossos serviços.",
+    "whatsapp.message": "Olá! Gostaria de solicitar um orçamento para o meu projeto. Podem ajudar-me?",
     
     // Common
     "common.required": "obrigatório",
@@ -600,7 +600,7 @@ const translations = {
     
     // WhatsApp
     "whatsapp.tooltip": "Chat with us on WhatsApp",
-    "whatsapp.message": "Hello, I would like more information about your services.",
+    "whatsapp.message": "Hello! I would like to request a quote for my project. Can you help me?",
     
     // Common
     "common.required": "required",
