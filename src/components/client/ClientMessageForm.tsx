@@ -131,12 +131,12 @@ const ClientMessageForm = ({
           {projects.length > 0 && (
             <div className="space-y-2">
               <Label htmlFor="project">Projeto (opcional)</Label>
-              <Select value={projectId} onValueChange={setProjectId}>
+              <Select value={projectId || "__none__"} onValueChange={(v) => setProjectId(v === "__none__" ? "" : v)}>
                 <SelectTrigger>
                   <SelectValue placeholder="Selecione um projeto" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Nenhum projeto específico</SelectItem>
+                  <SelectItem value="__none__">Nenhum projeto específico</SelectItem>
                   {projects.map((project) => (
                     <SelectItem key={project.id} value={project.id}>
                       {project.title}
