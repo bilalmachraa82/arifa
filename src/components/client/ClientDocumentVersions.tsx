@@ -13,6 +13,7 @@ import {
   ChevronUp
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { FilePreviewDialog } from "@/components/preview";
 
 interface DocumentVersion {
   id: string;
@@ -37,6 +38,7 @@ const ClientDocumentVersions = ({
   const [versions, setVersions] = useState<DocumentVersion[]>([]);
   const [loading, setLoading] = useState(true);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [previewVersion, setPreviewVersion] = useState<DocumentVersion | null>(null);
 
   useEffect(() => {
     fetchVersions();
@@ -139,11 +141,9 @@ const ClientDocumentVersions = ({
                     variant="ghost"
                     size="icon"
                     className="h-7 w-7"
-                    asChild
+                    onClick={() => setPreviewVersion(version)}
                   >
-                    <a href={version.file_url} target="_blank" rel="noopener noreferrer">
-                      <Eye className="h-3 w-3" />
-                    </a>
+                    <Eye className="h-3 w-3" />
                   </Button>
                   <Button
                     variant="ghost"
@@ -161,6 +161,16 @@ const ClientDocumentVersions = ({
           )}
         </div>
       )}
+      
+      {/* File Preview Dialog */}
+      <FilePreviewDialog
+        isOpen={!!previewVersion}
+        onClose={() => setPreviewVersion(null)}
+        fileUrl={previewVersion?.file_url || ""}
+        fileName={`Documento - v${previewVersion?.version_number || ""}`}
+        fileType={previewVersion?.file_type || undefined}
+        fileSize={previewVersion?.file_size || undefined}
+      />
     </div>
   );
 };
