@@ -47,19 +47,19 @@ export default function Investidores() {
           { name: isPt ? "Investidores" : "Investors", url: "https://arifa.studio/investidores" }
         ]}
       />
-      <section className="relative py-24 lg:py-32 bg-arifa-warm-white">
+      <section className="relative py-24 lg:py-32 bg-background">
         <div className="container-arifa">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div className="space-y-8">
               <div className="space-y-4">
-                <p className="text-sm font-medium tracking-[0.3em] text-arifa-gold uppercase">{t("investors.subtitle")}</p>
-                <h1 className="font-display text-5xl md:text-6xl font-light leading-tight text-foreground">
-                  {t("investors.title")} <span className="italic text-arifa-gold">{t("investors.titleHighlight")}</span> {t("investors.titleEnd")}
+                <p className="text-sm font-medium tracking-[0.3em] text-arifa-yellow uppercase">{t("investors.subtitle")}</p>
+                <h1 className="text-5xl md:text-6xl font-extrabold leading-tight text-foreground">
+                  {t("investors.title")} <span className="text-arifa-yellow">{t("investors.titleHighlight")}</span> {t("investors.titleEnd")}
                 </h1>
               </div>
               <p className="text-lg text-muted-foreground leading-relaxed max-w-lg">{t("investors.description")}</p>
               <div className="flex flex-wrap gap-4">
-                <Button variant="hero" size="lg" asChild>
+                <Button variant="yellow" size="lg" asChild>
                   <Link to="/contacto">{t("investors.cta")}<ArrowRight className="ml-2 h-4 w-4" /></Link>
                 </Button>
               </div>
@@ -73,30 +73,30 @@ export default function Investidores() {
         </div>
       </section>
 
-      <section className="py-16 bg-arifa-charcoal text-primary-foreground">
+      <section className="py-16 bg-foreground text-background">
         <div className="container-arifa">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {metrics.map((metric) => (
               <div key={metric.label} className="text-center">
-                <p className="font-display text-4xl md:text-5xl font-light text-arifa-gold">{metric.value}</p>
-                <p className="text-sm text-primary-foreground/70 mt-2">{metric.label}</p>
+                <p className="text-4xl md:text-5xl font-extrabold text-arifa-yellow">{metric.value}</p>
+                <p className="text-sm text-background/70 mt-2">{metric.label}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-24 lg:py-32 bg-background">
+      <section className="py-24 lg:py-32 bg-card">
         <div className="container-arifa">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <p className="text-sm font-medium tracking-[0.3em] text-arifa-gold uppercase mb-4">{t("investors.services.subtitle")}</p>
-            <h2 className="font-display text-4xl md:text-5xl font-light text-foreground">{t("investors.services.title")}</h2>
+            <p className="text-sm font-medium tracking-[0.3em] text-arifa-yellow uppercase mb-4">{t("investors.services.subtitle")}</p>
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground">{t("investors.services.title")}</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {services.map((service) => (
-              <div key={service.title} className="bg-card border border-border rounded-sm p-8 hover:shadow-card transition-shadow">
-                <div className="w-14 h-14 rounded-full bg-arifa-gold/10 flex items-center justify-center mb-6"><service.icon className="h-6 w-6 text-arifa-gold" /></div>
-                <h3 className="font-display text-2xl font-medium text-foreground mb-4">{service.title}</h3>
+              <div key={service.title} className="bg-background border border-border rounded-sm p-8 hover:shadow-card transition-shadow">
+                <div className="w-14 h-14 rounded-full bg-arifa-yellow/10 flex items-center justify-center mb-6"><service.icon className="h-6 w-6 text-arifa-yellow" /></div>
+                <h3 className="text-2xl font-bold text-foreground mb-4">{service.title}</h3>
                 <p className="text-muted-foreground leading-relaxed">{service.description}</p>
               </div>
             ))}
@@ -104,17 +104,17 @@ export default function Investidores() {
         </div>
       </section>
 
-      <section className="py-24 lg:py-32 bg-arifa-cream">
+      <section className="py-24 lg:py-32 bg-secondary">
         <div className="container-arifa">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <p className="text-sm font-medium tracking-[0.3em] text-arifa-gold uppercase mb-4">{t("investors.process.subtitle")}</p>
-            <h2 className="font-display text-4xl md:text-5xl font-light text-foreground">{t("investors.process.title")}</h2>
+            <p className="text-sm font-medium tracking-[0.3em] text-arifa-yellow uppercase mb-4">{t("investors.process.subtitle")}</p>
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground">{t("investors.process.title")}</h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {process.map((item) => (
               <div key={item.step} className="relative">
-                <div className="text-6xl font-display font-light text-arifa-gold/20 mb-4">{item.step}</div>
-                <h3 className="font-display text-xl font-medium text-foreground mb-2">{item.title}</h3>
+                <div className="text-6xl font-extrabold text-arifa-yellow/20 mb-4">{item.step}</div>
+                <h3 className="text-xl font-bold text-foreground mb-2">{item.title}</h3>
                 <p className="text-sm text-muted-foreground">{item.description}</p>
               </div>
             ))}
@@ -127,15 +127,15 @@ export default function Investidores() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div className="space-y-8">
               <div className="space-y-4">
-                <p className="text-sm font-medium tracking-[0.3em] text-arifa-gold uppercase">{t("investors.caseStudy.subtitle")}</p>
-                <h2 className="font-display text-4xl font-light text-foreground">{t("investors.caseStudy.title")}</h2>
+                <p className="text-sm font-medium tracking-[0.3em] text-arifa-yellow uppercase">{t("investors.caseStudy.subtitle")}</p>
+                <h2 className="text-4xl font-bold text-foreground">{t("investors.caseStudy.title")}</h2>
               </div>
               <p className="text-muted-foreground leading-relaxed">{t("investors.caseStudy.description")}</p>
               <div className="grid grid-cols-2 gap-6 py-6 border-y border-border">
-                <div><p className="font-display text-2xl font-medium text-foreground">€2.8M</p><p className="text-sm text-muted-foreground">{t("investors.caseStudy.investment")}</p></div>
-                <div><p className="font-display text-2xl font-medium text-foreground">22%</p><p className="text-sm text-muted-foreground">{t("investors.caseStudy.roi")}</p></div>
-                <div><p className="font-display text-2xl font-medium text-foreground">1.850 m²</p><p className="text-sm text-muted-foreground">{t("investors.caseStudy.area")}</p></div>
-                <div><p className="font-display text-2xl font-medium text-foreground">18 meses</p><p className="text-sm text-muted-foreground">{t("investors.caseStudy.timeline")}</p></div>
+                <div><p className="text-2xl font-bold text-foreground">€2.8M</p><p className="text-sm text-muted-foreground">{t("investors.caseStudy.investment")}</p></div>
+                <div><p className="text-2xl font-bold text-foreground">22%</p><p className="text-sm text-muted-foreground">{t("investors.caseStudy.roi")}</p></div>
+                <div><p className="text-2xl font-bold text-foreground">1.850 m²</p><p className="text-sm text-muted-foreground">{t("investors.caseStudy.area")}</p></div>
+                <div><p className="text-2xl font-bold text-foreground">18 meses</p><p className="text-sm text-muted-foreground">{t("investors.caseStudy.timeline")}</p></div>
               </div>
               <Button variant="outline" asChild><Link to="/portfolio">{t("investors.caseStudy.viewMore")}<ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
             </div>
@@ -152,11 +152,11 @@ export default function Investidores() {
       <SegmentTestimonials segment="investidores" />
       <LeadMagnetSection segment="investidores" />
 
-      <section className="py-24 lg:py-32 bg-arifa-charcoal text-primary-foreground">
+      <section className="py-24 lg:py-32 bg-foreground text-background">
         <div className="container-arifa text-center max-w-3xl mx-auto">
-          <h2 className="font-display text-4xl md:text-5xl font-light mb-6">{t("investors.cta2.title")}</h2>
-          <p className="text-lg text-primary-foreground/70 mb-8">{t("investors.cta2.description")}</p>
-          <Button variant="accent" size="lg" asChild>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">{t("investors.cta2.title")}</h2>
+          <p className="text-lg text-background/70 mb-8">{t("investors.cta2.description")}</p>
+          <Button variant="yellow" size="lg" asChild>
             <Link to="/contacto">{t("investors.cta2.button")}<ArrowRight className="ml-2 h-4 w-4" /></Link>
           </Button>
         </div>
