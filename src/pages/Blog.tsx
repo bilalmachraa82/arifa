@@ -120,6 +120,10 @@ export default function Blog() {
         description="Artigos, guias e dicas sobre arquitetura, design de interiores e investimento imobiliário. Inspiração para o seu próximo projeto."
         url="https://arifa.studio/blog"
         keywords="blog arquitetura, dicas design interiores, tendências arquitetura, investimento imobiliário"
+        breadcrumbs={[
+          { name: "Início", url: "https://arifa.studio" },
+          { name: "Blog", url: "https://arifa.studio/blog" }
+        ]}
       />
       {/* Hero */}
       <section className="py-24 lg:py-32 bg-arifa-warm-white">

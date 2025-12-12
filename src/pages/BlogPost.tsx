@@ -162,6 +162,12 @@ const BlogPost = () => {
         url={`https://arifa.studio/blog/${post.slug}`}
         type="article"
         publishedTime={post.published_at || undefined}
+        articleSection={post.category || "Arquitetura"}
+        breadcrumbs={[
+          { name: "Início", url: "https://arifa.studio" },
+          { name: "Blog", url: "https://arifa.studio/blog" },
+          { name: post.title, url: `https://arifa.studio/blog/${post.slug}` }
+        ]}
       />
       {/* Header */}
       <section className="bg-muted/30 py-12">

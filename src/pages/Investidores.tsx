@@ -6,9 +6,11 @@ import { SegmentTestimonials } from "@/components/SegmentTestimonials";
 import { LeadMagnetSection } from "@/components/LeadMagnetSection";
 import { SegmentProjects } from "@/components/SegmentProjects";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { SEO } from "@/components/SEO";
 
 export default function Investidores() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const isPt = language === "pt";
 
   const services = [
     { icon: FileSearch, title: t("investors.services.1.title"), description: t("investors.services.1.description") },
@@ -32,6 +34,19 @@ export default function Investidores() {
 
   return (
     <Layout>
+      <SEO 
+        title={isPt ? "Investidores" : "Investors"}
+        description={isPt 
+          ? "Soluções de arquitetura para investidores imobiliários. Maximizamos o retorno do seu investimento com projetos de excelência."
+          : "Architecture solutions for real estate investors. We maximize your investment return with excellent projects."
+        }
+        url="https://arifa.studio/investidores"
+        keywords="investimento imobiliário, arquitetura investidores, promoção imobiliária, desenvolvimento imobiliário Lisboa"
+        breadcrumbs={[
+          { name: isPt ? "Início" : "Home", url: "https://arifa.studio" },
+          { name: isPt ? "Investidores" : "Investors", url: "https://arifa.studio/investidores" }
+        ]}
+      />
       <section className="relative py-24 lg:py-32 bg-arifa-warm-white">
         <div className="container-arifa">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">

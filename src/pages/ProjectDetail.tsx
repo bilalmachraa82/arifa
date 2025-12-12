@@ -148,6 +148,19 @@ export default function ProjectDetail() {
         image={project.featured_image || undefined}
         url={`https://arifa.studio/portfolio/${project.slug}`}
         keywords={`${project.category}, arquitetura ${project.location || "Lisboa"}, ${project.title}`}
+        type="project"
+        projectData={{
+          name: project.title,
+          description: project.description || `Projeto de ${project.category}`,
+          image: project.featured_image || undefined,
+          location: project.location || undefined,
+          category: project.category
+        }}
+        breadcrumbs={[
+          { name: "Início", url: "https://arifa.studio" },
+          { name: "Portfolio", url: "https://arifa.studio/portfolio" },
+          { name: project.title, url: `https://arifa.studio/portfolio/${project.slug}` }
+        ]}
       />
       {/* Hero */}
       <section className="py-24 lg:py-32 bg-arifa-warm-white">

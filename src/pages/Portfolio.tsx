@@ -104,6 +104,10 @@ export default function Portfolio() {
         description="Explore o nosso portfolio de projetos de arquitetura e design de interiores. Residencial, corporativo, hotelaria e mais."
         url="https://arifa.studio/portfolio"
         keywords="portfolio arquitetura, projetos residenciais, design interiores Lisboa, arquitetura corporativa"
+        breadcrumbs={[
+          { name: "Início", url: "https://arifa.studio" },
+          { name: "Portfolio", url: "https://arifa.studio/portfolio" }
+        ]}
       />
       {/* Hero */}
       <section className="py-24 lg:py-32 bg-arifa-warm-white">

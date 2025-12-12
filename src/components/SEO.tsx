@@ -1,5 +1,10 @@
 import { Helmet } from "react-helmet-async";
 
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
 interface SEOProps {
   title?: string;
   description?: string;
@@ -19,6 +24,8 @@ interface SEOProps {
     location?: string;
     category?: string;
   };
+  // For breadcrumbs
+  breadcrumbs?: BreadcrumbItem[];
 }
 
 const defaultSEO = {
@@ -128,6 +135,94 @@ const generateProjectSchema = (
   } : undefined
 });
 
+// LocalBusiness Schema (ArchitectFirm)
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "ArchitectFirm",
+  "name": "ARIFA Studio",
+  "alternateName": "ARIFA",
+  "url": "https://arifa.studio",
+  "logo": "https://kiqxagkbyhdnyjngjstc.supabase.co/storage/v1/object/public/project-images/logo.png",
+  "image": "https://kiqxagkbyhdnyjngjstc.supabase.co/storage/v1/object/public/project-images/og-image.jpg",
+  "description": defaultSEO.description,
+  "priceRange": "$$$$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Lisboa",
+    "addressLocality": "Lisboa",
+    "addressRegion": "Lisboa",
+    "postalCode": "1000-000",
+    "addressCountry": "PT"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "38.7223",
+    "longitude": "-9.1393"
+  },
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Lisboa"
+    },
+    {
+      "@type": "Country",
+      "name": "Portugal"
+    }
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Serviços de Arquitetura",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Projeto de Arquitetura",
+          "description": "Design arquitetónico completo para projetos residenciais e comerciais"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Design de Interiores",
+          "description": "Design de interiores personalizado e funcional"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Modelação BIM",
+          "description": "Building Information Modeling para projetos de construção"
+        }
+      }
+    ]
+  },
+  "sameAs": [
+    "https://www.instagram.com/arifa.studio",
+    "https://www.linkedin.com/company/arifa-studio"
+  ],
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "opens": "09:00",
+    "closes": "18:00"
+  }
+};
+
+// Generate BreadcrumbList Schema
+const generateBreadcrumbSchema = (breadcrumbs: BreadcrumbItem[]) => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": breadcrumbs.map((item, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": item.name,
+    "item": item.url
+  }))
+});
+
 export function SEO({
   title,
   description = defaultSEO.description,
@@ -138,14 +233,15 @@ export function SEO({
   author,
   keywords = defaultSEO.keywords,
   articleSection,
-  projectData
+  projectData,
+  breadcrumbs
 }: SEOProps) {
   const fullTitle = title 
     ? `${title} | ${defaultSEO.siteName}` 
     : defaultSEO.title;
 
   // Build structured data array
-  const structuredData: object[] = [organizationSchema, websiteSchema];
+  const structuredData: object[] = [organizationSchema, websiteSchema, localBusinessSchema];
 
   if (type === "article" && title) {
     structuredData.push(
@@ -163,6 +259,10 @@ export function SEO({
         projectData.category
       )
     );
+  }
+
+  if (breadcrumbs && breadcrumbs.length > 0) {
+    structuredData.push(generateBreadcrumbSchema(breadcrumbs));
   }
 
   return (

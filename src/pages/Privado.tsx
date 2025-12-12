@@ -6,9 +6,11 @@ import { SegmentTestimonials } from "@/components/SegmentTestimonials";
 import { LeadMagnetSection } from "@/components/LeadMagnetSection";
 import { SegmentProjects } from "@/components/SegmentProjects";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { SEO } from "@/components/SEO";
 
 export default function Privado() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const isPt = language === "pt";
 
   const services = [
     { icon: Home, title: t("private.services.1.title"), description: t("private.services.1.description") },
@@ -25,6 +27,19 @@ export default function Privado() {
 
   return (
     <Layout>
+      <SEO 
+        title={isPt ? "Clientes Privados" : "Private Clients"}
+        description={isPt 
+          ? "Arquitetura residencial de excelência. Transformamos a sua visão em espaços únicos e personalizados."
+          : "Excellence in residential architecture. We transform your vision into unique and personalized spaces."
+        }
+        url="https://arifa.studio/privado"
+        keywords="arquitetura residencial, design interiores casa, projeto residencial, arquitetura privada Lisboa"
+        breadcrumbs={[
+          { name: isPt ? "Início" : "Home", url: "https://arifa.studio" },
+          { name: isPt ? "Clientes Privados" : "Private Clients", url: "https://arifa.studio/privado" }
+        ]}
+      />
       <section className="relative py-24 lg:py-32 bg-arifa-warm-white">
         <div className="container-arifa">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">

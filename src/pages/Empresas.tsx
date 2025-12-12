@@ -6,9 +6,11 @@ import { SegmentTestimonials } from "@/components/SegmentTestimonials";
 import { LeadMagnetSection } from "@/components/LeadMagnetSection";
 import { SegmentProjects } from "@/components/SegmentProjects";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { SEO } from "@/components/SEO";
 
 export default function Empresas() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const isPt = language === "pt";
 
   const services = [
     { icon: Building2, title: t("companies.services.1.title"), description: t("companies.services.1.description") },
@@ -23,6 +25,19 @@ export default function Empresas() {
 
   return (
     <Layout>
+      <SEO 
+        title={isPt ? "Empresas" : "Companies"}
+        description={isPt 
+          ? "Arquitetura corporativa que transforma espaços de trabalho. Escritórios, retalho e hotelaria com design inovador."
+          : "Corporate architecture that transforms workspaces. Offices, retail and hospitality with innovative design."
+        }
+        url="https://arifa.studio/empresas"
+        keywords="arquitetura corporativa, design escritórios, arquitetura comercial, espaços de trabalho Lisboa"
+        breadcrumbs={[
+          { name: isPt ? "Início" : "Home", url: "https://arifa.studio" },
+          { name: isPt ? "Empresas" : "Companies", url: "https://arifa.studio/empresas" }
+        ]}
+      />
       <section className="relative py-24 lg:py-32 bg-arifa-warm-white">
         <div className="container-arifa">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
