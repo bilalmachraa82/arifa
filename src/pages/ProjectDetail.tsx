@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight, MapPin, Calendar, Ruler, Building, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, MapPin, Calendar, Ruler, Building, ChevronLeft, ChevronRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { SEO } from "@/components/SEO";
+import { Lightbox } from "@/components/gallery/Lightbox";
 
 interface Project {
   id: string;
@@ -403,48 +404,14 @@ export default function ProjectDetail() {
         </div>
       </section>
 
-      {/* Lightbox */}
-      {lightboxOpen && (
-        <div 
-          className="fixed inset-0 z-50 bg-arifa-charcoal/95 flex items-center justify-center"
-          onClick={() => setLightboxOpen(false)}
-        >
-          <button
-            onClick={() => setLightboxOpen(false)}
-            className="absolute top-6 right-6 w-12 h-12 rounded-full bg-primary-foreground/10 flex items-center justify-center text-primary-foreground hover:bg-primary-foreground/20 transition-colors"
-          >
-            <X className="h-6 w-6" />
-          </button>
-
-          {allImages.length > 1 && (
-            <>
-              <button
-                onClick={(e) => { e.stopPropagation(); prevImage(); }}
-                className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-primary-foreground/10 flex items-center justify-center text-primary-foreground hover:bg-primary-foreground/20 transition-colors"
-              >
-                <ChevronLeft className="h-6 w-6" />
-              </button>
-              <button
-                onClick={(e) => { e.stopPropagation(); nextImage(); }}
-                className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-primary-foreground/10 flex items-center justify-center text-primary-foreground hover:bg-primary-foreground/20 transition-colors"
-              >
-                <ChevronRight className="h-6 w-6" />
-              </button>
-            </>
-          )}
-
-          <img
-            src={allImages[activeImage]}
-            alt={`${project.title} - Imagem ${activeImage + 1}`}
-            className="max-w-[90vw] max-h-[90vh] object-contain"
-            onClick={(e) => e.stopPropagation()}
-          />
-
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-primary-foreground text-sm">
-            {activeImage + 1} / {allImages.length}
-          </div>
-        </div>
-      )}
+      {/* Advanced Lightbox */}
+      <Lightbox
+        images={allImages}
+        initialIndex={activeImage}
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+        title={project.title}
+      />
     </Layout>
   );
 }
