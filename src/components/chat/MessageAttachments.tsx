@@ -10,6 +10,7 @@ export interface Attachment {
   name: string;
   size: number;
   type: string;
+  path?: string; // Storage path for regenerating signed URLs
 }
 
 interface MessageAttachmentUploadProps {
@@ -66,15 +67,19 @@ export const MessageAttachmentUpload = ({
 
         if (uploadError) throw uploadError;
 
-        const { data: urlData } = supabase.storage
+        // Use signed URL for private bucket (valid for 1 year)
+        const { data: signedUrlData, error: signedUrlError } = await supabase.storage
           .from("client-documents")
-          .getPublicUrl(filePath);
+          .createSignedUrl(filePath, 60 * 60 * 24 * 365);
+
+        if (signedUrlError) throw signedUrlError;
 
         newAttachments.push({
-          url: urlData.publicUrl,
+          url: signedUrlData.signedUrl,
           name: file.name,
           size: file.size,
           type: file.type,
+          path: filePath, // Store path for future signed URL generation
         });
       } catch (error) {
         console.error("Upload error:", error);
