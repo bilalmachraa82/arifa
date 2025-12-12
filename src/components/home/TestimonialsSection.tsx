@@ -44,13 +44,13 @@ export function TestimonialsSection() {
   const prev = () => setCurrent((prev) => (prev - 1 + testimonials.length) % testimonials.length);
 
   return (
-    <section className="py-24 lg:py-32 bg-arifa-charcoal text-primary-foreground overflow-hidden">
+    <section className="py-24 lg:py-32 bg-foreground text-background overflow-hidden">
       <div className="container-arifa">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <p className="text-sm font-medium tracking-[0.3em] text-arifa-teal uppercase mb-4">
+          <p className="text-sm font-medium tracking-[0.3em] text-accent uppercase mb-4">
             {t("testimonials.subtitle")}
           </p>
-          <h2 className="font-display text-4xl md:text-5xl font-light">
+          <h2 className="text-4xl md:text-5xl font-extrabold">
             {t("testimonials.title")}
           </h2>
         </div>
@@ -67,9 +67,9 @@ export function TestimonialsSection() {
                 }`}
               >
                 <div className="text-center">
-                  <Quote className="h-12 w-12 text-arifa-teal mx-auto mb-8 opacity-50" />
+                  <Quote className="h-12 w-12 text-accent mx-auto mb-8 opacity-50" />
                   
-                  <blockquote className="font-display text-2xl md:text-3xl font-light leading-relaxed mb-8">
+                  <blockquote className="text-2xl md:text-3xl font-light leading-relaxed mb-8">
                     "{language === "en" ? testimonial.contentEn : testimonial.content}"
                   </blockquote>
 
@@ -81,10 +81,10 @@ export function TestimonialsSection() {
                     />
                     <div className="text-left">
                       <p className="font-medium">{testimonial.author}</p>
-                      <p className="text-sm text-primary-foreground/70">
+                      <p className="text-sm text-background/70">
                         {language === "en" ? (testimonial.roleEn || testimonial.role) : testimonial.role}
                       </p>
-                      <p className="text-xs text-arifa-teal">
+                      <p className="text-xs text-accent">
                         {language === "en" ? (testimonial.projectEn || testimonial.project) : testimonial.project}
                       </p>
                     </div>
@@ -98,7 +98,7 @@ export function TestimonialsSection() {
           <div className="flex items-center justify-center gap-4 mt-12">
             <button
               onClick={prev}
-              className="w-12 h-12 rounded-full border border-primary-foreground/20 flex items-center justify-center hover:bg-primary-foreground/10 transition-colors"
+              className="w-12 h-12 rounded-full border border-background/20 flex items-center justify-center hover:bg-background/10 transition-colors"
               aria-label={t("testimonials.previous")}
             >
               <ChevronLeft className="h-5 w-5" />
@@ -111,8 +111,8 @@ export function TestimonialsSection() {
                   onClick={() => setCurrent(index)}
                   className={`w-2 h-2 rounded-full transition-all ${
                     index === current
-                      ? "bg-arifa-teal w-8"
-                      : "bg-primary-foreground/30 hover:bg-primary-foreground/50"
+                      ? "bg-accent w-8"
+                      : "bg-background/30 hover:bg-background/50"
                   }`}
                   aria-label={`${t("testimonials.goTo")} ${index + 1}`}
                 />

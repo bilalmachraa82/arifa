@@ -21,8 +21,11 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         hero: "bg-primary text-primary-foreground hover:bg-foreground/90 shadow-elevated hover:shadow-none transform hover:-translate-y-0.5 rounded-sm",
         "hero-outline": "border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground rounded-sm",
-        accent: "bg-arifa-teal text-accent-foreground hover:bg-arifa-green shadow-soft rounded-sm",
-        minimal: "text-foreground hover:text-arifa-teal underline-offset-8 hover:underline",
+        // Brand Book: Azul Academy para accent, Coral Living para CTA secundário
+        accent: "bg-accent text-accent-foreground hover:bg-accent/90 shadow-soft rounded-sm",
+        coral: "bg-arifa-coral text-white hover:bg-arifa-coral/90 shadow-soft rounded-sm",
+        yellow: "bg-arifa-yellow text-foreground hover:bg-arifa-yellow/90 shadow-soft rounded-sm",
+        minimal: "text-foreground hover:text-accent underline-offset-8 hover:underline",
       },
       size: {
         default: "h-11 px-6 py-2",

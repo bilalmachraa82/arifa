@@ -13,7 +13,7 @@ export function AboutSection() {
   ];
 
   return (
-    <section className="py-24 lg:py-32 bg-arifa-cream" id="sobre">
+    <section className="py-24 lg:py-32 bg-card" id="sobre">
       <div className="container-arifa">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           <div className="relative">
@@ -26,8 +26,8 @@ export function AboutSection() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="aspect-square bg-arifa-teal rounded-sm flex items-center justify-center p-6">
-                  <p className="font-display text-3xl text-accent-foreground text-center font-light">
+                <div className="aspect-square bg-accent rounded-sm flex items-center justify-center p-6">
+                  <p className="text-3xl text-accent-foreground text-center font-light">
                     "{t("about.quote")}"
                   </p>
                 </div>
@@ -53,12 +53,12 @@ export function AboutSection() {
 
           <div className="space-y-8">
             <div className="space-y-4">
-              <p className="text-sm font-medium tracking-[0.3em] text-arifa-teal uppercase">
+              <p className="text-sm font-medium tracking-[0.3em] text-accent uppercase">
                 {t("about.subtitle")}
               </p>
-              <h2 className="font-display text-4xl md:text-5xl font-light text-foreground leading-tight">
+              <h2 className="text-4xl md:text-5xl font-extrabold text-foreground leading-tight">
                 {t("about.title")}{" "}
-                <span className="italic">{t("about.titleHighlight")}</span>
+                <span className="font-normal">{t("about.titleHighlight")}</span>
               </h2>
             </div>
 

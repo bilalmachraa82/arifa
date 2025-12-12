@@ -7,24 +7,24 @@ export function HeroSection() {
   const { t } = useLanguage();
   
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-arifa-warm-white">
-      {/* Background geometric elements */}
+    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-background">
+      {/* Background geometric elements - Brand Book pattern */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 right-0 w-1/2 h-full bg-secondary/50 transform skew-x-12" />
+        <div className="absolute top-20 right-0 w-1/2 h-full bg-card/50 transform skew-x-12" />
         <div className="absolute bottom-0 left-0 w-96 h-96 border border-border/30 rounded-full -translate-x-1/2 translate-y-1/2" />
-        <div className="absolute top-40 right-40 w-64 h-64 border border-arifa-teal/20 rounded-full" />
+        <div className="absolute top-40 right-40 w-64 h-64 border border-accent/20 rounded-full" />
       </div>
 
       <div className="container-arifa relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div className="space-y-8">
             <div className="space-y-4">
-              <p className="text-sm font-medium tracking-[0.3em] text-arifa-teal uppercase animate-fade-in">
+              <p className="text-sm font-medium tracking-[0.3em] text-accent uppercase animate-fade-in">
                 {t("hero.tagline")}
               </p>
-              <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-light leading-[1.1] text-foreground animate-fade-in animation-delay-100">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] text-foreground animate-fade-in animation-delay-100">
                 {t("hero.title")}{" "}
-                <span className="italic text-arifa-teal">{t("hero.titleHighlight")}</span>
+                <span className="text-accent">{t("hero.titleHighlight")}</span>
               </h1>
             </div>
             

@@ -7,15 +7,15 @@ export function CTASection() {
   const { t } = useLanguage();
   
   return (
-    <section className="py-24 lg:py-32 bg-arifa-warm-white">
+    <section className="py-24 lg:py-32 bg-card">
       <div className="container-arifa">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div className="space-y-8">
             <div className="space-y-4">
-              <p className="text-sm font-medium tracking-[0.3em] text-arifa-teal uppercase">
+              <p className="text-sm font-medium tracking-[0.3em] text-accent uppercase">
                 {t("cta.subtitle")}
               </p>
-              <h2 className="font-display text-4xl md:text-5xl font-light text-foreground leading-tight">
+              <h2 className="text-4xl md:text-5xl font-extrabold text-foreground leading-tight">
                 {t("cta.title")}
               </h2>
             </div>
@@ -26,8 +26,8 @@ export function CTASection() {
 
             <div className="space-y-4">
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-arifa-teal/10 flex items-center justify-center flex-shrink-0">
-                  <Calendar className="h-5 w-5 text-arifa-teal" />
+                <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+                  <Calendar className="h-5 w-5 text-accent" />
                 </div>
                 <div>
                   <p className="font-medium text-foreground">{t("cta.freeConsultation")}</p>
@@ -36,8 +36,8 @@ export function CTASection() {
               </div>
               
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-arifa-teal/10 flex items-center justify-center flex-shrink-0">
-                  <Phone className="h-5 w-5 text-arifa-teal" />
+                <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+                  <Phone className="h-5 w-5 text-accent" />
                 </div>
                 <div>
                   <p className="font-medium text-foreground">{t("cta.response24h")}</p>
@@ -46,8 +46,8 @@ export function CTASection() {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-arifa-teal/10 flex items-center justify-center flex-shrink-0">
-                  <Mail className="h-5 w-5 text-arifa-teal" />
+                <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+                  <Mail className="h-5 w-5 text-accent" />
                 </div>
                 <div>
                   <p className="font-medium text-foreground">{t("cta.detailedQuote")}</p>
@@ -82,8 +82,8 @@ export function CTASection() {
             </div>
             
             {/* Decorative elements */}
-            <div className="absolute -top-4 -right-4 w-24 h-24 border-2 border-arifa-teal/30 rounded-sm" />
-            <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-arifa-teal/10 rounded-sm -z-10" />
+            <div className="absolute -top-4 -right-4 w-24 h-24 border-2 border-accent/30 rounded-sm" />
+            <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-accent/10 rounded-sm -z-10" />
           </div>
         </div>
       </div>
