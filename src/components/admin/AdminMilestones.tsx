@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Dialog,
   DialogContent,
@@ -25,20 +26,20 @@ import {
   Plus, 
   Loader2, 
   Trash2, 
-  GripVertical,
   FileSearch,
   PenTool,
   HardHat,
   Sparkles,
   Key,
   CheckCircle2,
-  Circle,
-  Calendar,
-  Target
+  Target,
+  List,
+  LayoutGrid
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import { pt } from "date-fns/locale";
+import { MilestonesKanban } from "./MilestonesKanban";
 
 interface Project {
   id: string;
@@ -197,9 +198,40 @@ const AdminMilestones = () => {
   const selectedProjectData = projects.find(p => p.id === selectedProject);
 
   return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
-        <div>
+    <Tabs defaultValue="kanban" className="space-y-4">
+      <div className="flex items-center justify-between">
+        <TabsList>
+          <TabsTrigger value="kanban" className="gap-2">
+            <LayoutGrid className="h-4 w-4" />
+            Kanban
+          </TabsTrigger>
+          <TabsTrigger value="list" className="gap-2">
+            <List className="h-4 w-4" />
+            Lista
+          </TabsTrigger>
+        </TabsList>
+      </div>
+
+      <TabsContent value="kanban">
+        <Card>
+          <CardHeader>
+            <CardTitle>Milestones - Vista Kanban</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <MilestonesKanban />
+          </CardContent>
+        </Card>
+      </TabsContent>
+
+      <TabsContent value="list">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between">
+            <div>
+              <CardTitle>Milestones - Vista Lista</CardTitle>
+              <p className="text-sm text-muted-foreground mt-1">
+                Gerir etapas e datas de entrega dos projetos
+              </p>
+            </div>
           <CardTitle>Milestones de Projetos</CardTitle>
           <p className="text-sm text-muted-foreground mt-1">
             Gerir etapas e datas de entrega dos projetos
@@ -386,6 +418,8 @@ const AdminMilestones = () => {
         )}
       </CardContent>
     </Card>
+      </TabsContent>
+    </Tabs>
   );
 };
 
