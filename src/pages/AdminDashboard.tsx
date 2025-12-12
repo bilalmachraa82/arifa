@@ -5,7 +5,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Shield, FolderOpen, FileText, MessageSquare, Users, Mail, LayoutDashboard, History } from "lucide-react";
+import { Shield, FolderOpen, FileText, MessageSquare, Users, Mail, LayoutDashboard, History, Target } from "lucide-react";
 import AdminProjects from "@/components/admin/AdminProjects";
 import AdminBlogPosts from "@/components/admin/AdminBlogPosts";
 import AdminDocuments from "@/components/admin/AdminDocuments";
@@ -14,6 +14,7 @@ import AdminLeads from "@/components/admin/AdminLeads";
 import AdminClients from "@/components/admin/AdminClients";
 import AdminDashboardOverview from "@/components/admin/AdminDashboardOverview";
 import AdminAuditLogs from "@/components/admin/AdminAuditLogs";
+import AdminMilestones from "@/components/admin/AdminMilestones";
 
 const AdminDashboard = () => {
   const { user, loading: authLoading } = useAuth();
@@ -103,6 +104,10 @@ const AdminDashboard = () => {
               <FolderOpen className="h-4 w-4" />
               Projetos
             </TabsTrigger>
+            <TabsTrigger value="milestones" className="gap-2">
+              <Target className="h-4 w-4" />
+              Milestones
+            </TabsTrigger>
             <TabsTrigger value="blog" className="gap-2">
               <FileText className="h-4 w-4" />
               Blog
@@ -135,6 +140,10 @@ const AdminDashboard = () => {
 
           <TabsContent value="projects">
             <AdminProjects />
+          </TabsContent>
+
+          <TabsContent value="milestones">
+            <AdminMilestones />
           </TabsContent>
 
           <TabsContent value="blog">

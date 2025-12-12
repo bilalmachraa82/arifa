@@ -345,6 +345,7 @@ const ClientDashboard = () => {
                     
                     {/* Project Timeline */}
                     <ProjectTimeline 
+                      projectId={project.id}
                       projectStatus={project.status} 
                       projectTitle={project.title}
                     />
