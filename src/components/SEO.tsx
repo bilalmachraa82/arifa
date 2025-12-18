@@ -17,6 +17,11 @@ interface CollectionItem {
   description?: string;
 }
 
+interface AlternateLanguage {
+  lang: string;
+  url: string;
+}
+
 interface SEOProps {
   title?: string;
   description?: string;
@@ -45,6 +50,9 @@ interface SEOProps {
   // For collection pages (e.g., Portfolio)
   collectionItems?: CollectionItem[];
   collectionName?: string;
+  // For international SEO
+  alternateLanguages?: AlternateLanguage[];
+  currentLang?: "pt" | "en";
 }
 
 const defaultSEO = {
@@ -319,7 +327,9 @@ export function SEO({
   faq,
   serviceType,
   collectionItems,
-  collectionName
+  collectionName,
+  alternateLanguages,
+  currentLang = "pt"
 }: SEOProps) {
   const fullTitle = title 
     ? `${title} | ${defaultSEO.siteName}` 
@@ -369,6 +379,12 @@ export function SEO({
     );
   }
 
+  // Generate default alternate languages if not provided
+  const defaultAlternates: AlternateLanguage[] = alternateLanguages || [
+    { lang: "pt", url: url.replace(/\/(en|pt)\//, "/") },
+    { lang: "en", url: url.replace(/\/(en|pt)\//, "/").replace("arifa.studio/", "arifa.studio/en/") }
+  ];
+
   return (
     <Helmet>
       {/* Basic Meta Tags */}
@@ -376,6 +392,18 @@ export function SEO({
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
       <link rel="canonical" href={url} />
+      <html lang={currentLang} />
+
+      {/* Hreflang Tags for International SEO */}
+      {defaultAlternates.map((alt) => (
+        <link 
+          key={alt.lang}
+          rel="alternate" 
+          hrefLang={alt.lang === "pt" ? "pt-PT" : "en"} 
+          href={alt.url} 
+        />
+      ))}
+      <link rel="alternate" hrefLang="x-default" href={url.replace(/\/(en|pt)\//, "/")} />
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={type === "project" ? "website" : type} />
@@ -384,7 +412,8 @@ export function SEO({
       <meta property="og:description" content={description} />
       <meta property="og:image" content={image} />
       <meta property="og:site_name" content={defaultSEO.siteName} />
-      <meta property="og:locale" content="pt_PT" />
+      <meta property="og:locale" content={currentLang === "pt" ? "pt_PT" : "en_US"} />
+      <meta property="og:locale:alternate" content={currentLang === "pt" ? "en_US" : "pt_PT"} />
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
