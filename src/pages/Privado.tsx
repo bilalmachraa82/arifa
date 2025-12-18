@@ -45,9 +45,9 @@ export default function Privado() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div className="space-y-8">
               <div className="space-y-4">
-                <p className="text-sm font-medium tracking-[0.3em] text-accent uppercase">{t("private.subtitle")}</p>
+                <p className="text-sm font-light tracking-[0.3em] text-arifa-coral uppercase">{t("private.subtitle")}</p>
                 <h1 className="text-5xl md:text-6xl font-extrabold leading-tight text-foreground">
-                  {t("private.title")} <span className="text-accent">{t("private.titleHighlight")}</span>
+                  {t("private.title")} <span className="text-arifa-coral">{t("private.titleHighlight")}</span>
                 </h1>
               </div>
               <p className="text-lg text-muted-foreground leading-relaxed max-w-lg">{t("private.description")}</p>
@@ -68,14 +68,14 @@ export default function Privado() {
 
       <section className="py-24 lg:py-32 bg-background">
         <div className="container-arifa">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <p className="text-sm font-medium tracking-[0.3em] text-accent uppercase mb-4">{t("private.services.subtitle")}</p>
+        <div className="text-center max-w-3xl mx-auto mb-16">
+            <p className="text-sm font-light tracking-[0.3em] text-arifa-coral uppercase mb-4">{t("private.services.subtitle")}</p>
             <h2 className="text-4xl md:text-5xl font-extrabold text-foreground">{t("private.services.title")}</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {services.map((service) => (
               <div key={service.title} className="bg-card border border-border rounded-sm p-8 hover:shadow-card transition-shadow">
-                <div className="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center mb-6"><service.icon className="h-6 w-6 text-accent" /></div>
+                <div className="w-14 h-14 rounded-full bg-arifa-coral/10 flex items-center justify-center mb-6"><service.icon className="h-6 w-6 text-arifa-coral" /></div>
                 <h3 className="text-2xl font-bold text-foreground mb-4">{service.title}</h3>
                 <p className="text-muted-foreground leading-relaxed">{service.description}</p>
               </div>
@@ -86,14 +86,14 @@ export default function Privado() {
 
       <section className="py-24 lg:py-32 bg-card">
         <div className="container-arifa">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <p className="text-sm font-medium tracking-[0.3em] text-accent uppercase mb-4">{t("private.process.subtitle")}</p>
+        <div className="text-center max-w-3xl mx-auto mb-16">
+            <p className="text-sm font-light tracking-[0.3em] text-arifa-coral uppercase mb-4">{t("private.process.subtitle")}</p>
             <h2 className="text-4xl md:text-5xl font-extrabold text-foreground">{t("private.process.title")}</h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {process.map((item, index) => (
               <div key={item.step} className="relative">
-                <div className="text-6xl font-extrabold text-accent/20 mb-4">{item.step}</div>
+                <div className="text-6xl font-extrabold text-arifa-coral/20 mb-4">{item.step}</div>
                 <h3 className="text-xl font-bold text-foreground mb-2">{item.title}</h3>
                 <p className="text-sm text-muted-foreground">{item.description}</p>
                 {index < process.length - 1 && <div className="hidden lg:block absolute top-8 left-full w-full h-px bg-border -translate-x-1/2" />}
@@ -111,7 +111,7 @@ export default function Privado() {
         <div className="container-arifa text-center max-w-3xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-extrabold mb-6">{t("private.cta2.title")}</h2>
           <p className="text-lg text-background/70 mb-8">{t("private.cta2.description")}</p>
-          <Button variant="accent" size="lg" asChild>
+          <Button variant="coral" size="lg" asChild>
             <Link to="/contacto">{t("private.cta2.button")}<ArrowRight className="ml-2 h-4 w-4" /></Link>
           </Button>
         </div>

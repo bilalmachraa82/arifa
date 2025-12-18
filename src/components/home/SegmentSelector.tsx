@@ -17,9 +17,9 @@ export function SegmentSelector() {
         t("segments.private.feature3"),
       ],
       href: "/privado",
-      colorClass: "bg-accent/10 text-accent",
-      bulletClass: "bg-accent",
-      hoverClass: "bg-accent",
+      colorClass: "bg-arifa-coral/10 text-arifa-coral",
+      bulletClass: "bg-arifa-coral",
+      hoverClass: "bg-arifa-coral",
     },
     {
       id: "empresas",
@@ -32,9 +32,9 @@ export function SegmentSelector() {
         t("segments.companies.feature3"),
       ],
       href: "/empresas",
-      colorClass: "bg-arifa-coral/10 text-arifa-coral",
-      bulletClass: "bg-arifa-coral",
-      hoverClass: "bg-arifa-coral",
+      colorClass: "bg-arifa-yellow/10 text-arifa-yellow",
+      bulletClass: "bg-arifa-yellow",
+      hoverClass: "bg-arifa-yellow",
     },
     {
       id: "investidores",
@@ -47,9 +47,9 @@ export function SegmentSelector() {
         t("segments.investors.feature3"),
       ],
       href: "/investidores",
-      colorClass: "bg-arifa-yellow/10 text-arifa-yellow",
-      bulletClass: "bg-arifa-yellow",
-      hoverClass: "bg-arifa-yellow",
+      colorClass: "bg-arifa-blue/10 text-arifa-blue",
+      bulletClass: "bg-arifa-blue",
+      hoverClass: "bg-arifa-blue",
     },
   ];
 

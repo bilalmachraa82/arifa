@@ -5,26 +5,26 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium font-body tracking-wide transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap text-[10px] font-light font-body tracking-[0.05em] uppercase transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground hover:bg-primary/90 shadow-soft hover:shadow-card rounded-sm",
+          "bg-primary text-primary-foreground hover:bg-arifa-coral hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(237,110,101,0.3)] active:translate-y-0 active:scale-[0.98] shadow-soft rounded-sm",
         destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-sm",
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] rounded-sm",
         outline:
-          "border border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground rounded-sm",
+          "border border-muted bg-transparent text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] rounded-sm",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-sm",
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] rounded-sm",
         ghost: "hover:bg-accent hover:text-accent-foreground rounded-sm",
         link: "text-primary underline-offset-4 hover:underline",
-        hero: "bg-primary text-primary-foreground hover:bg-foreground/90 shadow-elevated hover:shadow-none transform hover:-translate-y-0.5 rounded-sm",
-        "hero-outline": "border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground rounded-sm",
-        // Brand Book: Azul Academy para accent, Coral Living para CTA secundário
-        accent: "bg-accent text-accent-foreground hover:bg-accent/90 shadow-soft rounded-sm",
-        coral: "bg-arifa-coral text-white hover:bg-arifa-coral/90 shadow-soft rounded-sm",
-        yellow: "bg-arifa-yellow text-foreground hover:bg-arifa-yellow/90 shadow-soft rounded-sm",
+        hero: "bg-primary text-primary-foreground hover:bg-arifa-coral hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(237,110,101,0.3)] active:translate-y-0 active:scale-[0.98] shadow-elevated rounded-sm",
+        "hero-outline": "border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] rounded-sm",
+        // Brand Book: Sub-marcas com hover premium
+        accent: "bg-accent text-accent-foreground hover:bg-accent/90 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(61,112,129,0.3)] active:translate-y-0 active:scale-[0.98] shadow-soft rounded-sm",
+        coral: "bg-arifa-coral text-white hover:bg-arifa-coral/90 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(237,110,101,0.3)] active:translate-y-0 active:scale-[0.98] shadow-soft rounded-sm",
+        yellow: "bg-arifa-yellow text-foreground hover:bg-arifa-yellow/90 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(230,178,30,0.3)] active:translate-y-0 active:scale-[0.98] shadow-soft rounded-sm",
         minimal: "text-foreground hover:text-accent underline-offset-8 hover:underline",
       },
       size: {
