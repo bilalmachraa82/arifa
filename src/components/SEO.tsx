@@ -5,6 +5,11 @@ interface BreadcrumbItem {
   url: string;
 }
 
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
 interface SEOProps {
   title?: string;
   description?: string;
@@ -26,6 +31,10 @@ interface SEOProps {
   };
   // For breadcrumbs
   breadcrumbs?: BreadcrumbItem[];
+  // For FAQ pages
+  faq?: FAQItem[];
+  // For service pages
+  serviceType?: string;
 }
 
 const defaultSEO = {
@@ -223,6 +232,38 @@ const generateBreadcrumbSchema = (breadcrumbs: BreadcrumbItem[]) => ({
   }))
 });
 
+// Generate FAQ Schema
+const generateFAQSchema = (faq: FAQItem[]) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faq.map((item) => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.answer
+    }
+  }))
+});
+
+// Generate Service Schema
+const generateServiceSchema = (name: string, description: string, serviceType?: string) => ({
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": name,
+  "description": description,
+  "provider": {
+    "@type": "ArchitectFirm",
+    "name": "ARIFA Studio",
+    "url": "https://arifa.studio"
+  },
+  "serviceType": serviceType || "Architectural Services",
+  "areaServed": {
+    "@type": "Country",
+    "name": "Portugal"
+  }
+});
+
 export function SEO({
   title,
   description = defaultSEO.description,
@@ -234,7 +275,9 @@ export function SEO({
   keywords = defaultSEO.keywords,
   articleSection,
   projectData,
-  breadcrumbs
+  breadcrumbs,
+  faq,
+  serviceType
 }: SEOProps) {
   const fullTitle = title 
     ? `${title} | ${defaultSEO.siteName}` 
@@ -263,6 +306,14 @@ export function SEO({
 
   if (breadcrumbs && breadcrumbs.length > 0) {
     structuredData.push(generateBreadcrumbSchema(breadcrumbs));
+  }
+
+  if (faq && faq.length > 0) {
+    structuredData.push(generateFAQSchema(faq));
+  }
+
+  if (serviceType && title) {
+    structuredData.push(generateServiceSchema(title, description, serviceType));
   }
 
   return (

@@ -8,6 +8,7 @@ import { LanguageProvider } from "@/contexts/LanguageContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { AnalyticsScripts, AnalyticsProvider } from "@/components/Analytics";
 import { InstallPWAPrompt } from "@/components/InstallPWAPrompt";
+import { PageTransition, ScrollToTop } from "@/components/transitions/PageTransition";
 import Index from "./pages/Index";
 import Privado from "./pages/Privado";
 import Empresas from "./pages/Empresas";
@@ -42,7 +43,9 @@ const App = () => (
             <AnalyticsScripts />
             <InstallPWAPrompt />
             <BrowserRouter>
+              <ScrollToTop />
               <AnalyticsProvider>
+              <PageTransition>
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/privado" element={<Privado />} />
@@ -65,6 +68,7 @@ const App = () => (
                 <Route path="/cotacao/:token" element={<QuotePublic />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
+              </PageTransition>
               </AnalyticsProvider>
             </BrowserRouter>
           </TooltipProvider>
