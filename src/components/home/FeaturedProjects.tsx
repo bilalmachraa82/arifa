@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, MapPin, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { GeometricCardFrame } from "@/components/ui/GeometricFrame";
 
 interface Project {
   id: string;
@@ -23,21 +24,25 @@ const getSegmentStyles = (segment: string | null) => {
       return {
         badge: "bg-arifa-coral text-white",
         accent: "group-hover:text-arifa-coral",
+        frame: "coral" as const,
       };
     case "empresas":
       return {
         badge: "bg-arifa-yellow text-foreground",
         accent: "group-hover:text-arifa-yellow",
+        frame: "yellow" as const,
       };
     case "investidores":
       return {
         badge: "bg-arifa-blue text-white",
         accent: "group-hover:text-arifa-blue",
+        frame: "blue" as const,
       };
     default:
       return {
         badge: "bg-accent text-accent-foreground",
         accent: "group-hover:text-accent",
+        frame: "default" as const,
       };
   }
 };
@@ -103,7 +108,7 @@ export function FeaturedProjects() {
           </Button>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
           {projects.map((project) => {
             const styles = getSegmentStyles(project.segment);
             
@@ -111,63 +116,65 @@ export function FeaturedProjects() {
               <Link
                 key={project.id}
                 to={`/portfolio/${project.slug}`}
-                className="group relative block overflow-hidden rounded-sm"
+                className="group relative block"
               >
-                {/* Image with zoom effect */}
-                <div className="aspect-[4/5] overflow-hidden">
-                  <img
-                    src={project.featured_image || "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                  />
-                </div>
-                
-                {/* Gradient Overlay - More visible on hover */}
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/30 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
-                
-                {/* Category badge - Brand Book colors */}
-                <div className="absolute top-4 left-4">
-                  <span className={`inline-block px-3 py-1.5 text-[10px] font-light uppercase tracking-wider rounded-sm ${styles.badge}`}>
-                    {project.category}
-                  </span>
-                </div>
-
-                {/* Status badge */}
-                {project.status && (
-                  <div className="absolute top-4 right-4">
-                    <span className={`inline-block px-3 py-1.5 text-[10px] font-light uppercase tracking-wider rounded-sm ${
-                      project.status === "Concluído" || project.status === "Completed"
-                        ? "bg-background/90 text-foreground" 
-                        : "bg-arifa-yellow/90 text-foreground"
-                    }`}>
-                      {project.status}
-                    </span>
-                  </div>
-                )}
-
-                {/* Content */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                  <h3 className="text-2xl font-bold text-background mb-2 group-hover:text-background transition-colors">
-                    {project.title}
-                  </h3>
-                  {project.location && (
-                    <div className="flex items-center text-sm text-background/70 mb-4 font-light">
-                      <MapPin className="h-4 w-4 mr-1" />
-                      {project.location}
+                <GeometricCardFrame variant={styles.frame}>
+                  {/* Image container with zoom effect */}
+                  <div className="aspect-[4/5] overflow-hidden rounded-sm">
+                    <img
+                      src={project.featured_image || "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"}
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                    />
+                    
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/30 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
+                    
+                    {/* Category badge - Brand Book colors */}
+                    <div className="absolute top-4 left-4">
+                      <span className={`inline-block px-3 py-1.5 text-[10px] font-light uppercase tracking-wider rounded-sm ${styles.badge}`}>
+                        {project.category}
+                      </span>
                     </div>
-                  )}
-                  
-                  {/* View Project link - appears on hover */}
-                  <div className="flex items-center text-sm text-background font-light opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="mr-2">{isPt ? "Ver Projecto" : "View Project"}</span>
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </div>
-                </div>
 
-                {/* Corner arrow indicator */}
-                <div className="absolute bottom-6 right-6 w-12 h-12 rounded-full bg-background/10 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110">
-                  <ArrowRight className="h-5 w-5 text-background" />
-                </div>
+                    {/* Status badge */}
+                    {project.status && (
+                      <div className="absolute top-4 right-4">
+                        <span className={`inline-block px-3 py-1.5 text-[10px] font-light uppercase tracking-wider rounded-sm ${
+                          project.status === "Concluído" || project.status === "Completed"
+                            ? "bg-background/90 text-foreground" 
+                            : "bg-arifa-yellow/90 text-foreground"
+                        }`}>
+                          {project.status}
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Content */}
+                    <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                      <h3 className="text-2xl font-bold text-background mb-2">
+                        {project.title}
+                      </h3>
+                      {project.location && (
+                        <div className="flex items-center text-sm text-background/70 mb-4 font-light">
+                          <MapPin className="h-4 w-4 mr-1" />
+                          {project.location}
+                        </div>
+                      )}
+                      
+                      {/* View Project link - appears on hover */}
+                      <div className="flex items-center text-sm text-background font-light opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span className="mr-2">{isPt ? "Ver Projecto" : "View Project"}</span>
+                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </div>
+                    </div>
+
+                    {/* Corner arrow indicator */}
+                    <div className="absolute bottom-6 right-6 w-12 h-12 rounded-full bg-background/10 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110">
+                      <ArrowRight className="h-5 w-5 text-background" />
+                    </div>
+                  </div>
+                </GeometricCardFrame>
               </Link>
             );
           })}

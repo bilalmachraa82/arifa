@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { SearchFilters } from "@/components/SearchFilters";
 import { SEO } from "@/components/SEO";
+import { GeometricCardFrame } from "@/components/ui/GeometricFrame";
 
 interface Project {
   id: string;
@@ -29,6 +30,16 @@ const segmentLabels: Record<string, string> = {
   "privado": "Privado",
   "empresas": "Empresas",
   "investidores": "Investidores",
+};
+
+// Brand Book: Frame variant by segment
+const getFrameVariant = (segment: string | null): "default" | "coral" | "yellow" | "blue" => {
+  switch (segment) {
+    case "privado": return "coral";
+    case "empresas": return "yellow";
+    case "investidores": return "blue";
+    default: return "default";
+  }
 };
 
 export default function Portfolio() {
@@ -193,51 +204,53 @@ export default function Portfolio() {
               <p className="text-sm text-muted-foreground mb-8">
                 {filteredProjects.length} {filteredProjects.length === 1 ? "projeto encontrado" : "projetos encontrados"}
               </p>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
                 {filteredProjects.map((project) => (
                   <Link
                     key={project.id}
                     to={`/portfolio/${project.slug}`}
                     className="group block"
                   >
-                    <div className="aspect-[4/5] rounded-sm overflow-hidden mb-4 relative">
-                      <img
-                        src={project.featured_image || "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"}
-                        alt={project.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      
-                      {/* Status badge */}
-                      {project.status && (
-                        <div className="absolute top-4 left-4">
-                          <span className={cn(
-                            "inline-block px-3 py-1 text-xs font-medium rounded-sm",
-                            project.status === "Concluído"
-                              ? "bg-accent/90 text-accent-foreground"
-                              : project.status === "Em construção"
-                              ? "bg-arifa-yellow/90 text-foreground"
-                              : "bg-accent/90 text-accent-foreground"
-                          )}>
-                            {project.status}
-                          </span>
-                        </div>
-                      )}
+                    <GeometricCardFrame variant={getFrameVariant(project.segment)} className="mb-5">
+                      <div className="aspect-[4/5] rounded-sm overflow-hidden relative">
+                        <img
+                          src={project.featured_image || "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"}
+                          alt={project.title}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        
+                        {/* Status badge */}
+                        {project.status && (
+                          <div className="absolute top-4 left-4">
+                            <span className={cn(
+                              "inline-block px-3 py-1.5 text-[10px] font-light uppercase tracking-wider rounded-sm",
+                              project.status === "Concluído"
+                                ? "bg-accent/90 text-accent-foreground"
+                                : project.status === "Em construção"
+                                ? "bg-arifa-yellow/90 text-foreground"
+                                : "bg-accent/90 text-accent-foreground"
+                            )}>
+                              {project.status}
+                            </span>
+                          </div>
+                        )}
 
-                      {/* Hover arrow */}
-                      <div className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-background flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                        <ArrowRight className="h-5 w-5 text-foreground" />
+                        {/* Hover arrow */}
+                        <div className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-background flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                          <ArrowRight className="h-5 w-5 text-foreground" />
+                        </div>
                       </div>
-                    </div>
+                    </GeometricCardFrame>
 
                     <div className="space-y-2">
-                      <p className="text-xs font-medium tracking-wider text-accent uppercase">
+                      <p className="text-caption text-accent">
                         {project.category}
                       </p>
                       <h3 className="text-2xl font-bold text-foreground group-hover:text-accent transition-colors">
                         {project.title}
                       </h3>
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                      <div className="flex items-center gap-4 text-small text-muted-foreground">
                         {project.location && (
                           <span className="flex items-center gap-1">
                             <MapPin className="h-4 w-4" />
@@ -248,7 +261,7 @@ export default function Portfolio() {
                         {project.year && <span>{project.year}</span>}
                       </div>
                       {project.description && (
-                        <p className="text-sm text-muted-foreground pt-2 line-clamp-2">{project.description}</p>
+                        <p className="text-small text-muted-foreground pt-2 line-clamp-2">{project.description}</p>
                       )}
                     </div>
                   </Link>
