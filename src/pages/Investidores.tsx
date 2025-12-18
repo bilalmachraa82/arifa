@@ -7,6 +7,7 @@ import { LeadMagnetSection } from "@/components/LeadMagnetSection";
 import { SegmentProjects } from "@/components/SegmentProjects";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { SEO } from "@/components/SEO";
+import { AnimatedSection } from "@/components/ui/AnimatedSection";
 
 export default function Investidores() {
   const { t, language } = useLanguage();
@@ -50,7 +51,7 @@ export default function Investidores() {
       <section className="relative section-padding-lg bg-background">
         <div className="container-arifa">
           <div className="grid lg:grid-cols-2 section-gap-lg items-center">
-            <div className="content-spacing-lg">
+            <AnimatedSection animation="fade-up" className="content-spacing-lg">
               <div className="space-y-6">
                 <p className="text-caption text-arifa-blue">{t("investors.subtitle")}</p>
                 <h1>
@@ -63,15 +64,15 @@ export default function Investidores() {
                   <Link to="/contacto">{t("investors.cta")}<ArrowRight className="ml-2 h-4 w-4" /></Link>
                 </Button>
               </div>
-            </div>
-            <div className="relative">
+            </AnimatedSection>
+            <AnimatedSection animation="fade-left" delay={200} className="relative">
               <div className="aspect-[4/5] rounded-sm overflow-hidden shadow-elevated">
                 <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Edifício de investimento" className="w-full h-full object-cover" />
               </div>
               {/* Geometric frame accent */}
               <div className="absolute -top-4 -right-4 w-20 h-20 border-t-2 border-r-2 border-arifa-blue/30 rounded-tr-sm pointer-events-none" />
               <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-arifa-blue/10 rounded-sm -z-10" />
-            </div>
+            </AnimatedSection>
           </div>
         </div>
       </section>
@@ -79,11 +80,11 @@ export default function Investidores() {
       <section className="py-16 bg-foreground text-background">
         <div className="container-arifa">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {metrics.map((metric) => (
-              <div key={metric.label} className="text-center">
+            {metrics.map((metric, index) => (
+              <AnimatedSection key={metric.label} animation="fade-up" delay={index * 100} className="text-center">
                 <p className="text-4xl md:text-5xl font-extrabold text-arifa-blue">{metric.value}</p>
                 <p className="text-small text-background/70 mt-2">{metric.label}</p>
-              </div>
+              </AnimatedSection>
             ))}
           </div>
         </div>
@@ -91,19 +92,24 @@ export default function Investidores() {
 
       <section className="section-padding-lg bg-card">
         <div className="container-arifa">
-          <div className="text-center max-w-3xl mx-auto mb-16 content-spacing">
+          <AnimatedSection animation="fade-up" className="text-center max-w-3xl mx-auto mb-16 content-spacing">
             <p className="text-caption text-arifa-blue">{t("investors.services.subtitle")}</p>
             <h2>{t("investors.services.title")}</h2>
-          </div>
+          </AnimatedSection>
           <div className="grid md:grid-cols-3 gap-8">
-            {services.map((service) => (
-              <div key={service.title} className="bg-background border border-border rounded-sm p-8 hover:shadow-card transition-all hover:-translate-y-1">
+            {services.map((service, index) => (
+              <AnimatedSection 
+                key={service.title} 
+                animation="fade-up" 
+                delay={index * 100}
+                className="bg-background border border-border rounded-sm p-8 hover:shadow-card transition-all hover:-translate-y-1"
+              >
                 <div className="w-14 h-14 rounded-full bg-arifa-blue/10 flex items-center justify-center mb-6 transition-transform hover:scale-110">
                   <service.icon className="h-6 w-6 text-arifa-blue" />
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-4">{service.title}</h3>
                 <p className="text-small text-muted-foreground">{service.description}</p>
-              </div>
+              </AnimatedSection>
             ))}
           </div>
         </div>
@@ -111,17 +117,17 @@ export default function Investidores() {
 
       <section className="section-padding-lg bg-secondary">
         <div className="container-arifa">
-          <div className="text-center max-w-3xl mx-auto mb-16 content-spacing">
+          <AnimatedSection animation="fade-up" className="text-center max-w-3xl mx-auto mb-16 content-spacing">
             <p className="text-caption text-arifa-blue">{t("investors.process.subtitle")}</p>
             <h2>{t("investors.process.title")}</h2>
-          </div>
+          </AnimatedSection>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {process.map((item) => (
-              <div key={item.step} className="relative">
+            {process.map((item, index) => (
+              <AnimatedSection key={item.step} animation="fade-up" delay={index * 100} className="relative">
                 <div className="text-6xl font-extrabold text-arifa-blue/20 mb-4">{item.step}</div>
                 <h3 className="text-lg font-bold text-foreground mb-2">{item.title}</h3>
                 <p className="text-small text-muted-foreground">{item.description}</p>
-              </div>
+              </AnimatedSection>
             ))}
           </div>
         </div>
@@ -130,7 +136,7 @@ export default function Investidores() {
       <section className="section-padding-lg bg-background">
         <div className="container-arifa">
           <div className="grid lg:grid-cols-2 section-gap-lg items-center">
-            <div className="content-spacing-lg">
+            <AnimatedSection animation="fade-up" className="content-spacing-lg">
               <div className="space-y-4">
                 <p className="text-caption text-arifa-blue">{t("investors.caseStudy.subtitle")}</p>
                 <h2>{t("investors.caseStudy.title")}</h2>
@@ -143,12 +149,12 @@ export default function Investidores() {
                 <div><p className="text-2xl font-bold text-foreground">18 meses</p><p className="text-small text-muted-foreground">{t("investors.caseStudy.timeline")}</p></div>
               </div>
               <Button variant="outline" asChild><Link to="/portfolio">{t("investors.caseStudy.viewMore")}<ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
-            </div>
-            <div className="relative">
+            </AnimatedSection>
+            <AnimatedSection animation="fade-left" delay={200} className="relative">
               <div className="aspect-[4/5] rounded-sm overflow-hidden shadow-elevated">
                 <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Empreendimento Tejo View" className="w-full h-full object-cover" />
               </div>
-            </div>
+            </AnimatedSection>
           </div>
         </div>
       </section>

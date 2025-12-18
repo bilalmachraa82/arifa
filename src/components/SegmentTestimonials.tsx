@@ -1,4 +1,4 @@
-import { Quote } from "lucide-react";
+import { AnimatedSection } from "@/components/ui/AnimatedSection";
 
 type Segment = "privado" | "empresas" | "investidores";
 
@@ -54,16 +54,30 @@ const testimonials: Record<Segment, Testimonial[]> = {
   ],
 };
 
-const accentColors: Record<Segment, string> = {
-  privado: "text-accent",
-  empresas: "text-arifa-coral",
-  investidores: "text-arifa-yellow",
-};
-
-const bgColors: Record<Segment, string> = {
-  privado: "bg-accent/10",
-  empresas: "bg-arifa-coral/10",
-  investidores: "bg-arifa-yellow/10",
+const segmentConfig: Record<Segment, { 
+  accent: string; 
+  bg: string; 
+  border: string;
+  quoteColor: string;
+}> = {
+  privado: {
+    accent: "text-arifa-coral",
+    bg: "bg-arifa-coral/10",
+    border: "border-arifa-coral/20",
+    quoteColor: "text-arifa-coral/30",
+  },
+  empresas: {
+    accent: "text-arifa-yellow",
+    bg: "bg-arifa-yellow/10",
+    border: "border-arifa-yellow/20",
+    quoteColor: "text-arifa-yellow/30",
+  },
+  investidores: {
+    accent: "text-arifa-blue",
+    bg: "bg-arifa-blue/10",
+    border: "border-arifa-blue/20",
+    quoteColor: "text-arifa-blue/30",
+  },
 };
 
 interface SegmentTestimonialsProps {
@@ -72,47 +86,63 @@ interface SegmentTestimonialsProps {
 
 export function SegmentTestimonials({ segment }: SegmentTestimonialsProps) {
   const segmentTestimonials = testimonials[segment];
-  const accentColor = accentColors[segment];
-  const bgColor = bgColors[segment];
+  const config = segmentConfig[segment];
 
   return (
-    <section className="py-24 lg:py-32 bg-background">
+    <section className="section-padding-lg bg-background">
       <div className="container-arifa">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <p className={`text-sm font-medium tracking-[0.3em] uppercase mb-4 ${accentColor}`}>
+        <AnimatedSection animation="fade-up" className="text-center max-w-3xl mx-auto mb-16 content-spacing">
+          <p className={`text-caption ${config.accent}`}>
             Testemunhos
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground">
+          <h2>
             O que dizem os nossos clientes
           </h2>
-        </div>
+        </AnimatedSection>
 
         <div className="grid md:grid-cols-2 gap-8">
           {segmentTestimonials.map((testimonial, index) => (
-            <div
+            <AnimatedSection
               key={index}
-              className="bg-card border border-border rounded-sm p-8 lg:p-10 relative"
+              animation="fade-up"
+              delay={index * 150}
+              className={`bg-card border ${config.border} rounded-sm p-8 lg:p-10 relative group hover:shadow-card transition-all duration-300 hover:-translate-y-1`}
             >
-              <div className={`w-12 h-12 rounded-full ${bgColor} flex items-center justify-center mb-6`}>
-                <Quote className={`h-5 w-5 ${accentColor}`} />
-              </div>
-              <blockquote className="text-lg text-foreground leading-relaxed mb-6">
-                "{testimonial.content}"
-              </blockquote>
-              <div className="flex items-center gap-4">
-                <div className={`w-12 h-12 rounded-full ${bgColor} flex items-center justify-center`}>
-                  <span className={`text-lg font-bold ${accentColor}`}>
-                    {testimonial.author.split(' ').map(n => n[0]).join('')}
-                  </span>
+              {/* Large quote mark */}
+              <span className={`quote-mark absolute top-6 left-6 ${config.quoteColor} transition-all duration-300 group-hover:scale-110`}>
+                "
+              </span>
+              
+              {/* Content */}
+              <div className="pt-10">
+                <blockquote className="quote text-lg !text-foreground !border-l-0 !pl-0 mb-8">
+                  {testimonial.content}
+                </blockquote>
+                
+                {/* Author */}
+                <div className="flex items-center gap-4 pt-6 border-t border-border">
+                  <div className={`w-12 h-12 rounded-full ${config.bg} flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
+                    <span className={`text-lg font-bold ${config.accent}`}>
+                      {testimonial.author.split(' ').map(n => n[0]).join('')}
+                    </span>
+                  </div>
+                  <div>
+                    <p className="font-medium text-foreground">{testimonial.author}</p>
+                    <p className="text-small text-muted-foreground">
+                      {testimonial.role}
+                      {testimonial.company && (
+                        <span className={`${config.accent}`}> · {testimonial.company}</span>
+                      )}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-medium text-foreground">{testimonial.author}</p>
-                  <p className="text-sm text-muted-foreground">
-                    {testimonial.role}{testimonial.company && ` · ${testimonial.company}`}
-                  </p>
-                </div>
               </div>
-            </div>
+
+              {/* Closing quote */}
+              <span className={`quote-mark absolute bottom-6 right-6 ${config.quoteColor} rotate-180 transition-all duration-300 group-hover:scale-110`}>
+                "
+              </span>
+            </AnimatedSection>
           ))}
         </div>
       </div>
