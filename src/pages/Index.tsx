@@ -15,6 +15,10 @@ const Index = () => {
         title="Início"
         description="ARIFA Studio - Arquitectura que transforma. Tecnologia que entrega. 20 anos de experiência internacional. BIM Level 2 certified."
         url="https://arifa.studio"
+        keywords="arquitetura Lisboa, estúdio de arquitetura Portugal, design de interiores, BIM, projetos residenciais, arquitetura corporativa, investimento imobiliário"
+        breadcrumbs={[
+          { name: "Início", url: "https://arifa.studio" }
+        ]}
       />
       <HeroSection />
       <TrustSignals />

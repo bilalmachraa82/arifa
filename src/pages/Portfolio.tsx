@@ -2,12 +2,13 @@ import { useState, useEffect, useMemo } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { MapPin, ArrowRight, Loader2 } from "lucide-react";
+import { MapPin, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { SearchFilters } from "@/components/SearchFilters";
 import { SEO } from "@/components/SEO";
 import { GeometricCardFrame } from "@/components/ui/GeometricFrame";
+import { PortfolioGridSkeleton } from "@/components/portfolio/PortfolioSkeleton";
 
 interface Project {
   id: string;
@@ -174,9 +175,7 @@ export default function Portfolio() {
       <section className="py-16 lg:py-24 bg-background">
         <div className="container-arifa">
           {loading ? (
-            <div className="flex items-center justify-center py-24">
-              <Loader2 className="h-8 w-8 animate-spin text-accent" />
-            </div>
+            <PortfolioGridSkeleton count={6} />
           ) : filteredProjects.length === 0 ? (
             <div className="text-center py-24">
               <p className="text-lg text-muted-foreground mb-4">
