@@ -11,6 +11,14 @@ import { supabase } from "@/integrations/supabase/client";
 import arifaLogo from "@/assets/arifa-logo.png";
 import { cn } from "@/lib/utils";
 
+// Brand Book: Cores por rota
+const getActiveColor = (pathname: string): string => {
+  if (pathname === "/privado") return "bg-arifa-coral";
+  if (pathname === "/empresas") return "bg-arifa-yellow";
+  if (pathname === "/investidores") return "bg-arifa-blue";
+  return "bg-arifa-blue"; // Default: Academy
+};
+
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -89,6 +97,8 @@ export function Header() {
     { name: t("nav.contact"), href: "/contacto" },
   ];
 
+  const activeColor = getActiveColor(location.pathname);
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border/50">
       <nav className="container-arifa flex items-center justify-between py-4" aria-label="Global">
@@ -111,20 +121,31 @@ export function Header() {
         </div>
 
         <div className="hidden lg:flex lg:gap-x-8">
-          {navigation.map((item) => (
-            <Link
-              key={item.name}
-              to={item.href}
-              className={cn(
-                "text-sm font-medium tracking-wide transition-colors link-underline",
-                location.pathname === item.href
-                  ? "text-foreground"
-                  : "text-muted-foreground hover:text-foreground"
-              )}
-            >
-              {item.name}
-            </Link>
-          ))}
+          {navigation.map((item) => {
+            const isActive = location.pathname === item.href;
+            return (
+              <Link
+                key={item.name}
+                to={item.href}
+                className={cn(
+                  "relative py-2 text-sm font-light tracking-wide transition-colors duration-300",
+                  isActive
+                    ? "text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                {item.name}
+                {isActive && (
+                  <span 
+                    className={cn(
+                      "absolute -bottom-1 left-0 right-0 h-0.5 animate-nav-indicator",
+                      activeColor
+                    )}
+                  />
+                )}
+              </Link>
+            );
+          })}
         </div>
 
         <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-3">
@@ -203,21 +224,32 @@ export function Header() {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-border">
               <div className="space-y-2 py-6">
-                {navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className={cn(
-                      "-mx-3 block rounded-lg px-3 py-2 text-base font-medium transition-colors",
-                      location.pathname === item.href
-                        ? "bg-secondary text-foreground"
-                        : "text-muted-foreground hover:bg-secondary hover:text-foreground"
-                    )}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
+                {navigation.map((item) => {
+                  const isActive = location.pathname === item.href;
+                  return (
+                    <Link
+                      key={item.name}
+                      to={item.href}
+                      className={cn(
+                        "-mx-3 block rounded-lg px-3 py-2 text-base font-light transition-colors relative",
+                        isActive
+                          ? "bg-secondary text-foreground"
+                          : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+                      )}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {item.name}
+                      {isActive && (
+                        <span 
+                          className={cn(
+                            "absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 rounded-r",
+                            activeColor
+                          )}
+                        />
+                      )}
+                    </Link>
+                  );
+                })}
               </div>
               <div className="py-6 space-y-3">
                 <div className="flex items-center justify-between px-3">
