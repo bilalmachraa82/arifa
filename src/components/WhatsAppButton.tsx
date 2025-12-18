@@ -56,10 +56,11 @@ export function WhatsAppButton() {
         {/* Main Button */}
         <button
           onClick={handleClick}
-          className="relative flex items-center justify-center w-14 h-14 bg-[#25D366] rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 cursor-pointer"
+          className="relative flex items-center justify-center w-14 h-14 bg-[#25D366] rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#25D366] focus:ring-offset-2"
           aria-label={t("whatsapp.tooltip")}
+          role="button"
         >
-          <MessageCircle className="h-7 w-7 text-white" fill="white" />
+          <MessageCircle className="h-7 w-7 text-white" fill="white" aria-hidden="true" />
         </button>
         
         {/* Tooltip with copy option */}
@@ -68,13 +69,13 @@ export function WhatsAppButton() {
             <span>{t("whatsapp.tooltip")}</span>
             <button
               onClick={handleCopyNumber}
-              className="p-1 hover:bg-background/20 rounded transition-colors"
-              title="Copiar número"
+              className="p-1 hover:bg-background/20 rounded transition-colors focus:outline-none focus:ring-1 focus:ring-background/50"
+              aria-label="Copiar número de telefone"
             >
               {copied ? (
-                <Check className="h-3.5 w-3.5" />
+                <Check className="h-3.5 w-3.5" aria-hidden="true" />
               ) : (
-                <Copy className="h-3.5 w-3.5" />
+                <Copy className="h-3.5 w-3.5" aria-hidden="true" />
               )}
             </button>
           </div>
