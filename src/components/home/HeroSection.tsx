@@ -27,7 +27,7 @@ export function HeroSection() {
   ];
   
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+    <section className="relative min-h-[90vh] flex items-center overflow-hidden section-padding-lg">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <img
@@ -47,13 +47,13 @@ export function HeroSection() {
       </div>
 
       <div className="container-arifa relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <div className="space-y-8">
-            <div className="space-y-4">
-              <p className="text-sm font-light tracking-[0.3em] text-accent uppercase animate-fade-in">
+        <div className="grid lg:grid-cols-2 section-gap-lg items-center">
+          <div className="content-spacing-lg">
+            <div className="space-y-6">
+              <p className="text-caption text-accent animate-fade-in">
                 {t("hero.tagline")}
               </p>
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] text-foreground animate-fade-in animation-delay-100">
+              <h1 className="animate-fade-in animation-delay-100">
                 {isPt ? "Arquitectura que" : "Architecture that"}{" "}
                 <span className="text-accent">{isPt ? "transforma." : "transforms."}</span>
                 <br />
@@ -62,7 +62,7 @@ export function HeroSection() {
               </h1>
             </div>
             
-            <p className="text-lg text-muted-foreground max-w-lg leading-relaxed animate-fade-in animation-delay-200 font-light">
+            <p className="text-lead max-w-lg animate-fade-in animation-delay-200">
               {isPt 
                 ? "20 anos de experiência internacional. BIM Level 2 certified. Entrega no prazo em 95% dos projectos."
                 : "20 years of international experience. BIM Level 2 certified. On-time delivery in 95% of projects."
@@ -70,23 +70,23 @@ export function HeroSection() {
             </p>
 
             {/* Inline Metrics - Brand Book */}
-            <div className="flex flex-wrap gap-6 animate-fade-in animation-delay-300">
+            <div className="flex flex-wrap gap-8 animate-fade-in animation-delay-300">
               {metrics.map((metric, index) => (
                 <div 
                   key={index}
-                  className="flex items-center gap-2 text-sm"
+                  className="flex items-center gap-3"
                 >
-                  <metric.icon className={`h-4 w-4 ${metric.color}`} />
-                  <span className="font-light text-foreground">{metric.label}</span>
+                  <metric.icon className={`h-5 w-5 ${metric.color}`} />
+                  <span className="text-small text-foreground">{metric.label}</span>
                 </div>
               ))}
             </div>
 
-            <div className="flex flex-wrap gap-4 animate-fade-in animation-delay-400">
-              <Button variant="hero" size="lg" asChild>
+            <div className="cta-group pt-4 animate-fade-in animation-delay-400">
+              <Button variant="hero" size="lg" asChild className="cta-highlight">
                 <Link to="/contacto">
                   {isPt ? "Iniciar o Meu Projecto" : "Start My Project"}
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
               <Button variant="hero-outline" size="lg" asChild>

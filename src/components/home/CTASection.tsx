@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Phone, Mail, Calendar } from "lucide-react";
+import { ArrowRight, Phone, Mail, Calendar, Clock } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 
@@ -8,57 +8,57 @@ export function CTASection() {
   const { t } = useLanguage();
   
   return (
-    <section className="py-24 lg:py-32 bg-card">
+    <section className="section-padding-lg bg-card">
       <div className="container-arifa">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <AnimatedSection animation="fade-up" className="space-y-8">
-            <div className="space-y-4">
-              <p className="text-sm font-medium tracking-[0.3em] text-accent uppercase">
+        <div className="grid lg:grid-cols-2 section-gap-lg items-center">
+          <AnimatedSection animation="fade-up" className="content-spacing-lg">
+            <div className="space-y-6">
+              <p className="text-caption text-accent">
                 {t("cta.subtitle")}
               </p>
-              <h2 className="text-4xl md:text-5xl font-extrabold text-foreground leading-tight">
+              <h2>
                 {t("cta.title")}
               </h2>
             </div>
 
-            <p className="text-lg text-muted-foreground leading-relaxed">
+            <p className="text-lead">
               {t("cta.description")}
             </p>
 
-            <div className="space-y-4">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+            <div className="space-y-6">
+              <div className="flex items-start gap-5">
+                <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 transition-transform hover:scale-110">
                   <Calendar className="h-5 w-5 text-accent" />
                 </div>
-                <div>
+                <div className="space-y-1">
                   <p className="font-medium text-foreground">{t("cta.freeConsultation")}</p>
-                  <p className="text-sm text-muted-foreground">{t("cta.freeConsultationDesc")}</p>
+                  <p className="text-small text-muted-foreground">{t("cta.freeConsultationDesc")}</p>
                 </div>
               </div>
               
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
-                  <Phone className="h-5 w-5 text-accent" />
+              <div className="flex items-start gap-5">
+                <div className="w-12 h-12 rounded-full bg-arifa-coral/10 flex items-center justify-center flex-shrink-0 transition-transform hover:scale-110">
+                  <Clock className="h-5 w-5 text-arifa-coral" />
                 </div>
-                <div>
+                <div className="space-y-1">
                   <p className="font-medium text-foreground">{t("cta.response24h")}</p>
-                  <p className="text-sm text-muted-foreground">{t("cta.response24hDesc")}</p>
+                  <p className="text-small text-muted-foreground">{t("cta.response24hDesc")}</p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
-                  <Mail className="h-5 w-5 text-accent" />
+              <div className="flex items-start gap-5">
+                <div className="w-12 h-12 rounded-full bg-arifa-yellow/10 flex items-center justify-center flex-shrink-0 transition-transform hover:scale-110">
+                  <Mail className="h-5 w-5 text-arifa-yellow" />
                 </div>
-                <div>
+                <div className="space-y-1">
                   <p className="font-medium text-foreground">{t("cta.detailedQuote")}</p>
-                  <p className="text-sm text-muted-foreground">{t("cta.detailedQuoteDesc")}</p>
+                  <p className="text-small text-muted-foreground">{t("cta.detailedQuoteDesc")}</p>
                 </div>
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-4 pt-4">
-              <Button variant="hero" size="lg" asChild className="group">
+            <div className="cta-group pt-6">
+              <Button variant="hero" size="lg" asChild className="group cta-highlight">
                 <Link to="/contacto">
                   {t("cta.requestQuote")}
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
