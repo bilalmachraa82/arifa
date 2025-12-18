@@ -26,6 +26,7 @@ import Privacidade from "./pages/Privacidade";
 import Termos from "./pages/Termos";
 import Install from "./pages/Install";
 import AcceptInvitation from "./pages/AcceptInvitation";
+import QuotePublic from "./pages/QuotePublic";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -61,6 +62,7 @@ const App = () => (
                 <Route path="/termos" element={<Termos />} />
                 <Route path="/install" element={<Install />} />
                 <Route path="/convite/:token" element={<AcceptInvitation />} />
+                <Route path="/cotacao/:token" element={<QuotePublic />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
               </AnalyticsProvider>

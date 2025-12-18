@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { 
   CheckCircle2, 
-  Circle, 
   Clock, 
   FileSearch, 
   PenTool, 
@@ -13,8 +12,10 @@ import {
   Sparkles,
   ChevronDown,
   ChevronUp,
-  Calendar,
-  Target
+  Lightbulb,
+  Layers,
+  FileText,
+  Home
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -38,6 +39,7 @@ interface TimelinePhase {
   id: string;
   name: string;
   description: string;
+  ribaStage: string;
   status: "completed" | "current" | "upcoming";
   icon: React.ElementType;
   milestones: Milestone[];
@@ -50,59 +52,117 @@ interface ProjectTimelineProps {
   projectTitle: string;
 }
 
+// RIBA Plan of Work 2020 adapted phases
 const phaseConfig = {
-  study: { name: "Estudo", icon: FileSearch, duration: "2-4 semanas" },
-  design: { name: "Projeto", icon: PenTool, duration: "4-8 semanas" },
-  construction: { name: "Construção", icon: HardHat, duration: "6-12 meses" },
-  finishing: { name: "Finalização", icon: Sparkles, duration: "2-4 semanas" },
-  delivery: { name: "Entrega", icon: Key, duration: "1 semana" },
+  preparacao: { 
+    name: "Preparação", 
+    ribaStage: "RIBA 0+1",
+    icon: FileSearch, 
+    duration: "2-4 semanas" 
+  },
+  conceito: { 
+    name: "Conceito", 
+    ribaStage: "RIBA 2",
+    icon: Lightbulb, 
+    duration: "3-6 semanas" 
+  },
+  coordenacao: { 
+    name: "Coordenação", 
+    ribaStage: "RIBA 3",
+    icon: Layers, 
+    duration: "4-8 semanas" 
+  },
+  tecnico: { 
+    name: "Técnico", 
+    ribaStage: "RIBA 4",
+    icon: FileText, 
+    duration: "6-10 semanas" 
+  },
+  construcao: { 
+    name: "Construção", 
+    ribaStage: "RIBA 5",
+    icon: HardHat, 
+    duration: "6-18 meses" 
+  },
+  entrega: { 
+    name: "Entrega", 
+    ribaStage: "RIBA 6",
+    icon: Key, 
+    duration: "2-4 semanas" 
+  },
+  uso: { 
+    name: "Uso", 
+    ribaStage: "RIBA 7",
+    icon: Home, 
+    duration: "12 meses" 
+  },
 };
 
 const phaseDescriptions = {
-  study: "Análise inicial e viabilidade do projeto",
-  design: "Desenvolvimento do projeto de arquitetura",
-  construction: "Execução da obra",
-  finishing: "Acabamentos finais e verificações",
-  delivery: "Entrega das chaves e documentação",
+  preparacao: "Definição estratégica e brief do projeto",
+  conceito: "Design conceptual e linguagem visual",
+  coordenacao: "Coordenação espacial e especialidades",
+  tecnico: "Projeto técnico e licenciamento",
+  construcao: "Execução da obra",
+  entrega: "Handover e documentação final",
+  uso: "Acompanhamento pós-ocupação",
 };
 
 const defaultMilestones: Record<string, { name: string; description: string }[]> = {
-  study: [
+  preparacao: [
     { name: "Reunião inicial", description: "Levantamento de requisitos e expectativas" },
-    { name: "Análise do terreno", description: "Visita técnica e avaliação do local" },
+    { name: "Análise do terreno/espaço", description: "Visita técnica e avaliação do local" },
     { name: "Estudo de viabilidade", description: "Análise técnica e financeira" },
-    { name: "Proposta comercial", description: "Apresentação de orçamento e cronograma" },
+    { name: "Brief do projeto", description: "Documentação de requisitos aprovada" },
   ],
-  design: [
+  conceito: [
     { name: "Estudo prévio", description: "Conceito e ideias iniciais" },
-    { name: "Anteprojeto", description: "Desenvolvimento da proposta" },
+    { name: "Moodboards e referências", description: "Definição da linguagem visual" },
+    { name: "Proposta conceptual", description: "Apresentação do conceito ao cliente" },
+  ],
+  coordenacao: [
+    { name: "Anteprojeto", description: "Desenvolvimento da proposta espacial" },
+    { name: "Coordenação de especialidades", description: "Alinhamento com engenharias" },
+    { name: "Validação do cliente", description: "Aprovação do anteprojeto" },
+  ],
+  tecnico: [
     { name: "Projeto de execução", description: "Detalhes técnicos completos" },
+    { name: "Mapas de acabamentos", description: "Especificação de materiais" },
     { name: "Licenciamento", description: "Submissão às autoridades" },
+    { name: "Caderno de encargos", description: "Documentação para empreiteiros" },
   ],
-  construction: [
-    { name: "Preparação do terreno", description: "Limpeza e fundações" },
+  construcao: [
+    { name: "Preparação do terreno", description: "Demolições e fundações" },
     { name: "Estrutura", description: "Construção estrutural" },
+    { name: "Toscos", description: "Paredes e cobertura" },
+    { name: "Instalações técnicas", description: "Elétrica, canalização, AVAC" },
     { name: "Acabamentos", description: "Revestimentos e detalhes" },
-    { name: "Instalações", description: "Elétrica, canalização, AVAC" },
   ],
-  finishing: [
+  entrega: [
     { name: "Limpeza final", description: "Preparação para entrega" },
-    { name: "Inspeções", description: "Verificações de qualidade" },
-    { name: "Correções finais", description: "Ajustes e afinações" },
+    { name: "Inspeções finais", description: "Verificações de qualidade" },
+    { name: "Correções e afinações", description: "Ajustes identificados" },
+    { name: "Entrega das chaves", description: "Handover formal ao cliente" },
   ],
-  delivery: [
-    { name: "Vistoria final", description: "Validação com o cliente" },
-    { name: "Documentação", description: "Entrega de telas finais" },
-    { name: "Entrega das chaves", description: "Conclusão do projeto" },
+  uso: [
+    { name: "Manual de utilização", description: "Documentação de manutenção" },
+    { name: "Visita 3 meses", description: "Acompanhamento pós-ocupação" },
+    { name: "Visita 12 meses", description: "Avaliação final e garantias" },
   ],
 };
 
 const getPhaseFromStatus = (status: string | null): number => {
   switch (status) {
-    case "Concluído": return 5;
-    case "Em construção": return 3;
+    case "Concluído": return 7;
+    case "Em uso": return 7;
+    case "Em entrega": return 6;
+    case "Em construção": return 5;
+    case "Em projeto técnico": return 4;
+    case "Em coordenação": return 3;
     case "Em projeto": return 2;
+    case "Em conceito": return 2;
     case "Em estudo": return 1;
+    case "Em preparação": return 1;
     default: return 0;
   }
 };
@@ -115,12 +175,10 @@ const ProjectTimeline = ({ projectId, projectStatus, projectTitle }: ProjectTime
   
   const currentPhaseIndex = getPhaseFromStatus(projectStatus);
 
-  // Fetch milestones from database if projectId is provided
   useEffect(() => {
     if (projectId) {
       fetchMilestones();
       
-      // Subscribe to realtime updates
       const channel = supabase
         .channel(`milestones-${projectId}`)
         .on(
@@ -158,15 +216,13 @@ const ProjectTimeline = ({ projectId, projectStatus, projectTitle }: ProjectTime
     setLoading(false);
   };
 
-  // Build phases with milestones
   const phases: TimelinePhase[] = Object.entries(phaseConfig).map(([phaseId, config], index) => {
     const phaseNumber = index + 1;
     const phaseMilestones = dbMilestones.filter(m => m.phase === phaseId);
     
-    // Use database milestones if available, otherwise use defaults
     const milestones: Milestone[] = phaseMilestones.length > 0
       ? phaseMilestones
-      : defaultMilestones[phaseId].map((m, i) => ({
+      : (defaultMilestones[phaseId] || []).map((m, i) => ({
           id: `default-${phaseId}-${i}`,
           name: m.name,
           description: m.description,
@@ -174,11 +230,11 @@ const ProjectTimeline = ({ projectId, projectStatus, projectTitle }: ProjectTime
           target_date: null,
           completed_date: null,
           is_completed: currentPhaseIndex > phaseNumber || 
-            (currentPhaseIndex === phaseNumber && i < 2), // First 2 milestones completed in current phase
+            (currentPhaseIndex === phaseNumber && i < 2),
           sort_order: i,
         }));
 
-    const allCompleted = milestones.every(m => m.is_completed);
+    const allCompleted = milestones.length > 0 && milestones.every(m => m.is_completed);
     const anyCompleted = milestones.some(m => m.is_completed);
 
     let status: "completed" | "current" | "upcoming";
@@ -193,6 +249,7 @@ const ProjectTimeline = ({ projectId, projectStatus, projectTitle }: ProjectTime
     return {
       id: phaseId,
       name: config.name,
+      ribaStage: config.ribaStage,
       description: phaseDescriptions[phaseId as keyof typeof phaseDescriptions],
       status,
       icon: config.icon,
@@ -201,7 +258,6 @@ const ProjectTimeline = ({ projectId, projectStatus, projectTitle }: ProjectTime
     };
   });
 
-  // Calculate progress
   const totalMilestones = phases.reduce((acc, p) => acc + p.milestones.length, 0);
   const completedMilestones = phases.reduce(
     (acc, p) => acc + p.milestones.filter(m => m.is_completed).length, 
@@ -258,12 +314,17 @@ const ProjectTimeline = ({ projectId, projectStatus, projectTitle }: ProjectTime
             <CardTitle className="text-lg font-medium">Timeline do Projeto</CardTitle>
             <p className="text-sm text-muted-foreground mt-1">{projectTitle}</p>
           </div>
-          <Badge 
-            variant={projectStatus === "Concluído" ? "default" : "secondary"}
-            className="text-sm"
-          >
-            {projectStatus || "Em análise"}
-          </Badge>
+          <div className="flex items-center gap-2">
+            <Badge variant="outline" className="text-xs">
+              RIBA Plan of Work
+            </Badge>
+            <Badge 
+              variant={projectStatus === "Concluído" ? "default" : "secondary"}
+              className="text-sm"
+            >
+              {projectStatus || "Em análise"}
+            </Badge>
+          </div>
         </div>
       </CardHeader>
       
@@ -284,10 +345,10 @@ const ProjectTimeline = ({ projectId, projectStatus, projectTitle }: ProjectTime
           </div>
         </div>
 
-        {/* Phase Pills (Quick View) */}
+        {/* Phase Pills (Quick View) - 7 RIBA phases */}
         <TooltipProvider>
           <div className="flex items-center gap-1 overflow-x-auto pb-2">
-            {phases.map((phase, index) => {
+            {phases.map((phase) => {
               const PhaseIcon = phase.icon;
               const completedInPhase = phase.milestones.filter(m => m.is_completed).length;
               const totalInPhase = phase.milestones.length;
@@ -317,6 +378,7 @@ const ProjectTimeline = ({ projectId, projectStatus, projectTitle }: ProjectTime
                   </TooltipTrigger>
                   <TooltipContent>
                     <p className="font-medium">{phase.name}</p>
+                    <p className="text-xs text-accent">{phase.ribaStage}</p>
                     <p className="text-xs text-muted-foreground">{phase.description}</p>
                     <p className="text-xs mt-1">{completedInPhase} de {totalInPhase} concluídos</p>
                   </TooltipContent>
@@ -384,9 +446,14 @@ const ProjectTimeline = ({ projectId, projectStatus, projectTitle }: ProjectTime
                       )}>
                         <div className="flex items-start justify-between mb-3">
                           <div>
-                            <h4 className={cn("font-semibold text-base", getStatusColor(phase.status))}>
-                              {phase.name}
-                            </h4>
+                            <div className="flex items-center gap-2">
+                              <h4 className={cn("font-semibold text-base", getStatusColor(phase.status))}>
+                                {phase.name}
+                              </h4>
+                              <Badge variant="outline" className="text-[10px] px-1.5 py-0">
+                                {phase.ribaStage}
+                              </Badge>
+                            </div>
                             <p className="text-sm text-muted-foreground">
                               {phase.description}
                             </p>
@@ -399,7 +466,7 @@ const ProjectTimeline = ({ projectId, projectStatus, projectTitle }: ProjectTime
 
                         {/* Milestones Grid */}
                         <div className="grid gap-2 mt-3">
-                          {phase.milestones.map((milestone, mIndex) => {
+                          {phase.milestones.map((milestone) => {
                             const dateStatus = getMilestoneDateStatus(milestone.target_date, milestone.is_completed);
                             
                             return (
@@ -446,15 +513,13 @@ const ProjectTimeline = ({ projectId, projectStatus, projectTitle }: ProjectTime
                                     </Badge>
                                   )}
                                   {milestone.target_date && (
-                                    <span className="text-xs text-muted-foreground flex items-center gap-1">
-                                      <Target className="h-3 w-3" />
+                                    <span className="text-xs text-muted-foreground">
                                       {formatMilestoneDate(milestone.target_date)}
                                     </span>
                                   )}
                                   {milestone.completed_date && (
-                                    <span className="text-xs text-emerald-600 flex items-center gap-1">
-                                      <Calendar className="h-3 w-3" />
-                                      {formatMilestoneDate(milestone.completed_date)}
+                                    <span className="text-xs text-emerald-600">
+                                      ✓ {formatMilestoneDate(milestone.completed_date)}
                                     </span>
                                   )}
                                 </div>
