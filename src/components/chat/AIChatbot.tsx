@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface Message {
   id: string;
@@ -31,6 +32,7 @@ interface AIChatbotProps {
 
 export function AIChatbot({ context = 'public', projectId }: AIChatbotProps) {
   const { user } = useAuth();
+  const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
@@ -38,8 +40,8 @@ export function AIChatbot({ context = 'public', projectId }: AIChatbotProps) {
       id: '1',
       role: 'assistant',
       content: context === 'client' 
-        ? 'Olá! Sou o assistente virtual da ARIFA Studio. Como posso ajudar com o seu projeto hoje?'
-        : 'Olá! Sou o assistente virtual da ARIFA Studio. Como posso ajudar? Posso responder a questões sobre os nossos serviços de arquitetura e design.',
+        ? t('ai.chatbot.welcomeClient')
+        : t('ai.chatbot.welcomePublic'),
       timestamp: new Date()
     }
   ]);

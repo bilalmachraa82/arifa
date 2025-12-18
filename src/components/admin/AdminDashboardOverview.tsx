@@ -43,6 +43,7 @@ import {
   Area,
   CartesianGrid,
 } from "recharts";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface DashboardMetrics {
   totalProjects: number;
