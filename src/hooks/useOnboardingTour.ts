@@ -1,6 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
 import { driver, DriveStep } from "driver.js";
-import "driver.js/dist/driver.css";
 import { useAuth } from "@/contexts/AuthContext";
 
 const TOUR_COMPLETED_KEY = "arifa_onboarding_completed";
