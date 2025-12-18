@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Phone, Mail, Calendar } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { AnimatedSection } from "@/components/ui/AnimatedSection";
 
 export function CTASection() {
   const { t } = useLanguage();
@@ -10,7 +11,7 @@ export function CTASection() {
     <section className="py-24 lg:py-32 bg-card">
       <div className="container-arifa">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <div className="space-y-8">
+          <AnimatedSection animation="fade-up" className="space-y-8">
             <div className="space-y-4">
               <p className="text-sm font-medium tracking-[0.3em] text-accent uppercase">
                 {t("cta.subtitle")}
@@ -57,22 +58,22 @@ export function CTASection() {
             </div>
 
             <div className="flex flex-wrap gap-4 pt-4">
-              <Button variant="hero" size="lg" asChild>
+              <Button variant="hero" size="lg" asChild className="group">
                 <Link to="/contacto">
                   {t("cta.requestQuote")}
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
               </Button>
-              <Button variant="hero-outline" size="lg" asChild>
+              <Button variant="hero-outline" size="lg" asChild className="group">
                 <a href="tel:+351928272198">
-                  <Phone className="mr-2 h-4 w-4" />
+                  <Phone className="mr-2 h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
                   +351 928 272 198
                 </a>
               </Button>
             </div>
-          </div>
+          </AnimatedSection>
 
-          <div className="relative">
+          <AnimatedSection animation="fade-left" delay={300} className="relative">
             <div className="aspect-square rounded-sm overflow-hidden shadow-elevated">
               <img
                 src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
@@ -84,7 +85,7 @@ export function CTASection() {
             {/* Decorative elements */}
             <div className="absolute -top-4 -right-4 w-24 h-24 border-2 border-accent/30 rounded-sm" />
             <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-accent/10 rounded-sm -z-10" />
-          </div>
+          </AnimatedSection>
         </div>
       </div>
     </section>

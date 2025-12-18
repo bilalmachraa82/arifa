@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { AnimatedSection } from "@/components/ui/AnimatedSection";
 
 const testimonials = [
   {
@@ -46,14 +47,14 @@ export function TestimonialsSection() {
   return (
     <section className="py-24 lg:py-32 bg-foreground text-background overflow-hidden">
       <div className="container-arifa">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <AnimatedSection animation="fade-up" className="text-center max-w-3xl mx-auto mb-16">
           <p className="text-sm font-medium tracking-[0.3em] text-accent uppercase mb-4">
             {t("testimonials.subtitle")}
           </p>
           <h2 className="text-4xl md:text-5xl font-extrabold">
             {t("testimonials.title")}
           </h2>
-        </div>
+        </AnimatedSection>
 
         <div className="relative max-w-4xl mx-auto">
           <div className="relative">

@@ -1,5 +1,6 @@
 import { Award, Clock, TrendingUp, Leaf, Building, GraduationCap } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { AnimatedSection } from "@/components/ui/AnimatedSection";
 
 export function TrustSignals() {
   const { language } = useLanguage();
@@ -50,7 +51,7 @@ export function TrustSignals() {
     <section className="py-16 bg-card border-y border-border">
       <div className="container-arifa">
         {/* Header */}
-        <div className="text-center mb-12">
+        <AnimatedSection animation="fade-up" className="text-center mb-12">
           <p className="text-sm font-light tracking-[0.3em] text-accent uppercase mb-2">
             {isPt ? "Confiança Comprovada" : "Proven Trust"}
           </p>
@@ -60,39 +61,41 @@ export function TrustSignals() {
               : "Projects in 4 countries. +50 satisfied clients."
             }
           </p>
-        </div>
+        </AnimatedSection>
 
         {/* Stats Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
           {stats.map((stat, index) => (
-            <div 
+            <AnimatedSection 
               key={index} 
-              className="text-center animate-fade-in"
-              style={{ animationDelay: `${index * 100}ms` }}
+              animation="fade-up"
+              delay={index * 100}
+              className="text-center"
             >
-              <p className={`text-4xl md:text-5xl font-extrabold ${stat.color}`}>
+              <p className={`text-4xl md:text-5xl font-extrabold ${stat.color} transition-transform duration-300 hover:scale-105`}>
                 {stat.value}
               </p>
               <p className="text-sm text-muted-foreground mt-2 font-light">
                 {stat.label}
               </p>
-            </div>
+            </AnimatedSection>
           ))}
         </div>
 
         {/* Certifications */}
         <div className="flex flex-wrap justify-center gap-8 pt-8 border-t border-border">
           {certifications.map((cert, index) => (
-            <div 
+            <AnimatedSection 
               key={index}
-              className="flex items-center gap-3 animate-fade-in"
-              style={{ animationDelay: `${(index + 4) * 100}ms` }}
+              animation="fade-up"
+              delay={(index + 4) * 100}
+              className="flex items-center gap-3 group cursor-default"
             >
-              <div className={`w-10 h-10 rounded-full bg-secondary flex items-center justify-center`}>
+              <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
                 <cert.icon className={`h-5 w-5 ${cert.color}`} />
               </div>
               <span className="text-sm font-light text-foreground">{cert.label}</span>
-            </div>
+            </AnimatedSection>
           ))}
         </div>
       </div>

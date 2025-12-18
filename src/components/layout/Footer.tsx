@@ -47,7 +47,9 @@ export function Footer() {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-background/60 hover:text-background transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-background/60 hover:text-accent transition-all duration-300 hover:scale-110"
                 >
                   <span className="sr-only">{item.name}</span>
                   <item.icon className="h-5 w-5" aria-hidden="true" />
@@ -65,7 +67,7 @@ export function Footer() {
                   <li key={item.name}>
                     <Link
                       to={item.href}
-                      className="text-sm text-background/70 hover:text-background transition-colors"
+                      className="text-sm text-background/70 hover:text-background transition-colors link-underline"
                     >
                       {item.name}
                     </Link>
@@ -80,7 +82,7 @@ export function Footer() {
                   <li key={item.name}>
                     <Link
                       to={item.href}
-                      className="text-sm text-background/70 hover:text-background transition-colors"
+                      className="text-sm text-background/70 hover:text-background transition-colors link-underline"
                     >
                       {item.name}
                     </Link>
@@ -95,7 +97,7 @@ export function Footer() {
                   <li key={item.name}>
                     <Link
                       to={item.href}
-                      className="text-sm text-background/70 hover:text-background transition-colors"
+                      className="text-sm text-background/70 hover:text-background transition-colors link-underline"
                     >
                       {item.name}
                     </Link>
