@@ -74,3 +74,6 @@ verify_jwt = false
 
 [functions.optimize-image]
 verify_jwt = true
+
+[functions.ai-chat]
+verify_jwt = false
