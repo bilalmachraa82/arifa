@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { useRealtimeMessages } from "@/hooks/useRealtimeMessages";
+import AIChatbot from "@/components/chat/AIChatbot";
 
 interface LayoutProps {
   children: ReactNode;
@@ -18,6 +19,9 @@ export function Layout({ children }: LayoutProps) {
         {children}
       </main>
       <Footer />
+      
+      {/* AI Chatbot - Available on all pages */}
+      <AIChatbot context="public" />
     </div>
   );
 }

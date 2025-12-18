@@ -34,6 +34,8 @@ import { FilePreviewDialog } from "@/components/preview";
 import ClientProjectPhotos from "@/components/client/ClientProjectPhotos";
 import ClientBudgetView from "@/components/client/ClientBudgetView";
 import { ClientContracts } from "@/components/client/ClientContracts";
+import AIWeeklyUpdate from "@/components/client/AIWeeklyUpdate";
+import AIChatbot from "@/components/chat/AIChatbot";
 import { GuidedTour } from "@/components/onboarding/GuidedTour";
 
 interface Project {
@@ -365,6 +367,12 @@ const ClientDashboard = () => {
                       </div>
                     </Card>
                     
+                    {/* AI Weekly Update */}
+                    <AIWeeklyUpdate
+                      projectId={project.id}
+                      projectTitle={project.title}
+                    />
+
                     {/* Project Timeline */}
                     <ProjectTimeline 
                       projectId={project.id}
