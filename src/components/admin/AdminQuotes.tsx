@@ -355,19 +355,56 @@ export default function AdminQuotes() {
   };
 
   const handleSend = async (quote: Quote) => {
-    const { error } = await supabase
-      .from("quotes")
-      .update({ 
-        status: "sent",
-        sent_at: new Date().toISOString() 
-      })
-      .eq("id", quote.id);
+    // Get recipient email from lead
+    let recipientEmail = "";
+    let recipientName = "";
 
-    if (error) {
-      toast.error("Erro ao enviar cotação");
-    } else {
-      toast.success("Cotação marcada como enviada");
+    if (quote.lead_id) {
+      const lead = leads.find(l => l.id === quote.lead_id);
+      if (lead) {
+        recipientEmail = lead.email;
+        recipientName = lead.name;
+      }
+    }
+
+    if (!recipientEmail) {
+      // Fallback: just mark as sent without email
+      const { error } = await supabase
+        .from("quotes")
+        .update({ 
+          status: "sent",
+          sent_at: new Date().toISOString() 
+        })
+        .eq("id", quote.id);
+
+      if (error) {
+        toast.error("Erro ao enviar cotação");
+      } else {
+        toast.success("Cotação marcada como enviada (sem email - lead sem email)");
+        fetchQuotes();
+      }
+      return;
+    }
+
+    // Send via edge function
+    toast.info("A enviar cotação por email...");
+
+    try {
+      const { data, error } = await supabase.functions.invoke("send-quote-email", {
+        body: {
+          quoteId: quote.id,
+          recipientEmail,
+          recipientName
+        }
+      });
+
+      if (error) throw error;
+
+      toast.success("Cotação enviada com sucesso por email!");
       fetchQuotes();
+    } catch (error) {
+      console.error("Error sending quote:", error);
+      toast.error("Erro ao enviar cotação por email");
     }
   };
 
