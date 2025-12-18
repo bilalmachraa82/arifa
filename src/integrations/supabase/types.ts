@@ -291,6 +291,79 @@ export type Database = {
           },
         ]
       }
+      contracts: {
+        Row: {
+          boldsign_document_id: string | null
+          boldsign_signing_url: string | null
+          client_id: string | null
+          created_at: string
+          document_url: string | null
+          id: string
+          metadata: Json | null
+          project_id: string | null
+          quote_id: string | null
+          signed_at: string | null
+          signed_document_url: string | null
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          boldsign_document_id?: string | null
+          boldsign_signing_url?: string | null
+          client_id?: string | null
+          created_at?: string
+          document_url?: string | null
+          id?: string
+          metadata?: Json | null
+          project_id?: string | null
+          quote_id?: string | null
+          signed_at?: string | null
+          signed_document_url?: string | null
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          boldsign_document_id?: string | null
+          boldsign_signing_url?: string | null
+          client_id?: string | null
+          created_at?: string
+          document_url?: string | null
+          id?: string
+          metadata?: Json | null
+          project_id?: string | null
+          quote_id?: string | null
+          signed_at?: string | null
+          signed_document_url?: string | null
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contracts_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contracts_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contracts_quote_id_fkey"
+            columns: ["quote_id"]
+            isOneToOne: false
+            referencedRelation: "quotes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       document_folders: {
         Row: {
           client_id: string

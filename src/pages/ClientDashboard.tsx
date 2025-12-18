@@ -21,7 +21,8 @@ import {
   Check,
   ChevronRight,
   Camera,
-  Wallet
+  Wallet,
+  FileSignature
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import ClientMessageForm from "@/components/client/ClientMessageForm";
@@ -32,6 +33,7 @@ import { FolderNavigation } from "@/components/documents/FolderNavigation";
 import { FilePreviewDialog } from "@/components/preview";
 import ClientProjectPhotos from "@/components/client/ClientProjectPhotos";
 import ClientBudgetView from "@/components/client/ClientBudgetView";
+import { ClientContracts } from "@/components/client/ClientContracts";
 
 interface Project {
   id: string;
@@ -269,6 +271,10 @@ const ClientDashboard = () => {
               <FileText className="mr-2 h-4 w-4" />
               Documentos
             </TabsTrigger>
+            <TabsTrigger value="contracts">
+              <FileSignature className="mr-2 h-4 w-4" />
+              Contratos
+            </TabsTrigger>
             <TabsTrigger value="messages">
               <MessageSquare className="mr-2 h-4 w-4" />
               Mensagens
@@ -415,6 +421,11 @@ const ClientDashboard = () => {
                 ))}
               </div>
             )}
+          </TabsContent>
+
+          {/* Contracts Tab */}
+          <TabsContent value="contracts">
+            <ClientContracts />
           </TabsContent>
 
           {/* Documents Tab */}
