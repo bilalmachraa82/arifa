@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Paperclip, X, FileText, Image, File, Loader2, Download, Eye } from "lucide-react";
@@ -27,6 +28,7 @@ export const MessageAttachmentUpload = ({
   maxFiles = 5,
   maxSizeMB = 10,
 }: MessageAttachmentUploadProps) => {
+  const { user } = useAuth();
   const { toast } = useToast();
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -60,7 +62,9 @@ export const MessageAttachmentUpload = ({
       try {
         const fileExt = file.name.split(".").pop();
         const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
-        const filePath = `message-attachments/${fileName}`;
+        // Include user_id in path for RLS policy compliance
+        const userId = user?.id || 'anonymous';
+        const filePath = `message-attachments/${userId}/${fileName}`;
 
         const { error: uploadError } = await supabase.storage
           .from("client-documents")
