@@ -14,17 +14,20 @@ interface GuidedTourProps {
 }
 
 export function GuidedTour({ autoStart = true }: GuidedTourProps) {
-  const { hasCompletedTour, startTour } = useOnboardingTour();
+  const { hasCompletedTour, isReady, startTour } = useOnboardingTour();
 
   useEffect(() => {
+    console.log("[GuidedTour] Component mounted, isReady:", isReady, "hasCompletedTour:", hasCompletedTour, "autoStart:", autoStart);
+    
     // Auto-start tour for first-time users after a short delay
-    if (autoStart && !hasCompletedTour) {
+    if (autoStart && isReady && !hasCompletedTour) {
+      console.log("[GuidedTour] Auto-starting tour in 1.5s...");
       const timer = setTimeout(() => {
         startTour();
-      }, 1000);
+      }, 1500);
       return () => clearTimeout(timer);
     }
-  }, [autoStart, hasCompletedTour, startTour]);
+  }, [autoStart, isReady, hasCompletedTour, startTour]);
 
   return (
     <TooltipProvider>
@@ -33,7 +36,10 @@ export function GuidedTour({ autoStart = true }: GuidedTourProps) {
           <Button
             variant="ghost"
             size="icon"
-            onClick={startTour}
+            onClick={() => {
+              console.log("[GuidedTour] Manual start clicked");
+              startTour();
+            }}
             className="h-9 w-9"
             aria-label="Iniciar tour guiado"
           >
