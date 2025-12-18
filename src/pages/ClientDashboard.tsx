@@ -19,7 +19,9 @@ import {
   Building2,
   Send,
   Check,
-  ChevronRight
+  ChevronRight,
+  Camera,
+  Wallet
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import ClientMessageForm from "@/components/client/ClientMessageForm";
@@ -28,6 +30,8 @@ import ClientDocumentVersions from "@/components/client/ClientDocumentVersions";
 import { MessageAttachmentDisplay, Attachment } from "@/components/chat/MessageAttachments";
 import { FolderNavigation } from "@/components/documents/FolderNavigation";
 import { FilePreviewDialog } from "@/components/preview";
+import ClientProjectPhotos from "@/components/client/ClientProjectPhotos";
+import ClientBudgetView from "@/components/client/ClientBudgetView";
 
 interface Project {
   id: string;
@@ -248,10 +252,18 @@ const ClientDashboard = () => {
 
         {/* Main Content Tabs */}
         <Tabs defaultValue="projects" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3 lg:w-auto lg:inline-grid">
+          <TabsList className="flex flex-wrap h-auto gap-2 lg:w-auto">
             <TabsTrigger value="projects">
               <FolderOpen className="mr-2 h-4 w-4" />
               Projetos
+            </TabsTrigger>
+            <TabsTrigger value="photos">
+              <Camera className="mr-2 h-4 w-4" />
+              Fotos
+            </TabsTrigger>
+            <TabsTrigger value="budget">
+              <Wallet className="mr-2 h-4 w-4" />
+              Orçamento
             </TabsTrigger>
             <TabsTrigger value="documents">
               <FileText className="mr-2 h-4 w-4" />
@@ -350,6 +362,56 @@ const ClientDashboard = () => {
                       projectTitle={project.title}
                     />
                   </div>
+                ))}
+              </div>
+            )}
+          </TabsContent>
+
+          {/* Photos Tab */}
+          <TabsContent value="photos">
+            {projects.length === 0 ? (
+              <Card>
+                <CardContent className="flex flex-col items-center justify-center py-12">
+                  <Camera className="h-12 w-12 text-muted-foreground mb-4" />
+                  <h3 className="text-lg font-semibold mb-2">Sem projetos ativos</h3>
+                  <p className="text-muted-foreground text-center max-w-md">
+                    Quando tiver projetos, as fotos de progresso aparecerão aqui.
+                  </p>
+                </CardContent>
+              </Card>
+            ) : (
+              <div className="space-y-8">
+                {projects.map((project) => (
+                  <ClientProjectPhotos
+                    key={project.id}
+                    projectId={project.id}
+                    projectTitle={project.title}
+                  />
+                ))}
+              </div>
+            )}
+          </TabsContent>
+
+          {/* Budget Tab */}
+          <TabsContent value="budget">
+            {projects.length === 0 ? (
+              <Card>
+                <CardContent className="flex flex-col items-center justify-center py-12">
+                  <Wallet className="h-12 w-12 text-muted-foreground mb-4" />
+                  <h3 className="text-lg font-semibold mb-2">Sem projetos ativos</h3>
+                  <p className="text-muted-foreground text-center max-w-md">
+                    Quando tiver projetos, as informações de orçamento aparecerão aqui.
+                  </p>
+                </CardContent>
+              </Card>
+            ) : (
+              <div className="space-y-8">
+                {projects.map((project) => (
+                  <ClientBudgetView
+                    key={project.id}
+                    projectId={project.id}
+                    projectTitle={project.title}
+                  />
                 ))}
               </div>
             )}

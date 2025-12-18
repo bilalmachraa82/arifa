@@ -5,7 +5,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Shield, FolderOpen, FileText, MessageSquare, Users, Mail, LayoutDashboard, History, Target } from "lucide-react";
+import { Shield, FolderOpen, FileText, MessageSquare, Users, Mail, LayoutDashboard, History, Target, Receipt, Camera, Wallet } from "lucide-react";
 import AdminProjects from "@/components/admin/AdminProjects";
 import AdminBlogPosts from "@/components/admin/AdminBlogPosts";
 import AdminDocuments from "@/components/admin/AdminDocuments";
@@ -15,6 +15,10 @@ import AdminClients from "@/components/admin/AdminClients";
 import AdminDashboardOverview from "@/components/admin/AdminDashboardOverview";
 import AdminAuditLogs from "@/components/admin/AdminAuditLogs";
 import AdminMilestones from "@/components/admin/AdminMilestones";
+import AdminQuotes from "@/components/admin/AdminQuotes";
+import AdminProjectPhotos from "@/components/admin/AdminProjectPhotos";
+import AdminBudget from "@/components/admin/AdminBudget";
+import AdminDashboardKPIs from "@/components/admin/AdminDashboardKPIs";
 
 const AdminDashboard = () => {
   const { user, loading: authLoading } = useAuth();
@@ -128,6 +132,18 @@ const AdminDashboard = () => {
               <Users className="h-4 w-4" />
               Clientes
             </TabsTrigger>
+            <TabsTrigger value="quotes" className="gap-2">
+              <Receipt className="h-4 w-4" />
+              Cotações
+            </TabsTrigger>
+            <TabsTrigger value="photos" className="gap-2">
+              <Camera className="h-4 w-4" />
+              Fotos
+            </TabsTrigger>
+            <TabsTrigger value="budget" className="gap-2">
+              <Wallet className="h-4 w-4" />
+              Orçamentos
+            </TabsTrigger>
             <TabsTrigger value="audit" className="gap-2">
               <History className="h-4 w-4" />
               Auditoria
@@ -135,7 +151,10 @@ const AdminDashboard = () => {
           </TabsList>
 
           <TabsContent value="overview">
-            <AdminDashboardOverview />
+            <AdminDashboardKPIs />
+            <div className="mt-6">
+              <AdminDashboardOverview />
+            </div>
           </TabsContent>
 
           <TabsContent value="projects">
@@ -164,6 +183,18 @@ const AdminDashboard = () => {
 
           <TabsContent value="clients">
             <AdminClients />
+          </TabsContent>
+
+          <TabsContent value="quotes">
+            <AdminQuotes />
+          </TabsContent>
+
+          <TabsContent value="photos">
+            <AdminProjectPhotos />
+          </TabsContent>
+
+          <TabsContent value="budget">
+            <AdminBudget />
           </TabsContent>
 
           <TabsContent value="audit">
