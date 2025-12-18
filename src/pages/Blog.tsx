@@ -1,12 +1,14 @@
 import { useState, useEffect, useMemo } from "react";
-import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Calendar, Clock, Loader2 } from "lucide-react";
+import { ArrowRight, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { SearchFilters } from "@/components/SearchFilters";
 import { SEO } from "@/components/SEO";
+import { AnimatedSection } from "@/components/ui/AnimatedSection";
+import { BlogCard } from "@/components/blog/BlogCard";
+import { BlogHeroSkeleton, BlogGridSkeleton } from "@/components/blog/BlogSkeleton";
 
 interface BlogPost {
   id: string;
@@ -84,15 +86,8 @@ export default function Blog() {
 
   const featuredPost = filteredPosts.find(p => p.is_featured) || filteredPosts[0];
   const otherPosts = filteredPosts.filter(p => p.id !== featuredPost?.id);
-
-  const formatDate = (dateString: string | null) => {
-    if (!dateString) return "";
-    return new Date(dateString).toLocaleDateString("pt-PT", {
-      day: "numeric",
-      month: "short",
-      year: "numeric"
-    });
-  };
+  const sidebarPosts = otherPosts.slice(0, 4);
+  const gridPosts = otherPosts.slice(4);
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -138,20 +133,24 @@ export default function Blog() {
           { name: "Blog", url: "https://arifa.studio/blog" }
         ]}
       />
-      {/* Hero */}
-      <section className="py-24 lg:py-32 bg-card">
+      
+      {/* Hero Section */}
+      <section className="section-padding-lg bg-card">
         <div className="container-arifa">
-          <div className="max-w-3xl">
-            <p className="text-sm font-medium tracking-[0.3em] text-accent uppercase mb-4">
-              Blog
-            </p>
-            <h1 className="text-5xl md:text-6xl font-extrabold leading-tight text-foreground mb-6">
-              Ideias e inspiração
-            </h1>
-            <p className="text-lg text-muted-foreground">
-              Artigos, guias e dicas sobre arquitetura, design e investimento imobiliário.
-            </p>
-          </div>
+          <AnimatedSection animation="fade-up">
+            <div className="max-w-4xl">
+              <p className="text-caption uppercase tracking-[0.3em] text-accent mb-4">
+                Blog & Insights
+              </p>
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-none text-foreground mb-6">
+                Ideias e<br />
+                <span className="text-gradient">Inspiração</span>
+              </h1>
+              <p className="text-lead text-muted-foreground max-w-2xl">
+                Artigos, guias e dicas sobre arquitetura, design e investimento imobiliário.
+              </p>
+            </div>
+          </AnimatedSection>
         </div>
       </section>
 
@@ -170,31 +169,42 @@ export default function Blog() {
       </section>
 
       {loading ? (
-        <section className="py-24 bg-background">
-          <div className="container-arifa flex items-center justify-center">
-            <Loader2 className="h-8 w-8 animate-spin text-accent" />
+        <section className="section-padding bg-background">
+          <div className="container-arifa space-y-16">
+            <BlogHeroSkeleton />
+            <div className="pt-8 border-t border-border">
+              <div className="h-8 w-48 bg-muted rounded mb-8 animate-pulse" />
+              <BlogGridSkeleton />
+            </div>
           </div>
         </section>
       ) : filteredPosts.length === 0 ? (
-        <section className="py-24 bg-background">
-          <div className="container-arifa text-center">
-            <p className="text-lg text-muted-foreground mb-4">
-              {searchQuery || activeCategory !== "Todos"
-                ? "Nenhum artigo encontrado com os filtros selecionados."
-                : "Ainda não há artigos publicados. Volte em breve!"
-              }
-            </p>
-            {(searchQuery || activeCategory !== "Todos") && (
-              <Button
-                variant="outline"
-                onClick={() => {
-                  setSearchQuery("");
-                  setActiveCategory("Todos");
-                }}
-              >
-                Limpar filtros
-              </Button>
-            )}
+        <section className="section-padding bg-background">
+          <div className="container-arifa text-center py-24">
+            <AnimatedSection animation="fade-up">
+              <div className="max-w-md mx-auto">
+                <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-6">
+                  <span className="text-2xl">📝</span>
+                </div>
+                <p className="text-lg text-muted-foreground mb-6">
+                  {searchQuery || activeCategory !== "Todos"
+                    ? "Nenhum artigo encontrado com os filtros selecionados."
+                    : "Ainda não há artigos publicados. Volte em breve!"
+                  }
+                </p>
+                {(searchQuery || activeCategory !== "Todos") && (
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      setSearchQuery("");
+                      setActiveCategory("Todos");
+                    }}
+                  >
+                    Limpar filtros
+                  </Button>
+                )}
+              </div>
+            </AnimatedSection>
           </div>
         </section>
       ) : (
@@ -202,107 +212,53 @@ export default function Blog() {
           {/* Results count */}
           <section className="pt-8 pb-0 bg-background">
             <div className="container-arifa">
-              <p className="text-sm text-muted-foreground">
+              <p className="text-small text-muted-foreground">
                 {filteredPosts.length} {filteredPosts.length === 1 ? "artigo encontrado" : "artigos encontrados"}
               </p>
             </div>
           </section>
 
-          {/* Featured Post */}
-          {featuredPost && (
-            <section className="py-16 lg:py-24 bg-background">
-              <div className="container-arifa">
-                <Link to={`/blog/${featuredPost.slug}`} className="group block">
-                  <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-                    <div className="aspect-[16/10] rounded-sm overflow-hidden">
-                      <img
-                        src={featuredPost.featured_image || "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"}
-                        alt={featuredPost.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </div>
-                    <div className="space-y-6">
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                        {featuredPost.category && (
-                          <span className="px-3 py-1 bg-accent/10 text-accent rounded-sm text-xs font-medium">
-                            {featuredPost.category}
-                          </span>
-                        )}
-                        <span className="flex items-center gap-1">
-                          <Calendar className="h-4 w-4" />
-                          {formatDate(featuredPost.published_at)}
-                        </span>
-                        {featuredPost.read_time && (
-                          <span className="flex items-center gap-1">
-                            <Clock className="h-4 w-4" />
-                            {featuredPost.read_time}
-                          </span>
-                        )}
-                      </div>
-                      <h2 className="text-3xl md:text-4xl font-bold text-foreground group-hover:text-accent transition-colors">
-                        {featuredPost.title}
-                      </h2>
-                      {featuredPost.excerpt && (
-                        <p className="text-muted-foreground leading-relaxed">
-                          {featuredPost.excerpt}
-                        </p>
-                      )}
-                      <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-                        Ler artigo
-                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </div>
-            </section>
-          )}
+          {/* Magazine Layout: Featured + Sidebar */}
+          <section className="section-padding bg-background">
+            <div className="container-arifa">
+              <div className="grid lg:grid-cols-3 gap-12 lg:gap-16">
+                {/* Featured Post - Takes 2 columns */}
+                <div className="lg:col-span-2">
+                  {featuredPost && <BlogCard post={featuredPost} variant="featured" />}
+                </div>
 
-          {/* Posts Grid */}
-          {otherPosts.length > 0 && (
-            <section className="py-16 lg:py-24 bg-background">
+                {/* Sidebar - Recent posts */}
+                <div className="lg:col-span-1">
+                  <AnimatedSection animation="fade-up" delay={0.2}>
+                    <div className="sticky top-32">
+                      <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-6 pb-4 border-b border-border">
+                        Artigos Recentes
+                      </h3>
+                      <div className="space-y-2">
+                        {sidebarPosts.map((post, i) => (
+                          <BlogCard key={post.id} post={post} index={i} variant="compact" />
+                        ))}
+                      </div>
+                    </div>
+                  </AnimatedSection>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Grid Posts */}
+          {gridPosts.length > 0 && (
+            <section className="section-padding bg-card">
               <div className="container-arifa">
-                <h2 className="text-3xl font-bold text-foreground mb-12">
-                  Artigos recentes
-                </h2>
+                <AnimatedSection animation="fade-up">
+                  <h2 className="h2 text-foreground mb-12">
+                    Mais Artigos
+                  </h2>
+                </AnimatedSection>
                 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {otherPosts.map((post) => (
-                    <Link
-                      key={post.id}
-                      to={`/blog/${post.slug}`}
-                      className="group bg-card rounded-sm overflow-hidden shadow-soft hover:shadow-card transition-shadow"
-                    >
-                      <div className="aspect-[16/10] overflow-hidden">
-                        <img
-                          src={post.featured_image || "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"}
-                          alt={post.title}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
-                      </div>
-                      <div className="p-6 space-y-4">
-                        <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                          {post.category && (
-                            <span className="px-2 py-1 bg-accent/10 text-accent rounded-sm font-medium">
-                              {post.category}
-                            </span>
-                          )}
-                          {post.read_time && <span>{post.read_time}</span>}
-                        </div>
-                        <h3 className="text-xl font-bold text-foreground group-hover:text-accent transition-colors line-clamp-2">
-                          {post.title}
-                        </h3>
-                        {post.excerpt && (
-                          <p className="text-sm text-muted-foreground line-clamp-2">
-                            {post.excerpt}
-                          </p>
-                        )}
-                        <div className="flex items-center justify-between pt-4 border-t border-border">
-                          <span className="text-xs text-muted-foreground">{formatDate(post.published_at)}</span>
-                          <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-accent transition-colors" />
-                        </div>
-                      </div>
-                    </Link>
+                  {gridPosts.map((post, i) => (
+                    <BlogCard key={post.id} post={post} index={i} />
                   ))}
                 </div>
               </div>
@@ -312,27 +268,40 @@ export default function Blog() {
       )}
 
       {/* Newsletter */}
-      <section className="py-24 lg:py-32 bg-foreground text-background">
-        <div className="container-arifa text-center max-w-2xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-6">
-            Receba as nossas novidades
-          </h2>
-          <p className="text-lg text-background/70 mb-8">
-            Subscreva a newsletter e receba guias exclusivos, tendências e dicas de arquitetura diretamente no seu email.
-          </p>
-          <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="O seu email"
-              required
-              className="flex-1 h-12 px-4 rounded-sm bg-background/10 border border-background/20 text-background placeholder:text-background/50 focus:outline-none focus:ring-2 focus:ring-accent"
-            />
-            <Button variant="accent" size="lg" type="submit" disabled={subscribing}>
-              {subscribing ? <Loader2 className="h-4 w-4 animate-spin" /> : "Subscrever"}
-            </Button>
-          </form>
+      <section className="section-padding-lg bg-foreground text-background relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,hsl(var(--accent)/0.15),transparent_50%)]" />
+        <div className="container-arifa relative z-10">
+          <AnimatedSection animation="fade-up">
+            <div className="max-w-2xl mx-auto text-center">
+              <p className="text-caption uppercase tracking-[0.3em] text-accent mb-4">
+                Newsletter
+              </p>
+              <h2 className="text-4xl md:text-5xl font-extrabold mb-6">
+                Receba as nossas novidades
+              </h2>
+              <p className="text-lg text-background/70 mb-10">
+                Subscreva a newsletter e receba guias exclusivos, tendências e dicas de arquitetura diretamente no seu email.
+              </p>
+              <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="O seu email"
+                  required
+                  className="flex-1 h-14 px-5 rounded-sm bg-background/10 border border-background/20 text-background placeholder:text-background/50 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
+                />
+                <Button variant="accent" size="lg" type="submit" disabled={subscribing} className="h-14 px-8">
+                  {subscribing ? <Loader2 className="h-4 w-4 animate-spin" /> : (
+                    <>
+                      Subscrever
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </>
+                  )}
+                </Button>
+              </form>
+            </div>
+          </AnimatedSection>
         </div>
       </section>
     </Layout>
