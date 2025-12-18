@@ -549,6 +549,135 @@ export type Database = {
         }
         Relationships: []
       }
+      project_budgets: {
+        Row: {
+          created_at: string | null
+          currency: string | null
+          current_budget: number | null
+          id: string
+          notes: string | null
+          original_budget: number | null
+          project_id: string
+          spent_amount: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          currency?: string | null
+          current_budget?: number | null
+          id?: string
+          notes?: string | null
+          original_budget?: number | null
+          project_id: string
+          spent_amount?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          currency?: string | null
+          current_budget?: number | null
+          id?: string
+          notes?: string | null
+          original_budget?: number | null
+          project_id?: string
+          spent_amount?: number | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_budgets_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: true
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      project_change_orders: {
+        Row: {
+          amount: number
+          client_approved_at: string | null
+          client_notes: string | null
+          created_at: string | null
+          created_by: string | null
+          decided_at: string | null
+          decided_by: string | null
+          description: string | null
+          id: string
+          impact_schedule: string | null
+          order_number: string
+          project_id: string
+          reason: string | null
+          requested_at: string | null
+          requires_client_approval: boolean | null
+          status: string | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          amount: number
+          client_approved_at?: string | null
+          client_notes?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          decided_at?: string | null
+          decided_by?: string | null
+          description?: string | null
+          id?: string
+          impact_schedule?: string | null
+          order_number: string
+          project_id: string
+          reason?: string | null
+          requested_at?: string | null
+          requires_client_approval?: boolean | null
+          status?: string | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          amount?: number
+          client_approved_at?: string | null
+          client_notes?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          decided_at?: string | null
+          decided_by?: string | null
+          description?: string | null
+          id?: string
+          impact_schedule?: string | null
+          order_number?: string
+          project_id?: string
+          reason?: string | null
+          requested_at?: string | null
+          requires_client_approval?: boolean | null
+          status?: string | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_change_orders_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "project_change_orders_decided_by_fkey"
+            columns: ["decided_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "project_change_orders_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       project_milestones: {
         Row: {
           completed_date: string | null
@@ -595,6 +724,76 @@ export type Database = {
             columns: ["project_id"]
             isOneToOne: false
             referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      project_photos: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          image_url: string
+          is_featured: boolean | null
+          milestone_id: string | null
+          phase: string | null
+          project_id: string
+          sort_order: number | null
+          taken_at: string | null
+          thumbnail_url: string | null
+          title: string | null
+          uploaded_by: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          image_url: string
+          is_featured?: boolean | null
+          milestone_id?: string | null
+          phase?: string | null
+          project_id: string
+          sort_order?: number | null
+          taken_at?: string | null
+          thumbnail_url?: string | null
+          title?: string | null
+          uploaded_by?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          image_url?: string
+          is_featured?: boolean | null
+          milestone_id?: string | null
+          phase?: string | null
+          project_id?: string
+          sort_order?: number | null
+          taken_at?: string | null
+          thumbnail_url?: string | null
+          title?: string | null
+          uploaded_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_photos_milestone_id_fkey"
+            columns: ["milestone_id"]
+            isOneToOne: false
+            referencedRelation: "project_milestones"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "project_photos_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "project_photos_uploaded_by_fkey"
+            columns: ["uploaded_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -700,6 +899,265 @@ export type Database = {
         }
         Relationships: []
       }
+      quote_events: {
+        Row: {
+          created_at: string | null
+          event_type: string
+          id: string
+          ip_address: string | null
+          metadata: Json | null
+          quote_id: string
+          user_agent: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          event_type: string
+          id?: string
+          ip_address?: string | null
+          metadata?: Json | null
+          quote_id: string
+          user_agent?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          event_type?: string
+          id?: string
+          ip_address?: string | null
+          metadata?: Json | null
+          quote_id?: string
+          user_agent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quote_events_quote_id_fkey"
+            columns: ["quote_id"]
+            isOneToOne: false
+            referencedRelation: "quotes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      quote_items: {
+        Row: {
+          category: string | null
+          created_at: string | null
+          description: string
+          id: string
+          notes: string | null
+          quantity: number | null
+          quote_id: string
+          sort_order: number | null
+          total: number
+          unit: string | null
+          unit_price: number
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string | null
+          description: string
+          id?: string
+          notes?: string | null
+          quantity?: number | null
+          quote_id: string
+          sort_order?: number | null
+          total: number
+          unit?: string | null
+          unit_price: number
+        }
+        Update: {
+          category?: string | null
+          created_at?: string | null
+          description?: string
+          id?: string
+          notes?: string | null
+          quantity?: number | null
+          quote_id?: string
+          sort_order?: number | null
+          total?: number
+          unit?: string | null
+          unit_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quote_items_quote_id_fkey"
+            columns: ["quote_id"]
+            isOneToOne: false
+            referencedRelation: "quotes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      quote_templates: {
+        Row: {
+          category: string | null
+          created_at: string | null
+          created_by: string | null
+          description: string | null
+          id: string
+          is_active: boolean | null
+          items: Json | null
+          name: string
+          payment_terms: string | null
+          terms_conditions: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          items?: Json | null
+          name: string
+          payment_terms?: string | null
+          terms_conditions?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          category?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          items?: Json | null
+          name?: string
+          payment_terms?: string | null
+          terms_conditions?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quote_templates_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      quotes: {
+        Row: {
+          accepted_at: string | null
+          client_id: string | null
+          created_at: string | null
+          created_by: string | null
+          estimated_duration: string | null
+          id: string
+          lead_id: string | null
+          payment_terms: string | null
+          project_category: string | null
+          project_description: string | null
+          project_location: string | null
+          project_title: string
+          public_token: string | null
+          quote_number: string
+          rejected_at: string | null
+          rejection_reason: string | null
+          sent_at: string | null
+          signature_status: string | null
+          signature_url: string | null
+          signed_at: string | null
+          signed_document_url: string | null
+          status: string | null
+          subtotal: number
+          tax_amount: number | null
+          tax_rate: number | null
+          terms_conditions: string | null
+          total: number
+          updated_at: string | null
+          valid_until: string
+          viewed_at: string | null
+        }
+        Insert: {
+          accepted_at?: string | null
+          client_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          estimated_duration?: string | null
+          id?: string
+          lead_id?: string | null
+          payment_terms?: string | null
+          project_category?: string | null
+          project_description?: string | null
+          project_location?: string | null
+          project_title: string
+          public_token?: string | null
+          quote_number: string
+          rejected_at?: string | null
+          rejection_reason?: string | null
+          sent_at?: string | null
+          signature_status?: string | null
+          signature_url?: string | null
+          signed_at?: string | null
+          signed_document_url?: string | null
+          status?: string | null
+          subtotal?: number
+          tax_amount?: number | null
+          tax_rate?: number | null
+          terms_conditions?: string | null
+          total?: number
+          updated_at?: string | null
+          valid_until: string
+          viewed_at?: string | null
+        }
+        Update: {
+          accepted_at?: string | null
+          client_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          estimated_duration?: string | null
+          id?: string
+          lead_id?: string | null
+          payment_terms?: string | null
+          project_category?: string | null
+          project_description?: string | null
+          project_location?: string | null
+          project_title?: string
+          public_token?: string | null
+          quote_number?: string
+          rejected_at?: string | null
+          rejection_reason?: string | null
+          sent_at?: string | null
+          signature_status?: string | null
+          signature_url?: string | null
+          signed_at?: string | null
+          signed_document_url?: string | null
+          status?: string | null
+          subtotal?: number
+          tax_amount?: number | null
+          tax_rate?: number | null
+          terms_conditions?: string | null
+          total?: number
+          updated_at?: string | null
+          valid_until?: string
+          viewed_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quotes_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "quotes_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "quotes_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           id: string
@@ -724,6 +1182,11 @@ export type Database = {
     }
     Functions: {
       demote_from_admin: { Args: { _email: string }; Returns: undefined }
+      generate_change_order_number: {
+        Args: { p_project_id: string }
+        Returns: string
+      }
+      generate_quote_number: { Args: never; Returns: string }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -743,6 +1206,7 @@ export type Database = {
     Enums: {
       app_role: "admin" | "client" | "investor"
       audit_action: "INSERT" | "UPDATE" | "DELETE" | "LOGIN" | "LOGOUT"
+      change_order_status: "pending" | "approved" | "rejected"
       lead_activity_type:
         | "call"
         | "email"
@@ -750,6 +1214,21 @@ export type Database = {
         | "meeting"
         | "whatsapp"
         | "status_change"
+      project_phase:
+        | "preparacao"
+        | "conceito"
+        | "coordenacao"
+        | "tecnico"
+        | "construcao"
+        | "entrega"
+        | "uso"
+      quote_status:
+        | "draft"
+        | "sent"
+        | "viewed"
+        | "accepted"
+        | "rejected"
+        | "expired"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -879,6 +1358,7 @@ export const Constants = {
     Enums: {
       app_role: ["admin", "client", "investor"],
       audit_action: ["INSERT", "UPDATE", "DELETE", "LOGIN", "LOGOUT"],
+      change_order_status: ["pending", "approved", "rejected"],
       lead_activity_type: [
         "call",
         "email",
@@ -886,6 +1366,23 @@ export const Constants = {
         "meeting",
         "whatsapp",
         "status_change",
+      ],
+      project_phase: [
+        "preparacao",
+        "conceito",
+        "coordenacao",
+        "tecnico",
+        "construcao",
+        "entrega",
+        "uso",
+      ],
+      quote_status: [
+        "draft",
+        "sent",
+        "viewed",
+        "accepted",
+        "rejected",
+        "expired",
       ],
     },
   },
