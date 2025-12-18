@@ -10,6 +10,13 @@ interface FAQItem {
   answer: string;
 }
 
+interface CollectionItem {
+  name: string;
+  url: string;
+  image?: string;
+  description?: string;
+}
+
 interface SEOProps {
   title?: string;
   description?: string;
@@ -35,6 +42,9 @@ interface SEOProps {
   faq?: FAQItem[];
   // For service pages
   serviceType?: string;
+  // For collection pages (e.g., Portfolio)
+  collectionItems?: CollectionItem[];
+  collectionName?: string;
 }
 
 const defaultSEO = {
@@ -264,6 +274,36 @@ const generateServiceSchema = (name: string, description: string, serviceType?: 
   }
 });
 
+// Generate CollectionPage Schema (for Portfolio, Blog listings, etc.)
+const generateCollectionSchema = (
+  name: string,
+  description: string,
+  url: string,
+  items: CollectionItem[]
+) => ({
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": name,
+  "description": description,
+  "url": url,
+  "provider": {
+    "@type": "ArchitectFirm",
+    "name": "ARIFA Studio"
+  },
+  "mainEntity": {
+    "@type": "ItemList",
+    "numberOfItems": items.length,
+    "itemListElement": items.map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": item.name,
+      "url": item.url,
+      ...(item.image && { "image": item.image }),
+      ...(item.description && { "description": item.description })
+    }))
+  }
+});
+
 export function SEO({
   title,
   description = defaultSEO.description,
@@ -277,7 +317,9 @@ export function SEO({
   projectData,
   breadcrumbs,
   faq,
-  serviceType
+  serviceType,
+  collectionItems,
+  collectionName
 }: SEOProps) {
   const fullTitle = title 
     ? `${title} | ${defaultSEO.siteName}` 
@@ -314,6 +356,17 @@ export function SEO({
 
   if (serviceType && title) {
     structuredData.push(generateServiceSchema(title, description, serviceType));
+  }
+
+  if (collectionItems && collectionItems.length > 0) {
+    structuredData.push(
+      generateCollectionSchema(
+        collectionName || title || "Collection",
+        description,
+        url,
+        collectionItems
+      )
+    );
   }
 
   return (
