@@ -62,3 +62,12 @@ verify_jwt = true
 
 [functions.send-quote-email]
 verify_jwt = true
+
+[functions.create-boldsign-contract]
+verify_jwt = true
+
+[functions.get-boldsign-signing-url]
+verify_jwt = true
+
+[functions.boldsign-webhook]
+verify_jwt = false

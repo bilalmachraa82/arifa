@@ -5,7 +5,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Shield, FolderOpen, FileText, MessageSquare, Users, Mail, LayoutDashboard, History, Target, Receipt, Camera, Wallet } from "lucide-react";
+import { Shield, FolderOpen, FileText, MessageSquare, Users, Mail, LayoutDashboard, History, Target, Receipt, Camera, Wallet, FileSignature } from "lucide-react";
 import AdminProjects from "@/components/admin/AdminProjects";
 import AdminBlogPosts from "@/components/admin/AdminBlogPosts";
 import AdminDocuments from "@/components/admin/AdminDocuments";
@@ -19,6 +19,7 @@ import AdminQuotes from "@/components/admin/AdminQuotes";
 import AdminProjectPhotos from "@/components/admin/AdminProjectPhotos";
 import AdminBudget from "@/components/admin/AdminBudget";
 import AdminDashboardKPIs from "@/components/admin/AdminDashboardKPIs";
+import { AdminContracts } from "@/components/admin/AdminContracts";
 
 const AdminDashboard = () => {
   const { user, loading: authLoading } = useAuth();
@@ -136,6 +137,10 @@ const AdminDashboard = () => {
               <Receipt className="h-4 w-4" />
               Cotações
             </TabsTrigger>
+            <TabsTrigger value="contracts" className="gap-2">
+              <FileSignature className="h-4 w-4" />
+              Contratos
+            </TabsTrigger>
             <TabsTrigger value="photos" className="gap-2">
               <Camera className="h-4 w-4" />
               Fotos
@@ -187,6 +192,10 @@ const AdminDashboard = () => {
 
           <TabsContent value="quotes">
             <AdminQuotes />
+          </TabsContent>
+
+          <TabsContent value="contracts">
+            <AdminContracts />
           </TabsContent>
 
           <TabsContent value="photos">
