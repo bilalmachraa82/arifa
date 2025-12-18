@@ -6,17 +6,21 @@ const TOUR_COMPLETED_KEY = "arifa_onboarding_completed";
 
 export function useOnboardingTour() {
   const { user } = useAuth();
-  const [hasCompletedTour, setHasCompletedTour] = useState(true);
+  const [hasCompletedTour, setHasCompletedTour] = useState<boolean | null>(null);
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     if (user) {
       const completed = localStorage.getItem(`${TOUR_COMPLETED_KEY}_${user.id}`);
+      console.log("[Tour] Checking tour status for user:", user.id, "completed:", completed);
       setHasCompletedTour(completed === "true");
+      setIsReady(true);
     }
   }, [user]);
 
   const completeTour = useCallback(() => {
     if (user) {
+      console.log("[Tour] Marking tour as completed for user:", user.id);
       localStorage.setItem(`${TOUR_COMPLETED_KEY}_${user.id}`, "true");
       setHasCompletedTour(true);
     }
@@ -24,12 +28,15 @@ export function useOnboardingTour() {
 
   const resetTour = useCallback(() => {
     if (user) {
+      console.log("[Tour] Resetting tour for user:", user.id);
       localStorage.removeItem(`${TOUR_COMPLETED_KEY}_${user.id}`);
       setHasCompletedTour(false);
     }
   }, [user]);
 
   const startTour = useCallback(() => {
+    console.log("[Tour] Starting tour...");
+    
     const steps: DriveStep[] = [
       {
         element: '[data-tour="welcome"]',
@@ -87,24 +94,31 @@ export function useOnboardingTour() {
       },
     ];
 
-    const driverObj = driver({
-      showProgress: true,
-      showButtons: ["next", "previous", "close"],
-      steps,
-      nextBtnText: "Seguinte",
-      prevBtnText: "Anterior",
-      doneBtnText: "Concluir",
-      progressText: "{{current}} de {{total}}",
-      onDestroyed: () => {
-        completeTour();
-      },
-    });
+    try {
+      const driverObj = driver({
+        showProgress: true,
+        showButtons: ["next", "previous", "close"],
+        steps,
+        nextBtnText: "Seguinte",
+        prevBtnText: "Anterior",
+        doneBtnText: "Concluir",
+        progressText: "{{current}} de {{total}}",
+        onDestroyed: () => {
+          console.log("[Tour] Tour completed/closed");
+          completeTour();
+        },
+      });
 
-    driverObj.drive();
+      driverObj.drive();
+      console.log("[Tour] Driver started successfully");
+    } catch (error) {
+      console.error("[Tour] Error starting tour:", error);
+    }
   }, [completeTour]);
 
   return {
-    hasCompletedTour,
+    hasCompletedTour: hasCompletedTour ?? true,
+    isReady,
     startTour,
     resetTour,
     completeTour,
