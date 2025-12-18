@@ -1,5 +1,6 @@
 import { Layout } from "@/components/layout/Layout";
 import { HeroSection } from "@/components/home/HeroSection";
+import { TrustSignals } from "@/components/home/TrustSignals";
 import { SegmentSelector } from "@/components/home/SegmentSelector";
 import { AboutSection } from "@/components/home/AboutSection";
 import { FeaturedProjects } from "@/components/home/FeaturedProjects";
@@ -12,10 +13,11 @@ const Index = () => {
     <Layout>
       <SEO 
         title="Início"
-        description="ARIFA Studio - Estúdio de arquitetura e design de interiores em Lisboa. Transformamos espaços com abordagem integrada, tecnologia BIM e foco na sustentabilidade."
+        description="ARIFA Studio - Arquitectura que transforma. Tecnologia que entrega. 20 anos de experiência internacional. BIM Level 2 certified."
         url="https://arifa.studio"
       />
       <HeroSection />
+      <TrustSignals />
       <SegmentSelector />
       <AboutSection />
       <FeaturedProjects />
