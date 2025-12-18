@@ -214,11 +214,38 @@
 
   .link-underline::after {
     content: '';
-    @apply absolute bottom-0 left-0 h-px w-0 bg-current transition-all duration-300;
+    @apply absolute bottom-0 left-0 h-px w-0 bg-current transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)];
+    transform-origin: left;
   }
 
   .link-underline:hover::after {
     @apply w-full;
+  }
+
+  /* Icon hover animations */
+  .icon-hover {
+    @apply transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)];
+  }
+
+  .icon-hover:hover {
+    @apply translate-x-1;
+  }
+
+  .icon-scale {
+    @apply transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)];
+  }
+
+  .icon-scale:hover {
+    @apply scale-110;
+  }
+
+  /* Card hover lift */
+  .card-hover {
+    @apply transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)];
+  }
+
+  .card-hover:hover {
+    @apply -translate-y-1 shadow-elevated;
   }
 
   /* Optimized Image with lazy loading styles */

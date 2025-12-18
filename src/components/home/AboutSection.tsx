@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { AnimatedSection } from "@/components/ui/AnimatedSection";
 
 export function AboutSection() {
   const { t } = useLanguage();
@@ -16,7 +17,7 @@ export function AboutSection() {
     <section className="py-24 lg:py-32 bg-card" id="sobre">
       <div className="container-arifa">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-          <div className="relative">
+          <AnimatedSection animation="fade-left" className="relative">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-4">
                 <div className="aspect-[3/4] bg-secondary rounded-sm overflow-hidden">
@@ -49,9 +50,9 @@ export function AboutSection() {
                 </div>
               </div>
             </div>
-          </div>
+          </AnimatedSection>
 
-          <div className="space-y-8">
+          <AnimatedSection animation="fade-right" delay={200} className="space-y-8">
             <div className="space-y-4">
               <p className="text-sm font-medium tracking-[0.3em] text-accent uppercase">
                 {t("about.subtitle")}
@@ -76,10 +77,13 @@ export function AboutSection() {
               ))}
             </div>
 
-            <Button variant="outline" size="lg" asChild>
-              <Link to="/portfolio">{t("about.explorePortfolio")}</Link>
+            <Button variant="outline" size="lg" asChild className="group">
+              <Link to="/portfolio" className="inline-flex items-center">
+                {t("about.explorePortfolio")}
+                <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">→</span>
+              </Link>
             </Button>
-          </div>
+          </AnimatedSection>
         </div>
       </div>
     </section>
