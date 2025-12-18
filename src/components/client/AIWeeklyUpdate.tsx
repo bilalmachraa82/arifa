@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Sparkles, RefreshCw, Calendar, ChevronDown, ChevronUp } from "lucide-react";
 import { toast } from "sonner";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface AIWeeklyUpdateProps {
   projectId: string;
@@ -14,6 +15,7 @@ interface AIWeeklyUpdateProps {
 }
 
 export function AIWeeklyUpdate({ projectId, projectTitle }: AIWeeklyUpdateProps) {
+  const { t } = useLanguage();
   const [summary, setSummary] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [generatedAt, setGeneratedAt] = useState<string | null>(null);
@@ -29,11 +31,11 @@ export function AIWeeklyUpdate({ projectId, projectTitle }: AIWeeklyUpdateProps)
       if (error) {
         console.error('Error generating update:', error);
         if (error.message?.includes('429')) {
-          toast.error('Limite de requisições excedido. Tente novamente mais tarde.');
+          toast.error(t('ai.weeklyUpdate.rateLimited'));
         } else if (error.message?.includes('402')) {
-          toast.error('Créditos AI esgotados.');
+          toast.error(t('ai.weeklyUpdate.creditsExhausted'));
         } else {
-          toast.error('Erro ao gerar resumo semanal');
+          toast.error(t('ai.weeklyUpdate.error'));
         }
         return;
       }
@@ -41,10 +43,10 @@ export function AIWeeklyUpdate({ projectId, projectTitle }: AIWeeklyUpdateProps)
       setSummary(data.summary);
       setGeneratedAt(data.generatedAt);
       setIsOpen(true);
-      toast.success('Resumo semanal gerado com sucesso!');
+      toast.success(t('ai.weeklyUpdate.success'));
     } catch (err) {
       console.error('Error:', err);
-      toast.error('Erro ao gerar resumo');
+      toast.error(t('ai.weeklyUpdate.error'));
     } finally {
       setLoading(false);
     }
@@ -70,9 +72,9 @@ export function AIWeeklyUpdate({ projectId, projectTitle }: AIWeeklyUpdateProps)
                 <Sparkles className="h-4 w-4 text-primary" />
               </div>
               <div>
-                <CardTitle className="text-base">Resumo Semanal AI</CardTitle>
+                <CardTitle className="text-base">{t('ai.weeklyUpdate.title')}</CardTitle>
                 <CardDescription className="text-xs">
-                  Atualização inteligente do progresso
+                  {t('ai.weeklyUpdate.description')}
                 </CardDescription>
               </div>
             </div>
@@ -89,7 +91,7 @@ export function AIWeeklyUpdate({ projectId, projectTitle }: AIWeeklyUpdateProps)
                 ) : (
                   <Sparkles className="h-4 w-4" />
                 )}
-                {summary ? 'Atualizar' : 'Gerar Resumo'}
+                {summary ? t('ai.weeklyUpdate.update') : t('ai.weeklyUpdate.generate')}
               </Button>
               {summary && (
                 <CollapsibleTrigger asChild>
@@ -121,7 +123,7 @@ export function AIWeeklyUpdate({ projectId, projectTitle }: AIWeeklyUpdateProps)
                 {generatedAt && (
                   <div className="flex items-center gap-2 text-xs text-muted-foreground">
                     <Calendar className="h-3 w-3" />
-                    <span>Gerado em {formatDate(generatedAt)}</span>
+                    <span>{t('ai.weeklyUpdate.generatedAt')} {formatDate(generatedAt)}</span>
                     <Badge variant="secondary" className="text-[10px] px-1.5 py-0">
                       AI
                     </Badge>
@@ -135,7 +137,7 @@ export function AIWeeklyUpdate({ projectId, projectTitle }: AIWeeklyUpdateProps)
 
             {!loading && !summary && (
               <p className="text-sm text-muted-foreground text-center py-4">
-                Clique em "Gerar Resumo" para obter uma atualização inteligente sobre o progresso do seu projeto.
+                {t('ai.weeklyUpdate.noSummary')}
               </p>
             )}
           </CardContent>
