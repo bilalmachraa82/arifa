@@ -71,3 +71,6 @@ verify_jwt = true
 
 [functions.boldsign-webhook]
 verify_jwt = false
+
+[functions.optimize-image]
+verify_jwt = true

@@ -34,6 +34,7 @@ import { FilePreviewDialog } from "@/components/preview";
 import ClientProjectPhotos from "@/components/client/ClientProjectPhotos";
 import ClientBudgetView from "@/components/client/ClientBudgetView";
 import { ClientContracts } from "@/components/client/ClientContracts";
+import { GuidedTour } from "@/components/onboarding/GuidedTour";
 
 interface Project {
   id: string;
@@ -196,7 +197,7 @@ const ClientDashboard = () => {
 
   return (
     <Layout>
-      <div className="bg-muted/30 py-12">
+      <div className="bg-muted/30 py-12" data-tour="welcome">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
@@ -205,10 +206,13 @@ const ClientDashboard = () => {
                 Bem-vindo de volta! Acompanhe os seus projetos e comunicações.
               </p>
             </div>
-            <Button onClick={() => setShowMessageForm(true)}>
-              <Send className="mr-2 h-4 w-4" />
-              Nova Mensagem
-            </Button>
+            <div className="flex items-center gap-2">
+              <GuidedTour />
+              <Button onClick={() => setShowMessageForm(true)} data-tour="new-message" aria-label="Enviar nova mensagem à equipa ARIFA">
+                <Send className="mr-2 h-4 w-4" aria-hidden="true" />
+                Nova Mensagem
+              </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -254,32 +258,32 @@ const ClientDashboard = () => {
 
         {/* Main Content Tabs */}
         <Tabs defaultValue="projects" className="space-y-6">
-          <TabsList className="flex flex-wrap h-auto gap-2 lg:w-auto">
-            <TabsTrigger value="projects">
-              <FolderOpen className="mr-2 h-4 w-4" />
+          <TabsList className="flex flex-wrap h-auto gap-2 lg:w-auto" role="tablist" aria-label="Secções do portal de cliente">
+            <TabsTrigger value="projects" data-tour="projects" aria-label="Ver projetos">
+              <FolderOpen className="mr-2 h-4 w-4" aria-hidden="true" />
               Projetos
             </TabsTrigger>
-            <TabsTrigger value="photos">
-              <Camera className="mr-2 h-4 w-4" />
+            <TabsTrigger value="photos" data-tour="photos" aria-label="Ver fotos do projeto">
+              <Camera className="mr-2 h-4 w-4" aria-hidden="true" />
               Fotos
             </TabsTrigger>
-            <TabsTrigger value="budget">
-              <Wallet className="mr-2 h-4 w-4" />
+            <TabsTrigger value="budget" aria-label="Ver orçamento">
+              <Wallet className="mr-2 h-4 w-4" aria-hidden="true" />
               Orçamento
             </TabsTrigger>
-            <TabsTrigger value="documents">
-              <FileText className="mr-2 h-4 w-4" />
+            <TabsTrigger value="documents" data-tour="documents" aria-label="Ver documentos">
+              <FileText className="mr-2 h-4 w-4" aria-hidden="true" />
               Documentos
             </TabsTrigger>
-            <TabsTrigger value="contracts">
-              <FileSignature className="mr-2 h-4 w-4" />
+            <TabsTrigger value="contracts" aria-label="Ver contratos">
+              <FileSignature className="mr-2 h-4 w-4" aria-hidden="true" />
               Contratos
             </TabsTrigger>
-            <TabsTrigger value="messages">
-              <MessageSquare className="mr-2 h-4 w-4" />
+            <TabsTrigger value="messages" data-tour="messages" aria-label={`Ver mensagens${unreadCount > 0 ? `, ${unreadCount} não lidas` : ''}`}>
+              <MessageSquare className="mr-2 h-4 w-4" aria-hidden="true" />
               Mensagens
               {unreadCount > 0 && (
-                <Badge variant="destructive" className="ml-2 h-5 w-5 p-0 flex items-center justify-center">
+                <Badge variant="destructive" className="ml-2 h-5 w-5 p-0 flex items-center justify-center" aria-label={`${unreadCount} mensagens não lidas`}>
                   {unreadCount}
                 </Badge>
               )}

@@ -134,49 +134,49 @@ export function Header() {
           {user ? (
             <>
               {isAdmin && (
-                <Button variant="ghost" size="sm" asChild className="gap-2 relative">
+                <Button variant="ghost" size="sm" asChild className="gap-2 relative" aria-label="Painel de administração">
                   <Link to="/admin">
-                    <Shield className="h-4 w-4" />
+                    <Shield className="h-4 w-4" aria-hidden="true" />
                     Admin
                     {unreadCount > 0 && (
-                      <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 min-w-5 px-1 text-xs">
+                      <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 min-w-5 px-1 text-xs" aria-label={`${unreadCount} mensagens não lidas`}>
                         {unreadCount > 99 ? "99+" : unreadCount}
                       </Badge>
                     )}
                   </Link>
                 </Button>
               )}
-              <Button variant="ghost" size="sm" asChild className="gap-2 relative">
+              <Button variant="ghost" size="sm" asChild className="gap-2 relative" aria-label="Área de cliente">
                 <Link to="/dashboard">
-                  <LayoutDashboard className="h-4 w-4" />
+                  <LayoutDashboard className="h-4 w-4" aria-hidden="true" />
                   {t("nav.clientArea")}
                   {!isAdmin && unreadCount > 0 && (
-                    <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 min-w-5 px-1 text-xs">
+                    <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 min-w-5 px-1 text-xs" aria-label={`${unreadCount} mensagens não lidas`}>
                       {unreadCount > 99 ? "99+" : unreadCount}
                     </Badge>
                   )}
                 </Link>
               </Button>
-              <Button variant="ghost" size="icon" asChild title="Definições">
+              <Button variant="ghost" size="icon" asChild aria-label="Definições da conta">
                 <Link to="/dashboard/settings">
-                  <Settings className="h-4 w-4" />
+                  <Settings className="h-4 w-4" aria-hidden="true" />
                 </Link>
               </Button>
-              <Button variant="ghost" size="sm" onClick={signOut} className="gap-2">
-                <LogOut className="h-4 w-4" />
+              <Button variant="ghost" size="sm" onClick={signOut} className="gap-2" aria-label="Terminar sessão">
+                <LogOut className="h-4 w-4" aria-hidden="true" />
                 {t("nav.logout")}
               </Button>
             </>
           ) : (
-            <Button variant="ghost" size="sm" asChild className="gap-2">
+            <Button variant="ghost" size="sm" asChild className="gap-2" aria-label="Iniciar sessão">
               <Link to="/auth">
-                <LogIn className="h-4 w-4" />
+                <LogIn className="h-4 w-4" aria-hidden="true" />
                 {t("nav.login")}
               </Link>
             </Button>
           )}
           
-          <Button variant="outline" size="sm" asChild>
+          <Button variant="outline" size="sm" asChild aria-label="Pedir orçamento">
             <Link to="/contacto">{t("nav.quote")}</Link>
           </Button>
         </div>
