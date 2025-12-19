@@ -45,7 +45,11 @@ import {
   FileKey,
   Activity,
   Server,
-  Fingerprint
+  Fingerprint,
+  Coins,
+  X,
+  Key,
+  Cpu
 } from "lucide-react";
 import arifaLogo from "@/assets/arifa-logo.png";
 
@@ -1333,6 +1337,331 @@ export default function Documentation() {
                 <p>• audit_logs</p>
               </CardContent>
             </Card>
+          </div>
+        </section>
+
+        <Separator className="my-8" />
+
+        {/* Section: Análise de Valor - Orçamento Comparativo */}
+        <section className="mb-12 print:mb-8 print:break-before-page">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2 bg-primary/10 rounded-lg">
+              <Coins className="w-6 h-6 text-primary" />
+            </div>
+            <h2 className="text-3xl font-bold">Análise de Valor</h2>
+          </div>
+
+          <p className="text-lg text-muted-foreground mb-6">
+            Comparação do custo de implementação da plataforma ARIFA vs aquisição de soluções independentes no mercado.
+          </p>
+
+          {/* Savings Highlight */}
+          <Card className="mb-8 bg-gradient-to-br from-green-500/10 to-green-600/20 border-green-500/30">
+            <CardContent className="pt-6 pb-6">
+              <div className="grid md:grid-cols-3 gap-6 items-center text-center">
+                <div>
+                  <p className="text-sm text-muted-foreground mb-1">Custo de Mercado</p>
+                  <p className="text-3xl font-bold text-red-600 line-through">€17.256</p>
+                  <p className="text-xs text-muted-foreground">/ano (soluções separadas)</p>
+                </div>
+                <div>
+                  <div className="inline-flex p-4 bg-green-500/20 rounded-full mb-2">
+                    <ArrowDown className="w-8 h-8 text-green-600" />
+                  </div>
+                  <Badge className="bg-green-600 text-white text-lg px-4 py-1">
+                    Poupança 83%
+                  </Badge>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground mb-1">Plataforma ARIFA</p>
+                  <p className="text-4xl font-bold text-green-600">€2.888</p>
+                  <p className="text-xs text-muted-foreground">investimento único</p>
+                </div>
+              </div>
+              <div className="mt-6 text-center">
+                <p className="text-lg font-medium text-green-700">
+                  ROI de 497% • Poupança de €14.368 no 1º ano
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Comparative Table */}
+          <Card className="mb-8">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <BarChart3 className="w-5 h-5" />
+                Tabela Comparativa de Custos
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b">
+                      <th className="text-left py-3 px-2">Funcionalidade</th>
+                      <th className="text-left py-3 px-2">Solução de Mercado</th>
+                      <th className="text-right py-3 px-2">Custo/Ano</th>
+                      <th className="text-center py-3 px-2">ARIFA</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y">
+                    <tr>
+                      <td className="py-3 px-2 font-medium">Website Premium</td>
+                      <td className="py-3 px-2 text-muted-foreground">Squarespace + Desenvolvimento Custom</td>
+                      <td className="py-3 px-2 text-right">€1.500</td>
+                      <td className="py-3 px-2 text-center"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-2 font-medium">Portal do Cliente</td>
+                      <td className="py-3 px-2 text-muted-foreground">SuiteDash (Pro)</td>
+                      <td className="py-3 px-2 text-right">€588</td>
+                      <td className="py-3 px-2 text-center"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-2 font-medium">CRM (3 utilizadores)</td>
+                      <td className="py-3 px-2 text-muted-foreground">Pipedrive Advanced</td>
+                      <td className="py-3 px-2 text-right">€1.224</td>
+                      <td className="py-3 px-2 text-center"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-2 font-medium">Gestão Documental</td>
+                      <td className="py-3 px-2 text-muted-foreground">PandaDoc</td>
+                      <td className="py-3 px-2 text-right">€588</td>
+                      <td className="py-3 px-2 text-center"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-2 font-medium">Assinaturas Digitais</td>
+                      <td className="py-3 px-2 text-muted-foreground">DocuSign Essentials</td>
+                      <td className="py-3 px-2 text-right">€300</td>
+                      <td className="py-3 px-2 text-center"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-2 font-medium">Chat em Tempo Real</td>
+                      <td className="py-3 px-2 text-muted-foreground">Intercom Starter</td>
+                      <td className="py-3 px-2 text-right">€348</td>
+                      <td className="py-3 px-2 text-center"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-2 font-medium">Email Automatizado</td>
+                      <td className="py-3 px-2 text-muted-foreground">Mailchimp Essentials</td>
+                      <td className="py-3 px-2 text-right">€240</td>
+                      <td className="py-3 px-2 text-center"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-2 font-medium">Analytics</td>
+                      <td className="py-3 px-2 text-muted-foreground">Plausible Analytics</td>
+                      <td className="py-3 px-2 text-right">€108</td>
+                      <td className="py-3 px-2 text-center"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-2 font-medium">IA Integrada (BYOK)</td>
+                      <td className="py-3 px-2 text-muted-foreground">Gemini 2.0 Flash API</td>
+                      <td className="py-3 px-2 text-right">€300</td>
+                      <td className="py-3 px-2 text-center"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-2 font-medium">Cloud Storage (50GB)</td>
+                      <td className="py-3 px-2 text-muted-foreground">AWS S3</td>
+                      <td className="py-3 px-2 text-right">€60</td>
+                      <td className="py-3 px-2 text-center"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-2 font-medium">App Mobile (PWA)</td>
+                      <td className="py-3 px-2 text-muted-foreground">Desenvolvimento Custom</td>
+                      <td className="py-3 px-2 text-right">€10.000</td>
+                      <td className="py-3 px-2 text-center"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-2 font-medium">Segurança + MFA</td>
+                      <td className="py-3 px-2 text-muted-foreground">Auth0 Essentials</td>
+                      <td className="py-3 px-2 text-right">€1.200</td>
+                      <td className="py-3 px-2 text-center"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-2 font-medium">Multi-idioma (PT/EN)</td>
+                      <td className="py-3 px-2 text-muted-foreground">Traduções Profissionais</td>
+                      <td className="py-3 px-2 text-right">€500</td>
+                      <td className="py-3 px-2 text-center"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-2 font-medium">Integrações</td>
+                      <td className="py-3 px-2 text-muted-foreground">Zapier Professional</td>
+                      <td className="py-3 px-2 text-right">€300</td>
+                      <td className="py-3 px-2 text-center"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr className="bg-muted/50 font-bold">
+                      <td className="py-4 px-2">TOTAL</td>
+                      <td className="py-4 px-2"></td>
+                      <td className="py-4 px-2 text-right text-red-600">€17.256/ano</td>
+                      <td className="py-4 px-2 text-center text-green-600">€2.888</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p className="text-xs text-muted-foreground mt-4">
+                * Preços de mercado pesquisados em Dezembro 2024. Valores podem variar consoante planos e promoções.
+              </p>
+            </CardContent>
+          </Card>
+
+          {/* BYOK Section */}
+          <Card className="mb-8 border-blue-500/20 bg-blue-500/5">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-blue-700">
+                <Key className="w-5 h-5" />
+                Inteligência Artificial: BYOK (Bring Your Own Key)
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-semibold mb-3">Como funciona?</h4>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    A plataforma utiliza o modelo <strong>Gemini 2.0 Flash</strong> da Google, o mais recente e avançado. 
+                    O cliente utiliza a sua própria chave API, mantendo total controlo sobre custos e dados.
+                  </p>
+                  <ul className="space-y-2 text-sm">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span>Sem custos ocultos de IA</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span>Controlo total sobre utilização</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span>Dados processados directamente pela Google</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span>Escalabilidade sem limites</span>
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-semibold mb-3 flex items-center gap-2">
+                    <Cpu className="w-4 h-4" />
+                    Custos Estimados Gemini 2.0 Flash
+                  </h4>
+                  <Card className="bg-background">
+                    <CardContent className="pt-4">
+                      <div className="space-y-3 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Input (1M tokens)</span>
+                          <span className="font-medium">€0.10</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Output (1M tokens)</span>
+                          <span className="font-medium">€0.40</span>
+                        </div>
+                        <Separator />
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Uso típico mensal</span>
+                          <span className="font-medium text-green-600">€5 - €50</span>
+                        </div>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-3">
+                        Baseado em ~100-1000 interações/mês
+                      </p>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Additional Benefits */}
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Sparkles className="w-5 h-5" />
+                Benefícios Adicionais (Incluídos Sem Custo Extra)
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/30">
+                  <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-medium text-sm">Plataforma Unificada</p>
+                    <p className="text-xs text-muted-foreground">Sem integrações complexas entre sistemas</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/30">
+                  <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-medium text-sm">Interface Única</p>
+                    <p className="text-xs text-muted-foreground">Sem múltiplos logins e dashboards</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/30">
+                  <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-medium text-sm">Suporte Centralizado</p>
+                    <p className="text-xs text-muted-foreground">Um único ponto de contacto técnico</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/30">
+                  <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-medium text-sm">Atualizações Contínuas</p>
+                    <p className="text-xs text-muted-foreground">Novas funcionalidades incluídas</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/30">
+                  <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-medium text-sm">Customização Total</p>
+                    <p className="text-xs text-muted-foreground">À medida do seu negócio</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/30">
+                  <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-medium text-sm">Propriedade dos Dados</p>
+                    <p className="text-xs text-muted-foreground">100% controlo sobre a sua informação</p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Market Comparison - What you'd need to manage */}
+          <Card className="border-red-500/20 bg-red-500/5">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-red-700">
+                <X className="w-5 h-5" />
+                O Que Teria de Gerir com Soluções Separadas
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-4 gap-4 text-center">
+                <div className="p-4 rounded-lg bg-background">
+                  <p className="text-3xl font-bold text-red-600">14+</p>
+                  <p className="text-sm text-muted-foreground">Subscrições diferentes</p>
+                </div>
+                <div className="p-4 rounded-lg bg-background">
+                  <p className="text-3xl font-bold text-red-600">14+</p>
+                  <p className="text-sm text-muted-foreground">Logins para memorizar</p>
+                </div>
+                <div className="p-4 rounded-lg bg-background">
+                  <p className="text-3xl font-bold text-red-600">14+</p>
+                  <p className="text-sm text-muted-foreground">Faturas mensais</p>
+                </div>
+                <div className="p-4 rounded-lg bg-background">
+                  <p className="text-3xl font-bold text-red-600">∞</p>
+                  <p className="text-sm text-muted-foreground">Problemas de integração</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Sources */}
+          <div className="mt-6 text-xs text-muted-foreground">
+            <p className="font-medium mb-2">Fontes de Preços (Dezembro 2024):</p>
+            <p>Squarespace.com/pricing • Pipedrive.com/pricing • SuiteDash.com/pricing • PandaDoc.com/pricing • DocuSign.com/pricing • Intercom.com/pricing • Mailchimp.com/pricing • Plausible.io/pricing • AWS S3 Pricing • Auth0.com/pricing • Google AI Gemini Pricing</p>
           </div>
         </section>
 
