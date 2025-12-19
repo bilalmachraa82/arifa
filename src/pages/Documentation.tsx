@@ -29,7 +29,23 @@ import {
   Cloud,
   CheckCircle,
   ArrowRight,
-  ArrowDown
+  ArrowDown,
+  Target,
+  Clock,
+  Heart,
+  Eye,
+  Rotate3D,
+  ZoomIn,
+  Download,
+  Keyboard,
+  Play,
+  Sparkles,
+  UserPlus,
+  ShieldCheck,
+  FileKey,
+  Activity,
+  Server,
+  Fingerprint
 } from "lucide-react";
 import arifaLogo from "@/assets/arifa-logo.png";
 
@@ -69,10 +85,78 @@ export default function Documentation() {
             <Badge variant="secondary" className="text-sm">React 18</Badge>
             <Badge variant="secondary" className="text-sm">TypeScript</Badge>
             <Badge variant="secondary" className="text-sm">Tailwind CSS</Badge>
-            <Badge variant="secondary" className="text-sm">Supabase</Badge>
+            <Badge variant="secondary" className="text-sm">Cloud Backend</Badge>
             <Badge variant="secondary" className="text-sm">PWA</Badge>
           </div>
         </header>
+
+        <Separator className="my-8" />
+
+        {/* Section 0: Business Impact */}
+        <section className="mb-12 print:mb-8">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2 bg-primary/10 rounded-lg">
+              <Target className="w-6 h-6 text-primary" />
+            </div>
+            <h2 className="text-3xl font-bold">Impacto de Negócio</h2>
+          </div>
+
+          <Card className="mb-6 bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
+            <CardContent className="pt-6">
+              <p className="text-lg text-center mb-6">
+                <strong>Plataforma all-in-one</strong> para gestão do seu negócio de arquitetura. 
+                Centralize comunicação, documentos e projetos num único lugar.
+              </p>
+            </CardContent>
+          </Card>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Card className="text-center border-green-500/20 bg-green-500/5">
+              <CardContent className="pt-6">
+                <div className="inline-flex p-3 bg-green-500/10 rounded-full mb-3">
+                  <Clock className="w-6 h-6 text-green-600" />
+                </div>
+                <h3 className="font-semibold">Eficiência</h3>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Automatização de tarefas repetitivas e workflows otimizados
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="text-center border-blue-500/20 bg-blue-500/5">
+              <CardContent className="pt-6">
+                <div className="inline-flex p-3 bg-blue-500/10 rounded-full mb-3">
+                  <Smartphone className="w-6 h-6 text-blue-600" />
+                </div>
+                <h3 className="font-semibold">Acessibilidade</h3>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Acesso mobile a qualquer momento via PWA instalável
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="text-center border-purple-500/20 bg-purple-500/5">
+              <CardContent className="pt-6">
+                <div className="inline-flex p-3 bg-purple-500/10 rounded-full mb-3">
+                  <Heart className="w-6 h-6 text-purple-600" />
+                </div>
+                <h3 className="font-semibold">Satisfação Cliente</h3>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Portal dedicado com atualizações em tempo real
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="text-center border-orange-500/20 bg-orange-500/5">
+              <CardContent className="pt-6">
+                <div className="inline-flex p-3 bg-orange-500/10 rounded-full mb-3">
+                  <BarChart3 className="w-6 h-6 text-orange-600" />
+                </div>
+                <h3 className="font-semibold">Controlo Total</h3>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Dashboard com KPIs e métricas do negócio
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
 
         <Separator className="my-8" />
 
@@ -190,14 +274,27 @@ export default function Documentation() {
               ]}
             />
             <FeatureCard
-              icon={<Camera className="w-5 h-5" />}
-              title="Galeria de Fotos"
+              icon={<Eye className="w-5 h-5" />}
+              title="Lightbox Premium"
               features={[
-                "Fotos organizadas por fase",
-                "Lightbox para visualização",
-                "Filtros por milestone",
-                "Download de imagens",
-                "Lazy loading otimizado"
+                "Zoom até 400% com scroll",
+                "Rotação de imagens (90°)",
+                "Slideshow automático (3s)",
+                "Download direto de imagens",
+                "Navegação por teclado",
+                "Gestos touch para mobile",
+                "Barra de thumbnails"
+              ]}
+            />
+            <FeatureCard
+              icon={<Rotate3D className="w-5 h-5" />}
+              title="Preview de Documentos"
+              features={[
+                "Visualização inline de PDFs",
+                "Preview de Word e Excel",
+                "Modelos 3D interativos (GLB/GLTF)",
+                "Controlos: rodar, zoom, pan",
+                "Download direto"
               ]}
             />
             <FeatureCard
@@ -205,7 +302,7 @@ export default function Documentation() {
               title="Gestão Documental"
               features={[
                 "Pastas organizadas",
-                "Histórico de versões",
+                "Histórico de versões completo",
                 "Preview inline de ficheiros",
                 "Download direto",
                 "Tipos: PDF, Word, Excel, 3D"
@@ -230,7 +327,18 @@ export default function Documentation() {
                 "Resumos gerados por IA",
                 "Chatbot de suporte 24/7",
                 "Perguntas sobre o projeto",
-                "Powered by Lovable AI"
+                "Powered by Google Gemini"
+              ]}
+            />
+            <FeatureCard
+              icon={<Sparkles className="w-5 h-5" />}
+              title="Onboarding Inteligente"
+              features={[
+                "Tour guiado automático",
+                "Passos interativos com destaque",
+                "Explicação de cada funcionalidade",
+                "Possibilidade de reiniciar tour",
+                "Primeira experiência memorável"
               ]}
             />
             <FeatureCard
@@ -286,9 +394,9 @@ export default function Documentation() {
               title="Gestão de Projetos"
               features={[
                 "CRUD completo",
-                "Milestones Kanban",
+                "Milestones Kanban (drag & drop)",
                 "Atribuição de clientes",
-                "Upload de imagens",
+                "Upload múltiplo de imagens",
                 "Gestão de fases"
               ]}
             />
@@ -315,14 +423,14 @@ export default function Documentation() {
               ]}
             />
             <FeatureCard
-              icon={<Users className="w-5 h-5" />}
+              icon={<UserPlus className="w-5 h-5" />}
               title="Gestão de Clientes"
               features={[
                 "Lista de clientes",
-                "Convites por email",
+                "Sistema de convites por email",
+                "Tracking de convites pendentes",
                 "Gestão de permissões",
-                "Perfis detalhados",
-                "Histórico de projetos"
+                "Perfis detalhados"
               ]}
             />
             <FeatureCard
@@ -341,10 +449,10 @@ export default function Documentation() {
               title="Documentos"
               features={[
                 "Upload para clientes",
-                "Gestão de pastas",
-                "Versionamento",
+                "Gestão de pastas hierárquicas",
+                "Versionamento de ficheiros",
                 "Associar a projetos",
-                "Tipos múltiplos"
+                "Preview múltiplos formatos"
               ]}
             />
             <FeatureCard
@@ -359,7 +467,7 @@ export default function Documentation() {
               ]}
             />
             <FeatureCard
-              icon={<Lock className="w-5 h-5" />}
+              icon={<Activity className="w-5 h-5" />}
               title="Audit Logs"
               features={[
                 "Registo de ações",
@@ -374,13 +482,121 @@ export default function Documentation() {
 
         <Separator className="my-8" />
 
-        {/* Section 4: Technical Features */}
+        {/* Section 4: Security */}
+        <section className="mb-12 print:mb-8 print:break-before-page">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2 bg-primary/10 rounded-lg">
+              <ShieldCheck className="w-6 h-6 text-primary" />
+            </div>
+            <h2 className="text-3xl font-bold">4. Segurança & Compliance</h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <Card className="text-center border-green-500/20">
+              <CardContent className="pt-6">
+                <div className="inline-flex p-3 bg-green-500/10 rounded-full mb-3">
+                  <Lock className="w-6 h-6 text-green-600" />
+                </div>
+                <h3 className="font-semibold">RLS Policies</h3>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Segurança ao nível da linha em todas as tabelas
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="text-center border-blue-500/20">
+              <CardContent className="pt-6">
+                <div className="inline-flex p-3 bg-blue-500/10 rounded-full mb-3">
+                  <Fingerprint className="w-6 h-6 text-blue-600" />
+                </div>
+                <h3 className="font-semibold">MFA</h3>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Autenticação de 2 fatores disponível
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="text-center border-purple-500/20">
+              <CardContent className="pt-6">
+                <div className="inline-flex p-3 bg-purple-500/10 rounded-full mb-3">
+                  <Activity className="w-6 h-6 text-purple-600" />
+                </div>
+                <h3 className="font-semibold">Audit Logs</h3>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Rastreabilidade completa de ações
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="text-center border-orange-500/20">
+              <CardContent className="pt-6">
+                <div className="inline-flex p-3 bg-orange-500/10 rounded-full mb-3">
+                  <FileKey className="w-6 h-6 text-orange-600" />
+                </div>
+                <h3 className="font-semibold">Roles & Permissões</h3>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Controlo granular de acessos
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Shield className="w-5 h-5 text-primary" />
+                Medidas de Segurança Implementadas
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-2 gap-4">
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span>Row Level Security (RLS) em todas as tabelas</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span>Autenticação segura com email/password</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span>Suporte a MFA (Autenticação 2 fatores)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span>Audit logs para rastreabilidade completa</span>
+                  </li>
+                </ul>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span>Políticas de acesso granulares por role</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span>Encriptação de dados em trânsito (HTTPS)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span>Tokens seguros para convites e cotações</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span>Validação de inputs e sanitização</span>
+                  </li>
+                </ul>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
+        <Separator className="my-8" />
+
+        {/* Section 5: Technical Features */}
         <section className="mb-12 print:mb-8 print:break-before-page">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2 bg-primary/10 rounded-lg">
               <Zap className="w-6 h-6 text-primary" />
             </div>
-            <h2 className="text-3xl font-bold">4. Funcionalidades Técnicas</h2>
+            <h2 className="text-3xl font-bold">5. Funcionalidades Técnicas</h2>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -388,9 +604,9 @@ export default function Documentation() {
             <TechCard icon={<Languages />} title="i18n" description="Português e Inglês" />
             <TechCard icon={<Palette />} title="Dark Mode" description="Tema claro e escuro" />
             <TechCard icon={<Globe />} title="SEO" description="Meta tags, sitemap, Open Graph" />
-            <TechCard icon={<Cloud />} title="16 Edge Functions" description="Backend serverless" />
+            <TechCard icon={<Server />} title="16 Edge Functions" description="Backend serverless" />
             <TechCard icon={<Lock />} title="RLS Policies" description="Segurança ao nível da row" />
-            <TechCard icon={<Bot />} title="Lovable AI" description="IA integrada sem API key" />
+            <TechCard icon={<Bot />} title="IA Integrada" description="Google Gemini sem API key" />
             <TechCard icon={<Database />} title="Realtime" description="Atualizações em tempo real" />
           </div>
 
@@ -432,13 +648,13 @@ export default function Documentation() {
 
         <Separator className="my-8" />
 
-        {/* Section 5: User Journeys */}
+        {/* Section 6: User Journeys */}
         <section className="mb-12 print:mb-8 print:break-before-page">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2 bg-primary/10 rounded-lg">
               <ArrowRight className="w-6 h-6 text-primary" />
             </div>
-            <h2 className="text-3xl font-bold">5. User Journeys</h2>
+            <h2 className="text-3xl font-bold">6. User Journeys</h2>
           </div>
 
           {/* Lead to Client Journey */}
@@ -592,7 +808,7 @@ export default function Documentation() {
                   </div>
                 </div>
                 <div className="space-y-3">
-                  <h4 className="font-semibold text-center bg-primary/10 rounded-lg py-2">Lovable Cloud</h4>
+                  <h4 className="font-semibold text-center bg-primary/10 rounded-lg py-2">Cloud Backend</h4>
                   <div className="space-y-2">
                     <Badge variant="outline" className="w-full justify-center">PostgreSQL</Badge>
                     <Badge variant="outline" className="w-full justify-center">Auth</Badge>
@@ -606,7 +822,7 @@ export default function Documentation() {
                   <div className="space-y-2">
                     <Badge variant="outline" className="w-full justify-center">BoldSign (Contratos)</Badge>
                     <Badge variant="outline" className="w-full justify-center">Resend (Email)</Badge>
-                    <Badge variant="outline" className="w-full justify-center">Lovable AI</Badge>
+                    <Badge variant="outline" className="w-full justify-center">Google Gemini AI</Badge>
                   </div>
                 </div>
               </div>
@@ -616,13 +832,13 @@ export default function Documentation() {
 
         <Separator className="my-8" />
 
-        {/* Section 6: Database Schema */}
+        {/* Section 7: Database Schema */}
         <section className="mb-12 print:mb-8 print:break-before-page">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2 bg-primary/10 rounded-lg">
               <Database className="w-6 h-6 text-primary" />
             </div>
-            <h2 className="text-3xl font-bold">6. Estrutura de Dados</h2>
+            <h2 className="text-3xl font-bold">7. Estrutura de Dados</h2>
           </div>
 
           <Card className="mb-6">
@@ -721,10 +937,10 @@ export default function Documentation() {
             className="h-12 mx-auto mb-4"
           />
           <p className="text-muted-foreground">
-            ARIFA Studio © 2024 - Documentação Técnica
+            ARIFA Studio © 2025 - Documentação Técnica
           </p>
           <p className="text-sm text-muted-foreground mt-2">
-            Desenvolvido com Lovable
+            Plataforma desenvolvida à medida
           </p>
         </footer>
       </div>
