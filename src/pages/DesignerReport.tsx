@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -290,27 +290,52 @@ const CopyButton = ({ text, label }: { text: string; label?: string }) => {
   );
 };
 
-const SectionNav = ({ sections }: { sections: { id: string; label: string; icon: React.ElementType }[] }) => (
-  <nav className="sticky top-4 hidden lg:block">
-    <Card>
-      <CardHeader className="pb-2">
-        <CardTitle className="text-sm font-medium">Navegação</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-1">
-        {sections.map((section) => (
-          <a
-            key={section.id}
-            href={`#${section.id}`}
-            className="flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-muted transition-colors"
-          >
-            <section.icon className="h-4 w-4" />
-            {section.label}
-          </a>
-        ))}
-      </CardContent>
-    </Card>
-  </nav>
-);
+const SectionNav = ({ sections, activeSection }: { sections: { id: string; label: string; icon: React.ElementType }[]; activeSection: string }) => {
+  const activeIndex = sections.findIndex(s => s.id === activeSection);
+  const progressPercent = activeIndex >= 0 ? ((activeIndex + 1) / sections.length) * 100 : 0;
+  
+  return (
+    <nav className="sticky top-20 hidden lg:block">
+      <Card>
+        <CardHeader className="pb-2">
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-sm font-medium">Navegação</CardTitle>
+            <span className="text-xs text-muted-foreground">{activeIndex + 1}/{sections.length}</span>
+          </div>
+          {/* Progress bar */}
+          <div className="h-1 bg-muted rounded-full overflow-hidden mt-2">
+            <div 
+              className="h-full bg-primary transition-all duration-300 ease-out"
+              style={{ width: `${progressPercent}%` }}
+            />
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-1 max-h-[calc(100vh-200px)] overflow-y-auto">
+          {sections.map((section) => {
+            const isActive = section.id === activeSection;
+            return (
+              <a
+                key={section.id}
+                href={`#${section.id}`}
+                className={`flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-all duration-200 relative ${
+                  isActive 
+                    ? 'bg-primary/10 text-primary font-medium' 
+                    : 'hover:bg-muted text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                {isActive && (
+                  <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-4 bg-primary rounded-full" />
+                )}
+                <section.icon className={`h-4 w-4 ${isActive ? 'text-primary' : ''}`} />
+                <span className="truncate">{section.label}</span>
+              </a>
+            );
+          })}
+        </CardContent>
+      </Card>
+    </nav>
+  );
+};
 
 const ColorSwatchCard = ({ color }: { color: ColorSwatch }) => {
   const { theme } = useTheme();
@@ -366,6 +391,7 @@ export default function DesignerReport() {
   const { theme, setTheme } = useTheme();
   const [iconCategory, setIconCategory] = useState("all");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("colors");
   
   const sections = [
     { id: "colors", label: "1. Paleta de Cores", icon: Palette },
@@ -385,6 +411,29 @@ export default function DesignerReport() {
     { id: "accessibility", label: "15. Acessibilidade", icon: Accessibility },
     { id: "assets", label: "16. Assets", icon: Download },
   ];
+  
+  // Intersection Observer for active section tracking
+  useEffect(() => {
+    const observerOptions = {
+      rootMargin: '-20% 0px -70% 0px',
+      threshold: 0,
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    }, observerOptions);
+    
+    sections.forEach((section) => {
+      const element = document.getElementById(section.id);
+      if (element) observer.observe(element);
+    });
+    
+    return () => observer.disconnect();
+  }, []);
   
   const iconCategories = ["all", ...new Set(iconLibrary.map(i => i.category))];
 
@@ -412,17 +461,27 @@ export default function DesignerReport() {
         </div>
         <nav className="p-4 overflow-y-auto max-h-[calc(100vh-60px)]">
           <div className="space-y-1">
-            {sections.map((section) => (
-              <a
-                key={section.id}
-                href={`#${section.id}`}
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-3 px-3 py-2.5 text-sm rounded-lg hover:bg-muted transition-colors"
-              >
-                <section.icon className="h-4 w-4 text-muted-foreground" />
-                <span>{section.label}</span>
-              </a>
-            ))}
+            {sections.map((section) => {
+              const isActive = section.id === activeSection;
+              return (
+                <a
+                  key={section.id}
+                  href={`#${section.id}`}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`flex items-center gap-3 px-3 py-2.5 text-sm rounded-lg transition-colors relative ${
+                    isActive 
+                      ? 'bg-primary/10 text-primary font-medium' 
+                      : 'hover:bg-muted text-muted-foreground'
+                  }`}
+                >
+                  {isActive && (
+                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-4 bg-primary rounded-full" />
+                  )}
+                  <section.icon className={`h-4 w-4 ${isActive ? 'text-primary' : ''}`} />
+                  <span>{section.label}</span>
+                </a>
+              );
+            })}
           </div>
         </nav>
       </aside>
@@ -473,7 +532,7 @@ export default function DesignerReport() {
         <div className="flex gap-8">
           {/* Side Navigation - Desktop */}
           <aside className="w-64 shrink-0 hidden lg:block print:hidden">
-            <SectionNav sections={sections} />
+            <SectionNav sections={sections} activeSection={activeSection} />
           </aside>
 
           {/* Main Content */}
