@@ -110,6 +110,46 @@ export default function Documentation() {
             </CardContent>
           </Card>
 
+          {/* Em Números */}
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-6">
+            <Card className="text-center bg-gradient-to-br from-blue-500/10 to-blue-600/5 border-blue-500/20">
+              <CardContent className="pt-4 pb-3">
+                <p className="text-3xl font-bold text-blue-600">25+</p>
+                <p className="text-xs text-muted-foreground">Tabelas DB</p>
+              </CardContent>
+            </Card>
+            <Card className="text-center bg-gradient-to-br from-green-500/10 to-green-600/5 border-green-500/20">
+              <CardContent className="pt-4 pb-3">
+                <p className="text-3xl font-bold text-green-600">16</p>
+                <p className="text-xs text-muted-foreground">Edge Functions</p>
+              </CardContent>
+            </Card>
+            <Card className="text-center bg-gradient-to-br from-purple-500/10 to-purple-600/5 border-purple-500/20">
+              <CardContent className="pt-4 pb-3">
+                <p className="text-3xl font-bold text-purple-600">120+</p>
+                <p className="text-xs text-muted-foreground">Componentes</p>
+              </CardContent>
+            </Card>
+            <Card className="text-center bg-gradient-to-br from-orange-500/10 to-orange-600/5 border-orange-500/20">
+              <CardContent className="pt-4 pb-3">
+                <p className="text-3xl font-bold text-orange-600">20+</p>
+                <p className="text-xs text-muted-foreground">Páginas</p>
+              </CardContent>
+            </Card>
+            <Card className="text-center bg-gradient-to-br from-pink-500/10 to-pink-600/5 border-pink-500/20">
+              <CardContent className="pt-4 pb-3">
+                <p className="text-3xl font-bold text-pink-600">100%</p>
+                <p className="text-xs text-muted-foreground">TypeScript</p>
+              </CardContent>
+            </Card>
+            <Card className="text-center bg-gradient-to-br from-cyan-500/10 to-cyan-600/5 border-cyan-500/20">
+              <CardContent className="pt-4 pb-3">
+                <p className="text-3xl font-bold text-cyan-600">2</p>
+                <p className="text-xs text-muted-foreground">Idiomas</p>
+              </CardContent>
+            </Card>
+          </div>
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             <Card className="text-center border-green-500/20 bg-green-500/5">
               <CardContent className="pt-6">
@@ -153,6 +193,188 @@ export default function Documentation() {
                 <p className="text-sm text-muted-foreground mt-1">
                   Dashboard com KPIs e métricas do negócio
                 </p>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        <Separator className="my-8" />
+
+        {/* Wireframes Section */}
+        <section className="mb-12 print:mb-8">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2 bg-primary/10 rounded-lg">
+              <Palette className="w-6 h-6 text-primary" />
+            </div>
+            <h2 className="text-3xl font-bold">Visão Geral das Interfaces</h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 mb-6">
+            {/* Homepage Wireframe */}
+            <Card className="overflow-hidden">
+              <CardHeader className="pb-2 bg-muted/30">
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Globe className="w-4 h-4" />
+                  Site Público
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-3">
+                <div className="bg-background border rounded-lg p-2 text-xs space-y-2">
+                  <div className="bg-primary/20 rounded h-16 flex items-center justify-center text-muted-foreground">
+                    Hero + Segmentos
+                  </div>
+                  <div className="grid grid-cols-3 gap-1">
+                    <div className="bg-muted rounded h-12 flex items-center justify-center text-[10px] text-muted-foreground">Privado</div>
+                    <div className="bg-muted rounded h-12 flex items-center justify-center text-[10px] text-muted-foreground">Empresas</div>
+                    <div className="bg-muted rounded h-12 flex items-center justify-center text-[10px] text-muted-foreground">Investidores</div>
+                  </div>
+                  <div className="bg-muted/50 rounded h-10 flex items-center justify-center text-muted-foreground">
+                    Portfolio
+                  </div>
+                  <div className="bg-muted/50 rounded h-8 flex items-center justify-center text-muted-foreground">
+                    Testemunhos
+                  </div>
+                  <div className="bg-primary/10 rounded h-6 flex items-center justify-center text-muted-foreground">
+                    CTA
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Client Portal Wireframe */}
+            <Card className="overflow-hidden">
+              <CardHeader className="pb-2 bg-muted/30">
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Users className="w-4 h-4" />
+                  Portal Cliente
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-3">
+                <div className="bg-background border rounded-lg p-2 text-xs space-y-2">
+                  <div className="flex gap-1">
+                    <div className="bg-primary/20 rounded w-12 h-20 flex items-center justify-center text-[10px] text-muted-foreground">
+                      Nav
+                    </div>
+                    <div className="flex-1 space-y-1">
+                      <div className="bg-muted rounded h-5 flex items-center justify-center text-[10px] text-muted-foreground">Header</div>
+                      <div className="grid grid-cols-2 gap-1">
+                        <div className="bg-green-500/20 rounded h-7 flex items-center justify-center text-[10px] text-muted-foreground">Timeline</div>
+                        <div className="bg-blue-500/20 rounded h-7 flex items-center justify-center text-[10px] text-muted-foreground">Stats</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-1">
+                    <div className="bg-purple-500/20 rounded h-10 flex items-center justify-center text-muted-foreground">
+                      Galeria
+                    </div>
+                    <div className="bg-orange-500/20 rounded h-10 flex items-center justify-center text-muted-foreground">
+                      Docs
+                    </div>
+                  </div>
+                  <div className="bg-muted/50 rounded h-8 flex items-center justify-center text-muted-foreground">
+                    Mensagens
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Admin Panel Wireframe */}
+            <Card className="overflow-hidden">
+              <CardHeader className="pb-2 bg-muted/30">
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Shield className="w-4 h-4" />
+                  Admin Panel
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-3">
+                <div className="bg-background border rounded-lg p-2 text-xs space-y-2">
+                  <div className="flex gap-1">
+                    <div className="bg-primary/20 rounded w-10 h-24 flex items-center justify-center text-[10px] text-muted-foreground">
+                      Menu
+                    </div>
+                    <div className="flex-1 space-y-1">
+                      <div className="grid grid-cols-3 gap-1">
+                        <div className="bg-green-500/20 rounded h-6 flex items-center justify-center text-[10px] text-muted-foreground">KPI</div>
+                        <div className="bg-blue-500/20 rounded h-6 flex items-center justify-center text-[10px] text-muted-foreground">KPI</div>
+                        <div className="bg-purple-500/20 rounded h-6 flex items-center justify-center text-[10px] text-muted-foreground">KPI</div>
+                      </div>
+                      <div className="bg-orange-500/20 rounded h-8 flex items-center justify-center text-muted-foreground">
+                        Kanban CRM
+                      </div>
+                      <div className="bg-muted/50 rounded h-6 flex items-center justify-center text-muted-foreground">
+                        Tabela
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Detailed Wireframes */}
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Lightbox Wireframe */}
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Eye className="w-4 h-4" />
+                  Lightbox Premium
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-3">
+                <div className="bg-black/90 rounded-lg p-3 text-xs space-y-2">
+                  <div className="flex justify-between items-center text-white/50">
+                    <span>← Anterior</span>
+                    <div className="flex gap-2">
+                      <ZoomIn className="w-4 h-4" />
+                      <Rotate3D className="w-4 h-4" />
+                      <Play className="w-4 h-4" />
+                      <Download className="w-4 h-4" />
+                    </div>
+                    <span>Próximo →</span>
+                  </div>
+                  <div className="bg-white/10 rounded h-32 flex items-center justify-center text-white/50">
+                    Imagem com Zoom 400%
+                  </div>
+                  <div className="flex gap-1 justify-center">
+                    {[1,2,3,4,5].map(i => (
+                      <div key={i} className={`w-8 h-6 rounded ${i === 2 ? 'bg-white/40 ring-2 ring-primary' : 'bg-white/20'}`}></div>
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* CRM Kanban Wireframe */}
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <BarChart3 className="w-4 h-4" />
+                  CRM Kanban
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-3">
+                <div className="bg-muted/30 rounded-lg p-2 text-xs">
+                  <div className="grid grid-cols-4 gap-2">
+                    {['Novo', 'Contactado', 'Proposta', 'Fechado'].map((col, i) => (
+                      <div key={col} className="space-y-1">
+                        <div className={`text-center text-[10px] font-medium py-1 rounded ${
+                          i === 0 ? 'bg-blue-500/20 text-blue-600' :
+                          i === 1 ? 'bg-yellow-500/20 text-yellow-600' :
+                          i === 2 ? 'bg-purple-500/20 text-purple-600' :
+                          'bg-green-500/20 text-green-600'
+                        }`}>{col}</div>
+                        <div className="space-y-1">
+                          {[1,2].slice(0, i === 3 ? 1 : 2).map(j => (
+                            <div key={j} className="bg-background border rounded p-1 text-[10px] text-muted-foreground">
+                              Lead {i+1}.{j}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </div>
