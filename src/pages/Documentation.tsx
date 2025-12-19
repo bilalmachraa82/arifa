@@ -1,0 +1,813 @@
+import { useRef } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { 
+  Printer, 
+  Globe, 
+  Users, 
+  Shield, 
+  Smartphone, 
+  Database,
+  Bot,
+  FileText,
+  MessageSquare,
+  Camera,
+  Calendar,
+  BarChart3,
+  Briefcase,
+  Home,
+  Building2,
+  TrendingUp,
+  Newspaper,
+  Mail,
+  Palette,
+  Languages,
+  Zap,
+  Lock,
+  Cloud,
+  CheckCircle,
+  ArrowRight,
+  ArrowDown
+} from "lucide-react";
+import arifaLogo from "@/assets/arifa-logo.png";
+
+export default function Documentation() {
+  const printRef = useRef<HTMLDivElement>(null);
+
+  const handlePrint = () => {
+    window.print();
+  };
+
+  return (
+    <div className="min-h-screen bg-background">
+      {/* Print Button - Hidden on print */}
+      <div className="fixed top-4 right-4 z-50 print:hidden">
+        <Button onClick={handlePrint} size="lg" className="gap-2 shadow-lg">
+          <Printer className="w-5 h-5" />
+          Imprimir PDF
+        </Button>
+      </div>
+
+      <div ref={printRef} className="max-w-5xl mx-auto p-8 print:p-4">
+        {/* Header */}
+        <header className="text-center mb-12 print:mb-8">
+          <img 
+            src={arifaLogo} 
+            alt="ARIFA Studio" 
+            className="h-20 mx-auto mb-6 print:h-16"
+          />
+          <h1 className="text-4xl font-bold mb-4 print:text-3xl">
+            Documentação Técnica
+          </h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto print:text-lg">
+            Plataforma digital completa para gestão de projetos de arquitetura, 
+            comunicação com clientes e administração do negócio.
+          </p>
+          <div className="flex justify-center gap-2 mt-6 flex-wrap">
+            <Badge variant="secondary" className="text-sm">React 18</Badge>
+            <Badge variant="secondary" className="text-sm">TypeScript</Badge>
+            <Badge variant="secondary" className="text-sm">Tailwind CSS</Badge>
+            <Badge variant="secondary" className="text-sm">Supabase</Badge>
+            <Badge variant="secondary" className="text-sm">PWA</Badge>
+          </div>
+        </header>
+
+        <Separator className="my-8" />
+
+        {/* Section 1: Public Site */}
+        <section className="mb-12 print:mb-8 print:break-before-page">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2 bg-primary/10 rounded-lg">
+              <Globe className="w-6 h-6 text-primary" />
+            </div>
+            <h2 className="text-3xl font-bold">1. Site Público</h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            <FeatureCard
+              icon={<Home className="w-5 h-5" />}
+              title="Homepage"
+              features={[
+                "Hero section com animações",
+                "Seletor de segmentos (Privado/Empresas/Investidores)",
+                "Portfolio em destaque",
+                "Testemunhos em carrossel",
+                "Secção About com valores",
+                "CTAs estratégicos"
+              ]}
+            />
+            <FeatureCard
+              icon={<Building2 className="w-5 h-5" />}
+              title="Microsites por Segmento"
+              features={[
+                "Página dedicada a Clientes Privados",
+                "Página dedicada a Empresas",
+                "Página dedicada a Investidores",
+                "Conteúdo personalizado por audiência",
+                "Projetos filtrados por segmento"
+              ]}
+            />
+            <FeatureCard
+              icon={<Camera className="w-5 h-5" />}
+              title="Portfolio"
+              features={[
+                "Galeria com filtros por categoria",
+                "Filtros por estado (estudo/construção/concluído)",
+                "Página de detalhe do projeto",
+                "Galeria com lightbox",
+                "Lazy loading de imagens"
+              ]}
+            />
+            <FeatureCard
+              icon={<Newspaper className="w-5 h-5" />}
+              title="Blog"
+              features={[
+                "Listagem com filtros por categoria",
+                "Artigos formatados com rich text",
+                "Lead magnets integrados",
+                "Sistema de categorias",
+                "SEO otimizado por artigo"
+              ]}
+            />
+            <FeatureCard
+              icon={<Mail className="w-5 h-5" />}
+              title="Contacto"
+              features={[
+                "Formulário de contacto completo",
+                "Seleção de tipo de projeto",
+                "Captação automática como lead",
+                "Notificação por email",
+                "Botão WhatsApp flutuante"
+              ]}
+            />
+            <FeatureCard
+              icon={<Briefcase className="w-5 h-5" />}
+              title="Serviços"
+              features={[
+                "Apresentação de serviços",
+                "Processo de trabalho",
+                "FAQ interativo",
+                "CTAs para contacto"
+              ]}
+            />
+          </div>
+        </section>
+
+        <Separator className="my-8" />
+
+        {/* Section 2: Client Portal */}
+        <section className="mb-12 print:mb-8 print:break-before-page">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2 bg-primary/10 rounded-lg">
+              <Users className="w-6 h-6 text-primary" />
+            </div>
+            <h2 className="text-3xl font-bold">2. Portal do Cliente</h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            <FeatureCard
+              icon={<BarChart3 className="w-5 h-5" />}
+              title="Dashboard"
+              features={[
+                "Visão geral de todos os projetos",
+                "Estatísticas e progresso",
+                "Notificações recentes",
+                "Acesso rápido a documentos",
+                "Mensagens não lidas"
+              ]}
+            />
+            <FeatureCard
+              icon={<Calendar className="w-5 h-5" />}
+              title="Timeline Visual"
+              features={[
+                "Progresso por fases do projeto",
+                "Milestones com datas",
+                "Indicador de fase atual",
+                "Descrição de cada etapa",
+                "Fases: Preparação → Entrega"
+              ]}
+            />
+            <FeatureCard
+              icon={<Camera className="w-5 h-5" />}
+              title="Galeria de Fotos"
+              features={[
+                "Fotos organizadas por fase",
+                "Lightbox para visualização",
+                "Filtros por milestone",
+                "Download de imagens",
+                "Lazy loading otimizado"
+              ]}
+            />
+            <FeatureCard
+              icon={<FileText className="w-5 h-5" />}
+              title="Gestão Documental"
+              features={[
+                "Pastas organizadas",
+                "Histórico de versões",
+                "Preview inline de ficheiros",
+                "Download direto",
+                "Tipos: PDF, Word, Excel, 3D"
+              ]}
+            />
+            <FeatureCard
+              icon={<MessageSquare className="w-5 h-5" />}
+              title="Sistema de Mensagens"
+              features={[
+                "Chat em tempo real",
+                "Indicador 'está a escrever'",
+                "Anexos em mensagens",
+                "Histórico por projeto",
+                "Notificações instantâneas"
+              ]}
+            />
+            <FeatureCard
+              icon={<Bot className="w-5 h-5" />}
+              title="AI Features"
+              features={[
+                "Weekly Updates automáticos",
+                "Resumos gerados por IA",
+                "Chatbot de suporte 24/7",
+                "Perguntas sobre o projeto",
+                "Powered by Lovable AI"
+              ]}
+            />
+            <FeatureCard
+              icon={<TrendingUp className="w-5 h-5" />}
+              title="Orçamento"
+              features={[
+                "Visualização do budget",
+                "Orçamento original vs atual",
+                "Valor gasto",
+                "Change orders",
+                "Aprovação de alterações"
+              ]}
+            />
+            <FeatureCard
+              icon={<FileText className="w-5 h-5" />}
+              title="Contratos"
+              features={[
+                "Visualização de cotações",
+                "Assinatura digital (BoldSign)",
+                "Download de contratos assinados",
+                "Histórico de documentos",
+                "Status em tempo real"
+              ]}
+            />
+          </div>
+        </section>
+
+        <Separator className="my-8" />
+
+        {/* Section 3: Admin Panel */}
+        <section className="mb-12 print:mb-8 print:break-before-page">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2 bg-primary/10 rounded-lg">
+              <Shield className="w-6 h-6 text-primary" />
+            </div>
+            <h2 className="text-3xl font-bold">3. Painel de Administração</h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <FeatureCard
+              icon={<BarChart3 className="w-5 h-5" />}
+              title="Dashboard KPIs"
+              features={[
+                "Métricas em tempo real",
+                "Projetos ativos",
+                "Pipeline de leads",
+                "Conversão de cotações",
+                "Gráficos interativos"
+              ]}
+            />
+            <FeatureCard
+              icon={<Building2 className="w-5 h-5" />}
+              title="Gestão de Projetos"
+              features={[
+                "CRUD completo",
+                "Milestones Kanban",
+                "Atribuição de clientes",
+                "Upload de imagens",
+                "Gestão de fases"
+              ]}
+            />
+            <FeatureCard
+              icon={<Users className="w-5 h-5" />}
+              title="CRM de Leads"
+              features={[
+                "Kanban drag & drop",
+                "AI Lead Scoring",
+                "Histórico de atividades",
+                "Filtros avançados",
+                "Conversão para cliente"
+              ]}
+            />
+            <FeatureCard
+              icon={<FileText className="w-5 h-5" />}
+              title="Cotações"
+              features={[
+                "Criação de cotações",
+                "Templates reutilizáveis",
+                "Geração de PDF",
+                "Envio por email",
+                "Tracking de visualização"
+              ]}
+            />
+            <FeatureCard
+              icon={<Users className="w-5 h-5" />}
+              title="Gestão de Clientes"
+              features={[
+                "Lista de clientes",
+                "Convites por email",
+                "Gestão de permissões",
+                "Perfis detalhados",
+                "Histórico de projetos"
+              ]}
+            />
+            <FeatureCard
+              icon={<Newspaper className="w-5 h-5" />}
+              title="Gestão de Blog"
+              features={[
+                "Editor de artigos",
+                "Gestão de categorias",
+                "Agendamento",
+                "Artigos em destaque",
+                "SEO por artigo"
+              ]}
+            />
+            <FeatureCard
+              icon={<FileText className="w-5 h-5" />}
+              title="Documentos"
+              features={[
+                "Upload para clientes",
+                "Gestão de pastas",
+                "Versionamento",
+                "Associar a projetos",
+                "Tipos múltiplos"
+              ]}
+            />
+            <FeatureCard
+              icon={<MessageSquare className="w-5 h-5" />}
+              title="Mensagens"
+              features={[
+                "Inbox centralizado",
+                "Responder a clientes",
+                "Histórico completo",
+                "Status lido/não lido",
+                "Filtros por projeto"
+              ]}
+            />
+            <FeatureCard
+              icon={<Lock className="w-5 h-5" />}
+              title="Audit Logs"
+              features={[
+                "Registo de ações",
+                "Login/Logout tracking",
+                "Alterações de dados",
+                "Filtros por utilizador",
+                "Exportação"
+              ]}
+            />
+          </div>
+        </section>
+
+        <Separator className="my-8" />
+
+        {/* Section 4: Technical Features */}
+        <section className="mb-12 print:mb-8 print:break-before-page">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2 bg-primary/10 rounded-lg">
+              <Zap className="w-6 h-6 text-primary" />
+            </div>
+            <h2 className="text-3xl font-bold">4. Funcionalidades Técnicas</h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <TechCard icon={<Smartphone />} title="PWA" description="Instalável em mobile, funciona offline" />
+            <TechCard icon={<Languages />} title="i18n" description="Português e Inglês" />
+            <TechCard icon={<Palette />} title="Dark Mode" description="Tema claro e escuro" />
+            <TechCard icon={<Globe />} title="SEO" description="Meta tags, sitemap, Open Graph" />
+            <TechCard icon={<Cloud />} title="16 Edge Functions" description="Backend serverless" />
+            <TechCard icon={<Lock />} title="RLS Policies" description="Segurança ao nível da row" />
+            <TechCard icon={<Bot />} title="Lovable AI" description="IA integrada sem API key" />
+            <TechCard icon={<Database />} title="Realtime" description="Atualizações em tempo real" />
+          </div>
+
+          <Card className="mt-6">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Zap className="w-5 h-5 text-primary" />
+                Edge Functions (16)
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-2 text-sm">
+                {[
+                  "ai-chat",
+                  "boldsign-webhook",
+                  "create-boldsign-contract",
+                  "generate-project-report",
+                  "generate-quote-pdf",
+                  "generate-weekly-update",
+                  "get-boldsign-signing-url",
+                  "optimize-image",
+                  "score-lead",
+                  "send-contact-email",
+                  "send-invitation",
+                  "send-milestone-notification",
+                  "send-quote-email",
+                  "send-welcome-email",
+                  "sitemap",
+                  "validate-invitation"
+                ].map((fn) => (
+                  <Badge key={fn} variant="outline" className="justify-start font-mono">
+                    {fn}
+                  </Badge>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
+        <Separator className="my-8" />
+
+        {/* Section 5: User Journeys */}
+        <section className="mb-12 print:mb-8 print:break-before-page">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2 bg-primary/10 rounded-lg">
+              <ArrowRight className="w-6 h-6 text-primary" />
+            </div>
+            <h2 className="text-3xl font-bold">5. User Journeys</h2>
+          </div>
+
+          {/* Lead to Client Journey */}
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle>Fluxo: Lead → Cliente</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-wrap items-center gap-2 text-sm">
+                <FlowStep label="Visitante" />
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <FlowStep label="Formulário Contacto" />
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <FlowStep label="Lead Criado" highlight />
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <FlowStep label="AI Lead Scoring" />
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <FlowStep label="Kanban CRM" />
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <FlowStep label="Criar Cotação" />
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <FlowStep label="Enviar Cotação" />
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <FlowStep label="Cliente Aceita?" highlight />
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <FlowStep label="Criar Contrato" />
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <FlowStep label="Assinatura Digital" />
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <FlowStep label="Enviar Convite" />
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <FlowStep label="Cliente Registado" highlight />
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Project Lifecycle */}
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle>Fluxo: Ciclo de Vida do Projeto</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="flex flex-wrap items-center gap-2 text-sm">
+                  <FlowStep label="Projeto Criado" highlight />
+                  <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                  <FlowStep label="1. Preparação" />
+                  <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                  <FlowStep label="2. Conceito" />
+                  <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                  <FlowStep label="3. Coordenação" />
+                  <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                  <FlowStep label="4. Técnico" />
+                  <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                  <FlowStep label="5. Construção" />
+                  <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                  <FlowStep label="6. Entrega" />
+                  <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                  <FlowStep label="7. Em Uso" highlight />
+                </div>
+                
+                <div className="flex justify-center">
+                  <ArrowDown className="w-6 h-6 text-muted-foreground" />
+                </div>
+                
+                <div className="bg-muted/50 rounded-lg p-4">
+                  <h4 className="font-semibold mb-3 text-center">Portal do Cliente</h4>
+                  <div className="flex flex-wrap justify-center gap-2">
+                    <Badge variant="outline">Dashboard</Badge>
+                    <Badge variant="outline">Timeline Visual</Badge>
+                    <Badge variant="outline">Galeria Fotos</Badge>
+                    <Badge variant="outline">Documentos</Badge>
+                    <Badge variant="outline">Mensagens</Badge>
+                    <Badge variant="outline">AI Updates</Badge>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Quote Flow */}
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle>Fluxo: Sistema de Cotações</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-4 gap-4 text-sm">
+                <div className="space-y-2">
+                  <h4 className="font-semibold flex items-center gap-2">
+                    <Shield className="w-4 h-4 text-primary" />
+                    Admin
+                  </h4>
+                  <div className="space-y-1 pl-6">
+                    <p className="text-muted-foreground">1. Criar Cotação</p>
+                    <p className="text-muted-foreground">2. Adicionar Itens</p>
+                    <p className="text-muted-foreground">3. Gerar PDF</p>
+                    <p className="text-muted-foreground">4. Enviar Cotação</p>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <h4 className="font-semibold flex items-center gap-2">
+                    <Cloud className="w-4 h-4 text-primary" />
+                    Sistema
+                  </h4>
+                  <div className="space-y-1 pl-6">
+                    <p className="text-muted-foreground">5. Email com Link</p>
+                    <p className="text-muted-foreground">6. Tracking Visualização</p>
+                    <p className="text-muted-foreground">7. Notificar Admin</p>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <h4 className="font-semibold flex items-center gap-2">
+                    <Users className="w-4 h-4 text-primary" />
+                    Cliente
+                  </h4>
+                  <div className="space-y-1 pl-6">
+                    <p className="text-muted-foreground">8. Visualizar Cotação</p>
+                    <p className="text-muted-foreground">9. Aceitar/Rejeitar</p>
+                    <p className="text-muted-foreground">10. Assinar Digitalmente</p>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <h4 className="font-semibold flex items-center gap-2">
+                    <FileText className="w-4 h-4 text-primary" />
+                    BoldSign
+                  </h4>
+                  <div className="space-y-1 pl-6">
+                    <p className="text-muted-foreground">11. Criar Contrato</p>
+                    <p className="text-muted-foreground">12. Link Assinatura</p>
+                    <p className="text-muted-foreground">13. Webhook Assinado</p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Architecture */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Arquitetura do Sistema</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="space-y-3">
+                  <h4 className="font-semibold text-center bg-primary/10 rounded-lg py-2">Frontend</h4>
+                  <div className="space-y-2">
+                    <Badge variant="outline" className="w-full justify-center">React + Vite</Badge>
+                    <Badge variant="outline" className="w-full justify-center">Tailwind + shadcn/ui</Badge>
+                    <Badge variant="outline" className="w-full justify-center">React Query</Badge>
+                    <Badge variant="outline" className="w-full justify-center">Framer Motion</Badge>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <h4 className="font-semibold text-center bg-primary/10 rounded-lg py-2">Lovable Cloud</h4>
+                  <div className="space-y-2">
+                    <Badge variant="outline" className="w-full justify-center">PostgreSQL</Badge>
+                    <Badge variant="outline" className="w-full justify-center">Auth</Badge>
+                    <Badge variant="outline" className="w-full justify-center">Storage</Badge>
+                    <Badge variant="outline" className="w-full justify-center">Edge Functions</Badge>
+                    <Badge variant="outline" className="w-full justify-center">Realtime</Badge>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <h4 className="font-semibold text-center bg-primary/10 rounded-lg py-2">Integrações</h4>
+                  <div className="space-y-2">
+                    <Badge variant="outline" className="w-full justify-center">BoldSign (Contratos)</Badge>
+                    <Badge variant="outline" className="w-full justify-center">Resend (Email)</Badge>
+                    <Badge variant="outline" className="w-full justify-center">Lovable AI</Badge>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
+        <Separator className="my-8" />
+
+        {/* Section 6: Database Schema */}
+        <section className="mb-12 print:mb-8 print:break-before-page">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2 bg-primary/10 rounded-lg">
+              <Database className="w-6 h-6 text-primary" />
+            </div>
+            <h2 className="text-3xl font-bold">6. Estrutura de Dados</h2>
+          </div>
+
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle>Diagrama Entidade-Relacionamento</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <h4 className="font-semibold">Utilizadores & Projetos</h4>
+                  <div className="text-sm space-y-1 bg-muted/50 rounded-lg p-3 font-mono">
+                    <p>PROFILES ──┬── PROJECTS</p>
+                    <p>           ├── CLIENT_MESSAGES</p>
+                    <p>           ├── CLIENT_DOCUMENTS</p>
+                    <p>           ├── CONTRACTS</p>
+                    <p>           └── QUOTES</p>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <h4 className="font-semibold">Projetos & Milestones</h4>
+                  <div className="text-sm space-y-1 bg-muted/50 rounded-lg p-3 font-mono">
+                    <p>PROJECTS ──┬── PROJECT_MILESTONES</p>
+                    <p>           ├── PROJECT_PHOTOS</p>
+                    <p>           ├── PROJECT_BUDGETS</p>
+                    <p>           └── CLIENT_DOCUMENTS</p>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <h4 className="font-semibold">CRM</h4>
+                  <div className="text-sm space-y-1 bg-muted/50 rounded-lg p-3 font-mono">
+                    <p>LEADS ──┬── LEAD_ACTIVITIES</p>
+                    <p>        └── QUOTES</p>
+                    <p>QUOTES ──┬── QUOTE_ITEMS</p>
+                    <p>         └── CONTRACTS</p>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <h4 className="font-semibold">Documentos</h4>
+                  <div className="text-sm space-y-1 bg-muted/50 rounded-lg p-3 font-mono">
+                    <p>DOCUMENT_FOLDERS ── CLIENT_DOCUMENTS</p>
+                    <p>CLIENT_DOCUMENTS ── DOCUMENT_VERSIONS</p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <div className="grid md:grid-cols-3 gap-4">
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg">Tabelas Core</CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm space-y-1">
+                <p>• profiles (utilizadores)</p>
+                <p>• user_roles (permissões)</p>
+                <p>• projects (projetos)</p>
+                <p>• project_milestones</p>
+                <p>• project_photos</p>
+                <p>• project_budgets</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg">Tabelas CRM</CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm space-y-1">
+                <p>• leads</p>
+                <p>• lead_stages</p>
+                <p>• lead_activities</p>
+                <p>• quotes</p>
+                <p>• quote_items</p>
+                <p>• quote_templates</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg">Tabelas Suporte</CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm space-y-1">
+                <p>• client_documents</p>
+                <p>• document_versions</p>
+                <p>• document_folders</p>
+                <p>• client_messages</p>
+                <p>• contracts</p>
+                <p>• audit_logs</p>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="text-center py-8 border-t mt-12 print:mt-8">
+          <img 
+            src={arifaLogo} 
+            alt="ARIFA Studio" 
+            className="h-12 mx-auto mb-4"
+          />
+          <p className="text-muted-foreground">
+            ARIFA Studio © 2024 - Documentação Técnica
+          </p>
+          <p className="text-sm text-muted-foreground mt-2">
+            Desenvolvido com Lovable
+          </p>
+        </footer>
+      </div>
+
+      {/* Print Styles */}
+      <style>{`
+        @media print {
+          body { 
+            print-color-adjust: exact; 
+            -webkit-print-color-adjust: exact;
+          }
+          .print\\:hidden { display: none !important; }
+          .print\\:break-before-page { break-before: page; }
+          @page { 
+            margin: 1cm; 
+            size: A4;
+          }
+        }
+      `}</style>
+    </div>
+  );
+}
+
+// Feature Card Component
+function FeatureCard({ 
+  icon, 
+  title, 
+  features 
+}: { 
+  icon: React.ReactNode; 
+  title: string; 
+  features: string[] 
+}) {
+  return (
+    <Card>
+      <CardHeader className="pb-2">
+        <CardTitle className="flex items-center gap-2 text-lg">
+          <span className="text-primary">{icon}</span>
+          {title}
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <ul className="space-y-1 text-sm">
+          {features.map((feature, index) => (
+            <li key={index} className="flex items-start gap-2">
+              <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+              <span>{feature}</span>
+            </li>
+          ))}
+        </ul>
+      </CardContent>
+    </Card>
+  );
+}
+
+// Tech Card Component
+function TechCard({ 
+  icon, 
+  title, 
+  description 
+}: { 
+  icon: React.ReactNode; 
+  title: string; 
+  description: string 
+}) {
+  return (
+    <Card className="text-center">
+      <CardContent className="pt-6">
+        <div className="inline-flex p-3 bg-primary/10 rounded-full mb-3">
+          <span className="w-6 h-6 text-primary">{icon}</span>
+        </div>
+        <h3 className="font-semibold">{title}</h3>
+        <p className="text-sm text-muted-foreground mt-1">{description}</p>
+      </CardContent>
+    </Card>
+  );
+}
+
+// Flow Step Component
+function FlowStep({ label, highlight = false }: { label: string; highlight?: boolean }) {
+  return (
+    <Badge variant={highlight ? "default" : "outline"} className="whitespace-nowrap">
+      {label}
+    </Badge>
+  );
+}
