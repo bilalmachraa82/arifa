@@ -11,6 +11,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import {
   Copy, Check, Printer, Download, Sun, Moon, Palette, Type, 
   LayoutGrid, Users, Map, Zap, Eye, Accessibility, ChevronRight,
+  ChevronUp,
   // Navigation icons
   Menu, X, Home, Building2, Briefcase, TrendingUp, FolderOpen, 
   FileText, Mail, Settings, LogIn, LogOut, User, Bell,
@@ -34,7 +35,8 @@ import {
   Heart, Star, Bookmark, Share2, ArrowRight, ArrowLeft, ArrowUp, ArrowDown,
   Quote, Tag, Hash, Globe, Wifi, WifiOff, Smartphone, Monitor, Tablet,
   Layers, Grid, List, MoreHorizontal, MoreVertical, Grip, Move,
-  Copy as CopyIcon, Clipboard, ClipboardCheck, Save, Undo, Redo
+  Copy as CopyIcon, Clipboard, ClipboardCheck, Save, Undo, Redo,
+  FileJson, FileCode
 } from "lucide-react";
 
 // ============================================
@@ -269,8 +271,251 @@ const animations = [
 ];
 
 // ============================================
+// UTILITIES - Download Functions
+// ============================================
+
+const generateJSONTokens = () => {
+  const tokens = {
+    colors: {
+      background: { light: "0 0% 93%", dark: "0 0% 6%" },
+      foreground: { light: "0 0% 6%", dark: "0 0% 93%" },
+      primary: { light: "0 0% 6%", dark: "0 0% 93%" },
+      secondary: { light: "0 0% 93%", dark: "0 0% 15%" },
+      accent: { light: "195 36% 37%", dark: "195 36% 45%" },
+      muted: { light: "40 1% 75%", dark: "0 0% 20%" },
+      destructive: { light: "0 84% 60%", dark: "0 62% 30%" },
+      coral: "4 80% 66%",
+      yellow: "44 83% 51%",
+      blue: "195 36% 37%"
+    },
+    typography: {
+      fontFamily: "'Inter', system-ui, sans-serif",
+      fontWeights: { light: 300, regular: 400, medium: 500, semibold: 600, bold: 700 },
+      sizes: { xs: "0.75rem", sm: "0.875rem", base: "1rem", lg: "1.125rem", xl: "1.25rem", "2xl": "1.5rem", "3xl": "2rem", "4xl": "2.5rem" }
+    },
+    spacing: { xs: "0.25rem", sm: "0.5rem", md: "1rem", lg: "1.5rem", xl: "2rem", "2xl": "3rem", "3xl": "4rem" },
+    borderRadius: { sm: "0.125rem", default: "0.25rem", md: "0.375rem", lg: "0.5rem", full: "9999px" },
+    shadows: {
+      soft: "0 4px 20px -2px hsla(0, 0%, 0%, 0.08)",
+      card: "0 8px 30px -6px hsla(0, 0%, 0%, 0.1)",
+      elevated: "0 20px 50px -12px hsla(0, 0%, 0%, 0.15)"
+    }
+  };
+  return JSON.stringify(tokens, null, 2);
+};
+
+const generateCSSTokens = () => {
+  return `:root {
+  /* Colors */
+  --background: 0 0% 93%;
+  --foreground: 0 0% 6%;
+  --primary: 0 0% 6%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 0 0% 93%;
+  --secondary-foreground: 0 0% 6%;
+  --accent: 195 36% 37%;
+  --accent-foreground: 0 0% 100%;
+  --muted: 40 1% 75%;
+  --muted-foreground: 0 0% 29%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 40 1% 75%;
+  --ring: 195 36% 37%;
+  
+  /* Sub-brands */
+  --arifa-coral: 4 80% 66%;
+  --arifa-yellow: 44 83% 51%;
+  --arifa-blue: 195 36% 37%;
+  
+  /* Typography */
+  --font-family: 'Inter', system-ui, sans-serif;
+  
+  /* Shadows */
+  --shadow-soft: 0 4px 20px -2px hsla(0, 0%, 0%, 0.08);
+  --shadow-card: 0 8px 30px -6px hsla(0, 0%, 0%, 0.1);
+  --shadow-elevated: 0 20px 50px -12px hsla(0, 0%, 0%, 0.15);
+  
+  /* Border Radius */
+  --radius: 0.25rem;
+}
+
+.dark {
+  --background: 0 0% 6%;
+  --foreground: 0 0% 93%;
+  --primary: 0 0% 93%;
+  --primary-foreground: 0 0% 6%;
+  --secondary: 0 0% 15%;
+  --secondary-foreground: 0 0% 93%;
+  --accent: 195 36% 45%;
+  --muted: 0 0% 20%;
+  --muted-foreground: 40 1% 75%;
+  --border: 0 0% 20%;
+}`;
+};
+
+const downloadFile = (content: string, filename: string, type: string) => {
+  const blob = new Blob([content], { type });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+  toast.success(`${filename} transferido!`);
+};
+
+// ============================================
 // COMPONENTS
 // ============================================
+
+const BackToTop = () => {
+  const [visible, setVisible] = useState(false);
+  
+  useEffect(() => {
+    const toggleVisible = () => {
+      setVisible(window.scrollY > 500);
+    };
+    window.addEventListener('scroll', toggleVisible);
+    return () => window.removeEventListener('scroll', toggleVisible);
+  }, []);
+  
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+  
+  if (!visible) return null;
+  
+  return (
+    <Button
+      onClick={scrollToTop}
+      variant="default"
+      size="icon"
+      className="fixed bottom-6 right-6 z-50 shadow-lg print:hidden animate-fade-in"
+    >
+      <ChevronUp className="h-5 w-5" />
+    </Button>
+  );
+};
+
+const ResponsivePreview = () => {
+  const [activeDevice, setActiveDevice] = useState<"mobile" | "tablet" | "desktop">("desktop");
+  
+  const deviceWidths = {
+    mobile: 375,
+    tablet: 768,
+    desktop: 1280
+  };
+  
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center gap-2">
+        <Button 
+          variant={activeDevice === "mobile" ? "default" : "outline"} 
+          size="sm"
+          onClick={() => setActiveDevice("mobile")}
+        >
+          <Smartphone className="h-4 w-4 mr-2" />
+          Mobile (375px)
+        </Button>
+        <Button 
+          variant={activeDevice === "tablet" ? "default" : "outline"} 
+          size="sm"
+          onClick={() => setActiveDevice("tablet")}
+        >
+          <Tablet className="h-4 w-4 mr-2" />
+          Tablet (768px)
+        </Button>
+        <Button 
+          variant={activeDevice === "desktop" ? "default" : "outline"} 
+          size="sm"
+          onClick={() => setActiveDevice("desktop")}
+        >
+          <Monitor className="h-4 w-4 mr-2" />
+          Desktop (1280px)
+        </Button>
+      </div>
+      
+      <div className="border rounded-lg overflow-hidden bg-muted/30">
+        <div className="bg-muted/50 p-2 flex items-center gap-2 border-b">
+          <div className="flex gap-1.5">
+            <div className="w-3 h-3 rounded-full bg-red-400" />
+            <div className="w-3 h-3 rounded-full bg-yellow-400" />
+            <div className="w-3 h-3 rounded-full bg-green-400" />
+          </div>
+          <div className="flex-1 text-center text-xs text-muted-foreground">
+            {deviceWidths[activeDevice]}px
+          </div>
+        </div>
+        <div 
+          className="mx-auto transition-all duration-300 bg-background overflow-hidden"
+          style={{ 
+            width: `min(100%, ${deviceWidths[activeDevice]}px)`,
+            minHeight: '400px'
+          }}
+        >
+          {/* Sample Components at different sizes */}
+          <div className="p-4 space-y-4">
+            {/* Navigation Example */}
+            <div className="flex items-center justify-between border-b pb-3">
+              <span className="font-bold text-sm sm:text-base">ARIFA</span>
+              {activeDevice === "mobile" ? (
+                <Button variant="ghost" size="icon">
+                  <Menu className="h-5 w-5" />
+                </Button>
+              ) : (
+                <div className="flex gap-4 text-sm">
+                  <span className="text-muted-foreground hover:text-foreground cursor-pointer">Home</span>
+                  <span className="text-muted-foreground hover:text-foreground cursor-pointer">Projetos</span>
+                  <span className="text-muted-foreground hover:text-foreground cursor-pointer">Contacto</span>
+                </div>
+              )}
+            </div>
+            
+            {/* Hero Example */}
+            <div className={`${activeDevice === "mobile" ? "text-center space-y-3" : "flex items-center gap-6"}`}>
+              <div className={activeDevice === "mobile" ? "" : "flex-1"}>
+                <h3 className={`font-bold ${activeDevice === "mobile" ? "text-xl" : "text-2xl"}`}>
+                  Arquitectura Premium
+                </h3>
+                <p className="text-muted-foreground text-sm mt-2">
+                  Transformamos visões em realidade.
+                </p>
+                <Button size={activeDevice === "mobile" ? "sm" : "default"} className="mt-4">
+                  Ver Projetos
+                </Button>
+              </div>
+              {activeDevice !== "mobile" && (
+                <div className="w-32 h-24 bg-muted rounded-lg flex items-center justify-center">
+                  <Image className="h-8 w-8 text-muted-foreground" />
+                </div>
+              )}
+            </div>
+            
+            {/* Cards Grid Example */}
+            <div className={`grid gap-3 ${
+              activeDevice === "mobile" ? "grid-cols-1" : 
+              activeDevice === "tablet" ? "grid-cols-2" : "grid-cols-3"
+            }`}>
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="border rounded-lg p-3 bg-card">
+                  <div className="w-full h-16 bg-muted rounded mb-2" />
+                  <div className="font-medium text-sm">Projeto {i}</div>
+                  <div className="text-xs text-muted-foreground">Lisboa</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <p className="text-sm text-muted-foreground">
+        Os componentes adaptam-se automaticamente aos diferentes breakpoints usando classes responsivas do Tailwind CSS.
+      </p>
+    </div>
+  );
+};
 
 const CopyButton = ({ text, label }: { text: string; label?: string }) => {
   const [copied, setCopied] = useState(false);
@@ -402,14 +647,15 @@ export default function DesignerReport() {
     { id: "navigation", label: "6. Navegação", icon: Menu },
     { id: "components", label: "7. Componentes UI", icon: Layers },
     { id: "animations", label: "8. Animações", icon: Zap },
-    { id: "darkmode", label: "9. Dark Mode", icon: Moon },
-    { id: "architecture", label: "10. Arquitectura", icon: Map },
-    { id: "journeys", label: "11. User Journeys", icon: Users },
-    { id: "features", label: "12. Funcionalidades", icon: LayoutDashboard },
-    { id: "brand", label: "13. Marca & Voz", icon: Crown },
-    { id: "imagery", label: "14. Imagens & Logo", icon: Image },
-    { id: "accessibility", label: "15. Acessibilidade", icon: Accessibility },
-    { id: "assets", label: "16. Assets", icon: Download },
+    { id: "responsive", label: "9. Responsividade", icon: Smartphone },
+    { id: "darkmode", label: "10. Dark Mode", icon: Moon },
+    { id: "architecture", label: "11. Arquitectura", icon: Map },
+    { id: "journeys", label: "12. User Journeys", icon: Users },
+    { id: "features", label: "13. Funcionalidades", icon: LayoutDashboard },
+    { id: "brand", label: "14. Marca & Voz", icon: Crown },
+    { id: "imagery", label: "15. Imagens & Logo", icon: Image },
+    { id: "accessibility", label: "16. Acessibilidade", icon: Accessibility },
+    { id: "assets", label: "17. Assets", icon: Download },
   ];
   
   // Intersection Observer for active section tracking
@@ -1422,11 +1668,41 @@ export default function DesignerReport() {
               </div>
             </section>
 
+            {/* ====== RESPONSIVE ====== */}
+            <section id="responsive" className="scroll-mt-20">
+              <div className="flex items-center gap-3 mb-6">
+                <Smartphone className="h-6 w-6 text-accent" />
+                <h2 className="text-2xl font-bold">9. Responsividade</h2>
+              </div>
+              
+              <div className="space-y-8">
+                <div>
+                  <h3 className="text-lg font-semibold mb-4">Breakpoints</h3>
+                  <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                    {breakpoints.map((bp) => (
+                      <Card key={bp.name}>
+                        <CardContent className="pt-4 text-center">
+                          <code className="text-lg font-bold">{bp.name}</code>
+                          <p className="text-sm text-muted-foreground mt-1">{bp.value}</p>
+                          <p className="text-xs text-muted-foreground mt-1">{bp.description}</p>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="text-lg font-semibold mb-4">Preview Responsivo</h3>
+                  <ResponsivePreview />
+                </div>
+              </div>
+            </section>
+
             {/* ====== ARCHITECTURE ====== */}
             <section id="architecture" className="scroll-mt-20">
               <div className="flex items-center gap-3 mb-6">
                 <Map className="h-6 w-6 text-accent" />
-                <h2 className="text-2xl font-bold">10. Arquitectura de Informação</h2>
+                <h2 className="text-2xl font-bold">11. Arquitectura de Informação</h2>
               </div>
               
               <div className="grid md:grid-cols-3 gap-6">
@@ -1497,7 +1773,7 @@ export default function DesignerReport() {
             <section id="journeys" className="scroll-mt-20">
               <div className="flex items-center gap-3 mb-6">
                 <Users className="h-6 w-6 text-accent" />
-                <h2 className="text-2xl font-bold">11. User Journeys</h2>
+                <h2 className="text-2xl font-bold">12. User Journeys</h2>
               </div>
               
               <div className="space-y-6">
@@ -1588,7 +1864,7 @@ export default function DesignerReport() {
             <section id="accessibility" className="scroll-mt-20">
               <div className="flex items-center gap-3 mb-6">
                 <Accessibility className="h-6 w-6 text-accent" />
-                <h2 className="text-2xl font-bold">15. Acessibilidade (WCAG 2.2)</h2>
+                <h2 className="text-2xl font-bold">16. Acessibilidade (WCAG 2.2)</h2>
               </div>
               
               <div className="grid md:grid-cols-2 gap-6">
@@ -1683,7 +1959,7 @@ export default function DesignerReport() {
             <section id="darkmode" className="scroll-mt-20">
               <div className="flex items-center gap-3 mb-6">
                 <Moon className="h-6 w-6 text-accent" />
-                <h2 className="text-2xl font-bold">9. Dark Mode</h2>
+                <h2 className="text-2xl font-bold">10. Dark Mode</h2>
               </div>
               
               <p className="text-muted-foreground mb-6">
@@ -1766,7 +2042,7 @@ export default function DesignerReport() {
             <section id="features" className="scroll-mt-20">
               <div className="flex items-center gap-3 mb-6">
                 <LayoutDashboard className="h-6 w-6 text-accent" />
-                <h2 className="text-2xl font-bold">12. Funcionalidades por Perfil</h2>
+                <h2 className="text-2xl font-bold">13. Funcionalidades por Perfil</h2>
               </div>
               
               <div className="overflow-x-auto">
@@ -1816,7 +2092,7 @@ export default function DesignerReport() {
             <section id="brand" className="scroll-mt-20">
               <div className="flex items-center gap-3 mb-6">
                 <Crown className="h-6 w-6 text-accent" />
-                <h2 className="text-2xl font-bold">13. Marca & Tone of Voice</h2>
+                <h2 className="text-2xl font-bold">14. Marca & Tone of Voice</h2>
               </div>
               
               <div className="grid md:grid-cols-2 gap-6">
@@ -1902,7 +2178,7 @@ export default function DesignerReport() {
             <section id="imagery" className="scroll-mt-20">
               <div className="flex items-center gap-3 mb-6">
                 <Image className="h-6 w-6 text-accent" />
-                <h2 className="text-2xl font-bold">14. Imagens & Logo</h2>
+                <h2 className="text-2xl font-bold">15. Imagens & Logo</h2>
               </div>
               
               <div className="space-y-8">
@@ -2008,7 +2284,7 @@ export default function DesignerReport() {
             <section id="assets" className="scroll-mt-20">
               <div className="flex items-center gap-3 mb-6">
                 <Download className="h-6 w-6 text-accent" />
-                <h2 className="text-2xl font-bold">16. Assets Exportáveis</h2>
+                <h2 className="text-2xl font-bold">17. Assets Exportáveis</h2>
               </div>
               
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -2037,12 +2313,17 @@ export default function DesignerReport() {
                       </div>
                       <div>
                         <h4 className="font-medium">Color Tokens</h4>
-                        <p className="text-sm text-muted-foreground">CSS, JSON, Figma</p>
+                        <p className="text-sm text-muted-foreground">CSS, JSON</p>
                       </div>
                     </div>
-                    <Button variant="outline" size="sm" className="w-full">
-                      <Download className="h-4 w-4 mr-2" /> Download
-                    </Button>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" className="flex-1" onClick={() => downloadFile(generateJSONTokens(), 'arifa-tokens.json', 'application/json')}>
+                        <FileJson className="h-4 w-4 mr-2" /> JSON
+                      </Button>
+                      <Button variant="outline" size="sm" className="flex-1" onClick={() => downloadFile(generateCSSTokens(), 'arifa-tokens.css', 'text/css')}>
+                        <FileCode className="h-4 w-4 mr-2" /> CSS
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
                 
@@ -2158,6 +2439,9 @@ export default function DesignerReport() {
           body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         }
       `}</style>
+      
+      {/* Back to Top Button */}
+      <BackToTop />
     </div>
   );
 }
