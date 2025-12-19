@@ -30,6 +30,7 @@ import AcceptInvitation from "./pages/AcceptInvitation";
 import QuotePublic from "./pages/QuotePublic";
 import NotFound from "./pages/NotFound";
 import Documentation from "./pages/Documentation";
+import DesignerReport from "./pages/DesignerReport";
 
 const queryClient = new QueryClient();
 
@@ -68,6 +69,7 @@ const App = () => (
                 <Route path="/convite/:token" element={<AcceptInvitation />} />
                 <Route path="/cotacao/:token" element={<QuotePublic />} />
                 <Route path="/documentacao" element={<Documentation />} />
+                <Route path="/designer_report" element={<DesignerReport />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
               </PageTransition>
