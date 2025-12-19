@@ -23,7 +23,9 @@ import {
   Euro,
   Calendar,
   Building2,
-  User
+  User,
+  Loader2,
+  Download
 } from "lucide-react";
 import { format } from "date-fns";
 import { pt } from "date-fns/locale";
@@ -108,6 +110,7 @@ export default function AdminQuotes() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingQuote, setEditingQuote] = useState<Quote | null>(null);
   const [activeTab, setActiveTab] = useState("all");
+  const [generatingPDF, setGeneratingPDF] = useState<string | null>(null);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -412,6 +415,35 @@ export default function AdminQuotes() {
     const url = `${window.location.origin}/cotacao/${token}`;
     navigator.clipboard.writeText(url);
     toast.success("Link copiado para a área de transferência");
+  };
+
+  const generateQuotePDF = async (quoteId: string) => {
+    setGeneratingPDF(quoteId);
+
+    try {
+      const { data, error } = await supabase.functions.invoke('generate-quote-pdf', {
+        body: { quoteId }
+      });
+
+      if (error) throw error;
+
+      if (data.html) {
+        // Open HTML in new window for printing/saving as PDF
+        const printWindow = window.open('', '_blank');
+        if (printWindow) {
+          printWindow.document.write(data.html);
+          printWindow.document.close();
+          printWindow.focus();
+        }
+
+        toast.success("Cotação PDF gerada. Use Ctrl+P para guardar como PDF.");
+      }
+    } catch (error: any) {
+      console.error('Error generating PDF:', error);
+      toast.error(error.message || "Não foi possível gerar o PDF.");
+    } finally {
+      setGeneratingPDF(null);
+    }
   };
 
   const filteredQuotes = quotes.filter(q => {
@@ -781,6 +813,19 @@ export default function AdminQuotes() {
                       </TableCell>
                       <TableCell>
                         <div className="flex justify-end gap-1">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => generateQuotePDF(quote.id)}
+                            disabled={generatingPDF === quote.id}
+                            title="Gerar PDF"
+                          >
+                            {generatingPDF === quote.id ? (
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                            ) : (
+                              <Download className="h-4 w-4" />
+                            )}
+                          </Button>
                           <Button
                             variant="ghost"
                             size="icon"
