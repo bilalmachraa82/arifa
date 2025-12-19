@@ -367,16 +367,22 @@ export default function DesignerReport() {
   const [iconCategory, setIconCategory] = useState("all");
   
   const sections = [
-    { id: "colors", label: "Paleta de Cores", icon: Palette },
-    { id: "typography", label: "Tipografia", icon: Type },
-    { id: "icons", label: "Ícones", icon: LayoutGrid },
-    { id: "buttons", label: "Botões", icon: Zap },
-    { id: "components", label: "Componentes", icon: Layers },
-    { id: "spacing", label: "Espaçamento", icon: Grid },
-    { id: "animations", label: "Animações", icon: Zap },
-    { id: "architecture", label: "Arquitectura", icon: Map },
-    { id: "journeys", label: "User Journeys", icon: Users },
-    { id: "accessibility", label: "Acessibilidade", icon: Accessibility },
+    { id: "colors", label: "1. Paleta de Cores", icon: Palette },
+    { id: "typography", label: "2. Tipografia", icon: Type },
+    { id: "icons", label: "3. Ícones", icon: LayoutGrid },
+    { id: "buttons", label: "4. Botões", icon: Zap },
+    { id: "spacing", label: "5. Espaçamento", icon: Grid },
+    { id: "navigation", label: "6. Navegação", icon: Menu },
+    { id: "components", label: "7. Componentes UI", icon: Layers },
+    { id: "animations", label: "8. Animações", icon: Zap },
+    { id: "darkmode", label: "9. Dark Mode", icon: Moon },
+    { id: "architecture", label: "10. Arquitectura", icon: Map },
+    { id: "journeys", label: "11. User Journeys", icon: Users },
+    { id: "features", label: "12. Funcionalidades", icon: LayoutDashboard },
+    { id: "brand", label: "13. Marca & Voz", icon: Crown },
+    { id: "imagery", label: "14. Imagens & Logo", icon: Image },
+    { id: "accessibility", label: "15. Acessibilidade", icon: Accessibility },
+    { id: "assets", label: "16. Assets", icon: Download },
   ];
   
   const iconCategories = ["all", ...new Set(iconLibrary.map(i => i.category))];
@@ -1048,7 +1054,7 @@ export default function DesignerReport() {
             <section id="spacing" className="scroll-mt-20">
               <div className="flex items-center gap-3 mb-6">
                 <Grid className="h-6 w-6 text-accent" />
-                <h2 className="text-2xl font-bold">Espaçamento & Grid</h2>
+                <h2 className="text-2xl font-bold">5. Espaçamento & Grid</h2>
               </div>
               
               <div className="space-y-8">
@@ -1092,14 +1098,188 @@ export default function DesignerReport() {
                     </table>
                   </div>
                 </div>
+
+                <div>
+                  <h3 className="text-lg font-semibold mb-4">Container & Grid</h3>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <Card>
+                      <CardContent className="pt-6">
+                        <h4 className="font-medium mb-2">Container Principal</h4>
+                        <code className="text-xs bg-muted p-2 rounded block mb-2">.container-arifa</code>
+                        <ul className="text-sm text-muted-foreground space-y-1">
+                          <li>max-width: 1280px</li>
+                          <li>padding: 1rem (mobile) → 2rem (desktop)</li>
+                          <li>margin: 0 auto</li>
+                        </ul>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardContent className="pt-6">
+                        <h4 className="font-medium mb-2">Grid System</h4>
+                        <code className="text-xs bg-muted p-2 rounded block mb-2">grid-cols-1 → grid-cols-3</code>
+                        <ul className="text-sm text-muted-foreground space-y-1">
+                          <li>gap: 1rem (sm) → 2rem (lg)</li>
+                          <li>Flexível: 1, 2, 3, 4 colunas</li>
+                          <li>Responsivo por breakpoint</li>
+                        </ul>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
               </div>
             </section>
+
+            {/* ====== NAVIGATION ====== */}
+            <section id="navigation" className="scroll-mt-20">
+              <div className="flex items-center gap-3 mb-6">
+                <Menu className="h-6 w-6 text-accent" />
+                <h2 className="text-2xl font-bold">6. Padrões de Navegação</h2>
+              </div>
+              
+              <div className="space-y-8">
+                {/* Header */}
+                <div>
+                  <h3 className="text-lg font-semibold mb-4">Header Principal</h3>
+                  <Card className="overflow-hidden">
+                    <div className="bg-background border-b p-4 flex items-center justify-between">
+                      <div className="flex items-center gap-8">
+                        <div className="font-bold text-xl">ARIFA</div>
+                        <nav className="hidden md:flex gap-6 text-sm">
+                          <span className="text-muted-foreground hover:text-foreground cursor-pointer">Privado</span>
+                          <span className="text-muted-foreground hover:text-foreground cursor-pointer">Empresas</span>
+                          <span className="text-muted-foreground hover:text-foreground cursor-pointer">Investidores</span>
+                          <span className="text-foreground font-medium cursor-pointer">Portfólio</span>
+                          <span className="text-muted-foreground hover:text-foreground cursor-pointer">Blog</span>
+                        </nav>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <Button variant="ghost" size="icon"><Sun className="h-4 w-4" /></Button>
+                        <Button variant="ghost" size="icon"><Globe className="h-4 w-4" /></Button>
+                        <Button size="sm">Contacto</Button>
+                        <Button variant="ghost" size="icon" className="md:hidden"><Menu className="h-5 w-5" /></Button>
+                      </div>
+                    </div>
+                    <CardContent className="pt-4">
+                      <div className="grid md:grid-cols-3 gap-4 text-sm">
+                        <div>
+                          <h4 className="font-medium mb-2">Logo</h4>
+                          <p className="text-muted-foreground">Font-weight: 700, Size: 1.25rem</p>
+                        </div>
+                        <div>
+                          <h4 className="font-medium mb-2">Links</h4>
+                          <p className="text-muted-foreground">Gap: 1.5rem, Hover: foreground, Active: font-medium</p>
+                        </div>
+                        <div>
+                          <h4 className="font-medium mb-2">Height</h4>
+                          <p className="text-muted-foreground">64px desktop, 56px mobile, sticky top-0</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Mobile Menu */}
+                <div>
+                  <h3 className="text-lg font-semibold mb-4">Menu Mobile</h3>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <Card className="max-w-sm">
+                      <CardContent className="pt-0 px-0">
+                        <div className="bg-background border-b p-4 flex items-center justify-between">
+                          <span className="font-bold">ARIFA</span>
+                          <X className="h-5 w-5" />
+                        </div>
+                        <nav className="p-4 space-y-1">
+                          <div className="p-3 rounded-lg hover:bg-muted flex items-center gap-3"><Home className="h-4 w-4" /> Homepage</div>
+                          <div className="p-3 rounded-lg bg-muted flex items-center gap-3 font-medium"><FolderOpen className="h-4 w-4" /> Portfólio</div>
+                          <div className="p-3 rounded-lg hover:bg-muted flex items-center gap-3"><FileText className="h-4 w-4" /> Blog</div>
+                          <div className="p-3 rounded-lg hover:bg-muted flex items-center gap-3"><Mail className="h-4 w-4" /> Contacto</div>
+                        </nav>
+                      </CardContent>
+                    </Card>
+                    <div>
+                      <h4 className="font-medium mb-2">Especificações</h4>
+                      <ul className="text-sm text-muted-foreground space-y-2">
+                        <li>• Slide-in da direita (slide-in-right)</li>
+                        <li>• Overlay: bg-black/50</li>
+                        <li>• Width: 80vw max 320px</li>
+                        <li>• Item padding: 0.75rem</li>
+                        <li>• Active: bg-muted, font-medium</li>
+                        <li>• Focus trap enabled</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Breadcrumbs */}
+                <div>
+                  <h3 className="text-lg font-semibold mb-4">Breadcrumbs</h3>
+                  <Card>
+                    <CardContent className="pt-6">
+                      <div className="flex items-center gap-2 text-sm mb-4">
+                        <span className="text-muted-foreground hover:text-foreground cursor-pointer">Portfólio</span>
+                        <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                        <span className="text-muted-foreground hover:text-foreground cursor-pointer">Residencial</span>
+                        <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                        <span className="text-foreground font-medium">Villa Cascais</span>
+                      </div>
+                      <code className="text-xs bg-muted p-2 rounded block">
+                        Separator: ChevronRight 16px | Links: text-muted-foreground | Current: font-medium
+                      </code>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Footer */}
+                <div>
+                  <h3 className="text-lg font-semibold mb-4">Footer</h3>
+                  <Card className="bg-primary text-primary-foreground">
+                    <CardContent className="pt-6">
+                      <div className="grid md:grid-cols-4 gap-6">
+                        <div>
+                          <h4 className="font-bold mb-3">ARIFA</h4>
+                          <p className="text-sm opacity-80">Arquitectura & Design de excelência.</p>
+                        </div>
+                        <div>
+                          <h5 className="font-medium mb-2 text-sm">Navegação</h5>
+                          <ul className="text-sm opacity-80 space-y-1">
+                            <li>Portfólio</li>
+                            <li>Serviços</li>
+                            <li>Blog</li>
+                          </ul>
+                        </div>
+                        <div>
+                          <h5 className="font-medium mb-2 text-sm">Contacto</h5>
+                          <ul className="text-sm opacity-80 space-y-1">
+                            <li>info@arifa.pt</li>
+                            <li>+351 XXX XXX XXX</li>
+                            <li>Lisboa, Portugal</li>
+                          </ul>
+                        </div>
+                        <div>
+                          <h5 className="font-medium mb-2 text-sm">Social</h5>
+                          <div className="flex gap-3">
+                            <Instagram className="h-5 w-5 opacity-80" />
+                            <Linkedin className="h-5 w-5 opacity-80" />
+                            <Facebook className="h-5 w-5 opacity-80" />
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <div className="mt-4 p-4 bg-muted rounded-lg">
+                    <code className="text-xs">Background: hsl(var(--primary)) | Text opacity: 80% | Padding: 3rem 2rem | Grid: 4 cols desktop, 1 col mobile</code>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Insert 7. Componentes UI section here - already exists */}
 
             {/* ====== ANIMATIONS ====== */}
             <section id="animations" className="scroll-mt-20">
               <div className="flex items-center gap-3 mb-6">
                 <Zap className="h-6 w-6 text-accent" />
-                <h2 className="text-2xl font-bold">Animações</h2>
+                <h2 className="text-2xl font-bold">8. Animações & Motion</h2>
               </div>
               
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -1124,7 +1304,7 @@ export default function DesignerReport() {
             <section id="architecture" className="scroll-mt-20">
               <div className="flex items-center gap-3 mb-6">
                 <Map className="h-6 w-6 text-accent" />
-                <h2 className="text-2xl font-bold">Arquitectura de Informação</h2>
+                <h2 className="text-2xl font-bold">10. Arquitectura de Informação</h2>
               </div>
               
               <div className="grid md:grid-cols-3 gap-6">
@@ -1195,7 +1375,7 @@ export default function DesignerReport() {
             <section id="journeys" className="scroll-mt-20">
               <div className="flex items-center gap-3 mb-6">
                 <Users className="h-6 w-6 text-accent" />
-                <h2 className="text-2xl font-bold">User Journeys</h2>
+                <h2 className="text-2xl font-bold">11. User Journeys</h2>
               </div>
               
               <div className="space-y-6">
@@ -1286,7 +1466,7 @@ export default function DesignerReport() {
             <section id="accessibility" className="scroll-mt-20">
               <div className="flex items-center gap-3 mb-6">
                 <Accessibility className="h-6 w-6 text-accent" />
-                <h2 className="text-2xl font-bold">Acessibilidade (WCAG 2.2)</h2>
+                <h2 className="text-2xl font-bold">15. Acessibilidade (WCAG 2.2)</h2>
               </div>
               
               <div className="grid md:grid-cols-2 gap-6">
@@ -1374,6 +1554,453 @@ export default function DesignerReport() {
                     </ul>
                   </CardContent>
                 </Card>
+              </div>
+            </section>
+
+            {/* ====== DARK MODE ====== */}
+            <section id="darkmode" className="scroll-mt-20">
+              <div className="flex items-center gap-3 mb-6">
+                <Moon className="h-6 w-6 text-accent" />
+                <h2 className="text-2xl font-bold">9. Dark Mode</h2>
+              </div>
+              
+              <p className="text-muted-foreground mb-6">
+                O sistema suporta dark mode completo através de variáveis CSS e next-themes. A transição é suave e respeita as preferências do sistema.
+              </p>
+              
+              <div className="grid md:grid-cols-2 gap-6">
+                <Card>
+                  <CardHeader className="bg-white text-gray-900 rounded-t-lg">
+                    <CardTitle className="flex items-center gap-2">
+                      <Sun className="h-5 w-5" />
+                      Light Mode
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="bg-white text-gray-900 rounded-b-lg pt-4 space-y-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded bg-[hsl(0,0%,100%)] border" />
+                      <span className="text-sm">Background: hsl(0 0% 100%)</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded bg-[hsl(0,0%,5%)]" />
+                      <span className="text-sm">Foreground: hsl(0 0% 5%)</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded bg-[hsl(0,0%,8%)]" />
+                      <span className="text-sm">Primary: hsl(0 0% 8%)</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded bg-[hsl(45,100%,51%)]" />
+                      <span className="text-sm">Accent: hsl(45 100% 51%)</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded bg-[hsl(60,5%,96%)] border" />
+                      <span className="text-sm">Muted: hsl(60 5% 96%)</span>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card>
+                  <CardHeader className="bg-[hsl(240,10%,4%)] text-gray-100 rounded-t-lg">
+                    <CardTitle className="flex items-center gap-2">
+                      <Moon className="h-5 w-5" />
+                      Dark Mode
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="bg-[hsl(240,10%,4%)] text-gray-100 rounded-b-lg pt-4 space-y-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded bg-[hsl(240,10%,4%)] border border-gray-700" />
+                      <span className="text-sm">Background: hsl(240 10% 4%)</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded bg-[hsl(0,0%,95%)]" />
+                      <span className="text-sm">Foreground: hsl(0 0% 95%)</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded bg-[hsl(0,0%,98%)]" />
+                      <span className="text-sm">Primary: hsl(0 0% 98%)</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded bg-[hsl(45,100%,51%)]" />
+                      <span className="text-sm">Accent: hsl(45 100% 51%)</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded bg-[hsl(240,5%,16%)] border border-gray-700" />
+                      <span className="text-sm">Muted: hsl(240 5% 16%)</span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+              
+              <div className="mt-6 p-4 bg-muted rounded-lg">
+                <h4 className="font-medium mb-2">Implementação</h4>
+                <code className="text-xs block">
+                  next-themes provider | class="dark" no &lt;html&gt; | Variáveis CSS :root e .dark | Transição: transition-colors 0.3s
+                </code>
+              </div>
+            </section>
+
+            {/* ====== FEATURES ====== */}
+            <section id="features" className="scroll-mt-20">
+              <div className="flex items-center gap-3 mb-6">
+                <LayoutDashboard className="h-6 w-6 text-accent" />
+                <h2 className="text-2xl font-bold">12. Funcionalidades por Perfil</h2>
+              </div>
+              
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm border">
+                  <thead>
+                    <tr className="bg-muted">
+                      <th className="text-left p-3 font-medium border-b">Funcionalidade</th>
+                      <th className="text-center p-3 font-medium border-b">Visitante</th>
+                      <th className="text-center p-3 font-medium border-b">Cliente</th>
+                      <th className="text-center p-3 font-medium border-b">Admin</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-b"><td className="p-3 font-medium" colSpan={4}>📱 Site Público</td></tr>
+                    <tr className="border-b hover:bg-muted/50"><td className="p-3">Ver Homepage</td><td className="text-center">✅</td><td className="text-center">✅</td><td className="text-center">✅</td></tr>
+                    <tr className="border-b hover:bg-muted/50"><td className="p-3">Ver Portfólio</td><td className="text-center">✅</td><td className="text-center">✅</td><td className="text-center">✅</td></tr>
+                    <tr className="border-b hover:bg-muted/50"><td className="p-3">Ver Blog</td><td className="text-center">✅</td><td className="text-center">✅</td><td className="text-center">✅</td></tr>
+                    <tr className="border-b hover:bg-muted/50"><td className="p-3">Enviar Contacto (Lead)</td><td className="text-center">✅</td><td className="text-center">✅</td><td className="text-center">✅</td></tr>
+                    <tr className="border-b hover:bg-muted/50"><td className="p-3">Subscrever Newsletter</td><td className="text-center">✅</td><td className="text-center">✅</td><td className="text-center">✅</td></tr>
+                    
+                    <tr className="border-b"><td className="p-3 font-medium" colSpan={4}>👤 Portal Cliente</td></tr>
+                    <tr className="border-b hover:bg-muted/50"><td className="p-3">Ver Dashboard</td><td className="text-center">❌</td><td className="text-center">✅</td><td className="text-center">✅</td></tr>
+                    <tr className="border-b hover:bg-muted/50"><td className="p-3">Ver Projectos Próprios</td><td className="text-center">❌</td><td className="text-center">✅</td><td className="text-center">✅</td></tr>
+                    <tr className="border-b hover:bg-muted/50"><td className="p-3">Ver Timeline & Milestones</td><td className="text-center">❌</td><td className="text-center">✅</td><td className="text-center">✅</td></tr>
+                    <tr className="border-b hover:bg-muted/50"><td className="p-3">Ver/Download Documentos</td><td className="text-center">❌</td><td className="text-center">✅</td><td className="text-center">✅</td></tr>
+                    <tr className="border-b hover:bg-muted/50"><td className="p-3">Enviar Mensagens</td><td className="text-center">❌</td><td className="text-center">✅</td><td className="text-center">✅</td></tr>
+                    <tr className="border-b hover:bg-muted/50"><td className="p-3">Ver Orçamentos</td><td className="text-center">❌</td><td className="text-center">✅</td><td className="text-center">✅</td></tr>
+                    <tr className="border-b hover:bg-muted/50"><td className="p-3">Assinar Contratos</td><td className="text-center">❌</td><td className="text-center">✅</td><td className="text-center">❌</td></tr>
+                    <tr className="border-b hover:bg-muted/50"><td className="p-3">Ver AI Weekly Updates</td><td className="text-center">❌</td><td className="text-center">✅</td><td className="text-center">✅</td></tr>
+                    
+                    <tr className="border-b"><td className="p-3 font-medium" colSpan={4}>🛡️ Admin</td></tr>
+                    <tr className="border-b hover:bg-muted/50"><td className="p-3">Ver Dashboard KPIs</td><td className="text-center">❌</td><td className="text-center">❌</td><td className="text-center">✅</td></tr>
+                    <tr className="border-b hover:bg-muted/50"><td className="p-3">Gerir Leads (Kanban)</td><td className="text-center">❌</td><td className="text-center">❌</td><td className="text-center">✅</td></tr>
+                    <tr className="border-b hover:bg-muted/50"><td className="p-3">Gerir Clientes</td><td className="text-center">❌</td><td className="text-center">❌</td><td className="text-center">✅</td></tr>
+                    <tr className="border-b hover:bg-muted/50"><td className="p-3">Gerir Projectos</td><td className="text-center">❌</td><td className="text-center">❌</td><td className="text-center">✅</td></tr>
+                    <tr className="border-b hover:bg-muted/50"><td className="p-3">Criar/Editar Blog Posts</td><td className="text-center">❌</td><td className="text-center">❌</td><td className="text-center">✅</td></tr>
+                    <tr className="border-b hover:bg-muted/50"><td className="p-3">Criar Orçamentos</td><td className="text-center">❌</td><td className="text-center">❌</td><td className="text-center">✅</td></tr>
+                    <tr className="border-b hover:bg-muted/50"><td className="p-3">Enviar Convites</td><td className="text-center">❌</td><td className="text-center">❌</td><td className="text-center">✅</td></tr>
+                    <tr className="border-b hover:bg-muted/50"><td className="p-3">Ver Audit Logs</td><td className="text-center">❌</td><td className="text-center">❌</td><td className="text-center">✅</td></tr>
+                    <tr className="border-b hover:bg-muted/50"><td className="p-3">Upload Documentos</td><td className="text-center">❌</td><td className="text-center">❌</td><td className="text-center">✅</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            {/* ====== BRAND & TONE ====== */}
+            <section id="brand" className="scroll-mt-20">
+              <div className="flex items-center gap-3 mb-6">
+                <Crown className="h-6 w-6 text-accent" />
+                <h2 className="text-2xl font-bold">13. Marca & Tone of Voice</h2>
+              </div>
+              
+              <div className="grid md:grid-cols-2 gap-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Personalidade da Marca</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex items-center gap-3">
+                      <Badge className="bg-accent text-accent-foreground">Premium</Badge>
+                      <span className="text-sm">Excelência, qualidade, atenção ao detalhe</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Badge variant="outline">Confiável</Badge>
+                      <span className="text-sm">Transparência, profissionalismo, expertise</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Badge variant="outline">Inovador</Badge>
+                      <span className="text-sm">Tecnologia, modernidade, visão de futuro</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Badge variant="outline">Personalizado</Badge>
+                      <span className="text-sm">Soluções à medida, relacionamento próximo</span>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Tom de Comunicação</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div>
+                      <h4 className="font-medium text-sm mb-1">✅ Usar</h4>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Linguagem clara e directa</li>
+                        <li>• Terminologia técnica quando relevante</li>
+                        <li>• Tom confiante mas não arrogante</li>
+                        <li>• Foco nos benefícios para o cliente</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-sm mb-1">❌ Evitar</h4>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Jargão desnecessário</li>
+                        <li>• Promessas vagas ou exageradas</li>
+                        <li>• Tom informal demais</li>
+                        <li>• Linguagem negativa ou comparativa</li>
+                      </ul>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card className="md:col-span-2">
+                  <CardHeader>
+                    <CardTitle>Exemplos de Copywriting</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div>
+                        <h4 className="font-medium text-sm mb-2 text-green-600">✅ Bom</h4>
+                        <div className="space-y-3 text-sm">
+                          <p className="p-3 bg-muted rounded">"Transformamos visões em espaços extraordinários."</p>
+                          <p className="p-3 bg-muted rounded">"Cada projecto é único. Tal como os nossos clientes."</p>
+                          <p className="p-3 bg-muted rounded">"Acompanhe o progresso do seu projecto em tempo real."</p>
+                        </div>
+                      </div>
+                      <div>
+                        <h4 className="font-medium text-sm mb-2 text-red-600">❌ Mau</h4>
+                        <div className="space-y-3 text-sm">
+                          <p className="p-3 bg-muted rounded line-through">"Somos os melhores arquitectos do mercado!"</p>
+                          <p className="p-3 bg-muted rounded line-through">"Casas fixes a preços imbatíveis!"</p>
+                          <p className="p-3 bg-muted rounded line-through">"Não perca esta oportunidade única!"</p>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </section>
+
+            {/* ====== IMAGERY & LOGO ====== */}
+            <section id="imagery" className="scroll-mt-20">
+              <div className="flex items-center gap-3 mb-6">
+                <Image className="h-6 w-6 text-accent" />
+                <h2 className="text-2xl font-bold">14. Imagens & Logo</h2>
+              </div>
+              
+              <div className="space-y-8">
+                {/* Logo */}
+                <div>
+                  <h3 className="text-lg font-semibold mb-4">Logo</h3>
+                  <div className="grid md:grid-cols-3 gap-6">
+                    <Card>
+                      <CardContent className="pt-6 flex flex-col items-center">
+                        <div className="bg-background border rounded-lg p-8 mb-4 w-full flex items-center justify-center">
+                          <span className="text-3xl font-bold tracking-tight">ARIFA</span>
+                        </div>
+                        <Badge>Logo Principal (Light)</Badge>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardContent className="pt-6 flex flex-col items-center">
+                        <div className="bg-primary rounded-lg p-8 mb-4 w-full flex items-center justify-center">
+                          <span className="text-3xl font-bold tracking-tight text-primary-foreground">ARIFA</span>
+                        </div>
+                        <Badge>Logo Principal (Dark)</Badge>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardContent className="pt-6 flex flex-col items-center">
+                        <div className="bg-accent rounded-lg p-8 mb-4 w-full flex items-center justify-center">
+                          <span className="text-3xl font-bold tracking-tight text-accent-foreground">A</span>
+                        </div>
+                        <Badge>Logo Mark</Badge>
+                      </CardContent>
+                    </Card>
+                  </div>
+                  <div className="mt-4 p-4 bg-muted rounded-lg">
+                    <code className="text-xs">
+                      Font: Inter Bold (700) | Tracking: -0.02em | Clear space: 1x altura do logo | Min size: 24px
+                    </code>
+                  </div>
+                </div>
+                
+                {/* Photo Guidelines */}
+                <div>
+                  <h3 className="text-lg font-semibold mb-4">Estilo Fotográfico</h3>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-base">✅ Recomendado</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-2 text-sm text-muted-foreground">
+                        <li>Luz natural, tons quentes</li>
+                        <li>Arquitectura limpa, linhas definidas</li>
+                        <li>Perspectivas dramáticas</li>
+                        <li>Detalhes de materiais nobres</li>
+                        <li>Espaços habitados (com pessoas)</li>
+                        <li>Ratio: 16:9 (hero), 4:3 (cards), 1:1 (thumbs)</li>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-base">❌ Evitar</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-2 text-sm text-muted-foreground">
+                        <li>Filtros excessivos ou saturação</li>
+                        <li>Fotos stock genéricas</li>
+                        <li>Iluminação artificial dura</li>
+                        <li>Distorção de lentes</li>
+                        <li>Renders hiper-realistas sem identificação</li>
+                        <li>Imagens de baixa resolução (&lt;1920px)</li>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+                
+                {/* Image Treatments */}
+                <div>
+                  <h3 className="text-lg font-semibold mb-4">Tratamentos de Imagem</h3>
+                  <div className="grid md:grid-cols-4 gap-4">
+                    <div className="text-center">
+                      <div className="aspect-video bg-gradient-to-b from-black/0 to-black/60 rounded-lg mb-2" />
+                      <span className="text-sm">Gradient Overlay</span>
+                    </div>
+                    <div className="text-center">
+                      <div className="aspect-video bg-muted rounded-lg mb-2 flex items-center justify-center">
+                        <div className="w-3/4 h-3/4 bg-background rounded shadow-lg" />
+                      </div>
+                      <span className="text-sm">Card com Sombra</span>
+                    </div>
+                    <div className="text-center">
+                      <div className="aspect-video bg-muted rounded-lg mb-2 relative overflow-hidden">
+                        <div className="absolute inset-0 bg-accent/20" />
+                      </div>
+                      <span className="text-sm">Accent Tint</span>
+                    </div>
+                    <div className="text-center">
+                      <div className="aspect-video bg-muted rounded-lg mb-2 grayscale" />
+                      <span className="text-sm">B&W (hover)</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* ====== ASSETS ====== */}
+            <section id="assets" className="scroll-mt-20">
+              <div className="flex items-center gap-3 mb-6">
+                <Download className="h-6 w-6 text-accent" />
+                <h2 className="text-2xl font-bold">16. Assets Exportáveis</h2>
+              </div>
+              
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <Card>
+                  <CardContent className="pt-6">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center">
+                        <Image className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <h4 className="font-medium">Logo Pack</h4>
+                        <p className="text-sm text-muted-foreground">SVG, PNG (1x, 2x, 3x)</p>
+                      </div>
+                    </div>
+                    <Button variant="outline" size="sm" className="w-full">
+                      <Download className="h-4 w-4 mr-2" /> Download
+                    </Button>
+                  </CardContent>
+                </Card>
+                
+                <Card>
+                  <CardContent className="pt-6">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center">
+                        <Palette className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <h4 className="font-medium">Color Tokens</h4>
+                        <p className="text-sm text-muted-foreground">CSS, JSON, Figma</p>
+                      </div>
+                    </div>
+                    <Button variant="outline" size="sm" className="w-full">
+                      <Download className="h-4 w-4 mr-2" /> Download
+                    </Button>
+                  </CardContent>
+                </Card>
+                
+                <Card>
+                  <CardContent className="pt-6">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center">
+                        <LayoutGrid className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <h4 className="font-medium">Icon Set</h4>
+                        <p className="text-sm text-muted-foreground">90+ Lucide Icons SVG</p>
+                      </div>
+                    </div>
+                    <Button variant="outline" size="sm" className="w-full">
+                      <Download className="h-4 w-4 mr-2" /> Download
+                    </Button>
+                  </CardContent>
+                </Card>
+                
+                <Card>
+                  <CardContent className="pt-6">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center">
+                        <Type className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <h4 className="font-medium">Typography</h4>
+                        <p className="text-sm text-muted-foreground">Inter Font Family</p>
+                      </div>
+                    </div>
+                    <Button variant="outline" size="sm" className="w-full" onClick={() => window.open('https://fonts.google.com/specimen/Inter', '_blank')}>
+                      <ExternalLink className="h-4 w-4 mr-2" /> Google Fonts
+                    </Button>
+                  </CardContent>
+                </Card>
+                
+                <Card>
+                  <CardContent className="pt-6">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center">
+                        <Layers className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <h4 className="font-medium">UI Components</h4>
+                        <p className="text-sm text-muted-foreground">shadcn/ui + Custom</p>
+                      </div>
+                    </div>
+                    <Button variant="outline" size="sm" className="w-full" onClick={() => window.open('https://ui.shadcn.com', '_blank')}>
+                      <ExternalLink className="h-4 w-4 mr-2" /> shadcn/ui
+                    </Button>
+                  </CardContent>
+                </Card>
+                
+                <Card>
+                  <CardContent className="pt-6">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center">
+                        <FileText className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <h4 className="font-medium">Este Relatório</h4>
+                        <p className="text-sm text-muted-foreground">PDF Print-Ready</p>
+                      </div>
+                    </div>
+                    <Button variant="outline" size="sm" className="w-full" onClick={() => window.print()}>
+                      <Printer className="h-4 w-4 mr-2" /> Exportar PDF
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
+              
+              <div className="mt-8 p-6 border-2 border-dashed rounded-lg text-center">
+                <h4 className="font-medium mb-2">Precisa de Assets Adicionais?</h4>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Entre em contacto para obter ficheiros fonte, templates Figma, ou outros materiais.
+                </p>
+                <Button variant="accent">
+                  <Mail className="h-4 w-4 mr-2" /> Contactar Equipa
+                </Button>
               </div>
             </section>
 
