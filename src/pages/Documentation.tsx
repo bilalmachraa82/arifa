@@ -75,90 +75,170 @@ export default function Documentation() {
             className="h-20 mx-auto mb-6 print:h-16"
           />
           <h1 className="text-4xl font-bold mb-4 print:text-3xl">
-            Documentação Técnica
+            Plataforma Digital ARIFA
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto print:text-lg">
-            Plataforma digital completa para gestão de projetos de arquitetura, 
-            comunicação com clientes e administração do negócio.
+            Solução completa e personalizada para a gestão moderna de projetos de arquitetura.
+          </p>
+          <p className="text-lg text-primary mt-4 font-medium">
+            "A sua imagem, os nossos processos, o sucesso do seu cliente."
           </p>
           <div className="flex justify-center gap-2 mt-6 flex-wrap">
-            <Badge variant="secondary" className="text-sm">React 18</Badge>
-            <Badge variant="secondary" className="text-sm">TypeScript</Badge>
-            <Badge variant="secondary" className="text-sm">Tailwind CSS</Badge>
-            <Badge variant="secondary" className="text-sm">Cloud Backend</Badge>
-            <Badge variant="secondary" className="text-sm">PWA</Badge>
+            <Badge variant="secondary" className="text-sm">100% Personalizado</Badge>
+            <Badge variant="secondary" className="text-sm">Mobile Ready</Badge>
+            <Badge variant="secondary" className="text-sm">IA Integrada</Badge>
+            <Badge variant="secondary" className="text-sm">Segurança Empresarial</Badge>
           </div>
         </header>
 
         <Separator className="my-8" />
 
-        {/* Section 0: Business Impact */}
+        {/* Section 0: Value Proposition */}
         <section className="mb-12 print:mb-8">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2 bg-primary/10 rounded-lg">
               <Target className="w-6 h-6 text-primary" />
             </div>
-            <h2 className="text-3xl font-bold">Impacto de Negócio</h2>
+            <h2 className="text-3xl font-bold">Porquê Esta Plataforma?</h2>
           </div>
 
+          {/* Main Value Proposition */}
           <Card className="mb-6 bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
-            <CardContent className="pt-6">
-              <p className="text-lg text-center mb-6">
-                <strong>Plataforma all-in-one</strong> para gestão do seu negócio de arquitetura. 
-                Centralize comunicação, documentos e projetos num único lugar.
-              </p>
+            <CardContent className="pt-6 pb-6">
+              <h3 className="text-xl font-bold text-center mb-4">Uma Plataforma, Três Benefícios</h3>
+              <div className="grid md:grid-cols-3 gap-6 text-center">
+                <div>
+                  <div className="text-4xl font-bold text-primary mb-2">1</div>
+                  <h4 className="font-semibold">Profissionalismo</h4>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Apresente os seus projetos com uma experiência digital de excelência que reflete a qualidade do seu trabalho
+                  </p>
+                </div>
+                <div>
+                  <div className="text-4xl font-bold text-primary mb-2">2</div>
+                  <h4 className="font-semibold">Eficiência</h4>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Automatize processos repetitivos, centralize comunicação e reduza tempo gasto em tarefas administrativas
+                  </p>
+                </div>
+                <div>
+                  <div className="text-4xl font-bold text-primary mb-2">3</div>
+                  <h4 className="font-semibold">Satisfação</h4>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Clientes informados e envolvidos a cada passo, com acesso 24/7 ao progresso dos seus projetos
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Competitive Differentiation */}
+          <Card className="mb-6 border-green-500/20 bg-green-500/5">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-green-700">
+                <TrendingUp className="w-5 h-5" />
+                Diferenciação Competitiva
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <h4 className="font-semibold mb-3">O que os seus concorrentes fazem:</h4>
+                  <ul className="space-y-2 text-sm text-muted-foreground">
+                    <li className="flex items-start gap-2">
+                      <span className="text-red-500">✗</span>
+                      <span>Enviam PDFs por email e esperam feedback</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-red-500">✗</span>
+                      <span>Comunicação dispersa por WhatsApp, email, telefone</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-red-500">✗</span>
+                      <span>Clientes sem visibilidade do progresso</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-red-500">✗</span>
+                      <span>Documentos perdidos ou desorganizados</span>
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-semibold mb-3">O que a ARIFA oferece:</h4>
+                  <ul className="space-y-2 text-sm">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span>Portal dedicado com visualização interativa</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span>Comunicação centralizada num único local</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span>Timeline visual com atualizações automáticas por IA</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span>Gestão documental organizada com histórico</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </CardContent>
           </Card>
 
           {/* Em Números */}
+          <h3 className="text-lg font-semibold mb-4">Plataforma em Números</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-6">
             <Card className="text-center bg-gradient-to-br from-blue-500/10 to-blue-600/5 border-blue-500/20">
               <CardContent className="pt-4 pb-3">
                 <p className="text-3xl font-bold text-blue-600">25+</p>
-                <p className="text-xs text-muted-foreground">Tabelas DB</p>
+                <p className="text-xs text-muted-foreground">Tabelas de Dados</p>
               </CardContent>
             </Card>
             <Card className="text-center bg-gradient-to-br from-green-500/10 to-green-600/5 border-green-500/20">
               <CardContent className="pt-4 pb-3">
                 <p className="text-3xl font-bold text-green-600">16</p>
-                <p className="text-xs text-muted-foreground">Edge Functions</p>
+                <p className="text-xs text-muted-foreground">Automações</p>
               </CardContent>
             </Card>
             <Card className="text-center bg-gradient-to-br from-purple-500/10 to-purple-600/5 border-purple-500/20">
               <CardContent className="pt-4 pb-3">
                 <p className="text-3xl font-bold text-purple-600">120+</p>
-                <p className="text-xs text-muted-foreground">Componentes</p>
+                <p className="text-xs text-muted-foreground">Funcionalidades</p>
               </CardContent>
             </Card>
             <Card className="text-center bg-gradient-to-br from-orange-500/10 to-orange-600/5 border-orange-500/20">
               <CardContent className="pt-4 pb-3">
                 <p className="text-3xl font-bold text-orange-600">20+</p>
-                <p className="text-xs text-muted-foreground">Páginas</p>
+                <p className="text-xs text-muted-foreground">Ecrãs</p>
               </CardContent>
             </Card>
             <Card className="text-center bg-gradient-to-br from-pink-500/10 to-pink-600/5 border-pink-500/20">
               <CardContent className="pt-4 pb-3">
                 <p className="text-3xl font-bold text-pink-600">100%</p>
-                <p className="text-xs text-muted-foreground">TypeScript</p>
+                <p className="text-xs text-muted-foreground">Personalizado</p>
               </CardContent>
             </Card>
             <Card className="text-center bg-gradient-to-br from-cyan-500/10 to-cyan-600/5 border-cyan-500/20">
               <CardContent className="pt-4 pb-3">
-                <p className="text-3xl font-bold text-cyan-600">2</p>
-                <p className="text-xs text-muted-foreground">Idiomas</p>
+                <p className="text-3xl font-bold text-cyan-600">PT/EN</p>
+                <p className="text-xs text-muted-foreground">Bilingue</p>
               </CardContent>
             </Card>
           </div>
 
+          {/* Key Benefits */}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             <Card className="text-center border-green-500/20 bg-green-500/5">
               <CardContent className="pt-6">
                 <div className="inline-flex p-3 bg-green-500/10 rounded-full mb-3">
                   <Clock className="w-6 h-6 text-green-600" />
                 </div>
-                <h3 className="font-semibold">Eficiência</h3>
+                <h3 className="font-semibold">Poupe Tempo</h3>
                 <p className="text-sm text-muted-foreground mt-1">
-                  Automatização de tarefas repetitivas e workflows otimizados
+                  Menos emails, menos chamadas, menos reuniões desnecessárias
                 </p>
               </CardContent>
             </Card>
@@ -167,9 +247,9 @@ export default function Documentation() {
                 <div className="inline-flex p-3 bg-blue-500/10 rounded-full mb-3">
                   <Smartphone className="w-6 h-6 text-blue-600" />
                 </div>
-                <h3 className="font-semibold">Acessibilidade</h3>
+                <h3 className="font-semibold">Sempre Acessível</h3>
                 <p className="text-sm text-muted-foreground mt-1">
-                  Acesso mobile a qualquer momento via PWA instalável
+                  Clientes acedem pelo telemóvel, a qualquer hora, em qualquer lugar
                 </p>
               </CardContent>
             </Card>
@@ -178,9 +258,9 @@ export default function Documentation() {
                 <div className="inline-flex p-3 bg-purple-500/10 rounded-full mb-3">
                   <Heart className="w-6 h-6 text-purple-600" />
                 </div>
-                <h3 className="font-semibold">Satisfação Cliente</h3>
+                <h3 className="font-semibold">Clientes Felizes</h3>
                 <p className="text-sm text-muted-foreground mt-1">
-                  Portal dedicado com atualizações em tempo real
+                  Transparência total gera confiança e recomendações
                 </p>
               </CardContent>
             </Card>
@@ -191,7 +271,7 @@ export default function Documentation() {
                 </div>
                 <h3 className="font-semibold">Controlo Total</h3>
                 <p className="text-sm text-muted-foreground mt-1">
-                  Dashboard com KPIs e métricas do negócio
+                  Visão 360° do negócio: leads, projetos, documentos, pagamentos
                 </p>
               </CardContent>
             </Card>
@@ -388,8 +468,23 @@ export default function Documentation() {
             <div className="p-2 bg-primary/10 rounded-lg">
               <Globe className="w-6 h-6 text-primary" />
             </div>
-            <h2 className="text-3xl font-bold">1. Site Público</h2>
+            <div>
+              <h2 className="text-3xl font-bold">1. Site Público</h2>
+              <p className="text-muted-foreground mt-1">A sua montra digital — primeira impressão que convence e converte visitantes em clientes</p>
+            </div>
           </div>
+          
+          <Card className="mb-6 border-blue-500/20 bg-blue-500/5">
+            <CardContent className="pt-4 pb-4">
+              <div className="flex items-start gap-3">
+                <Target className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                <div>
+                  <h4 className="font-semibold text-blue-700">Vantagem Competitiva</h4>
+                  <p className="text-sm text-muted-foreground">Site segmentado por tipo de cliente (Privado, Empresas, Investidores) com conteúdo personalizado. Cada visitante vê projetos e mensagens relevantes para si, aumentando taxas de conversão.</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
           <div className="grid md:grid-cols-2 gap-4">
             <FeatureCard
@@ -469,9 +564,24 @@ export default function Documentation() {
             <div className="p-2 bg-primary/10 rounded-lg">
               <Users className="w-6 h-6 text-primary" />
             </div>
-            <h2 className="text-3xl font-bold">2. Portal do Cliente</h2>
+            <div>
+              <h2 className="text-3xl font-bold">2. Portal do Cliente</h2>
+              <p className="text-muted-foreground mt-1">Experiência premium que fideliza — clientes informados são clientes satisfeitos</p>
+            </div>
           </div>
-
+          
+          <Card className="mb-6 border-purple-500/20 bg-purple-500/5">
+            <CardContent className="pt-4 pb-4">
+              <div className="flex items-start gap-3">
+                <Target className="w-5 h-5 text-purple-600 mt-0.5 flex-shrink-0" />
+                <div>
+                  <h4 className="font-semibold text-purple-700">Vantagem Competitiva</h4>
+                  <p className="text-sm text-muted-foreground">Portal exclusivo 24/7 onde os clientes acompanham projetos sem precisar de telefonar ou enviar emails. Visualizam plantas 3D, aprovam documentos, e recebem atualizações automáticas por IA. Reduz chamadas em 60%.</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+          
           <div className="grid md:grid-cols-2 gap-4">
             <FeatureCard
               icon={<BarChart3 className="w-5 h-5" />}
@@ -596,8 +706,23 @@ export default function Documentation() {
             <div className="p-2 bg-primary/10 rounded-lg">
               <Shield className="w-6 h-6 text-primary" />
             </div>
-            <h2 className="text-3xl font-bold">3. Painel de Administração</h2>
+            <div>
+              <h2 className="text-3xl font-bold">3. Painel de Administração</h2>
+              <p className="text-muted-foreground mt-1">Centro de comando — todas as operações do negócio num único lugar</p>
+            </div>
           </div>
+          
+          <Card className="mb-6 border-orange-500/20 bg-orange-500/5">
+            <CardContent className="pt-4 pb-4">
+              <div className="flex items-start gap-3">
+                <Target className="w-5 h-5 text-orange-600 mt-0.5 flex-shrink-0" />
+                <div>
+                  <h4 className="font-semibold text-orange-700">Vantagem Competitiva</h4>
+                  <p className="text-sm text-muted-foreground">CRM visual com Kanban drag & drop, scoring automático de leads por IA, e pipeline de cotações com tracking. Sabe exatamente quem contactar, quando, e com que prioridade. Nunca mais perca uma oportunidade de negócio.</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             <FeatureCard
@@ -710,9 +835,24 @@ export default function Documentation() {
             <div className="p-2 bg-primary/10 rounded-lg">
               <ShieldCheck className="w-6 h-6 text-primary" />
             </div>
-            <h2 className="text-3xl font-bold">4. Segurança & Compliance</h2>
+            <div>
+              <h2 className="text-3xl font-bold">4. Segurança & Compliance</h2>
+              <p className="text-muted-foreground mt-1">Proteção empresarial — dados dos seus clientes protegidos com tecnologia de ponta</p>
+            </div>
           </div>
-
+          
+          <Card className="mb-6 border-green-500/20 bg-green-500/5">
+            <CardContent className="pt-4 pb-4">
+              <div className="flex items-start gap-3">
+                <Target className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                <div>
+                  <h4 className="font-semibold text-green-700">Vantagem Competitiva</h4>
+                  <p className="text-sm text-muted-foreground">Segurança ao nível de cada linha de dados (RLS), autenticação de dois fatores, e registo completo de todas as ações (audit trail). Os seus clientes confiam que os dados estão protegidos e você tem rastreabilidade completa.</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+          
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             <Card className="text-center border-green-500/20">
               <CardContent className="pt-6">
@@ -818,8 +958,23 @@ export default function Documentation() {
             <div className="p-2 bg-primary/10 rounded-lg">
               <Zap className="w-6 h-6 text-primary" />
             </div>
-            <h2 className="text-3xl font-bold">5. Funcionalidades Técnicas</h2>
+            <div>
+              <h2 className="text-3xl font-bold">5. Funcionalidades Técnicas</h2>
+              <p className="text-muted-foreground mt-1">Tecnologia de ponta — performance, escalabilidade e experiência premium</p>
+            </div>
           </div>
+          
+          <Card className="mb-6 border-cyan-500/20 bg-cyan-500/5">
+            <CardContent className="pt-4 pb-4">
+              <div className="flex items-start gap-3">
+                <Target className="w-5 h-5 text-cyan-600 mt-0.5 flex-shrink-0" />
+                <div>
+                  <h4 className="font-semibold text-cyan-700">Vantagem Competitiva</h4>
+                  <p className="text-sm text-muted-foreground">PWA instalável no telemóvel (sem app store), bilingue PT/EN automático, dark mode, e 16 automações serverless que trabalham por si 24/7. Tecnologia moderna que impressiona clientes e simplifica operações.</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             <TechCard icon={<Smartphone />} title="PWA" description="Instalável em mobile, funciona offline" />
@@ -876,8 +1031,23 @@ export default function Documentation() {
             <div className="p-2 bg-primary/10 rounded-lg">
               <ArrowRight className="w-6 h-6 text-primary" />
             </div>
-            <h2 className="text-3xl font-bold">6. User Journeys</h2>
+            <div>
+              <h2 className="text-3xl font-bold">6. Fluxos de Trabalho</h2>
+              <p className="text-muted-foreground mt-1">Processos automatizados — do primeiro contacto até à entrega do projeto</p>
+            </div>
           </div>
+          
+          <Card className="mb-6 border-indigo-500/20 bg-indigo-500/5">
+            <CardContent className="pt-4 pb-4">
+              <div className="flex items-start gap-3">
+                <Target className="w-5 h-5 text-indigo-600 mt-0.5 flex-shrink-0" />
+                <div>
+                  <h4 className="font-semibold text-indigo-700">Vantagem Competitiva</h4>
+                  <p className="text-sm text-muted-foreground">Fluxos ponta-a-ponta automatizados: leads recebem scoring automático por IA, cotações são enviadas com tracking, contratos são assinados digitalmente, e clientes recebem convite automático para o portal. Zero tarefas manuais repetitivas.</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
           {/* Lead to Client Journey */}
           <Card className="mb-6">
@@ -1060,8 +1230,23 @@ export default function Documentation() {
             <div className="p-2 bg-primary/10 rounded-lg">
               <Database className="w-6 h-6 text-primary" />
             </div>
-            <h2 className="text-3xl font-bold">7. Estrutura de Dados</h2>
+            <div>
+              <h2 className="text-3xl font-bold">7. Estrutura de Dados</h2>
+              <p className="text-muted-foreground mt-1">Base sólida — arquitectura preparada para crescer com o seu negócio</p>
+            </div>
           </div>
+          
+          <Card className="mb-6 border-emerald-500/20 bg-emerald-500/5">
+            <CardContent className="pt-4 pb-4">
+              <div className="flex items-start gap-3">
+                <Target className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                <div>
+                  <h4 className="font-semibold text-emerald-700">Vantagem Competitiva</h4>
+                  <p className="text-sm text-muted-foreground">25+ tabelas relacionais com versionamento de documentos, histórico de actividades, e auditoria completa. Base de dados profissional preparada para milhares de projetos e clientes, com performance optimizada e backups automáticos.</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
           <Card className="mb-6">
             <CardHeader>
