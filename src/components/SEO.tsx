@@ -59,8 +59,8 @@ const defaultSEO = {
   siteName: "ARIFA Studio",
   title: "ARIFA Studio | Arquitetura & Design",
   description: "Estúdio de arquitetura e design de interiores em Lisboa. Projetos residenciais, corporativos e de investimento com abordagem integrada e tecnologia BIM.",
-  image: "https://kiqxagkbyhdnyjngjstc.supabase.co/storage/v1/object/public/project-images/og-image.jpg",
-  url: "https://arifa.studio",
+  image: "https://www.arifa.studio/og-image.png",
+  url: "https://www.arifa.studio",
   keywords: "arquitetura, design de interiores, BIM, Lisboa, Portugal, projetos residenciais, projetos corporativos, investimento imobiliário"
 };
 
@@ -70,8 +70,8 @@ const organizationSchema = {
   "@type": "Organization",
   "name": "ARIFA Studio",
   "alternateName": "ARIFA",
-  "url": "https://arifa.studio",
-  "logo": "https://kiqxagkbyhdnyjngjstc.supabase.co/storage/v1/object/public/project-images/logo.png",
+  "url": "https://www.arifa.studio",
+  "logo": "https://www.arifa.studio/arifa-logo.png",
   "description": defaultSEO.description,
   "address": {
     "@type": "PostalAddress",
@@ -94,10 +94,10 @@ const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "ARIFA Studio",
-  "url": "https://arifa.studio",
+  "url": "https://www.arifa.studio",
   "potentialAction": {
     "@type": "SearchAction",
-    "target": "https://arifa.studio/portfolio?search={search_term_string}",
+    "target": "https://www.arifa.studio/portfolio?search={search_term_string}",
     "query-input": "required name=search_term_string"
   }
 };
@@ -128,7 +128,7 @@ const generateArticleSchema = (
     "name": "ARIFA Studio",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://kiqxagkbyhdnyjngjstc.supabase.co/storage/v1/object/public/project-images/logo.png"
+      "url": "https://www.arifa.studio/arifa-logo.png"
     }
   },
   "articleSection": section || "Arquitetura",
@@ -168,9 +168,9 @@ const localBusinessSchema = {
   "@type": "ArchitectFirm",
   "name": "ARIFA Studio",
   "alternateName": "ARIFA",
-  "url": "https://arifa.studio",
-  "logo": "https://kiqxagkbyhdnyjngjstc.supabase.co/storage/v1/object/public/project-images/logo.png",
-  "image": "https://kiqxagkbyhdnyjngjstc.supabase.co/storage/v1/object/public/project-images/og-image.jpg",
+  "url": "https://www.arifa.studio",
+  "logo": "https://www.arifa.studio/arifa-logo.png",
+  "image": "https://www.arifa.studio/og-image.png",
   "description": defaultSEO.description,
   "priceRange": "$$$$",
   "address": {
@@ -273,7 +273,7 @@ const generateServiceSchema = (name: string, description: string, serviceType?: 
   "provider": {
     "@type": "ArchitectFirm",
     "name": "ARIFA Studio",
-    "url": "https://arifa.studio"
+    "url": "https://www.arifa.studio"
   },
   "serviceType": serviceType || "Architectural Services",
   "areaServed": {
@@ -382,7 +382,7 @@ export function SEO({
   // Generate default alternate languages if not provided
   const defaultAlternates: AlternateLanguage[] = alternateLanguages || [
     { lang: "pt", url: url.replace(/\/(en|pt)\//, "/") },
-    { lang: "en", url: url.replace(/\/(en|pt)\//, "/").replace("arifa.studio/", "arifa.studio/en/") }
+    { lang: "en", url: url.replace(/\/(en|pt)\//, "/").replace("www.arifa.studio/", "www.arifa.studio/en/") }
   ];
 
   return (

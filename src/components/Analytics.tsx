@@ -6,7 +6,7 @@ const ANALYTICS_CONFIG = {
   // Plausible Analytics (recommended - privacy-friendly, no cookies)
   plausible: {
     enabled: true,
-    domain: "arifa.studio", // Change to your domain
+    domain: "www.arifa.studio",
   },
   // Google Analytics (optional alternative)
   googleAnalytics: {
