@@ -60,6 +60,9 @@ verify_jwt = false
 [functions.generate-quote-pdf]
 verify_jwt = true
 
+[functions.generate-project-report]
+verify_jwt = true
+
 [functions.send-quote-email]
 verify_jwt = true
 
