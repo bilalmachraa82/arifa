@@ -29,6 +29,7 @@ import Install from "./pages/Install";
 import AcceptInvitation from "./pages/AcceptInvitation";
 import QuotePublic from "./pages/QuotePublic";
 import NotFound from "./pages/NotFound";
+import Documentation from "./pages/Documentation";
 
 const queryClient = new QueryClient();
 
@@ -66,6 +67,7 @@ const App = () => (
                 <Route path="/install" element={<Install />} />
                 <Route path="/convite/:token" element={<AcceptInvitation />} />
                 <Route path="/cotacao/:token" element={<QuotePublic />} />
+                <Route path="/documentacao" element={<Documentation />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
               </PageTransition>
