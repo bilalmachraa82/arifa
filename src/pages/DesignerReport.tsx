@@ -365,6 +365,7 @@ const IconGrid = ({ icons, category }: { icons: IconItem[]; category: string }) 
 export default function DesignerReport() {
   const { theme, setTheme } = useTheme();
   const [iconCategory, setIconCategory] = useState("all");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   const sections = [
     { id: "colors", label: "1. Paleta de Cores", icon: Palette },
@@ -389,18 +390,80 @@ export default function DesignerReport() {
 
   return (
     <div className="min-h-screen bg-background print:bg-white">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b print:static print:border-0">
-        <div className="container-arifa py-4 flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold">ARIFA Design System</h1>
-            <p className="text-sm text-muted-foreground">Relatório Completo para Rebrand</p>
+      {/* Mobile Menu Overlay */}
+      {mobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden animate-fade-in"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
+      {/* Mobile Sidebar */}
+      <aside 
+        className={`fixed inset-y-0 left-0 w-72 bg-background border-r z-50 transform transition-transform duration-300 ease-in-out lg:hidden print:hidden ${
+          mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        <div className="flex items-center justify-between p-4 border-b">
+          <span className="font-bold">Navegação</span>
+          <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)}>
+            <X className="h-5 w-5" />
+          </Button>
+        </div>
+        <nav className="p-4 overflow-y-auto max-h-[calc(100vh-60px)]">
+          <div className="space-y-1">
+            {sections.map((section) => (
+              <a
+                key={section.id}
+                href={`#${section.id}`}
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3 px-3 py-2.5 text-sm rounded-lg hover:bg-muted transition-colors"
+              >
+                <section.icon className="h-4 w-4 text-muted-foreground" />
+                <span>{section.label}</span>
+              </a>
+            ))}
           </div>
+        </nav>
+      </aside>
+
+      {/* Header */}
+      <header className="sticky top-0 z-30 bg-background/95 backdrop-blur border-b print:static print:border-0">
+        <div className="container-arifa py-3 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            {/* Mobile Menu Toggle */}
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="lg:hidden" 
+              onClick={() => setMobileMenuOpen(true)}
+            >
+              <Menu className="h-5 w-5" />
+            </Button>
+            
+            {/* Back to Site Link */}
+            <a 
+              href="/" 
+              className="hidden sm:flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              <span>Voltar ao Site</span>
+            </a>
+          </div>
+          
+          <div className="flex-1 text-center lg:text-left lg:ml-8">
+            <h1 className="text-lg sm:text-2xl font-bold">ARIFA Design System</h1>
+            <p className="text-xs sm:text-sm text-muted-foreground hidden sm:block">Relatório Completo para Rebrand</p>
+          </div>
+          
           <div className="flex items-center gap-2 print:hidden">
             <ThemeToggle />
-            <Button variant="outline" size="sm" onClick={() => window.print()}>
+            <Button variant="outline" size="sm" onClick={() => window.print()} className="hidden sm:flex">
               <Printer className="h-4 w-4 mr-2" />
               Imprimir
+            </Button>
+            <Button variant="outline" size="icon" onClick={() => window.print()} className="sm:hidden">
+              <Printer className="h-4 w-4" />
             </Button>
           </div>
         </div>
@@ -408,8 +471,8 @@ export default function DesignerReport() {
 
       <div className="container-arifa py-8">
         <div className="flex gap-8">
-          {/* Side Navigation */}
-          <aside className="w-64 shrink-0 print:hidden">
+          {/* Side Navigation - Desktop */}
+          <aside className="w-64 shrink-0 hidden lg:block print:hidden">
             <SectionNav sections={sections} />
           </aside>
 
