@@ -33,13 +33,17 @@ export function HeroSection() {
         <img
           src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
           alt=""
+          aria-hidden="true"
           className="w-full h-full object-cover"
+          loading="eager"
+          fetchPriority="high"
+          width={2000}
+          height={1333}
         />
         {/* Gradient Overlay - Brand Book aesthetic */}
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/60" />
         <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
       </div>
-
       {/* Geometric elements - Brand Book pattern */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute bottom-0 left-0 w-96 h-96 border border-border/20 rounded-full -translate-x-1/2 translate-y-1/2" />
