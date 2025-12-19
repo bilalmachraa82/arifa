@@ -608,65 +608,439 @@ export default function DesignerReport() {
             <section id="components" className="scroll-mt-20">
               <div className="flex items-center gap-3 mb-6">
                 <Layers className="h-6 w-6 text-accent" />
-                <h2 className="text-2xl font-bold">Componentes UI</h2>
+                <h2 className="text-2xl font-bold">7. Componentes UI</h2>
               </div>
               
-              <div className="grid md:grid-cols-2 gap-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-lg">Card</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      Container principal para conteúdo agrupado.
-                    </p>
-                    <code className="text-xs bg-muted p-2 rounded block">
-                      border-radius: 0.75rem (12px)
-                    </code>
-                  </CardContent>
-                </Card>
-                
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-lg">Input</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <Input placeholder="Placeholder text" />
-                    <Textarea placeholder="Multi-line input" />
-                    <code className="text-xs bg-muted p-2 rounded block">
-                      border-radius: 0.5rem (8px)
-                    </code>
-                  </CardContent>
-                </Card>
-                
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-lg">Badges</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      <Badge>Default</Badge>
-                      <Badge variant="secondary">Secondary</Badge>
-                      <Badge variant="outline">Outline</Badge>
-                      <Badge variant="destructive">Destructive</Badge>
+              <p className="text-muted-foreground mb-8">
+                Biblioteca completa de componentes reutilizáveis baseados em shadcn/ui + Radix UI.
+                Todos os componentes são acessíveis, personalizáveis e seguem o design system.
+              </p>
+              
+              {/* Cards */}
+              <div className="space-y-8">
+                <div>
+                  <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <span className="w-6 h-6 rounded bg-accent text-accent-foreground flex items-center justify-center text-xs font-bold">1</span>
+                    Cards
+                  </h3>
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle>Card Default</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-muted-foreground">Container padrão com header e content.</p>
+                      </CardContent>
+                    </Card>
+                    <Card className="border-accent">
+                      <CardHeader>
+                        <CardTitle className="text-accent">Card Accent</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-muted-foreground">Card com borda de destaque.</p>
+                      </CardContent>
+                    </Card>
+                    <Card className="bg-muted">
+                      <CardHeader>
+                        <CardTitle>Card Muted</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-muted-foreground">Card com fundo suave.</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                  <div className="mt-4 p-4 bg-muted rounded-lg">
+                    <code className="text-xs">border-radius: 0.75rem (12px) | padding: 1.5rem | border: 1px solid hsl(var(--border))</code>
+                  </div>
+                </div>
+
+                {/* Inputs */}
+                <div>
+                  <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <span className="w-6 h-6 rounded bg-accent text-accent-foreground flex items-center justify-center text-xs font-bold">2</span>
+                    Inputs & Forms
+                  </h3>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-4">
+                      <div>
+                        <label className="text-sm font-medium mb-2 block">Input Default</label>
+                        <Input placeholder="Digite algo..." />
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium mb-2 block">Input Disabled</label>
+                        <Input placeholder="Desabilitado" disabled />
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium mb-2 block">Input com Erro</label>
+                        <Input placeholder="Erro" className="border-destructive focus-visible:ring-destructive" />
+                      </div>
                     </div>
-                  </CardContent>
-                </Card>
-                
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-lg">Tabs</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <Tabs defaultValue="tab1">
-                      <TabsList>
-                        <TabsTrigger value="tab1">Tab 1</TabsTrigger>
-                        <TabsTrigger value="tab2">Tab 2</TabsTrigger>
-                        <TabsTrigger value="tab3">Tab 3</TabsTrigger>
-                      </TabsList>
-                    </Tabs>
-                  </CardContent>
-                </Card>
+                    <div className="space-y-4">
+                      <div>
+                        <label className="text-sm font-medium mb-2 block">Textarea</label>
+                        <Textarea placeholder="Escreva uma mensagem..." rows={4} />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-4 p-4 bg-muted rounded-lg">
+                    <code className="text-xs">height: 2.5rem (40px) | border-radius: 0.5rem (8px) | padding: 0.75rem | focus-ring: 2px</code>
+                  </div>
+                </div>
+
+                {/* Badges */}
+                <div>
+                  <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <span className="w-6 h-6 rounded bg-accent text-accent-foreground flex items-center justify-center text-xs font-bold">3</span>
+                    Badges
+                  </h3>
+                  <div className="flex flex-wrap gap-3 mb-4">
+                    <Badge>Default</Badge>
+                    <Badge variant="secondary">Secondary</Badge>
+                    <Badge variant="outline">Outline</Badge>
+                    <Badge variant="destructive">Destructive</Badge>
+                    <Badge className="bg-accent text-accent-foreground">Accent</Badge>
+                    <Badge className="bg-coral text-white">Coral</Badge>
+                    <Badge className="bg-yellow text-primary">Yellow</Badge>
+                  </div>
+                  <div className="p-4 bg-muted rounded-lg">
+                    <code className="text-xs">border-radius: 9999px (full) | padding: 0.125rem 0.625rem | font-size: 0.75rem | font-weight: 600</code>
+                  </div>
+                </div>
+
+                {/* Tabs */}
+                <div>
+                  <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <span className="w-6 h-6 rounded bg-accent text-accent-foreground flex items-center justify-center text-xs font-bold">4</span>
+                    Tabs
+                  </h3>
+                  <Tabs defaultValue="tab1" className="w-full">
+                    <TabsList className="w-full justify-start">
+                      <TabsTrigger value="tab1">Visão Geral</TabsTrigger>
+                      <TabsTrigger value="tab2">Documentos</TabsTrigger>
+                      <TabsTrigger value="tab3">Mensagens</TabsTrigger>
+                      <TabsTrigger value="tab4" disabled>Desabilitado</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="tab1" className="p-4 border rounded-lg mt-2">
+                      <p className="text-sm text-muted-foreground">Conteúdo da tab Visão Geral</p>
+                    </TabsContent>
+                    <TabsContent value="tab2" className="p-4 border rounded-lg mt-2">
+                      <p className="text-sm text-muted-foreground">Conteúdo da tab Documentos</p>
+                    </TabsContent>
+                    <TabsContent value="tab3" className="p-4 border rounded-lg mt-2">
+                      <p className="text-sm text-muted-foreground">Conteúdo da tab Mensagens</p>
+                    </TabsContent>
+                  </Tabs>
+                  <div className="mt-4 p-4 bg-muted rounded-lg">
+                    <code className="text-xs">TabsList: bg-muted, rounded-lg | TabsTrigger: padding 0.375rem 0.75rem, active: bg-background shadow</code>
+                  </div>
+                </div>
+
+                {/* Avatars */}
+                <div>
+                  <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <span className="w-6 h-6 rounded bg-accent text-accent-foreground flex items-center justify-center text-xs font-bold">5</span>
+                    Avatars
+                  </h3>
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-xs font-medium">SM</div>
+                    <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-sm font-medium">MD</div>
+                    <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center font-medium">LG</div>
+                    <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center text-lg font-medium">XL</div>
+                    <div className="w-10 h-10 rounded-full bg-accent text-accent-foreground flex items-center justify-center text-sm font-bold">JD</div>
+                    <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">AR</div>
+                  </div>
+                  <div className="p-4 bg-muted rounded-lg">
+                    <code className="text-xs">Sizes: 32px, 40px, 48px, 64px | border-radius: 9999px (full) | font-weight: 500-700</code>
+                  </div>
+                </div>
+
+                {/* Skeleton */}
+                <div>
+                  <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <span className="w-6 h-6 rounded bg-accent text-accent-foreground flex items-center justify-center text-xs font-bold">6</span>
+                    Skeleton Loading
+                  </h3>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <div className="h-4 bg-muted animate-pulse rounded w-3/4" />
+                      <div className="h-4 bg-muted animate-pulse rounded w-1/2" />
+                      <div className="h-4 bg-muted animate-pulse rounded w-5/6" />
+                    </div>
+                    <Card>
+                      <CardContent className="pt-6 space-y-4">
+                        <div className="flex items-center gap-4">
+                          <div className="w-12 h-12 rounded-full bg-muted animate-pulse" />
+                          <div className="flex-1 space-y-2">
+                            <div className="h-4 bg-muted animate-pulse rounded w-3/4" />
+                            <div className="h-3 bg-muted animate-pulse rounded w-1/2" />
+                          </div>
+                        </div>
+                        <div className="h-32 bg-muted animate-pulse rounded" />
+                      </CardContent>
+                    </Card>
+                  </div>
+                  <div className="mt-4 p-4 bg-muted rounded-lg">
+                    <code className="text-xs">animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite | background: hsl(var(--muted))</code>
+                  </div>
+                </div>
+
+                {/* Progress */}
+                <div>
+                  <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <span className="w-6 h-6 rounded bg-accent text-accent-foreground flex items-center justify-center text-xs font-bold">7</span>
+                    Progress Bars
+                  </h3>
+                  <div className="space-y-4">
+                    <div>
+                      <div className="flex justify-between text-sm mb-1">
+                        <span>Progresso 25%</span>
+                        <span className="text-muted-foreground">25%</span>
+                      </div>
+                      <div className="h-2 bg-muted rounded-full overflow-hidden">
+                        <div className="h-full bg-primary rounded-full" style={{ width: '25%' }} />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="flex justify-between text-sm mb-1">
+                        <span>Progresso 60%</span>
+                        <span className="text-muted-foreground">60%</span>
+                      </div>
+                      <div className="h-2 bg-muted rounded-full overflow-hidden">
+                        <div className="h-full bg-accent rounded-full" style={{ width: '60%' }} />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="flex justify-between text-sm mb-1">
+                        <span>Progresso 100%</span>
+                        <span className="text-muted-foreground">100%</span>
+                      </div>
+                      <div className="h-3 bg-muted rounded-full overflow-hidden">
+                        <div className="h-full bg-green-500 rounded-full" style={{ width: '100%' }} />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-4 p-4 bg-muted rounded-lg">
+                    <code className="text-xs">height: 8px, 12px | border-radius: 9999px | transition: width 0.3s ease</code>
+                  </div>
+                </div>
+
+                {/* Alerts & Toasts */}
+                <div>
+                  <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <span className="w-6 h-6 rounded bg-accent text-accent-foreground flex items-center justify-center text-xs font-bold">8</span>
+                    Alerts & Notifications
+                  </h3>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3 p-4 rounded-lg border bg-card">
+                      <Info className="h-5 w-5 text-blue-500" />
+                      <div>
+                        <p className="font-medium text-sm">Informação</p>
+                        <p className="text-sm text-muted-foreground">Mensagem informativa neutra.</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-4 rounded-lg border border-green-200 bg-green-50 dark:bg-green-950 dark:border-green-800">
+                      <CheckCircle className="h-5 w-5 text-green-600" />
+                      <div>
+                        <p className="font-medium text-sm text-green-800 dark:text-green-200">Sucesso</p>
+                        <p className="text-sm text-green-700 dark:text-green-300">Operação concluída com sucesso.</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-4 rounded-lg border border-yellow-200 bg-yellow-50 dark:bg-yellow-950 dark:border-yellow-800">
+                      <AlertCircle className="h-5 w-5 text-yellow-600" />
+                      <div>
+                        <p className="font-medium text-sm text-yellow-800 dark:text-yellow-200">Aviso</p>
+                        <p className="text-sm text-yellow-700 dark:text-yellow-300">Atenção a este detalhe importante.</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-4 rounded-lg border border-red-200 bg-red-50 dark:bg-red-950 dark:border-red-800">
+                      <XCircle className="h-5 w-5 text-red-600" />
+                      <div>
+                        <p className="font-medium text-sm text-red-800 dark:text-red-200">Erro</p>
+                        <p className="text-sm text-red-700 dark:text-red-300">Algo correu mal. Tente novamente.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-4 p-4 bg-muted rounded-lg">
+                    <code className="text-xs">padding: 1rem | border-radius: 0.5rem | icon-size: 20px | Toast usa Sonner library</code>
+                  </div>
+                </div>
+
+                {/* Tables */}
+                <div>
+                  <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <span className="w-6 h-6 rounded bg-accent text-accent-foreground flex items-center justify-center text-xs font-bold">9</span>
+                    Tables
+                  </h3>
+                  <div className="border rounded-lg overflow-hidden">
+                    <table className="w-full">
+                      <thead className="bg-muted">
+                        <tr>
+                          <th className="text-left px-4 py-3 text-sm font-medium">Nome</th>
+                          <th className="text-left px-4 py-3 text-sm font-medium">Email</th>
+                          <th className="text-left px-4 py-3 text-sm font-medium">Status</th>
+                          <th className="text-right px-4 py-3 text-sm font-medium">Ações</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="border-t hover:bg-muted/50 transition-colors">
+                          <td className="px-4 py-3 text-sm font-medium">João Silva</td>
+                          <td className="px-4 py-3 text-sm text-muted-foreground">joao@email.com</td>
+                          <td className="px-4 py-3"><Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Ativo</Badge></td>
+                          <td className="px-4 py-3 text-right"><Button variant="ghost" size="sm"><MoreHorizontal className="h-4 w-4" /></Button></td>
+                        </tr>
+                        <tr className="border-t hover:bg-muted/50 transition-colors">
+                          <td className="px-4 py-3 text-sm font-medium">Maria Santos</td>
+                          <td className="px-4 py-3 text-sm text-muted-foreground">maria@email.com</td>
+                          <td className="px-4 py-3"><Badge variant="outline">Pendente</Badge></td>
+                          <td className="px-4 py-3 text-right"><Button variant="ghost" size="sm"><MoreHorizontal className="h-4 w-4" /></Button></td>
+                        </tr>
+                        <tr className="border-t hover:bg-muted/50 transition-colors">
+                          <td className="px-4 py-3 text-sm font-medium">Pedro Costa</td>
+                          <td className="px-4 py-3 text-sm text-muted-foreground">pedro@email.com</td>
+                          <td className="px-4 py-3"><Badge variant="destructive">Inativo</Badge></td>
+                          <td className="px-4 py-3 text-right"><Button variant="ghost" size="sm"><MoreHorizontal className="h-4 w-4" /></Button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div className="mt-4 p-4 bg-muted rounded-lg">
+                    <code className="text-xs">header: bg-muted, font-weight 500 | row-hover: bg-muted/50 | padding: 0.75rem 1rem</code>
+                  </div>
+                </div>
+
+                {/* Dialogs & Modals */}
+                <div>
+                  <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <span className="w-6 h-6 rounded bg-accent text-accent-foreground flex items-center justify-center text-xs font-bold">10</span>
+                    Dialogs & Modals
+                  </h3>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <Card className="p-6">
+                      <div className="space-y-4">
+                        <div>
+                          <h4 className="font-semibold">Confirmar Ação</h4>
+                          <p className="text-sm text-muted-foreground mt-1">Tem a certeza que deseja continuar? Esta ação não pode ser desfeita.</p>
+                        </div>
+                        <div className="flex justify-end gap-2">
+                          <Button variant="outline" size="sm">Cancelar</Button>
+                          <Button size="sm">Confirmar</Button>
+                        </div>
+                      </div>
+                    </Card>
+                    <Card className="p-6">
+                      <div className="space-y-4">
+                        <div>
+                          <h4 className="font-semibold text-destructive flex items-center gap-2">
+                            <AlertCircle className="h-5 w-5" />
+                            Eliminar Projecto
+                          </h4>
+                          <p className="text-sm text-muted-foreground mt-1">Esta ação é permanente e irá eliminar todos os dados associados.</p>
+                        </div>
+                        <div className="flex justify-end gap-2">
+                          <Button variant="outline" size="sm">Cancelar</Button>
+                          <Button variant="destructive" size="sm">Eliminar</Button>
+                        </div>
+                      </div>
+                    </Card>
+                  </div>
+                  <div className="mt-4 p-4 bg-muted rounded-lg">
+                    <code className="text-xs">max-width: 425px (sm), 600px (md), 800px (lg) | padding: 1.5rem | backdrop: bg-black/80 | animation: scale-in 0.2s</code>
+                  </div>
+                </div>
+
+                {/* Empty States */}
+                <div>
+                  <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <span className="w-6 h-6 rounded bg-accent text-accent-foreground flex items-center justify-center text-xs font-bold">11</span>
+                    Empty States
+                  </h3>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <Card>
+                      <CardContent className="pt-12 pb-12 text-center">
+                        <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
+                          <FolderOpen className="h-8 w-8 text-muted-foreground" />
+                        </div>
+                        <h4 className="font-semibold mb-2">Sem documentos</h4>
+                        <p className="text-sm text-muted-foreground mb-4">Ainda não existem documentos nesta pasta.</p>
+                        <Button size="sm"><Plus className="h-4 w-4 mr-2" /> Adicionar Documento</Button>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardContent className="pt-12 pb-12 text-center">
+                        <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
+                          <MessageSquare className="h-8 w-8 text-muted-foreground" />
+                        </div>
+                        <h4 className="font-semibold mb-2">Sem mensagens</h4>
+                        <p className="text-sm text-muted-foreground mb-4">Inicie uma conversa com a equipa ARIFA.</p>
+                        <Button variant="outline" size="sm"><Send className="h-4 w-4 mr-2" /> Nova Mensagem</Button>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+
+                {/* Component Specs Summary */}
+                <div>
+                  <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <span className="w-6 h-6 rounded bg-primary text-primary-foreground flex items-center justify-center text-xs font-bold">★</span>
+                    Especificações Globais
+                  </h3>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="border-b bg-muted">
+                          <th className="text-left py-3 px-4 font-medium">Componente</th>
+                          <th className="text-left py-3 px-4 font-medium">Border Radius</th>
+                          <th className="text-left py-3 px-4 font-medium">Padding</th>
+                          <th className="text-left py-3 px-4 font-medium">Shadow</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="border-b">
+                          <td className="py-3 px-4 font-medium">Card</td>
+                          <td className="py-3 px-4"><code>0.75rem</code></td>
+                          <td className="py-3 px-4"><code>1.5rem</code></td>
+                          <td className="py-3 px-4"><code>sm</code></td>
+                        </tr>
+                        <tr className="border-b">
+                          <td className="py-3 px-4 font-medium">Button</td>
+                          <td className="py-3 px-4"><code>0.5rem</code></td>
+                          <td className="py-3 px-4"><code>1rem 1.5rem</code></td>
+                          <td className="py-3 px-4"><code>none</code></td>
+                        </tr>
+                        <tr className="border-b">
+                          <td className="py-3 px-4 font-medium">Input</td>
+                          <td className="py-3 px-4"><code>0.5rem</code></td>
+                          <td className="py-3 px-4"><code>0.5rem 0.75rem</code></td>
+                          <td className="py-3 px-4"><code>none</code></td>
+                        </tr>
+                        <tr className="border-b">
+                          <td className="py-3 px-4 font-medium">Badge</td>
+                          <td className="py-3 px-4"><code>9999px</code></td>
+                          <td className="py-3 px-4"><code>0.125rem 0.625rem</code></td>
+                          <td className="py-3 px-4"><code>none</code></td>
+                        </tr>
+                        <tr className="border-b">
+                          <td className="py-3 px-4 font-medium">Dialog</td>
+                          <td className="py-3 px-4"><code>0.75rem</code></td>
+                          <td className="py-3 px-4"><code>1.5rem</code></td>
+                          <td className="py-3 px-4"><code>xl</code></td>
+                        </tr>
+                        <tr className="border-b">
+                          <td className="py-3 px-4 font-medium">Avatar</td>
+                          <td className="py-3 px-4"><code>9999px</code></td>
+                          <td className="py-3 px-4"><code>-</code></td>
+                          <td className="py-3 px-4"><code>none</code></td>
+                        </tr>
+                        <tr className="border-b">
+                          <td className="py-3 px-4 font-medium">Tooltip</td>
+                          <td className="py-3 px-4"><code>0.375rem</code></td>
+                          <td className="py-3 px-4"><code>0.5rem 0.75rem</code></td>
+                          <td className="py-3 px-4"><code>md</code></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
             </section>
 
