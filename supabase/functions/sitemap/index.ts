@@ -6,7 +6,7 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const SITE_URL = "https://arifa.studio";
+const SITE_URL = "https://www.arifa.studio";
 
 // Static pages
 const staticPages = [

@@ -22,4 +22,4 @@ Disallow: /dashboard
 Disallow: /auth
 
 # Sitemap
-Sitemap: https://arifa.studio/sitemap.xml
+Sitemap: https://www.arifa.studio/sitemap.xml
