@@ -80,3 +80,6 @@ verify_jwt = true
 
 [functions.ai-chat]
 verify_jwt = false
+
+[functions.validate-invitation]
+verify_jwt = false

@@ -39,39 +39,27 @@ const AcceptInvitation = () => {
       }
 
       try {
-        const { data, error: fetchError } = await supabase
-          .from("client_invitations")
-          .select("*")
-          .eq("token", token)
-          .single();
+        // Use edge function to validate invitation (bypasses RLS)
+        const { data, error: fetchError } = await supabase.functions.invoke('validate-invitation', {
+          body: { token }
+        });
 
-        if (fetchError || !data) {
-          setError("Convite não encontrado");
+        if (fetchError || !data?.valid) {
+          const errorMessage = data?.error || "Convite não encontrado";
+          if (errorMessage.includes('expired')) {
+            setError("Este convite expirou");
+          } else if (errorMessage.includes('already used')) {
+            setError("Este convite já foi utilizado");
+          } else if (errorMessage.includes('cancelled')) {
+            setError("Este convite foi cancelado");
+          } else {
+            setError("Convite não encontrado");
+          }
           setLoading(false);
           return;
         }
 
-        // Check if invitation is expired
-        if (new Date(data.expires_at) < new Date()) {
-          setError("Este convite expirou");
-          setLoading(false);
-          return;
-        }
-
-        // Check if invitation is already accepted
-        if (data.status === "accepted") {
-          setError("Este convite já foi utilizado");
-          setLoading(false);
-          return;
-        }
-
-        if (data.status === "cancelled") {
-          setError("Este convite foi cancelado");
-          setLoading(false);
-          return;
-        }
-
-        setInvitation(data);
+        setInvitation(data.invitation);
       } catch (err) {
         console.error("Error fetching invitation:", err);
         setError("Erro ao carregar convite");
