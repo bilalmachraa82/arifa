@@ -29,7 +29,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Plus, Pencil, Trash2, Loader2, Eye, Sparkles, Copy } from "lucide-react";
+import { Plus, Pencil, Trash2, Loader2, Eye, Sparkles, Copy, FileText } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import FileUpload from "./FileUpload";
 import MultiImageUpload from "./MultiImageUpload";
@@ -69,6 +69,7 @@ const AdminProjects = () => {
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [saving, setSaving] = useState(false);
   const [generatingUpdate, setGeneratingUpdate] = useState<string | null>(null);
+  const [generatingPDF, setGeneratingPDF] = useState<string | null>(null);
   const [weeklyUpdate, setWeeklyUpdate] = useState<{ projectId: string; summary: string } | null>(null);
 
   const [formData, setFormData] = useState({
@@ -286,6 +287,42 @@ const AdminProjects = () => {
     });
   };
 
+  const generateProjectPDF = async (projectId: string, projectTitle: string) => {
+    setGeneratingPDF(projectId);
+
+    try {
+      const { data, error } = await supabase.functions.invoke('generate-project-report', {
+        body: { projectId }
+      });
+
+      if (error) throw error;
+
+      if (data.html) {
+        // Open HTML in new window for printing/saving as PDF
+        const printWindow = window.open('', '_blank');
+        if (printWindow) {
+          printWindow.document.write(data.html);
+          printWindow.document.close();
+          printWindow.focus();
+        }
+
+        toast({
+          title: "Relatório gerado",
+          description: "O relatório foi aberto numa nova janela. Use Ctrl+P para guardar como PDF.",
+        });
+      }
+    } catch (error: any) {
+      console.error('Error generating PDF:', error);
+      toast({
+        title: "Erro",
+        description: error.message || "Não foi possível gerar o relatório.",
+        variant: "destructive",
+      });
+    } finally {
+      setGeneratingPDF(null);
+    }
+  };
+
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
@@ -498,6 +535,19 @@ const AdminProjects = () => {
                             )}
                           </Button>
                         </CollapsibleTrigger>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => generateProjectPDF(project.id, project.title)}
+                          disabled={generatingPDF === project.id}
+                          title="Gerar Relatório PDF"
+                        >
+                          {generatingPDF === project.id ? (
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                          ) : (
+                            <FileText className="h-4 w-4" />
+                          )}
+                        </Button>
                         <Button
                           variant="ghost"
                           size="icon"
