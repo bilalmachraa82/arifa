@@ -3,6 +3,7 @@ import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { useRealtimeMessages } from "@/hooks/useRealtimeMessages";
 import AIChatbot from "@/components/chat/AIChatbot";
+import { SkipLink } from "@/components/ui/accessibility";
 
 interface LayoutProps {
   children: ReactNode;
@@ -14,8 +15,9 @@ export function Layout({ children }: LayoutProps) {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SkipLink targetId="main-content">Saltar para conteúdo principal</SkipLink>
       <Header />
-      <main className="flex-1 pt-[73px]">
+      <main id="main-content" className="flex-1 pt-[73px]" role="main">
         {children}
       </main>
       <Footer />
