@@ -6,6 +6,10 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
   :root {
     /* ARIFA Brand Book - Cores Principais */
     --background: 0 0% 93%;           /* #ECECEC - Cinza principal */
