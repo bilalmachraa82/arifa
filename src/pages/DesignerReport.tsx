@@ -16,8 +16,8 @@ import {
   // Navigation icons
   Menu, X, Home, Building2, Briefcase, TrendingUp, FolderOpen, 
   FileText, Mail, Settings, LogIn, LogOut, User, Bell,
-  // Segment icons
-  Users2, Building, Landmark, Crown,
+  // Segment icons (Updated Premium)
+  Users2, Building, Landmark, Crown, Gem, ChartCandlestick,
   // Admin icons
   LayoutDashboard, MessageSquare, UserPlus, Send, FileCheck,
   Target, Activity, BarChart3, PieChart, Calendar, Clock,
@@ -31,13 +31,16 @@ import {
   Image, Video, File, Archive, Edit, Trash2, Plus, Minus,
   Search, Filter, SortAsc, SortDesc, RefreshCw, ExternalLink,
   // Status icons
-  CheckCircle, XCircle, AlertCircle, Info, HelpCircle, Loader2,
+  CheckCircle, XCircle, AlertCircle, Info, HelpCircle, Loader2, CircleCheck,
   // Misc icons
   Heart, Star, Bookmark, Share2, ArrowRight, ArrowLeft, ArrowUp, ArrowDown,
   Quote, Tag, Hash, Globe, Wifi, WifiOff, Smartphone, Monitor, Tablet,
   Layers, Grid, List, MoreHorizontal, MoreVertical, Grip, Move,
   Copy as CopyIcon, Clipboard, ClipboardCheck, Save, Undo, Redo,
-  FileJson, FileCode
+  FileJson, FileCode,
+  // New Premium icons
+  Cuboid, Timer, ShieldCheck, Sparkles, PenTool, Hammer, TreeDeciduous,
+  Hourglass, Crosshair, Scaling, Coffee, Store
 } from "lucide-react";
 
 // ============================================
@@ -120,17 +123,42 @@ const iconLibrary: IconItem[] = [
   { name: "ArrowUp", icon: ArrowUp, category: "Navigation" },
   { name: "ArrowDown", icon: ArrowDown, category: "Navigation" },
   { name: "ExternalLink", icon: ExternalLink, category: "Navigation" },
-  // Segments
-  { name: "Users2", icon: Users2, category: "Segments" },
+  // Segments (Premium)
+  { name: "Gem", icon: Gem, category: "Segments" },
+  { name: "Landmark", icon: Landmark, category: "Segments" },
+  { name: "ChartCandlestick", icon: ChartCandlestick, category: "Segments" },
+  { name: "Crown", icon: Crown, category: "Segments" },
   { name: "Building", icon: Building, category: "Segments" },
   { name: "Building2", icon: Building2, category: "Segments" },
-  { name: "Landmark", icon: Landmark, category: "Segments" },
-  { name: "Crown", icon: Crown, category: "Segments" },
-  { name: "Briefcase", icon: Briefcase, category: "Segments" },
-  { name: "TrendingUp", icon: TrendingUp, category: "Segments" },
+  { name: "Store", icon: Store, category: "Segments" },
+  { name: "Coffee", icon: Coffee, category: "Segments" },
+  // Services (Premium)
+  { name: "Sparkles", icon: Sparkles, category: "Services" },
+  { name: "PenTool", icon: PenTool, category: "Services" },
+  { name: "Cuboid", icon: Cuboid, category: "Services" },
+  { name: "Activity", icon: Activity, category: "Services" },
+  { name: "Hammer", icon: Hammer, category: "Services" },
+  { name: "TreeDeciduous", icon: TreeDeciduous, category: "Services" },
+  { name: "Scaling", icon: Scaling, category: "Services" },
+  // Process (Premium)
+  { name: "Hourglass", icon: Hourglass, category: "Process" },
+  { name: "Crosshair", icon: Crosshair, category: "Process" },
+  { name: "Users2", icon: Users2, category: "Process" },
+  { name: "CircleCheck", icon: CircleCheck, category: "Process" },
+  // Metrics (Premium)
+  { name: "Timer", icon: Timer, category: "Metrics" },
+  { name: "ShieldCheck", icon: ShieldCheck, category: "Metrics" },
   // Admin
   { name: "LayoutDashboard", icon: LayoutDashboard, category: "Admin" },
   { name: "MessageSquare", icon: MessageSquare, category: "Admin" },
+  { name: "UserPlus", icon: UserPlus, category: "Admin" },
+  { name: "Send", icon: Send, category: "Admin" },
+  { name: "FileCheck", icon: FileCheck, category: "Admin" },
+  { name: "Target", icon: Target, category: "Admin" },
+  { name: "BarChart3", icon: BarChart3, category: "Admin" },
+  { name: "PieChart", icon: PieChart, category: "Admin" },
+  { name: "Calendar", icon: Calendar, category: "Admin" },
+  { name: "Clock", icon: Clock, category: "Admin" },
   { name: "UserPlus", icon: UserPlus, category: "Admin" },
   { name: "Send", icon: Send, category: "Admin" },
   { name: "FileCheck", icon: FileCheck, category: "Admin" },
