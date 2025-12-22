@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, TrendingUp, FileSearch, Building } from "lucide-react";
+import { ArrowRight, ChartCandlestick, FileSearch, Building } from "lucide-react";
 import { SegmentTestimonials } from "@/components/SegmentTestimonials";
 import { LeadMagnetSection } from "@/components/LeadMagnetSection";
 import { SegmentProjects } from "@/components/SegmentProjects";
@@ -16,7 +16,7 @@ export default function Investidores() {
   const services = [
     { icon: FileSearch, title: t("investors.services.1.title"), description: t("investors.services.1.description") },
     { icon: Building, title: t("investors.services.2.title"), description: t("investors.services.2.description") },
-    { icon: TrendingUp, title: t("investors.services.3.title"), description: t("investors.services.3.description") },
+    { icon: ChartCandlestick, title: t("investors.services.3.title"), description: t("investors.services.3.description") },
   ];
 
   const metrics = [

@@ -3,16 +3,16 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { 
   ArrowRight, 
-  Lightbulb, 
-  Compass, 
+  Sparkles, 
+  PenTool, 
   Boxes, 
-  LineChart, 
-  HardHat, 
-  Leaf,
-  CheckCircle2,
-  Clock,
-  Users,
-  Target
+  Activity, 
+  Hammer, 
+  TreeDeciduous,
+  CircleCheck,
+  Hourglass,
+  Users2,
+  Crosshair
 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { SEO } from "@/components/SEO";
@@ -20,7 +20,7 @@ import { SEO } from "@/components/SEO";
 const services = [
   {
     id: "consultoria",
-    icon: Lightbulb,
+    icon: Sparkles,
     titlePt: "Consultoria Estratégica e Viabilidade",
     titleEn: "Strategic Consulting and Feasibility",
     descriptionPt: "Análise detalhada da viabilidade do seu projeto antes de qualquer investimento significativo. Avaliamos localização, regulamentos, custos estimados e potencial de retorno.",
@@ -45,7 +45,7 @@ const services = [
   },
   {
     id: "design",
-    icon: Compass,
+    icon: PenTool,
     titlePt: "Design Arquitetónico e Técnico",
     titleEn: "Architectural and Technical Design",
     descriptionPt: "Criação de projetos que combinam estética, funcionalidade e viabilidade técnica. Do conceito ao projeto de execução, cada detalhe é pensado para o seu sucesso.",
@@ -95,7 +95,7 @@ const services = [
   },
   {
     id: "simulacoes",
-    icon: LineChart,
+    icon: Activity,
     titlePt: "Análise Preditiva e Simulações",
     titleEn: "Predictive Analysis and Simulations",
     descriptionPt: "Simulações avançadas para validar decisões de design antes da construção. Análise térmica, acústica, de iluminação e estrutural para otimização de desempenho.",
@@ -120,7 +120,7 @@ const services = [
   },
   {
     id: "construcao",
-    icon: HardHat,
+    icon: Hammer,
     titlePt: "Gestão de Construção",
     titleEn: "Construction Management",
     descriptionPt: "Acompanhamento profissional de obra para garantir qualidade, prazos e orçamento. Somos os seus olhos no terreno, protegendo o seu investimento.",
@@ -145,7 +145,7 @@ const services = [
   },
   {
     id: "sustentabilidade",
-    icon: Leaf,
+    icon: TreeDeciduous,
     titlePt: "Eficiência e Sustentabilidade",
     titleEn: "Efficiency and Sustainability",
     descriptionPt: "Soluções para edifícios mais eficientes e sustentáveis. Da certificação LEED/BREEAM à implementação de energias renováveis e economia circular.",
@@ -172,32 +172,32 @@ const services = [
 
 const processSteps = [
   {
-    iconPt: Clock,
-    iconEn: Clock,
+    iconPt: Hourglass,
+    iconEn: Hourglass,
     titlePt: "1. Consulta Inicial",
     titleEn: "1. Initial Consultation",
     descriptionPt: "Reunião gratuita para entender os seus objetivos, necessidades e orçamento.",
     descriptionEn: "Free meeting to understand your goals, needs and budget."
   },
   {
-    iconPt: Target,
-    iconEn: Target,
+    iconPt: Crosshair,
+    iconEn: Crosshair,
     titlePt: "2. Proposta Personalizada",
     titleEn: "2. Custom Proposal",
     descriptionPt: "Apresentação de proposta detalhada com escopo, cronograma e investimento.",
     descriptionEn: "Detailed proposal presentation with scope, timeline and investment."
   },
   {
-    iconPt: Users,
-    iconEn: Users,
+    iconPt: Users2,
+    iconEn: Users2,
     titlePt: "3. Desenvolvimento",
     titleEn: "3. Development",
     descriptionPt: "Execução do projeto com acompanhamento contínuo e validações regulares.",
     descriptionEn: "Project execution with continuous monitoring and regular validations."
   },
   {
-    iconPt: CheckCircle2,
-    iconEn: CheckCircle2,
+    iconPt: CircleCheck,
+    iconEn: CircleCheck,
     titlePt: "4. Entrega",
     titleEn: "4. Delivery",
     descriptionPt: "Entrega completa com toda a documentação e suporte pós-projeto.",
@@ -289,7 +289,7 @@ export default function Servicos() {
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {(isPt ? service.featuresPt : service.featuresEn).map((feature, i) => (
                       <li key={i} className="flex items-start gap-3">
-                        <CheckCircle2 className="h-5 w-5 text-arifa-coral flex-shrink-0 mt-0.5" />
+                        <CircleCheck className="h-5 w-5 text-arifa-coral flex-shrink-0 mt-0.5" />
                         <span className="text-sm text-foreground">{feature}</span>
                       </li>
                     ))}

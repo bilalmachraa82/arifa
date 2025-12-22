@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Award, Clock, TrendingUp } from "lucide-react";
+import { ArrowRight, Cuboid, Timer, ShieldCheck } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export function HeroSection() {
@@ -10,17 +10,17 @@ export function HeroSection() {
   // Brand Book: Métricas inline com dados concretos
   const metrics = [
     { 
-      icon: Award, 
+      icon: Cuboid, 
       label: "BIM Level 2", 
       color: "text-arifa-blue" 
     },
     { 
-      icon: Clock, 
+      icon: Timer, 
       label: isPt ? "95% No Prazo" : "95% On-Time", 
       color: "text-arifa-coral" 
     },
     { 
-      icon: TrendingUp, 
+      icon: ShieldCheck, 
       label: isPt ? "Certificação A+" : "A+ Certified", 
       color: "text-arifa-yellow" 
     },
@@ -104,7 +104,7 @@ export function HeroSection() {
             <div className="absolute -bottom-8 -left-8 bg-card p-8 shadow-elevated rounded-sm max-w-sm border border-border/50">
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
-                  <Award className="h-6 w-6 text-accent" />
+                  <Cuboid className="h-6 w-6 text-accent" />
                 </div>
                 <div>
                   <p className="font-display text-3xl font-extrabold text-foreground">20+</p>
