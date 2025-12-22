@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { NavigationTrees } from "@/components/report/NavigationTrees";
 import {
   Copy, Check, Printer, Download, Sun, Moon, Palette, Type, 
   LayoutGrid, Users, Map, Zap, Eye, Accessibility, ChevronRight,
@@ -1702,71 +1703,15 @@ export default function DesignerReport() {
             <section id="architecture" className="scroll-mt-20">
               <div className="flex items-center gap-3 mb-6">
                 <Map className="h-6 w-6 text-accent" />
-                <h2 className="text-2xl font-bold">11. Arquitectura de Informação</h2>
+                <h2 className="text-2xl font-bold">11. Arquitectura de Navegação</h2>
               </div>
               
-              <div className="grid md:grid-cols-3 gap-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Globe className="h-5 w-5" />
-                      Site Público
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2 text-sm">
-                      <li className="flex items-center gap-2"><Home className="h-4 w-4" /> Homepage</li>
-                      <li className="flex items-center gap-2"><Users2 className="h-4 w-4" /> Privado</li>
-                      <li className="flex items-center gap-2"><Building className="h-4 w-4" /> Empresas</li>
-                      <li className="flex items-center gap-2"><Landmark className="h-4 w-4" /> Investidores</li>
-                      <li className="flex items-center gap-2"><FolderOpen className="h-4 w-4" /> Portfólio</li>
-                      <li className="flex items-center gap-2"><FileText className="h-4 w-4" /> Blog</li>
-                      <li className="flex items-center gap-2"><Briefcase className="h-4 w-4" /> Serviços</li>
-                      <li className="flex items-center gap-2"><Mail className="h-4 w-4" /> Contacto</li>
-                    </ul>
-                  </CardContent>
-                </Card>
-                
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <User className="h-5 w-5" />
-                      Portal Cliente
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2 text-sm">
-                      <li className="flex items-center gap-2"><LayoutDashboard className="h-4 w-4" /> Dashboard</li>
-                      <li className="flex items-center gap-2"><FolderOpen className="h-4 w-4" /> Projectos</li>
-                      <li className="flex items-center gap-2"><FileText className="h-4 w-4" /> Documentos</li>
-                      <li className="flex items-center gap-2"><MessageSquare className="h-4 w-4" /> Mensagens</li>
-                      <li className="flex items-center gap-2"><FileCheck className="h-4 w-4" /> Orçamentos</li>
-                      <li className="flex items-center gap-2"><Settings className="h-4 w-4" /> Definições</li>
-                    </ul>
-                  </CardContent>
-                </Card>
-                
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Shield className="h-5 w-5" />
-                      Admin
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2 text-sm">
-                      <li className="flex items-center gap-2"><BarChart3 className="h-4 w-4" /> Dashboard KPIs</li>
-                      <li className="flex items-center gap-2"><Target className="h-4 w-4" /> Leads (Kanban)</li>
-                      <li className="flex items-center gap-2"><Users className="h-4 w-4" /> Clientes</li>
-                      <li className="flex items-center gap-2"><FolderOpen className="h-4 w-4" /> Projectos</li>
-                      <li className="flex items-center gap-2"><FileText className="h-4 w-4" /> Blog Posts</li>
-                      <li className="flex items-center gap-2"><FileCheck className="h-4 w-4" /> Orçamentos</li>
-                      <li className="flex items-center gap-2"><MessageSquare className="h-4 w-4" /> Mensagens</li>
-                      <li className="flex items-center gap-2"><Activity className="h-4 w-4" /> Audit Logs</li>
-                    </ul>
-                  </CardContent>
-                </Card>
-              </div>
+              <p className="text-muted-foreground mb-6">
+                Estrutura completa das 3 áreas do website: Site Público, Portal do Cliente e Painel de Administração.
+                Cada árvore mostra a hierarquia de páginas, rotas e estado de implementação.
+              </p>
+              
+              <NavigationTrees />
             </section>
 
             {/* ====== USER JOURNEYS ====== */}
