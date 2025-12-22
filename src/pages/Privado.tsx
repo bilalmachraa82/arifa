@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Home, Palette, Ruler } from "lucide-react";
+import { ArrowRight, Gem, PenTool, Scaling } from "lucide-react";
 import { SegmentTestimonials } from "@/components/SegmentTestimonials";
 import { LeadMagnetSection } from "@/components/LeadMagnetSection";
 import { SegmentProjects } from "@/components/SegmentProjects";
@@ -14,9 +14,9 @@ export default function Privado() {
   const isPt = language === "pt";
 
   const services = [
-    { icon: Home, title: t("private.services.1.title"), description: t("private.services.1.description") },
-    { icon: Palette, title: t("private.services.2.title"), description: t("private.services.2.description") },
-    { icon: Ruler, title: t("private.services.3.title"), description: t("private.services.3.description") },
+    { icon: Gem, title: t("private.services.1.title"), description: t("private.services.1.description") },
+    { icon: PenTool, title: t("private.services.2.title"), description: t("private.services.2.description") },
+    { icon: Scaling, title: t("private.services.3.title"), description: t("private.services.3.description") },
   ];
 
   const process = [

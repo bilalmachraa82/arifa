@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Building2, Store, UtensilsCrossed, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Landmark, Store, Coffee, CircleCheck } from "lucide-react";
 import { SegmentTestimonials } from "@/components/SegmentTestimonials";
 import { LeadMagnetSection } from "@/components/LeadMagnetSection";
 import { SegmentProjects } from "@/components/SegmentProjects";
@@ -14,9 +14,9 @@ export default function Empresas() {
   const isPt = language === "pt";
 
   const services = [
-    { icon: Building2, title: t("companies.services.1.title"), description: t("companies.services.1.description") },
+    { icon: Landmark, title: t("companies.services.1.title"), description: t("companies.services.1.description") },
     { icon: Store, title: t("companies.services.2.title"), description: t("companies.services.2.description") },
-    { icon: UtensilsCrossed, title: t("companies.services.3.title"), description: t("companies.services.3.description") },
+    { icon: Coffee, title: t("companies.services.3.title"), description: t("companies.services.3.description") },
   ];
 
   const benefits = [
@@ -110,7 +110,7 @@ export default function Empresas() {
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {benefits.map((benefit, index) => (
                   <li key={benefit} className="flex items-center gap-3 animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
-                    <CheckCircle2 className="h-5 w-5 text-arifa-yellow flex-shrink-0" />
+                    <CircleCheck className="h-5 w-5 text-arifa-yellow flex-shrink-0" />
                     <span className="text-small text-foreground">{benefit}</span>
                   </li>
                 ))}

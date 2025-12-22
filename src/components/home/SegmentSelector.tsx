@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Home, Building2, TrendingUp } from "lucide-react";
+import { ArrowRight, Gem, Landmark, ChartCandlestick } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export function SegmentSelector() {
@@ -8,7 +8,7 @@ export function SegmentSelector() {
   const segments = [
     {
       id: "privado",
-      icon: Home,
+      icon: Gem,
       title: t("segments.private.title"),
       description: t("segments.private.description"),
       features: [
@@ -23,7 +23,7 @@ export function SegmentSelector() {
     },
     {
       id: "empresas",
-      icon: Building2,
+      icon: Landmark,
       title: t("segments.companies.title"),
       description: t("segments.companies.description"),
       features: [
@@ -38,7 +38,7 @@ export function SegmentSelector() {
     },
     {
       id: "investidores",
-      icon: TrendingUp,
+      icon: ChartCandlestick,
       title: t("segments.investors.title"),
       description: t("segments.investors.description"),
       features: [
