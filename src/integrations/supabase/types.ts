@@ -1254,6 +1254,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      can_access_quote_by_token: {
+        Args: { quote_public_token: string }
+        Returns: boolean
+      }
       demote_from_admin: { Args: { _email: string }; Returns: undefined }
       generate_change_order_number: {
         Args: { p_project_id: string }

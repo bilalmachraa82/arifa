@@ -36,7 +36,8 @@ export function HeroSection() {
           aria-hidden="true"
           className="w-full h-full object-cover"
           loading="eager"
-          fetchPriority="high"
+          // @ts-expect-error React doesn't recognize fetchpriority yet
+          fetchpriority="high"
           width={2000}
           height={1333}
         />
