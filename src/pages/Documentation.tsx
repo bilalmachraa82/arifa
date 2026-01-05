@@ -52,9 +52,9 @@ import {
   Cpu
 } from "lucide-react";
 import arifaLogo from "@/assets/arifa-logo.png";
-import comparisonWorkflow from "@/assets/comparison-workflow.png";
-import portalMockup from "@/assets/portal-mockup.png";
-import adminMockup from "@/assets/admin-mockup.png";
+import screenshotHomepage from "@/assets/screenshot-homepage.png";
+import screenshotPortfolio from "@/assets/screenshot-portfolio.png";
+import screenshotServicos from "@/assets/screenshot-servicos.png";
 
 export default function Documentation() {
   const printRef = useRef<HTMLDivElement>(null);
@@ -287,49 +287,58 @@ export default function Documentation() {
 
         <Separator className="my-8" />
 
-        {/* Screenshots Comparativos Section */}
+        {/* Screenshots Reais da Plataforma */}
         <section className="mb-12 print:mb-8">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2 bg-primary/10 rounded-lg">
               <Camera className="w-6 h-6 text-primary" />
             </div>
-            <h2 className="text-3xl font-bold">Comparativo Visual</h2>
+            <h2 className="text-3xl font-bold">Screenshots Reais da Plataforma</h2>
           </div>
 
           <p className="text-lg text-muted-foreground mb-6">
-            Veja a diferença entre a gestão tradicional de projetos e a experiência digital premium que a ARIFA oferece.
+            Imagens reais capturadas diretamente do sistema ARIFA em funcionamento.
           </p>
 
-          {/* Main Comparison Image */}
-          <Card className="mb-8 overflow-hidden">
-            <CardHeader className="bg-gradient-to-r from-red-500/10 to-green-500/10">
+          {/* Homepage Screenshot */}
+          <Card className="mb-6 overflow-hidden">
+            <CardHeader className="bg-gradient-to-r from-primary/10 to-secondary/10">
               <CardTitle className="flex items-center gap-2">
-                <Eye className="w-5 h-5" />
-                Antes vs Depois: A Transformação Digital
+                <Home className="w-5 h-5" />
+                Homepage - Site Público
               </CardTitle>
             </CardHeader>
             <CardContent className="p-0">
               <img 
-                src={comparisonWorkflow} 
-                alt="Comparação entre workflow tradicional e plataforma ARIFA" 
-                className="w-full h-auto"
+                src={screenshotHomepage} 
+                alt="Screenshot real da Homepage ARIFA" 
+                className="w-full h-auto border-b"
               />
             </CardContent>
+            <div className="p-4 bg-muted/30">
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="outline">Hero Animado</Badge>
+                <Badge variant="outline">Navegação Inteligente</Badge>
+                <Badge variant="outline">Dark/Light Mode</Badge>
+                <Badge variant="outline">Multi-idioma</Badge>
+                <Badge variant="outline">CTAs Estratégicos</Badge>
+              </div>
+            </div>
           </Card>
 
-          {/* Portal & Admin Mockups */}
+          {/* Portfolio & Services Screenshots */}
           <div className="grid md:grid-cols-2 gap-6">
             <Card className="overflow-hidden">
               <CardHeader className="bg-purple-500/10">
-                <CardTitle className="flex items-center gap-2 text-purple-700">
-                  <Users className="w-5 h-5" />
-                  Portal do Cliente
+                <CardTitle className="flex items-center gap-2 text-purple-700 dark:text-purple-400">
+                  <Briefcase className="w-5 h-5" />
+                  Portfolio de Projetos
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-0">
                 <img 
-                  src={portalMockup} 
-                  alt="Mockup do Portal do Cliente ARIFA" 
+                  src={screenshotPortfolio} 
+                  alt="Screenshot real do Portfolio ARIFA" 
                   className="w-full h-auto"
                 />
               </CardContent>
@@ -337,19 +346,19 @@ export default function Documentation() {
                 <ul className="space-y-1 text-sm">
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span>Timeline visual do projeto</span>
+                    <span>Filtros por categoria e localização</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span>Galeria de fotos por fase</span>
+                    <span>Segmentação por tipo de cliente</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span>Documentos organizados</span>
+                    <span>Estados visuais dos projetos</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span>Chat em tempo real</span>
+                    <span>Pesquisa instantânea</span>
                   </li>
                 </ul>
               </div>
@@ -357,15 +366,15 @@ export default function Documentation() {
 
             <Card className="overflow-hidden">
               <CardHeader className="bg-blue-500/10">
-                <CardTitle className="flex items-center gap-2 text-blue-700">
-                  <Shield className="w-5 h-5" />
-                  Painel de Administração
+                <CardTitle className="flex items-center gap-2 text-blue-700 dark:text-blue-400">
+                  <Zap className="w-5 h-5" />
+                  Página de Serviços
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-0">
                 <img 
-                  src={adminMockup} 
-                  alt="Mockup do Painel Admin ARIFA" 
+                  src={screenshotServicos} 
+                  alt="Screenshot real da página de Serviços ARIFA" 
                   className="w-full h-auto"
                 />
               </CardContent>
@@ -373,24 +382,70 @@ export default function Documentation() {
                 <ul className="space-y-1 text-sm">
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span>CRM com Kanban de leads</span>
+                    <span>Apresentação profissional</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span>KPIs e métricas em tempo real</span>
+                    <span>CTAs de conversão</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span>Funil de conversão visual</span>
+                    <span>Design responsivo</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span>Gestão completa de projetos</span>
+                    <span>Animações suaves</span>
                   </li>
                 </ul>
               </div>
             </Card>
           </div>
+
+          {/* Note about protected areas */}
+          <Card className="mt-6 border-dashed border-2">
+            <CardContent className="p-6">
+              <div className="flex items-start gap-4">
+                <div className="p-3 bg-amber-500/10 rounded-lg">
+                  <Lock className="w-6 h-6 text-amber-600" />
+                </div>
+                <div>
+                  <h4 className="font-semibold mb-2">Áreas Protegidas por Autenticação</h4>
+                  <p className="text-muted-foreground text-sm mb-3">
+                    O <strong>Portal do Cliente</strong> e o <strong>Painel de Administração</strong> são áreas 
+                    privadas protegidas por autenticação segura com MFA opcional.
+                  </p>
+                  <div className="grid md:grid-cols-2 gap-4 mt-4">
+                    <div className="p-3 bg-purple-500/10 rounded-lg">
+                      <h5 className="font-medium text-purple-700 dark:text-purple-400 flex items-center gap-2 mb-2">
+                        <Users className="w-4 h-4" />
+                        Portal do Cliente
+                      </h5>
+                      <ul className="text-xs space-y-1 text-muted-foreground">
+                        <li>• Timeline visual do projeto</li>
+                        <li>• Galeria de fotos por fase</li>
+                        <li>• Documentos com versionamento</li>
+                        <li>• Chat em tempo real</li>
+                        <li>• AI Weekly Updates</li>
+                      </ul>
+                    </div>
+                    <div className="p-3 bg-blue-500/10 rounded-lg">
+                      <h5 className="font-medium text-blue-700 dark:text-blue-400 flex items-center gap-2 mb-2">
+                        <Shield className="w-4 h-4" />
+                        Painel Admin
+                      </h5>
+                      <ul className="text-xs space-y-1 text-muted-foreground">
+                        <li>• Dashboard com KPIs em tempo real</li>
+                        <li>• CRM Kanban de leads</li>
+                        <li>• Gestão completa de projetos</li>
+                        <li>• Sistema de cotações</li>
+                        <li>• Audit logs de segurança</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </section>
 
         <Separator className="my-8" />
