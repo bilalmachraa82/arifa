@@ -557,10 +557,6 @@ const SlidePublicSite = () => {
           <span className="text-sm font-medium text-[#3D7081] uppercase tracking-wider">Funcionalidade 1</span>
           <h2 className="text-3xl font-light text-[#1e3a5f]">Site Público</h2>
         </div>
-        {/* Badge AiParaTi */}
-        <div className="px-3 py-1 bg-blue-50 rounded-full border border-blue-100">
-          <span className="text-xs font-medium text-[#1e3a5f]">Entregue por AiParaTi</span>
-        </div>
       </div>
       <p className="text-xl text-slate-500 mb-6">O teu cartão de visita digital</p>
 
@@ -612,10 +608,6 @@ const SlideClientPortal = () => {
         <div className="flex-1">
           <span className="text-sm font-medium text-[#3D7081] uppercase tracking-wider">Funcionalidade 2</span>
           <h2 className="text-3xl font-light text-[#1e3a5f]">Portal Privado</h2>
-        </div>
-        {/* Badge AiParaTi */}
-        <div className="px-3 py-1 bg-blue-50 rounded-full border border-blue-100">
-          <span className="text-xs font-medium text-[#1e3a5f]">Entregue por AiParaTi</span>
         </div>
       </div>
       <p className="text-xl text-slate-500 mb-6">O controlo total sobre a experiência do cliente</p>
@@ -669,10 +661,6 @@ const SlideAdminDashboard = () => {
           <span className="text-sm font-medium text-[#3D7081] uppercase tracking-wider">Funcionalidade 3</span>
           <h2 className="text-3xl font-light text-[#1e3a5f]">Dashboard Admin</h2>
         </div>
-        {/* Badge AiParaTi */}
-        <div className="px-3 py-1 bg-blue-50 rounded-full border border-blue-100">
-          <span className="text-xs font-medium text-[#1e3a5f]">Entregue por AiParaTi</span>
-        </div>
       </div>
       <p className="text-xl text-slate-500 mb-6">O teu painel de comando</p>
 
@@ -723,10 +711,6 @@ const SlideAutomations = () => {
         <div className="flex-1">
           <span className="text-xs font-medium text-[#3D7081] uppercase tracking-wider">Funcionalidade 4</span>
           <h2 className="text-2xl font-light text-[#1e3a5f]">Automações Inteligentes</h2>
-        </div>
-        {/* Badge AiParaTi */}
-        <div className="px-2 py-1 bg-blue-50 rounded-full border border-blue-100">
-          <span className="text-xs font-medium text-[#1e3a5f]">Entregue por AiParaTi</span>
         </div>
       </div>
       <p className="text-lg text-slate-500 mb-4">O trabalho invisível</p>
