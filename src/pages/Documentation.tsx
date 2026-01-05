@@ -49,7 +49,10 @@ import {
   Coins,
   X,
   Key,
-  Cpu
+  Cpu,
+  Code,
+  Mic,
+  AlertCircle
 } from "lucide-react";
 import arifaLogo from "@/assets/arifa-logo.png";
 import screenshotHomepage from "@/assets/screenshot-homepage.png";
@@ -100,6 +103,55 @@ export default function Documentation() {
 
         <Separator className="my-8" />
 
+        {/* NEW: Para Quem é Esta Plataforma */}
+        <section className="mb-12 print:mb-8">
+          <Card className="bg-gradient-to-br from-primary/10 via-primary/5 to-background border-primary/30">
+            <CardContent className="pt-6 pb-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 bg-primary/20 rounded-lg">
+                  <Target className="w-6 h-6 text-primary" />
+                </div>
+                <h2 className="text-2xl font-bold">Para Quem é Esta Plataforma?</h2>
+              </div>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="space-y-2">
+                  <h3 className="font-semibold text-primary flex items-center gap-2">
+                    <Building2 className="w-4 h-4" />
+                    Estúdios de Arquitetura
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Ateliers com 1-10 colaboradores que querem profissionalizar a gestão e impressionar clientes
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <h3 className="font-semibold text-primary flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4" />
+                    Problemas que Resolve
+                  </h3>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>• Comunicação dispersa (email, WhatsApp)</li>
+                    <li>• Clientes sem visibilidade do progresso</li>
+                    <li>• Tempo perdido em tarefas repetitivas</li>
+                  </ul>
+                </div>
+                <div className="space-y-2">
+                  <h3 className="font-semibold text-primary flex items-center gap-2">
+                    <Sparkles className="w-4 h-4" />
+                    Resultado Esperado
+                  </h3>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>• Menos emails, mais tempo para projetar</li>
+                    <li>• Clientes informados e satisfeitos</li>
+                    <li>• Imagem profissional que vende por si</li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
+        <Separator className="my-8" />
+
         {/* Section 0: Value Proposition */}
         <section className="mb-12 print:mb-8">
           <div className="flex items-center gap-3 mb-6">
@@ -109,9 +161,13 @@ export default function Documentation() {
             <h2 className="text-3xl font-bold">Porquê Esta Plataforma?</h2>
           </div>
 
-          {/* Main Value Proposition */}
-          <Card className="mb-6 bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
+          {/* Main Value Proposition - Call Highlight */}
+          <Card className="mb-6 bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20 call-highlight">
             <CardContent className="pt-6 pb-6">
+              <div className="flex items-center gap-2 mb-4">
+                <Mic className="w-4 h-4 text-primary" />
+                <span className="text-xs font-medium text-primary uppercase tracking-wider">Ler na Call</span>
+              </div>
               <h3 className="text-xl font-bold text-center mb-4">Uma Plataforma, Três Benefícios</h3>
               <div className="grid md:grid-cols-3 gap-6 text-center">
                 <div>
@@ -296,9 +352,18 @@ export default function Documentation() {
             <h2 className="text-3xl font-bold">Screenshots Reais da Plataforma</h2>
           </div>
 
-          <p className="text-lg text-muted-foreground mb-6">
-            Imagens reais capturadas diretamente do sistema ARIFA em funcionamento.
-          </p>
+          {/* Authenticity Statement */}
+          <Card className="mb-6 border-green-500/30 bg-green-500/5">
+            <CardContent className="py-4">
+              <div className="flex items-center gap-3">
+                <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                <p className="text-sm font-medium text-green-700">
+                  Todos os screenshots abaixo são do sistema ARIFA real em funcionamento. 
+                  Nenhuma imagem foi gerada por IA ou manipulada.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
 
           {/* Homepage Screenshot */}
           <Card className="mb-6 overflow-hidden">
@@ -413,6 +478,10 @@ export default function Documentation() {
                   <p className="text-muted-foreground text-sm mb-3">
                     O <strong>Portal do Cliente</strong> e o <strong>Painel de Administração</strong> são áreas 
                     privadas protegidas por autenticação segura com MFA opcional.
+                  </p>
+                  <p className="text-xs text-muted-foreground italic mb-4">
+                    Capturas reais destas áreas podem ser disponibilizadas na call de apresentação 
+                    ou mediante pedido, respeitando a privacidade dos dados de clientes existentes.
                   </p>
                   <div className="grid md:grid-cols-2 gap-4 mt-4">
                     <div className="p-3 bg-purple-500/10 rounded-lg">
@@ -632,17 +701,32 @@ export default function Documentation() {
 
         <Separator className="my-8" />
 
-        {/* Section 1: Public Site */}
+        {/* Section 1: Public Site - with mini summary */}
         <section className="mb-12 print:mb-8 print:break-before-page">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2 bg-primary/10 rounded-lg">
               <Globe className="w-6 h-6 text-primary" />
             </div>
             <div>
-              <h2 className="text-3xl font-bold">1. Site Público</h2>
+              <h2 className="text-3xl font-bold">1. Site Público — O seu cartão de visita digital que vende por si</h2>
               <p className="text-muted-foreground mt-1">A sua montra digital — primeira impressão que convence e converte visitantes em clientes</p>
             </div>
           </div>
+
+          {/* Mini Summary */}
+          <Card className="mb-6 bg-gradient-to-r from-blue-500/10 to-blue-600/5 border-blue-500/20">
+            <CardContent className="py-4">
+              <div className="flex items-center gap-2 mb-2">
+                <Sparkles className="w-4 h-4 text-blue-600" />
+                <span className="text-sm font-semibold text-blue-700">Resumo Rápido</span>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <Badge variant="secondary" className="bg-blue-500/10">Portfolio que vende 24/7</Badge>
+                <Badge variant="secondary" className="bg-blue-500/10">SEO otimizado para Google</Badge>
+                <Badge variant="secondary" className="bg-blue-500/10">Segmentação por tipo de cliente</Badge>
+              </div>
+            </CardContent>
+          </Card>
           
           <Card className="mb-6 border-blue-500/20 bg-blue-500/5">
             <CardContent className="pt-4 pb-4">
@@ -728,25 +812,45 @@ export default function Documentation() {
 
         <Separator className="my-8" />
 
-        {/* Section 2: Client Portal */}
+        {/* Section 2: Client Portal - with mini summary */}
         <section className="mb-12 print:mb-8 print:break-before-page">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2 bg-primary/10 rounded-lg">
               <Users className="w-6 h-6 text-primary" />
             </div>
             <div>
-              <h2 className="text-3xl font-bold">2. Portal do Cliente</h2>
+              <h2 className="text-3xl font-bold">2. Portal do Cliente — Menos telefonemas, mais transparência</h2>
               <p className="text-muted-foreground mt-1">Experiência premium que fideliza — clientes informados são clientes satisfeitos</p>
             </div>
           </div>
+
+          {/* Mini Summary */}
+          <Card className="mb-6 bg-gradient-to-r from-purple-500/10 to-purple-600/5 border-purple-500/20">
+            <CardContent className="py-4">
+              <div className="flex items-center gap-2 mb-2">
+                <Sparkles className="w-4 h-4 text-purple-600" />
+                <span className="text-sm font-semibold text-purple-700">Resumo Rápido</span>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <Badge variant="secondary" className="bg-purple-500/10">Menos telefonemas</Badge>
+                <Badge variant="secondary" className="bg-purple-500/10">Transparência total</Badge>
+                <Badge variant="secondary" className="bg-purple-500/10">Clientes sempre informados</Badge>
+              </div>
+            </CardContent>
+          </Card>
           
-          <Card className="mb-6 border-purple-500/20 bg-purple-500/5">
+          {/* Call Highlight */}
+          <Card className="mb-6 border-purple-500/20 bg-purple-500/5 call-highlight">
             <CardContent className="pt-4 pb-4">
+              <div className="flex items-center gap-2 mb-2">
+                <Mic className="w-4 h-4 text-purple-600" />
+                <span className="text-xs font-medium text-purple-600 uppercase tracking-wider">Ler na Call</span>
+              </div>
               <div className="flex items-start gap-3">
                 <Target className="w-5 h-5 text-purple-600 mt-0.5 flex-shrink-0" />
                 <div>
                   <h4 className="font-semibold text-purple-700">Vantagem Competitiva</h4>
-                  <p className="text-sm text-muted-foreground">Portal exclusivo 24/7 onde os clientes acompanham projetos sem precisar de telefonar ou enviar emails. Visualizam plantas 3D, aprovam documentos, e recebem atualizações automáticas por IA. Reduz chamadas em 60%.</p>
+                  <p className="text-sm text-muted-foreground">Portal exclusivo 24/7 onde os clientes acompanham projetos sem precisar de telefonar ou enviar emails. Visualizam plantas 3D, aprovam documentos, e recebem atualizações automáticas por IA. <strong className="text-purple-700">Reduz chamadas em 60%.</strong></p>
                 </div>
               </div>
             </CardContent>
@@ -785,84 +889,57 @@ export default function Documentation() {
                 "Download direto de imagens",
                 "Navegação por teclado",
                 "Gestos touch para mobile",
-                "Barra de thumbnails"
+                "Contador de imagens"
               ]}
             />
             <FeatureCard
-              icon={<Rotate3D className="w-5 h-5" />}
-              title="Preview de Documentos"
+              icon={<Camera className="w-5 h-5" />}
+              title="Galeria de Fotos"
               features={[
-                "Visualização inline de PDFs",
-                "Preview de Word e Excel",
-                "Modelos 3D interativos (GLB/GLTF)",
-                "Controlos: rodar, zoom, pan",
+                "Organização por fase do projeto",
+                "Filtros por milestone",
+                "Metadados (data, descrição)",
+                "Integração com lightbox"
+              ]}
+            />
+            <FeatureCard
+              icon={<FileText className="w-5 h-5" />}
+              title="Documentos"
+              features={[
+                "Navegação em pastas",
+                "Preview inline (PDF, imagens, Office)",
+                "Versionamento de ficheiros",
                 "Download direto"
               ]}
             />
             <FeatureCard
-              icon={<FileText className="w-5 h-5" />}
-              title="Gestão Documental"
-              features={[
-                "Pastas organizadas",
-                "Histórico de versões completo",
-                "Preview inline de ficheiros",
-                "Download direto",
-                "Tipos: PDF, Word, Excel, 3D"
-              ]}
-            />
-            <FeatureCard
               icon={<MessageSquare className="w-5 h-5" />}
-              title="Sistema de Mensagens"
+              title="Mensagens"
               features={[
                 "Chat em tempo real",
-                "Indicador 'está a escrever'",
-                "Anexos em mensagens",
-                "Histórico por projeto",
-                "Notificações instantâneas"
+                "Indicador de digitação",
+                "Anexos de ficheiros",
+                "Histórico por projeto"
               ]}
             />
             <FeatureCard
               icon={<Bot className="w-5 h-5" />}
-              title="AI Features"
+              title="IA Integrada"
               features={[
-                "Weekly Updates automáticos",
-                "Resumos gerados por IA",
-                "Chatbot de suporte 24/7",
-                "Perguntas sobre o projeto",
-                "Powered by Google Gemini"
-              ]}
-            />
-            <FeatureCard
-              icon={<Sparkles className="w-5 h-5" />}
-              title="Onboarding Inteligente"
-              features={[
-                "Tour guiado automático",
-                "Passos interativos com destaque",
-                "Explicação de cada funcionalidade",
-                "Possibilidade de reiniciar tour",
-                "Primeira experiência memorável"
-              ]}
-            />
-            <FeatureCard
-              icon={<TrendingUp className="w-5 h-5" />}
-              title="Orçamento"
-              features={[
-                "Visualização do budget",
-                "Orçamento original vs atual",
-                "Valor gasto",
-                "Change orders",
-                "Aprovação de alterações"
+                "AI Weekly Updates automáticos",
+                "Chatbot para dúvidas",
+                "Resumos inteligentes",
+                "Sugestões proativas"
               ]}
             />
             <FeatureCard
               icon={<FileText className="w-5 h-5" />}
-              title="Contratos"
+              title="Orçamento & Contratos"
               features={[
-                "Visualização de cotações",
-                "Assinatura digital (BoldSign)",
-                "Download de contratos assinados",
-                "Histórico de documentos",
-                "Status em tempo real"
+                "Visualização do orçamento",
+                "Acompanhamento de gastos",
+                "Contratos com assinatura digital",
+                "Alterações de âmbito"
               ]}
             />
           </div>
@@ -870,31 +947,46 @@ export default function Documentation() {
 
         <Separator className="my-8" />
 
-        {/* Section 3: Admin Panel */}
+        {/* Section 3: Admin Panel - with mini summary */}
         <section className="mb-12 print:mb-8 print:break-before-page">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2 bg-primary/10 rounded-lg">
               <Shield className="w-6 h-6 text-primary" />
             </div>
             <div>
-              <h2 className="text-3xl font-bold">3. Painel de Administração</h2>
-              <p className="text-muted-foreground mt-1">Centro de comando — todas as operações do negócio num único lugar</p>
+              <h2 className="text-3xl font-bold">3. Painel Admin — Controlo total do negócio num só lugar</h2>
+              <p className="text-muted-foreground mt-1">O centro de comando — gestão completa de leads, projetos, clientes e conteúdos</p>
             </div>
           </div>
+
+          {/* Mini Summary */}
+          <Card className="mb-6 bg-gradient-to-r from-blue-500/10 to-blue-600/5 border-blue-500/20">
+            <CardContent className="py-4">
+              <div className="flex items-center gap-2 mb-2">
+                <Sparkles className="w-4 h-4 text-blue-600" />
+                <span className="text-sm font-semibold text-blue-700">Resumo Rápido</span>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <Badge variant="secondary" className="bg-blue-500/10">Visão 360° do negócio</Badge>
+                <Badge variant="secondary" className="bg-blue-500/10">CRM visual (Kanban)</Badge>
+                <Badge variant="secondary" className="bg-blue-500/10">Zero tarefas repetitivas</Badge>
+              </div>
+            </CardContent>
+          </Card>
           
-          <Card className="mb-6 border-orange-500/20 bg-orange-500/5">
+          <Card className="mb-6 border-blue-500/20 bg-blue-500/5">
             <CardContent className="pt-4 pb-4">
               <div className="flex items-start gap-3">
-                <Target className="w-5 h-5 text-orange-600 mt-0.5 flex-shrink-0" />
+                <Target className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
                 <div>
-                  <h4 className="font-semibold text-orange-700">Vantagem Competitiva</h4>
-                  <p className="text-sm text-muted-foreground">CRM visual com Kanban drag & drop, scoring automático de leads por IA, e pipeline de cotações com tracking. Sabe exatamente quem contactar, quando, e com que prioridade. Nunca mais perca uma oportunidade de negócio.</p>
+                  <h4 className="font-semibold text-blue-700">Vantagem Competitiva</h4>
+                  <p className="text-sm text-muted-foreground">Dashboard completo com KPIs em tempo real, CRM visual com scoring de leads por IA, sistema de cotações com tracking, e gestão documental hierárquica. Tudo o que precisa para gerir o negócio num único lugar.</p>
                 </div>
               </div>
             </CardContent>
           </Card>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          
+          <div className="grid md:grid-cols-2 gap-4">
             <FeatureCard
               icon={<BarChart3 className="w-5 h-5" />}
               title="Dashboard KPIs"
@@ -999,17 +1091,32 @@ export default function Documentation() {
 
         <Separator className="my-8" />
 
-        {/* Section 4: Security */}
+        {/* Section 4: Security - with mini summary */}
         <section className="mb-12 print:mb-8 print:break-before-page">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2 bg-primary/10 rounded-lg">
               <ShieldCheck className="w-6 h-6 text-primary" />
             </div>
             <div>
-              <h2 className="text-3xl font-bold">4. Segurança & Compliance</h2>
+              <h2 className="text-3xl font-bold">4. Segurança — Clientes confiam, dados protegidos</h2>
               <p className="text-muted-foreground mt-1">Proteção empresarial — dados dos seus clientes protegidos com tecnologia de ponta</p>
             </div>
           </div>
+
+          {/* Mini Summary */}
+          <Card className="mb-6 bg-gradient-to-r from-green-500/10 to-green-600/5 border-green-500/20">
+            <CardContent className="py-4">
+              <div className="flex items-center gap-2 mb-2">
+                <Sparkles className="w-4 h-4 text-green-600" />
+                <span className="text-sm font-semibold text-green-700">Resumo Rápido</span>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <Badge variant="secondary" className="bg-green-500/10">Dados 100% protegidos</Badge>
+                <Badge variant="secondary" className="bg-green-500/10">MFA disponível</Badge>
+                <Badge variant="secondary" className="bg-green-500/10">Rastreabilidade completa</Badge>
+              </div>
+            </CardContent>
+          </Card>
           
           <Card className="mb-6 border-green-500/20 bg-green-500/5">
             <CardContent className="pt-4 pb-4">
@@ -1122,17 +1229,34 @@ export default function Documentation() {
 
         <Separator className="my-8" />
 
-        {/* Section 5: Technical Features */}
+        {/* Section 5: Technical Features - with technical label */}
         <section className="mb-12 print:mb-8 print:break-before-page">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2 bg-primary/10 rounded-lg">
               <Zap className="w-6 h-6 text-primary" />
             </div>
-            <div>
-              <h2 className="text-3xl font-bold">5. Funcionalidades Técnicas</h2>
+            <div className="flex-1">
+              <div className="flex items-center gap-3 flex-wrap">
+                <h2 className="text-3xl font-bold">5. Tecnologia Premium — Impressione clientes, simplifique operações</h2>
+              </div>
               <p className="text-muted-foreground mt-1">Tecnologia de ponta — performance, escalabilidade e experiência premium</p>
             </div>
           </div>
+
+          {/* Mini Summary */}
+          <Card className="mb-6 bg-gradient-to-r from-cyan-500/10 to-cyan-600/5 border-cyan-500/20">
+            <CardContent className="py-4">
+              <div className="flex items-center gap-2 mb-2">
+                <Sparkles className="w-4 h-4 text-cyan-600" />
+                <span className="text-sm font-semibold text-cyan-700">Resumo Rápido</span>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <Badge variant="secondary" className="bg-cyan-500/10">PWA instalável (sem app store)</Badge>
+                <Badge variant="secondary" className="bg-cyan-500/10">Bilingue PT/EN</Badge>
+                <Badge variant="secondary" className="bg-cyan-500/10">16 automações 24/7</Badge>
+              </div>
+            </CardContent>
+          </Card>
           
           <Card className="mb-6 border-cyan-500/20 bg-cyan-500/5">
             <CardContent className="pt-4 pb-4">
@@ -1157,12 +1281,19 @@ export default function Documentation() {
             <TechCard icon={<Database />} title="Realtime" description="Atualizações em tempo real" />
           </div>
 
+          {/* Technical Section Label */}
           <Card className="mt-6">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Zap className="w-5 h-5 text-primary" />
-                Edge Functions (16)
-              </CardTitle>
+              <div className="flex items-center justify-between">
+                <CardTitle className="flex items-center gap-2">
+                  <Zap className="w-5 h-5 text-primary" />
+                  Edge Functions (16)
+                </CardTitle>
+                <Badge variant="outline" className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+                  <Code className="w-3 h-3 mr-1" />
+                  Secção Técnica (referência IT)
+                </Badge>
+              </div>
             </CardHeader>
             <CardContent>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-2 text-sm">
@@ -1195,25 +1326,45 @@ export default function Documentation() {
 
         <Separator className="my-8" />
 
-        {/* Section 6: User Journeys */}
+        {/* Section 6: User Journeys - with mini summary */}
         <section className="mb-12 print:mb-8 print:break-before-page">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2 bg-primary/10 rounded-lg">
               <ArrowRight className="w-6 h-6 text-primary" />
             </div>
             <div>
-              <h2 className="text-3xl font-bold">6. Fluxos de Trabalho</h2>
+              <h2 className="text-3xl font-bold">6. Fluxos Automáticos — Do contacto à entrega sem esforço manual</h2>
               <p className="text-muted-foreground mt-1">Processos automatizados — do primeiro contacto até à entrega do projeto</p>
             </div>
           </div>
+
+          {/* Mini Summary */}
+          <Card className="mb-6 bg-gradient-to-r from-indigo-500/10 to-indigo-600/5 border-indigo-500/20">
+            <CardContent className="py-4">
+              <div className="flex items-center gap-2 mb-2">
+                <Sparkles className="w-4 h-4 text-indigo-600" />
+                <span className="text-sm font-semibold text-indigo-700">Resumo Rápido</span>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <Badge variant="secondary" className="bg-indigo-500/10">Lead automático com AI scoring</Badge>
+                <Badge variant="secondary" className="bg-indigo-500/10">Cotações com tracking</Badge>
+                <Badge variant="secondary" className="bg-indigo-500/10">Convites automáticos</Badge>
+              </div>
+            </CardContent>
+          </Card>
           
-          <Card className="mb-6 border-indigo-500/20 bg-indigo-500/5">
+          {/* Call Highlight */}
+          <Card className="mb-6 border-indigo-500/20 bg-indigo-500/5 call-highlight">
             <CardContent className="pt-4 pb-4">
+              <div className="flex items-center gap-2 mb-2">
+                <Mic className="w-4 h-4 text-indigo-600" />
+                <span className="text-xs font-medium text-indigo-600 uppercase tracking-wider">Ler na Call</span>
+              </div>
               <div className="flex items-start gap-3">
                 <Target className="w-5 h-5 text-indigo-600 mt-0.5 flex-shrink-0" />
                 <div>
                   <h4 className="font-semibold text-indigo-700">Vantagem Competitiva</h4>
-                  <p className="text-sm text-muted-foreground">Fluxos ponta-a-ponta automatizados: leads recebem scoring automático por IA, cotações são enviadas com tracking, contratos são assinados digitalmente, e clientes recebem convite automático para o portal. Zero tarefas manuais repetitivas.</p>
+                  <p className="text-sm text-muted-foreground">Fluxos ponta-a-ponta automatizados: leads recebem scoring automático por IA, cotações são enviadas com tracking, contratos são assinados digitalmente, e clientes recebem convite automático para o portal. <strong className="text-indigo-700">Zero tarefas manuais repetitivas.</strong></p>
                 </div>
               </div>
             </CardContent>
@@ -1226,29 +1377,29 @@ export default function Documentation() {
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap items-center gap-2 text-sm">
-                <FlowStep label="Visitante" />
+                <FlowStep label="Visitante" implemented />
                 <ArrowRight className="w-4 h-4 text-muted-foreground" />
-                <FlowStep label="Formulário Contacto" />
+                <FlowStep label="Formulário Contacto" implemented />
                 <ArrowRight className="w-4 h-4 text-muted-foreground" />
-                <FlowStep label="Lead Criado" highlight />
+                <FlowStep label="Lead Criado" highlight implemented />
                 <ArrowRight className="w-4 h-4 text-muted-foreground" />
-                <FlowStep label="AI Lead Scoring" />
+                <FlowStep label="AI Lead Scoring" implemented />
                 <ArrowRight className="w-4 h-4 text-muted-foreground" />
-                <FlowStep label="Kanban CRM" />
+                <FlowStep label="Kanban CRM" implemented />
                 <ArrowRight className="w-4 h-4 text-muted-foreground" />
-                <FlowStep label="Criar Cotação" />
+                <FlowStep label="Criar Cotação" implemented />
                 <ArrowRight className="w-4 h-4 text-muted-foreground" />
-                <FlowStep label="Enviar Cotação" />
+                <FlowStep label="Enviar Cotação" implemented />
                 <ArrowRight className="w-4 h-4 text-muted-foreground" />
-                <FlowStep label="Cliente Aceita?" highlight />
+                <FlowStep label="Cliente Aceita?" highlight implemented />
                 <ArrowRight className="w-4 h-4 text-muted-foreground" />
-                <FlowStep label="Criar Contrato" />
+                <FlowStep label="Criar Contrato" implemented />
                 <ArrowRight className="w-4 h-4 text-muted-foreground" />
-                <FlowStep label="Assinatura Digital" />
+                <FlowStep label="Assinatura Digital" implemented />
                 <ArrowRight className="w-4 h-4 text-muted-foreground" />
-                <FlowStep label="Enviar Convite" />
+                <FlowStep label="Enviar Convite" implemented />
                 <ArrowRight className="w-4 h-4 text-muted-foreground" />
-                <FlowStep label="Cliente Registado" highlight />
+                <FlowStep label="Cliente Registado" highlight implemented />
               </div>
             </CardContent>
           </Card>
@@ -1261,36 +1412,39 @@ export default function Documentation() {
             <CardContent>
               <div className="space-y-4">
                 <div className="flex flex-wrap items-center gap-2 text-sm">
-                  <FlowStep label="Projeto Criado" highlight />
+                  <FlowStep label="Projeto Criado" highlight implemented />
                   <ArrowRight className="w-4 h-4 text-muted-foreground" />
-                  <FlowStep label="1. Preparação" />
+                  <FlowStep label="1. Preparação" implemented />
                   <ArrowRight className="w-4 h-4 text-muted-foreground" />
-                  <FlowStep label="2. Conceito" />
+                  <FlowStep label="2. Conceito" implemented />
                   <ArrowRight className="w-4 h-4 text-muted-foreground" />
-                  <FlowStep label="3. Coordenação" />
+                  <FlowStep label="3. Coordenação" implemented />
                   <ArrowRight className="w-4 h-4 text-muted-foreground" />
-                  <FlowStep label="4. Técnico" />
+                  <FlowStep label="4. Técnico" implemented />
                   <ArrowRight className="w-4 h-4 text-muted-foreground" />
-                  <FlowStep label="5. Construção" />
+                  <FlowStep label="5. Construção" implemented />
                   <ArrowRight className="w-4 h-4 text-muted-foreground" />
-                  <FlowStep label="6. Entrega" />
+                  <FlowStep label="6. Entrega" implemented />
                   <ArrowRight className="w-4 h-4 text-muted-foreground" />
-                  <FlowStep label="7. Em Uso" highlight />
+                  <FlowStep label="7. Em Uso" highlight implemented />
                 </div>
                 
                 <div className="flex justify-center">
                   <ArrowDown className="w-6 h-6 text-muted-foreground" />
                 </div>
-                
-                <div className="bg-muted/50 rounded-lg p-4">
-                  <h4 className="font-semibold mb-3 text-center">Portal do Cliente</h4>
-                  <div className="flex flex-wrap justify-center gap-2">
-                    <Badge variant="outline">Dashboard</Badge>
-                    <Badge variant="outline">Timeline Visual</Badge>
-                    <Badge variant="outline">Galeria Fotos</Badge>
-                    <Badge variant="outline">Documentos</Badge>
-                    <Badge variant="outline">Mensagens</Badge>
-                    <Badge variant="outline">AI Updates</Badge>
+
+                <div className="grid md:grid-cols-3 gap-4 text-center">
+                  <div className="p-3 rounded-lg bg-muted/30">
+                    <p className="font-medium mb-1">Em cada fase:</p>
+                    <p className="text-sm text-muted-foreground">Milestones + Fotos + Documentos</p>
+                  </div>
+                  <div className="p-3 rounded-lg bg-muted/30">
+                    <p className="font-medium mb-1">Cliente vê:</p>
+                    <p className="text-sm text-muted-foreground">Timeline + Progresso + Notificações</p>
+                  </div>
+                  <div className="p-3 rounded-lg bg-muted/30">
+                    <p className="font-medium mb-1">Admin gere:</p>
+                    <p className="text-sm text-muted-foreground">Kanban + Orçamento + Comunicação</p>
                   </div>
                 </div>
               </div>
@@ -1300,93 +1454,53 @@ export default function Documentation() {
           {/* Quote Flow */}
           <Card className="mb-6">
             <CardHeader>
-              <CardTitle>Fluxo: Sistema de Cotações</CardTitle>
+              <CardTitle>Fluxo: Cotações & Contratos</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid md:grid-cols-4 gap-4 text-sm">
-                <div className="space-y-2">
-                  <h4 className="font-semibold flex items-center gap-2">
-                    <Shield className="w-4 h-4 text-primary" />
-                    Admin
-                  </h4>
-                  <div className="space-y-1 pl-6">
-                    <p className="text-muted-foreground">1. Criar Cotação</p>
-                    <p className="text-muted-foreground">2. Adicionar Itens</p>
-                    <p className="text-muted-foreground">3. Gerar PDF</p>
-                    <p className="text-muted-foreground">4. Enviar Cotação</p>
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <h4 className="font-semibold flex items-center gap-2">
-                    <Cloud className="w-4 h-4 text-primary" />
-                    Sistema
-                  </h4>
-                  <div className="space-y-1 pl-6">
-                    <p className="text-muted-foreground">5. Email com Link</p>
-                    <p className="text-muted-foreground">6. Tracking Visualização</p>
-                    <p className="text-muted-foreground">7. Notificar Admin</p>
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <h4 className="font-semibold flex items-center gap-2">
-                    <Users className="w-4 h-4 text-primary" />
-                    Cliente
-                  </h4>
-                  <div className="space-y-1 pl-6">
-                    <p className="text-muted-foreground">8. Visualizar Cotação</p>
-                    <p className="text-muted-foreground">9. Aceitar/Rejeitar</p>
-                    <p className="text-muted-foreground">10. Assinar Digitalmente</p>
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <h4 className="font-semibold flex items-center gap-2">
-                    <FileText className="w-4 h-4 text-primary" />
-                    BoldSign
-                  </h4>
-                  <div className="space-y-1 pl-6">
-                    <p className="text-muted-foreground">11. Criar Contrato</p>
-                    <p className="text-muted-foreground">12. Link Assinatura</p>
-                    <p className="text-muted-foreground">13. Webhook Assinado</p>
-                  </div>
-                </div>
+              <div className="flex flex-wrap items-center gap-2 text-sm">
+                <FlowStep label="Lead/Cliente" implemented />
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <FlowStep label="Criar Cotação" implemented />
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <FlowStep label="Adicionar Items" implemented />
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <FlowStep label="Gerar PDF" implemented />
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <FlowStep label="Enviar Email" implemented />
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <FlowStep label="Track Abertura" highlight implemented />
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <FlowStep label="Aceitar/Rejeitar" implemented />
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <FlowStep label="Criar Contrato" implemented />
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <FlowStep label="Assinatura Digital" highlight implemented />
               </div>
             </CardContent>
           </Card>
 
-          {/* Architecture */}
+          {/* Client Invitation Flow */}
           <Card>
             <CardHeader>
-              <CardTitle>Arquitetura do Sistema</CardTitle>
+              <CardTitle>Fluxo: Convite de Cliente</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="space-y-3">
-                  <h4 className="font-semibold text-center bg-primary/10 rounded-lg py-2">Frontend</h4>
-                  <div className="space-y-2">
-                    <Badge variant="outline" className="w-full justify-center">React + Vite</Badge>
-                    <Badge variant="outline" className="w-full justify-center">Tailwind + shadcn/ui</Badge>
-                    <Badge variant="outline" className="w-full justify-center">React Query</Badge>
-                    <Badge variant="outline" className="w-full justify-center">Framer Motion</Badge>
-                  </div>
-                </div>
-                <div className="space-y-3">
-                  <h4 className="font-semibold text-center bg-primary/10 rounded-lg py-2">Cloud Backend</h4>
-                  <div className="space-y-2">
-                    <Badge variant="outline" className="w-full justify-center">PostgreSQL</Badge>
-                    <Badge variant="outline" className="w-full justify-center">Auth</Badge>
-                    <Badge variant="outline" className="w-full justify-center">Storage</Badge>
-                    <Badge variant="outline" className="w-full justify-center">Edge Functions</Badge>
-                    <Badge variant="outline" className="w-full justify-center">Realtime</Badge>
-                  </div>
-                </div>
-                <div className="space-y-3">
-                  <h4 className="font-semibold text-center bg-primary/10 rounded-lg py-2">Integrações</h4>
-                  <div className="space-y-2">
-                    <Badge variant="outline" className="w-full justify-center">BoldSign (Contratos)</Badge>
-                    <Badge variant="outline" className="w-full justify-center">Resend (Email)</Badge>
-                    <Badge variant="outline" className="w-full justify-center">Google Gemini AI</Badge>
-                  </div>
-                </div>
+              <div className="flex flex-wrap items-center gap-2 text-sm">
+                <FlowStep label="Admin" implemented />
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <FlowStep label="Enviar Convite" implemented />
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <FlowStep label="Email Enviado" implemented />
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <FlowStep label="Token Validado" implemented />
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <FlowStep label="Registo Conta" highlight implemented />
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <FlowStep label="Setup MFA" implemented />
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <FlowStep label="Tour Guiado" implemented />
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                <FlowStep label="Portal Activo" highlight implemented />
               </div>
             </CardContent>
           </Card>
@@ -1394,14 +1508,20 @@ export default function Documentation() {
 
         <Separator className="my-8" />
 
-        {/* Section 7: Database Schema */}
+        {/* Section 7: Database - Technical Section */}
         <section className="mb-12 print:mb-8 print:break-before-page">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2 bg-primary/10 rounded-lg">
               <Database className="w-6 h-6 text-primary" />
             </div>
-            <div>
-              <h2 className="text-3xl font-bold">7. Estrutura de Dados</h2>
+            <div className="flex-1">
+              <div className="flex items-center gap-3 flex-wrap">
+                <h2 className="text-3xl font-bold">7. Estrutura de Dados</h2>
+                <Badge variant="outline" className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+                  <Code className="w-3 h-3 mr-1" />
+                  Secção Técnica (referência IT)
+                </Badge>
+              </div>
               <p className="text-muted-foreground mt-1">Base sólida — arquitectura preparada para crescer com o seu negócio</p>
             </div>
           </div>
@@ -1521,9 +1641,31 @@ export default function Documentation() {
             Comparação do custo de implementação da plataforma ARIFA vs aquisição de soluções independentes no mercado.
           </p>
 
-          {/* Savings Highlight */}
-          <Card className="mb-8 bg-gradient-to-br from-green-500/10 to-green-600/20 border-green-500/30">
+          {/* Executive Summary - Call Highlight */}
+          <Card className="mb-6 bg-gradient-to-br from-blue-500/10 to-blue-600/20 border-blue-500/30 call-highlight">
             <CardContent className="pt-6 pb-6">
+              <div className="flex items-center gap-2 mb-4">
+                <Mic className="w-4 h-4 text-blue-600" />
+                <span className="text-xs font-medium text-blue-600 uppercase tracking-wider">Ler na Call</span>
+              </div>
+              <div className="text-center">
+                <h3 className="text-xl font-bold mb-3">Resumo Executivo</h3>
+                <p className="text-lg max-w-2xl mx-auto">
+                  No mercado, pagarias aproximadamente <strong className="text-red-600">€20.364/ano</strong> por soluções dispersas 
+                  e menos integradas. Com a ARIFA, investes <strong className="text-green-600">€4.888 uma única vez</strong> e ficas 
+                  com tudo à medida do teu estúdio. <strong>Sem subscrições mensais, sem surpresas.</strong>
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Savings Highlight - Call Highlight */}
+          <Card className="mb-8 bg-gradient-to-br from-green-500/10 to-green-600/20 border-green-500/30 call-highlight">
+            <CardContent className="pt-6 pb-6">
+              <div className="flex items-center gap-2 mb-4 justify-center">
+                <Mic className="w-4 h-4 text-green-600" />
+                <span className="text-xs font-medium text-green-600 uppercase tracking-wider">Ler na Call</span>
+              </div>
               <div className="grid md:grid-cols-3 gap-6 items-center text-center">
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">Custo de Mercado</p>
@@ -1668,6 +1810,68 @@ export default function Documentation() {
               <p className="text-xs text-muted-foreground mt-4">
                 * Preços de mercado pesquisados em Janeiro 2026. Valores podem variar consoante planos e promoções.
               </p>
+            </CardContent>
+          </Card>
+
+          {/* Included vs Out of Scope */}
+          <Card className="mb-8 border-2 border-dashed">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <FileText className="w-5 h-5" />
+                Incluído vs Fora de Escopo
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-semibold text-green-700 flex items-center gap-2 mb-4">
+                    <CheckCircle className="w-5 h-5" />
+                    Incluído Neste Projeto
+                  </h4>
+                  <ul className="space-y-2 text-sm">
+                    {[
+                      "Site público completo",
+                      "Portal cliente completo",
+                      "Painel admin completo",
+                      "CRM com Kanban",
+                      "16 automações edge functions",
+                      "IA integrada (BYOK)",
+                      "PWA mobile instalável",
+                      "Segurança MFA",
+                      "Bilingue PT/EN",
+                      "60 dias bug-fix pós-lançamento"
+                    ].map((item) => (
+                      <li key={item} className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-red-700 flex items-center gap-2 mb-4">
+                    <X className="w-5 h-5" />
+                    Fora de Escopo / Extra
+                  </h4>
+                  <ul className="space-y-2 text-sm">
+                    {[
+                      "Conteúdos editoriais (textos adicionais)",
+                      "Fotografia profissional de projetos",
+                      "Sessões de formação adicionais",
+                      "Manutenção mensal (opcional €150-250/mês)",
+                      "Novas línguas além de PT/EN",
+                      "Integração com softwares externos",
+                      "Desenvolvimento de novas funcionalidades",
+                      "Suporte após 60 dias bug-fix"
+                    ].map((item) => (
+                      <li key={item} className="flex items-center gap-2">
+                        <X className="w-4 h-4 text-red-500 flex-shrink-0" />
+                        <span className="text-muted-foreground">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </CardContent>
           </Card>
 
@@ -1847,7 +2051,7 @@ export default function Documentation() {
         </footer>
       </div>
 
-      {/* Print Styles */}
+      {/* Print Styles + Call Highlight Styles */}
       <style>{`
         @media print {
           body { 
@@ -1860,6 +2064,11 @@ export default function Documentation() {
             margin: 1cm; 
             size: A4;
           }
+        }
+        
+        .call-highlight {
+          position: relative;
+          border-left: 4px solid hsl(var(--primary));
         }
       `}</style>
     </div>
@@ -1921,11 +2130,16 @@ function TechCard({
   );
 }
 
-// Flow Step Component
-function FlowStep({ label, highlight = false }: { label: string; highlight?: boolean }) {
+// Flow Step Component with implemented badge
+function FlowStep({ label, highlight = false, implemented = false }: { label: string; highlight?: boolean; implemented?: boolean }) {
   return (
-    <Badge variant={highlight ? "default" : "outline"} className="whitespace-nowrap">
-      {label}
-    </Badge>
+    <div className="flex items-center gap-1">
+      <Badge variant={highlight ? "default" : "outline"} className="whitespace-nowrap">
+        {label}
+      </Badge>
+      {implemented && (
+        <CheckCircle className="w-3 h-3 text-green-500" />
+      )}
+    </div>
   );
 }
