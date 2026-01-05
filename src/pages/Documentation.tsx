@@ -52,6 +52,9 @@ import {
   Cpu
 } from "lucide-react";
 import arifaLogo from "@/assets/arifa-logo.png";
+import comparisonWorkflow from "@/assets/comparison-workflow.png";
+import portalMockup from "@/assets/portal-mockup.png";
+import adminMockup from "@/assets/admin-mockup.png";
 
 export default function Documentation() {
   const printRef = useRef<HTMLDivElement>(null);
@@ -278,6 +281,114 @@ export default function Documentation() {
                   Visão 360° do negócio: leads, projetos, documentos, pagamentos
                 </p>
               </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        <Separator className="my-8" />
+
+        {/* Screenshots Comparativos Section */}
+        <section className="mb-12 print:mb-8">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2 bg-primary/10 rounded-lg">
+              <Camera className="w-6 h-6 text-primary" />
+            </div>
+            <h2 className="text-3xl font-bold">Comparativo Visual</h2>
+          </div>
+
+          <p className="text-lg text-muted-foreground mb-6">
+            Veja a diferença entre a gestão tradicional de projetos e a experiência digital premium que a ARIFA oferece.
+          </p>
+
+          {/* Main Comparison Image */}
+          <Card className="mb-8 overflow-hidden">
+            <CardHeader className="bg-gradient-to-r from-red-500/10 to-green-500/10">
+              <CardTitle className="flex items-center gap-2">
+                <Eye className="w-5 h-5" />
+                Antes vs Depois: A Transformação Digital
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-0">
+              <img 
+                src={comparisonWorkflow} 
+                alt="Comparação entre workflow tradicional e plataforma ARIFA" 
+                className="w-full h-auto"
+              />
+            </CardContent>
+          </Card>
+
+          {/* Portal & Admin Mockups */}
+          <div className="grid md:grid-cols-2 gap-6">
+            <Card className="overflow-hidden">
+              <CardHeader className="bg-purple-500/10">
+                <CardTitle className="flex items-center gap-2 text-purple-700">
+                  <Users className="w-5 h-5" />
+                  Portal do Cliente
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                <img 
+                  src={portalMockup} 
+                  alt="Mockup do Portal do Cliente ARIFA" 
+                  className="w-full h-auto"
+                />
+              </CardContent>
+              <div className="p-4 bg-muted/30">
+                <ul className="space-y-1 text-sm">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-500" />
+                    <span>Timeline visual do projeto</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-500" />
+                    <span>Galeria de fotos por fase</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-500" />
+                    <span>Documentos organizados</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-500" />
+                    <span>Chat em tempo real</span>
+                  </li>
+                </ul>
+              </div>
+            </Card>
+
+            <Card className="overflow-hidden">
+              <CardHeader className="bg-blue-500/10">
+                <CardTitle className="flex items-center gap-2 text-blue-700">
+                  <Shield className="w-5 h-5" />
+                  Painel de Administração
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                <img 
+                  src={adminMockup} 
+                  alt="Mockup do Painel Admin ARIFA" 
+                  className="w-full h-auto"
+                />
+              </CardContent>
+              <div className="p-4 bg-muted/30">
+                <ul className="space-y-1 text-sm">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-500" />
+                    <span>CRM com Kanban de leads</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-500" />
+                    <span>KPIs e métricas em tempo real</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-500" />
+                    <span>Funil de conversão visual</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-500" />
+                    <span>Gestão completa de projetos</span>
+                  </li>
+                </ul>
+              </div>
             </Card>
           </div>
         </section>
