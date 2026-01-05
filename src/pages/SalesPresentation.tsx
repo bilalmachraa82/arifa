@@ -22,14 +22,26 @@ import {
   Calendar,
   Rocket,
   Phone,
-  CheckCircle2
+  CheckCircle2,
+  X,
+  Puzzle,
+  TrendingUp
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
+// ============================================
+// ASSINATURA GLOBAL
+// ============================================
+const GlobalSignature = () => (
+  <div className="absolute bottom-3 right-4 text-xs text-slate-400">
+    AiParaTi | Plataforma ARIFA | Design: Helder Faria
+  </div>
+);
 
 const SalesPresentation = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const totalSlides = 11;
+  const totalSlides = 12; // Atualizado de 11 para 12
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => Math.min(prev + 1, totalSlides - 1));
@@ -101,13 +113,14 @@ const SalesPresentation = () => {
               {currentSlide === 1 && <SlideProblem />}
               {currentSlide === 2 && <SlideSolution />}
               {currentSlide === 3 && <SlideTransformation />}
-              {currentSlide === 4 && <SlidePublicSite />}
-              {currentSlide === 5 && <SlideClientPortal />}
-              {currentSlide === 6 && <SlideAdminDashboard />}
-              {currentSlide === 7 && <SlideAutomations />}
-              {currentSlide === 8 && <SlideValue />}
-              {currentSlide === 9 && <SlideTerms />}
-              {currentSlide === 10 && <SlideNextSteps />}
+              {currentSlide === 4 && <SlideComparison />}
+              {currentSlide === 5 && <SlidePublicSite />}
+              {currentSlide === 6 && <SlideClientPortal />}
+              {currentSlide === 7 && <SlideAdminDashboard />}
+              {currentSlide === 8 && <SlideAutomations />}
+              {currentSlide === 9 && <SlideValue />}
+              {currentSlide === 10 && <SlideTerms />}
+              {currentSlide === 11 && <SlideNextSteps />}
             </motion.div>
           </AnimatePresence>
         </div>
@@ -173,7 +186,7 @@ const SalesPresentation = () => {
 };
 
 // ============================================
-// SLIDE 1: CAPA
+// SLIDE 1: CAPA (com marca AiParaTi)
 // ============================================
 const SlideCover = () => (
   <div className="h-full flex flex-col items-center justify-center bg-gradient-to-br from-white via-slate-50 to-blue-50 p-12 relative overflow-hidden">
@@ -188,6 +201,14 @@ const SlideCover = () => (
       <div className="absolute bottom-32 left-32 w-48 h-0.5 bg-[#3D7081] -rotate-45" />
     </div>
 
+    {/* AiParaTi Badge - Topo esquerdo */}
+    <div className="absolute top-6 left-6 flex items-center gap-2">
+      <div className="w-8 h-8 rounded-lg bg-[#1e3a5f] flex items-center justify-center">
+        <span className="text-white font-bold text-xs">Ai</span>
+      </div>
+      <span className="text-sm font-medium text-slate-500">AiParaTi</span>
+    </div>
+
     {/* Content */}
     <div className="text-center z-10">
       <div className="mb-8">
@@ -198,64 +219,103 @@ const SlideCover = () => (
       <h1 className="text-5xl md:text-6xl font-light text-[#1e3a5f] mb-4 tracking-tight">
         Plataforma Digital <span className="font-semibold">ARIFA</span>
       </h1>
-      <p className="text-xl md:text-2xl text-slate-500 font-light mt-6">
-        Transformar o teu estúdio em 6-8 semanas
+      <p className="text-2xl text-slate-600 font-light mt-2">
+        Para o teu estúdio de arquitetura
       </p>
-      <div className="mt-12 flex items-center justify-center gap-2 text-sm text-slate-400">
-        <span>Use as setas ←→ para navegar</span>
-        <span className="mx-2">•</span>
-        <span>F para fullscreen</span>
+      <p className="text-xl text-slate-500 font-light mt-4">
+        Transformar em 6-8 semanas
+      </p>
+      
+      {/* Rodapé com créditos */}
+      <div className="mt-12 flex flex-col items-center gap-2">
+        <div className="flex items-center justify-center gap-2 text-sm text-slate-400">
+          <span>Use as setas ←→ para navegar</span>
+          <span className="mx-2">•</span>
+          <span>F para fullscreen</span>
+        </div>
+        <p className="text-xs text-slate-400 mt-4">
+          Proposição por <span className="font-medium text-[#1e3a5f]">AiParaTi</span> | Design por <span className="font-medium text-[#1e3a5f]">Helder Faria</span>
+        </p>
       </div>
     </div>
+    
+    <GlobalSignature />
   </div>
 );
 
 // ============================================
-// SLIDE 2: O PROBLEMA
+// SLIDE 2: O PROBLEMA (reorganizado em blocos)
 // ============================================
 const SlideProblem = () => {
-  const problems = [
-    { icon: Mail, text: "Demasiados emails e WhatsApps com clientes" },
-    { icon: FolderOpen, text: "Projetos espalhados por email, drives e cadernos" },
-    { icon: Users, text: "Difícil mostrar trabalho anterior e prova social" },
-    { icon: Clock, text: "Muito tempo a fazer follow-ups manuais" },
-    { icon: Euro, text: "Não consegues demonstrar claramente o valor do teu trabalho" },
-    { icon: FileText, text: "Processo de briefing desorganizado" },
+  const problemBlocks = [
+    {
+      title: "COMUNICAÇÃO",
+      items: [
+        { icon: Mail, text: "Demasiados emails e WhatsApps com clientes" },
+        { icon: FolderOpen, text: "Projetos espalhados por email, drives e cadernos" },
+      ]
+    },
+    {
+      title: "GESTÃO",
+      items: [
+        { icon: FileText, text: "Processo de briefing desorganizado" },
+        { icon: Clock, text: "Muito tempo a fazer follow-ups manuais" },
+      ]
+    },
+    {
+      title: "NEGÓCIO",
+      items: [
+        { icon: Users, text: "Difícil mostrar trabalho anterior e prova social" },
+        { icon: Euro, text: "Não consegues demonstrar claramente o valor do teu trabalho" },
+      ]
+    },
   ];
 
   return (
-    <div className="h-full flex flex-col bg-white p-12">
-      <div className="mb-8">
+    <div className="h-full flex flex-col bg-white p-12 relative">
+      <div className="mb-6">
         <span className="text-sm font-medium text-[#3D7081] uppercase tracking-wider">Teresa, sabemos que...</span>
         <h2 className="text-4xl font-light text-[#1e3a5f] mt-2">Onde estás hoje</h2>
+        <p className="text-slate-500 mt-3 text-sm italic">
+          A AiParaTi viu isto dezenas de vezes em estúdios como o teu. Não estás sozinha nestes desafios:
+        </p>
       </div>
       
-      <div className="flex-1 grid grid-cols-2 gap-6 content-center">
-        {problems.map((problem, i) => (
+      <div className="flex-1 grid grid-cols-3 gap-6 content-center">
+        {problemBlocks.map((block, blockIndex) => (
           <motion.div
-            key={i}
+            key={blockIndex}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.1 }}
-            className="flex items-start gap-4 p-5 rounded-lg bg-slate-50 border border-slate-100"
+            transition={{ delay: blockIndex * 0.15 }}
+            className="bg-slate-50 rounded-xl p-5 border border-slate-100"
           >
-            <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0">
-              <problem.icon className="w-5 h-5 text-red-400" />
+            <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">{block.title}</h3>
+            <div className="space-y-4">
+              {block.items.map((item, i) => (
+                <div key={i} className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0">
+                    <item.icon className="w-4 h-4 text-red-400" />
+                  </div>
+                  <p className="text-slate-600 text-sm leading-relaxed">{item.text}</p>
+                </div>
+              ))}
             </div>
-            <p className="text-slate-600 text-lg leading-relaxed">{problem.text}</p>
           </motion.div>
         ))}
       </div>
 
-      <p className="text-center text-slate-400 text-sm mt-6">
+      <p className="text-center text-slate-400 text-sm mt-4">
         Isto é comum no teu setor. Mas não tem de ser assim.
       </p>
+      
+      <GlobalSignature />
     </div>
   );
 };
 
 // ============================================
-// SLIDE 3: A SOLUÇÃO
+// SLIDE 3: A SOLUÇÃO (com assinatura AiParaTi)
 // ============================================
 const SlideSolution = () => {
   const solutions = [
@@ -267,10 +327,10 @@ const SlideSolution = () => {
   ];
 
   return (
-    <div className="h-full flex flex-col bg-white p-12">
-      <div className="mb-8">
+    <div className="h-full flex flex-col bg-white p-12 relative">
+      <div className="mb-6">
         <span className="text-sm font-medium text-[#3D7081] uppercase tracking-wider">A solução</span>
-        <h2 className="text-4xl font-light text-[#1e3a5f] mt-2">O que tu vais ter</h2>
+        <h2 className="text-4xl font-light text-[#1e3a5f] mt-2">O que tu vais ter <span className="text-lg text-slate-400">(entregue por AiParaTi)</span></h2>
       </div>
 
       <div className="flex-1 flex items-center justify-center">
@@ -292,6 +352,15 @@ const SlideSolution = () => {
           ))}
         </div>
       </div>
+
+      {/* Rodapé com créditos */}
+      <div className="mt-6 text-center">
+        <p className="text-xs text-slate-400">
+          Tudo isto desenvolvido, integrado e entregue por <span className="font-medium text-[#1e3a5f]">AiParaTi</span> com design visual por <span className="font-medium text-[#1e3a5f]">Helder Faria</span>
+        </p>
+      </div>
+      
+      <GlobalSignature />
     </div>
   );
 };
@@ -309,7 +378,7 @@ const SlideTransformation = () => {
   ];
 
   return (
-    <div className="h-full flex flex-col bg-white p-12">
+    <div className="h-full flex flex-col bg-white p-12 relative">
       <div className="mb-8">
         <span className="text-sm font-medium text-[#3D7081] uppercase tracking-wider">A transformação</span>
         <h2 className="text-4xl font-light text-[#1e3a5f] mt-2">O que muda para ti</h2>
@@ -334,12 +403,135 @@ const SlideTransformation = () => {
           </motion.div>
         ))}
       </div>
+      
+      <GlobalSignature />
     </div>
   );
 };
 
 // ============================================
-// SLIDE 5: SITE PÚBLICO
+// SLIDE 5: NOVO - COMPARAÇÃO MERCADO vs ARIFA
+// ============================================
+const SlideComparison = () => {
+  const traditionalTools = [
+    { name: "Squarespace (site)", cost: "300 €", period: "/ano" },
+    { name: "Pipedrive (CRM)", cost: "2.880 €", period: "/ano" },
+    { name: "Notion (gestão)", cost: "300 €", period: "/ano" },
+    { name: "Mailchimp (email)", cost: "600 €", period: "/ano" },
+    { name: "Figma (design collab)", cost: "200 €", period: "/ano" },
+    { name: "Armazenamento", cost: "300 €", period: "/ano" },
+  ];
+
+  const arifaBenefits = [
+    "Tudo integrado em 1 plataforma",
+    "100% à medida do teu estúdio",
+    "Sem subscrições mensais contínuas",
+    "Suporte direto com AiParaTi",
+  ];
+
+  return (
+    <div className="h-full flex flex-col bg-white p-12 relative">
+      <div className="mb-6">
+        <span className="text-sm font-medium text-[#3D7081] uppercase tracking-wider">Comparação</span>
+        <h2 className="text-3xl font-light text-[#1e3a5f] mt-2">Outras soluções vs. Solução integrada</h2>
+      </div>
+
+      <div className="flex-1 grid grid-cols-2 gap-8">
+        {/* Coluna esquerda: Ferramentas separadas */}
+        <motion.div 
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="flex flex-col"
+        >
+          <h3 className="text-sm font-semibold text-red-600 uppercase tracking-wider mb-4 flex items-center gap-2">
+            <X className="w-4 h-4" /> Abordagem Tradicional
+          </h3>
+          <div className="bg-red-50 rounded-xl p-5 flex-1 border border-red-100">
+            <div className="space-y-2">
+              {traditionalTools.map((tool, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                  className="flex justify-between items-center py-2 px-3 bg-white rounded"
+                >
+                  <span className="text-slate-600 text-sm flex items-center gap-2">
+                    <X className="w-3 h-3 text-red-400" />
+                    {tool.name}
+                  </span>
+                  <span className="text-red-600 text-sm font-medium">{tool.cost}{tool.period}</span>
+                </motion.div>
+              ))}
+            </div>
+            <div className="mt-4 pt-4 border-t border-red-200">
+              <div className="flex justify-between items-center">
+                <span className="font-semibold text-red-700">TOTAL/ANO</span>
+                <span className="font-bold text-red-700 text-xl">~4.580 €</span>
+              </div>
+              <p className="text-xs text-red-500 mt-2">+ tempo a integrar tudo manualmente</p>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Coluna direita: ARIFA */}
+        <motion.div 
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.2 }}
+          className="flex flex-col"
+        >
+          <h3 className="text-sm font-semibold text-green-600 uppercase tracking-wider mb-4 flex items-center gap-2">
+            <Check className="w-4 h-4" /> Solução ARIFA (por AiParaTi)
+          </h3>
+          <div className="bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] rounded-xl p-5 flex-1 text-white">
+            <div className="space-y-3 mb-6">
+              {arifaBenefits.map((benefit, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: 10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3 + i * 0.05 }}
+                  className="flex items-center gap-3 py-2"
+                >
+                  <CheckCircle2 className="w-5 h-5 text-green-300 flex-shrink-0" />
+                  <span className="text-blue-100">{benefit}</span>
+                </motion.div>
+              ))}
+            </div>
+            <div className="pt-4 border-t border-white/20">
+              <span className="text-blue-200 text-sm">Investimento único</span>
+              <p className="text-4xl font-bold mt-1">4.888 €</p>
+              <div className="mt-4 flex items-center gap-2">
+                <TrendingUp className="w-5 h-5 text-green-300" />
+                <span className="text-green-300 font-medium">Poupança: ~15.000 € em 3 anos</span>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Destaque de integração */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+        className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-100 flex items-center gap-4"
+      >
+        <Puzzle className="w-8 h-8 text-[#1e3a5f]" />
+        <p className="text-[#1e3a5f] text-sm">
+          <span className="font-semibold">A grande diferença?</span> Tudo funciona junto. Sem ferramentas soltas, sem dados espalhados. 
+          Isto é o que a <span className="font-semibold">AiParaTi</span> traz: integração + customização.
+        </p>
+      </motion.div>
+      
+      <GlobalSignature />
+    </div>
+  );
+};
+
+// ============================================
+// SLIDE 6: SITE PÚBLICO (renumerado de 5)
 // ============================================
 const SlidePublicSite = () => {
   const features = [
@@ -351,17 +543,21 @@ const SlidePublicSite = () => {
   ];
 
   return (
-    <div className="h-full flex flex-col bg-white p-12">
-      <div className="flex items-center gap-4 mb-8">
+    <div className="h-full flex flex-col bg-white p-12 relative">
+      <div className="flex items-center gap-4 mb-6">
         <div className="w-12 h-12 rounded-full bg-[#1e3a5f] flex items-center justify-center">
           <Globe className="w-6 h-6 text-white" />
         </div>
-        <div>
+        <div className="flex-1">
           <span className="text-sm font-medium text-[#3D7081] uppercase tracking-wider">Funcionalidade 1</span>
           <h2 className="text-3xl font-light text-[#1e3a5f]">Site Público</h2>
         </div>
+        {/* Badge AiParaTi */}
+        <div className="px-3 py-1 bg-blue-50 rounded-full border border-blue-100">
+          <span className="text-xs font-medium text-[#1e3a5f]">Entregue por AiParaTi</span>
+        </div>
       </div>
-      <p className="text-xl text-slate-500 mb-8">O teu cartão de visita digital</p>
+      <p className="text-xl text-slate-500 mb-6">O teu cartão de visita digital</p>
 
       <div className="flex-1 flex flex-col justify-center">
         <div className="space-y-4">
@@ -378,18 +574,20 @@ const SlidePublicSite = () => {
             </motion.div>
           ))}
         </div>
-        <div className="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-100">
+        <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-100">
           <p className="text-[#1e3a5f] text-sm font-medium">
             💡 Otimizado para Google — os teus clientes encontram-te quando procuram.
           </p>
         </div>
       </div>
+      
+      <GlobalSignature />
     </div>
   );
 };
 
 // ============================================
-// SLIDE 6: PORTAL CLIENTE
+// SLIDE 7: PORTAL CLIENTE (renumerado de 6)
 // ============================================
 const SlideClientPortal = () => {
   const features = [
@@ -401,17 +599,21 @@ const SlideClientPortal = () => {
   ];
 
   return (
-    <div className="h-full flex flex-col bg-white p-12">
-      <div className="flex items-center gap-4 mb-8">
+    <div className="h-full flex flex-col bg-white p-12 relative">
+      <div className="flex items-center gap-4 mb-6">
         <div className="w-12 h-12 rounded-full bg-[#1e3a5f] flex items-center justify-center">
           <Lock className="w-6 h-6 text-white" />
         </div>
-        <div>
+        <div className="flex-1">
           <span className="text-sm font-medium text-[#3D7081] uppercase tracking-wider">Funcionalidade 2</span>
           <h2 className="text-3xl font-light text-[#1e3a5f]">Portal Privado</h2>
         </div>
+        {/* Badge AiParaTi */}
+        <div className="px-3 py-1 bg-blue-50 rounded-full border border-blue-100">
+          <span className="text-xs font-medium text-[#1e3a5f]">Entregue por AiParaTi</span>
+        </div>
       </div>
-      <p className="text-xl text-slate-500 mb-8">O controlo total sobre a experiência do cliente</p>
+      <p className="text-xl text-slate-500 mb-6">O controlo total sobre a experiência do cliente</p>
 
       <div className="flex-1 flex flex-col justify-center">
         <div className="space-y-4">
@@ -428,18 +630,20 @@ const SlideClientPortal = () => {
             </motion.div>
           ))}
         </div>
-        <div className="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-100">
+        <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-100">
           <p className="text-[#1e3a5f] text-sm font-medium">
             🔒 O cliente vê exatamente o que precisa saber, nada mais. Tu decides o que é visível.
           </p>
         </div>
       </div>
+      
+      <GlobalSignature />
     </div>
   );
 };
 
 // ============================================
-// SLIDE 7: DASHBOARD ADMIN
+// SLIDE 8: DASHBOARD ADMIN (renumerado de 7)
 // ============================================
 const SlideAdminDashboard = () => {
   const features = [
@@ -451,17 +655,21 @@ const SlideAdminDashboard = () => {
   ];
 
   return (
-    <div className="h-full flex flex-col bg-white p-12">
-      <div className="flex items-center gap-4 mb-8">
+    <div className="h-full flex flex-col bg-white p-12 relative">
+      <div className="flex items-center gap-4 mb-6">
         <div className="w-12 h-12 rounded-full bg-[#1e3a5f] flex items-center justify-center">
           <LayoutDashboard className="w-6 h-6 text-white" />
         </div>
-        <div>
+        <div className="flex-1">
           <span className="text-sm font-medium text-[#3D7081] uppercase tracking-wider">Funcionalidade 3</span>
           <h2 className="text-3xl font-light text-[#1e3a5f]">Dashboard Admin</h2>
         </div>
+        {/* Badge AiParaTi */}
+        <div className="px-3 py-1 bg-blue-50 rounded-full border border-blue-100">
+          <span className="text-xs font-medium text-[#1e3a5f]">Entregue por AiParaTi</span>
+        </div>
       </div>
-      <p className="text-xl text-slate-500 mb-8">O teu painel de comando</p>
+      <p className="text-xl text-slate-500 mb-6">O teu painel de comando</p>
 
       <div className="flex-1 flex flex-col justify-center">
         <div className="space-y-4">
@@ -478,18 +686,20 @@ const SlideAdminDashboard = () => {
             </motion.div>
           ))}
         </div>
-        <div className="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-100">
+        <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-100">
           <p className="text-[#1e3a5f] text-sm font-medium">
             📊 Tudo que precisas para gerir a empresa com um golpe de vista.
           </p>
         </div>
       </div>
+      
+      <GlobalSignature />
     </div>
   );
 };
 
 // ============================================
-// SLIDE 8: AUTOMAÇÕES
+// SLIDE 9: AUTOMAÇÕES (renumerado de 8)
 // ============================================
 const SlideAutomations = () => {
   const features = [
@@ -500,17 +710,21 @@ const SlideAutomations = () => {
   ];
 
   return (
-    <div className="h-full flex flex-col bg-white p-12">
-      <div className="flex items-center gap-4 mb-8">
+    <div className="h-full flex flex-col bg-white p-12 relative">
+      <div className="flex items-center gap-4 mb-6">
         <div className="w-12 h-12 rounded-full bg-[#1e3a5f] flex items-center justify-center">
           <Zap className="w-6 h-6 text-white" />
         </div>
-        <div>
+        <div className="flex-1">
           <span className="text-sm font-medium text-[#3D7081] uppercase tracking-wider">Funcionalidade 4</span>
           <h2 className="text-3xl font-light text-[#1e3a5f]">Automações Inteligentes</h2>
         </div>
+        {/* Badge AiParaTi */}
+        <div className="px-3 py-1 bg-blue-50 rounded-full border border-blue-100">
+          <span className="text-xs font-medium text-[#1e3a5f]">Entregue por AiParaTi</span>
+        </div>
       </div>
-      <p className="text-xl text-slate-500 mb-8">O trabalho invisível</p>
+      <p className="text-xl text-slate-500 mb-6">O trabalho invisível</p>
 
       <div className="flex-1 flex flex-col justify-center">
         <div className="space-y-4">
@@ -527,93 +741,133 @@ const SlideAutomations = () => {
             </motion.div>
           ))}
         </div>
-        <div className="mt-8 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-100">
+        <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-100">
           <p className="text-[#1e3a5f] text-sm font-medium">
             ⚡ Estas automações funcionam 24/7. Tu dormes, elas trabalham.
           </p>
         </div>
       </div>
+      
+      <GlobalSignature />
     </div>
   );
 };
 
 // ============================================
-// SLIDE 9: VALOR FINANCEIRO
+// SLIDE 10: VALOR FINANCEIRO (expandido)
 // ============================================
 const SlideValue = () => {
-  const tools = [
-    { name: "Squarespace/Wix (site)", cost: "~300 €" },
-    { name: "Pipedrive/HubSpot (CRM)", cost: "~2.880 €" },
-    { name: "Notion/Asana (gestão)", cost: "~300 €" },
-    { name: "Mailchimp/Resend (email)", cost: "~600 €" },
-    { name: "Figma (design collab)", cost: "~200 €" },
-    { name: "Armazenamento/Backup", cost: "~300 €" },
+  const included = [
+    "Site público profissional (domínio + hospedagem 1 ano)",
+    "Portal privado para clientes",
+    "Dashboard admin completo",
+    "Integrações (email, automações, IA)",
+    "Segurança RGPD/LGPD",
+    "60 dias de suporte técnico pós-launch",
+    "Design visual por Helder Faria",
+  ];
+
+  const notIncluded = [
+    "Conteúdo editorial (redação de textos)",
+    "Produção de fotos/renders",
+    "Formação avançada (pago extra)",
+    "Manutenção mensal (~180 €/mês, opcional)",
   ];
 
   return (
-    <div className="h-full flex flex-col bg-white p-12">
-      <div className="mb-6">
+    <div className="h-full flex flex-col bg-white p-10 relative">
+      <div className="mb-4">
         <span className="text-sm font-medium text-[#3D7081] uppercase tracking-wider">Análise financeira</span>
         <h2 className="text-3xl font-light text-[#1e3a5f] mt-2">O investimento vs. O custo de não fazer nada</h2>
       </div>
 
-      <div className="flex-1 grid grid-cols-2 gap-8">
-        {/* Left: Cost comparison */}
-        <div className="flex flex-col">
-          <h3 className="text-lg font-medium text-slate-700 mb-4">Se usares ferramentas separadas:</h3>
-          <div className="space-y-2 flex-1">
-            {tools.map((tool, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.05 }}
-                className="flex justify-between items-center py-2 px-3 bg-slate-50 rounded"
-              >
-                <span className="text-slate-600 text-sm">{tool.name}</span>
-                <span className="text-slate-500 text-sm">{tool.cost}/ano</span>
-              </motion.div>
-            ))}
-            <div className="flex justify-between items-center py-3 px-3 bg-red-50 rounded-lg border border-red-100 mt-2">
-              <span className="font-semibold text-red-700">TOTAL/ANO</span>
-              <span className="font-bold text-red-700 text-lg">~4.580 €</span>
+      {/* Resumo Executivo */}
+      <motion.div 
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mb-4 p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border border-green-200"
+      >
+        <p className="text-green-800 text-sm">
+          <span className="font-semibold">Resumo:</span> No mercado, pagarias ~4.580 €/ano por soluções dispersas e menos integradas. 
+          Com a <span className="font-semibold">ARIFA</span>, investes <span className="font-bold">4.888 € uma vez</span> e ficas com tudo à medida do teu estúdio.
+        </p>
+      </motion.div>
+
+      <div className="flex-1 grid grid-cols-3 gap-4">
+        {/* Investimento */}
+        <div className="bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] rounded-xl p-5 text-white">
+          <span className="text-blue-200 text-xs uppercase tracking-wider">Investimento único</span>
+          <p className="text-4xl font-bold mt-2">4.888 €</p>
+          <p className="text-blue-200 text-xs mt-1">Sem subscrições mensais</p>
+          
+          <div className="mt-4 pt-3 border-t border-white/20 space-y-2">
+            <div className="flex justify-between text-sm">
+              <span className="text-blue-100">Poupança vs. SaaS (3 anos)</span>
+              <span className="font-semibold">~15.000 €</span>
             </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-blue-100">Tempo poupado/ano</span>
+              <span className="font-semibold">200h</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-blue-100">Valor do tempo (40€/h)</span>
+              <span className="font-semibold">8.000 €</span>
+            </div>
+          </div>
+          
+          <div className="mt-4 p-3 bg-white/10 rounded-lg">
+            <div className="flex justify-between items-center">
+              <span className="text-sm">ROI 1º ano</span>
+              <span className="text-lg font-bold text-green-300">~258%</span>
+            </div>
+            <p className="text-xs text-blue-200 mt-1">O investimento paga-se em ~3 meses</p>
           </div>
         </div>
 
-        {/* Right: Our offer */}
-        <div className="flex flex-col">
-          <h3 className="text-lg font-medium text-slate-700 mb-4">Com a Plataforma ARIFA:</h3>
-          <div className="flex-1 bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] rounded-xl p-6 text-white">
-            <div className="mb-6">
-              <span className="text-blue-200 text-sm">Investimento único</span>
-              <p className="text-4xl font-bold mt-1">4.888 €</p>
-              <span className="text-blue-200 text-sm">Sem subscrições mensais</span>
-            </div>
-            <div className="space-y-3 border-t border-white/20 pt-4">
-              <div className="flex justify-between">
-                <span className="text-blue-100">Poupança vs. SaaS (3 anos)</span>
-                <span className="font-semibold">~15.000 €</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-blue-100">ROI estimado (1º ano)</span>
-                <span className="font-semibold text-green-300">250-350%</span>
-              </div>
-            </div>
-            <div className="mt-6 p-3 bg-white/10 rounded-lg">
-              <p className="text-sm text-center">
-                💡 Não é um custo. É um investimento que se paga em semanas.
-              </p>
-            </div>
+        {/* Incluído */}
+        <div className="bg-green-50 rounded-xl p-5 border border-green-100">
+          <h3 className="font-semibold text-green-700 text-sm mb-3 flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4" /> INCLUÍDO pelos 4.888 €
+          </h3>
+          <ul className="space-y-2">
+            {included.map((item, i) => (
+              <li key={i} className="text-xs text-green-700 flex items-start gap-2">
+                <Check className="w-3 h-3 mt-0.5 flex-shrink-0" /> 
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Não Incluído */}
+        <div className="bg-slate-50 rounded-xl p-5 border border-slate-200">
+          <h3 className="font-semibold text-slate-600 text-sm mb-3 flex items-center gap-2">
+            <X className="w-4 h-4" /> FORA DE ESCOPO
+          </h3>
+          <ul className="space-y-2">
+            {notIncluded.map((item, i) => (
+              <li key={i} className="text-xs text-slate-500 flex items-start gap-2">
+                <X className="w-3 h-3 mt-0.5 flex-shrink-0 text-slate-400" /> 
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          
+          <div className="mt-4 pt-3 border-t border-slate-200">
+            <p className="text-xs text-slate-500 italic">
+              Estes itens podem ser contratados separadamente se necessário.
+            </p>
           </div>
         </div>
       </div>
+      
+      <GlobalSignature />
     </div>
   );
 };
 
 // ============================================
-// SLIDE 10: CONDIÇÕES COMERCIAIS
+// SLIDE 11: CONDIÇÕES COMERCIAIS (expandido)
 // ============================================
 const SlideTerms = () => {
   const included = [
@@ -632,10 +886,13 @@ const SlideTerms = () => {
   ];
 
   return (
-    <div className="h-full flex flex-col bg-white p-12">
-      <div className="mb-6">
+    <div className="h-full flex flex-col bg-white p-12 relative">
+      <div className="mb-4">
         <span className="text-sm font-medium text-[#3D7081] uppercase tracking-wider">Termos & Condições</span>
         <h2 className="text-3xl font-light text-[#1e3a5f] mt-2">Como funciona</h2>
+        <p className="text-sm text-slate-500 mt-1">
+          Proposta de <span className="font-medium text-[#1e3a5f]">AiParaTi</span> | Parceria de design com <span className="font-medium text-[#1e3a5f]">Helder Faria</span>
+        </p>
       </div>
 
       <div className="flex-1 grid grid-cols-3 gap-6">
@@ -648,16 +905,24 @@ const SlideTerms = () => {
           <div className="space-y-3 text-sm">
             <div className="flex justify-between py-2 border-b border-slate-200">
               <span className="text-slate-600">40% na assinatura</span>
-              <span className="font-medium">2.000 €</span>
+              <span className="font-medium">1.955 €</span>
             </div>
             <div className="flex justify-between py-2 border-b border-slate-200">
               <span className="text-slate-600">40% antes do go-live</span>
-              <span className="font-medium">2.000 €</span>
+              <span className="font-medium">1.955 €</span>
             </div>
             <div className="flex justify-between py-2">
               <span className="text-slate-600">20% após 30 dias</span>
-              <span className="font-medium">888 €</span>
+              <span className="font-medium">978 €</span>
             </div>
+          </div>
+          
+          {/* Quem entrega */}
+          <div className="mt-4 pt-4 border-t border-slate-200">
+            <p className="text-xs text-slate-500">
+              <span className="font-medium">Quem entrega:</span><br/>
+              AiParaTi (dev) + Helder Faria (design)
+            </p>
           </div>
         </div>
 
@@ -706,17 +971,19 @@ const SlideTerms = () => {
       <p className="text-center text-slate-400 text-sm mt-4">
         Simples e claro. Sem surpresas.
       </p>
+      
+      <GlobalSignature />
     </div>
   );
 };
 
 // ============================================
-// SLIDE 11: PRÓXIMOS PASSOS
+// SLIDE 12: PRÓXIMOS PASSOS (com contacto)
 // ============================================
 const SlideNextSteps = () => {
   const steps = [
     { week: "Hoje", title: "Aprovação + Assinatura", desc: "Decidimos avançar juntos" },
-    { week: "Semana 1", title: "Kickoff + Design", desc: "Brainstorm com o designer" },
+    { week: "Semana 1", title: "Kickoff + Design", desc: "Brainstorm com Helder" },
     { week: "Semana 2-5", title: "Desenvolvimento", desc: "Construção da plataforma" },
     { week: "Semana 6", title: "Testes & Refinamentos", desc: "Feedback e ajustes" },
     { week: "Semana 7-8", title: "Go-Live + Formação", desc: "Lançamento oficial" },
@@ -724,8 +991,8 @@ const SlideNextSteps = () => {
   ];
 
   return (
-    <div className="h-full flex flex-col bg-gradient-to-br from-white via-slate-50 to-blue-50 p-12">
-      <div className="mb-8 text-center">
+    <div className="h-full flex flex-col bg-gradient-to-br from-white via-slate-50 to-blue-50 p-12 relative">
+      <div className="mb-6 text-center">
         <span className="text-sm font-medium text-[#3D7081] uppercase tracking-wider">O caminho</span>
         <h2 className="text-4xl font-light text-[#1e3a5f] mt-2">Como começamos?</h2>
       </div>
@@ -768,9 +1035,9 @@ const SlideNextSteps = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8 }}
-        className="mt-8 text-center"
+        className="mt-6 text-center"
       >
-        <div className="inline-flex flex-col items-center gap-4 p-8 bg-white rounded-2xl shadow-lg border border-slate-100">
+        <div className="inline-flex flex-col items-center gap-4 p-6 bg-white rounded-2xl shadow-lg border border-slate-100">
           <Rocket className="w-10 h-10 text-[#3D7081]" />
           <h3 className="text-2xl font-semibold text-[#1e3a5f]">Pronta para começar, Teresa?</h3>
           <p className="text-slate-500">Assinemos o contrato esta semana.</p>
@@ -784,8 +1051,18 @@ const SlideNextSteps = () => {
               Enviar Proposta
             </Button>
           </div>
+          
+          {/* Contactos */}
+          <div className="mt-4 pt-4 border-t border-slate-100 w-full text-center">
+            <p className="text-xs text-slate-400">
+              Questões? Contacta a <span className="font-medium text-[#1e3a5f]">AiParaTi</span><br/>
+              Branding & Design: <span className="font-medium text-[#1e3a5f]">Helder Faria</span>
+            </p>
+          </div>
         </div>
       </motion.div>
+      
+      <GlobalSignature />
     </div>
   );
 };
