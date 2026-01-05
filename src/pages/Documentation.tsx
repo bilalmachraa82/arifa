@@ -93,6 +93,10 @@ export default function Documentation() {
           <p className="text-lg text-primary mt-4 font-medium">
             "A sua imagem, os nossos processos, o sucesso do seu cliente."
           </p>
+          {/* Assinatura AiParaTi + Helder Faria */}
+          <p className="text-sm text-muted-foreground mt-4">
+            Desenvolvido por <span className="font-semibold text-primary">AiParaTi</span> | Design visual por <span className="font-semibold text-primary">Helder Faria</span>
+          </p>
           <div className="flex justify-center gap-2 mt-6 flex-wrap">
             <Badge variant="secondary" className="text-sm">100% Personalizado</Badge>
             <Badge variant="secondary" className="text-sm">Mobile Ready</Badge>
