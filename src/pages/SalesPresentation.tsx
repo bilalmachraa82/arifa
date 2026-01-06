@@ -1237,17 +1237,17 @@ const SlideTimeline = () => {
 // ============================================
 const SlideNextSteps = () => {
   return (
-    <div className="h-full flex flex-col bg-gradient-to-br from-white via-slate-50 to-blue-50 p-8 relative">
-      <div className="mb-6 text-center">
+    <div className="h-full flex flex-col bg-gradient-to-br from-white via-slate-50 to-blue-50 p-6 relative overflow-hidden">
+      <div className="mb-3 text-center">
         <span className="text-xs font-medium text-[#3D7081] uppercase tracking-wider">O momento</span>
-        <h2 className="text-3xl font-light text-[#1e3a5f] mt-1">Pronta para começar, Teresa?</h2>
+        <h2 className="text-2xl font-light text-[#1e3a5f] mt-1">Pronta para começar, Teresa?</h2>
       </div>
 
       {/* Lembrete da oferta */}
       <motion.div 
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-4 p-3 bg-gradient-to-r from-amber-50 to-yellow-50 rounded-xl border border-amber-200 text-center"
+        className="mb-3 p-2.5 bg-gradient-to-r from-amber-50 to-yellow-50 rounded-xl border border-amber-200 text-center"
       >
         <p className="text-amber-800 text-sm font-medium">
           ⏰ Lembra-te: <span className="font-bold">4h Formação IA GRÁTIS</span> se aceitares até 18 Janeiro
@@ -1261,56 +1261,56 @@ const SlideNextSteps = () => {
         transition={{ delay: 0.3 }}
         className="flex-1 flex items-center justify-center"
       >
-        <div className="inline-flex flex-col items-center gap-4 p-8 bg-white rounded-2xl shadow-xl border border-slate-100 max-w-lg">
-          <Rocket className="w-12 h-12 text-[#3D7081]" />
-          <h3 className="text-2xl font-semibold text-[#1e3a5f]">Vamos avançar juntos?</h3>
-          <p className="text-slate-500 text-center">
+        <div className="inline-flex flex-col items-center gap-3 p-6 bg-white rounded-2xl shadow-xl border border-slate-100 max-w-md w-full">
+          <Rocket className="w-10 h-10 text-[#3D7081]" />
+          <h3 className="text-xl font-semibold text-[#1e3a5f]">Vamos avançar juntos?</h3>
+          <p className="text-slate-500 text-sm text-center">
             Estamos prontos para transformar a forma como geres o teu estúdio.
           </p>
           
           {/* Botões CTA */}
-          <div className="flex flex-col sm:flex-row gap-3 mt-2 w-full">
-            <Button size="lg" className="gap-2 bg-[#1e3a5f] hover:bg-[#2a4a6f] text-white flex-1">
-              <CheckCircle2 className="w-5 h-5" />
+          <div className="flex flex-col sm:flex-row gap-2 mt-1 w-full">
+            <Button size="default" className="gap-2 bg-[#1e3a5f] hover:bg-[#2a4a6f] text-white flex-1">
+              <CheckCircle2 className="w-4 h-4" />
               Aceitar Proposta
             </Button>
-            <Button size="lg" variant="outline" className="gap-2 border-[#1e3a5f] text-[#1e3a5f] flex-1">
-              <Calendar className="w-5 h-5" />
-              Agendar Call de Dúvidas
+            <Button size="default" variant="outline" className="gap-2 border-[#1e3a5f] text-[#1e3a5f] flex-1">
+              <Calendar className="w-4 h-4" />
+              Agendar Call
             </Button>
           </div>
           
           {/* Contactos Reais */}
-          <div className="mt-4 pt-4 border-t border-slate-100 w-full">
-            <p className="text-xs text-slate-500 text-center mb-3">Contacta-nos diretamente:</p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="mt-2 pt-3 border-t border-slate-100 w-full">
+            <p className="text-xs text-slate-500 text-center mb-2">Contacta-nos diretamente:</p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <a 
                 href="mailto:bilal.machraa@aiparati.pt" 
-                className="flex items-center gap-2 text-[#1e3a5f] hover:underline"
+                className="flex items-center gap-1.5 text-[#1e3a5f] hover:underline"
               >
-                <Mail className="w-4 h-4" />
-                <span className="text-sm font-medium">bilal.machraa@aiparati.pt</span>
+                <Mail className="w-3.5 h-3.5" />
+                <span className="text-xs font-medium">bilal.machraa@aiparati.pt</span>
               </a>
               <a 
                 href="https://wa.me/351918911308" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-green-600 hover:underline"
+                className="flex items-center gap-1.5 text-green-600 hover:underline"
               >
-                <Phone className="w-4 h-4" />
-                <span className="text-sm font-medium">+351 918 911 308</span>
+                <Phone className="w-3.5 h-3.5" />
+                <span className="text-xs font-medium">+351 918 911 308</span>
               </a>
             </div>
           </div>
-          
-          {/* Assinatura */}
-          <div className="mt-3 text-center">
-            <p className="text-xs text-slate-400">
-              Proposta por <span className="font-medium text-[#1e3a5f]">AiParaTi</span> | Design: <span className="font-medium text-[#1e3a5f]">Helder Faria</span>
-            </p>
-          </div>
         </div>
       </motion.div>
+
+      {/* Assinatura fixa no fundo */}
+      <div className="mt-2 text-center">
+        <p className="text-xs text-slate-400">
+          Proposta por <span className="font-medium text-[#1e3a5f]">AiParaTi</span> | Design: <span className="font-medium text-[#1e3a5f]">Helder Faria</span>
+        </p>
+      </div>
       
       <GlobalSignature />
     </div>
