@@ -41,7 +41,7 @@ const GlobalSignature = () => (
 const SalesPresentation = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const totalSlides = 12; // Atualizado de 11 para 12
+  const totalSlides = 14; // Atualizado para 14 (adicionado FAQ e Timeline detalhada)
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => Math.min(prev + 1, totalSlides - 1));
@@ -156,9 +156,11 @@ const SalesPresentation = () => {
               {currentSlide === 6 && <SlideClientPortal />}
               {currentSlide === 7 && <SlideAdminDashboard />}
               {currentSlide === 8 && <SlideAutomations />}
-              {currentSlide === 9 && <SlideValue />}
+              {currentSlide === 9 && <SlidePricing />}
               {currentSlide === 10 && <SlideTerms />}
-              {currentSlide === 11 && <SlideNextSteps />}
+              {currentSlide === 11 && <SlideFAQ />}
+              {currentSlide === 12 && <SlideTimeline />}
+              {currentSlide === 13 && <SlideNextSteps />}
             </motion.div>
           </AnimatePresence>
         </div>
@@ -781,111 +783,117 @@ const SlideAutomations = () => {
 };
 
 // ============================================
-// SLIDE 10: VALOR FINANCEIRO (expandido)
+// SLIDE 10: PRICING - 3 TIERS
 // ============================================
-const SlideValue = () => {
-  const included = [
-    "Site público (domínio + hospedagem 1 ano)",
-    "Portal privado para clientes",
-    "Dashboard admin completo",
-    "Integrações (email, automações, IA)",
-    "Segurança RGPD/LGPD",
-    "60 dias suporte pós-launch",
-    "Design visual Helder Faria",
-  ];
-
-  const notIncluded = [
-    "Conteúdo editorial",
-    "Fotos/renders",
-    "Formação avançada",
-    "Manutenção (150-250 €/mês)",
+const SlidePricing = () => {
+  const tiers = [
+    {
+      name: "Essencial",
+      price: "3.500",
+      description: "Para quem quer começar",
+      features: [
+        "Site público profissional",
+        "Portal básico do cliente",
+        "Dashboard admin simplificado",
+        "30 dias suporte pós-launch",
+        "Design visual Helder Faria",
+      ],
+      notIncluded: ["Automações avançadas", "IA integrada", "Multi-idioma"],
+      recommended: false,
+    },
+    {
+      name: "Profissional",
+      price: "4.888",
+      description: "A solução completa",
+      features: [
+        "Tudo do Essencial +",
+        "Portal completo do cliente",
+        "Dashboard admin completo",
+        "Automações inteligentes",
+        "IA integrada",
+        "Multi-idioma (PT/EN)",
+        "60 dias suporte pós-launch",
+        "Segurança RGPD/LGPD",
+      ],
+      notIncluded: [],
+      recommended: true,
+    },
+    {
+      name: "Premium",
+      price: "6.500",
+      description: "Tudo incluído + manutenção",
+      features: [
+        "Tudo do Profissional +",
+        "6 meses manutenção incluída",
+        "Prioridade no suporte",
+        "Atualizações de segurança",
+        "Backup diário garantido",
+        "Relatórios mensais",
+      ],
+      notIncluded: [],
+      recommended: false,
+    },
   ];
 
   return (
-    <div className="h-full flex flex-col bg-white p-8 relative">
-      <div className="mb-3">
-        <span className="text-xs font-medium text-[#3D7081] uppercase tracking-wider">Análise financeira</span>
-        <h2 className="text-2xl font-light text-[#1e3a5f] mt-1">O investimento vs. O custo de não fazer nada</h2>
+    <div className="h-full flex flex-col bg-white p-6 relative">
+      <div className="mb-4 text-center">
+        <span className="text-xs font-medium text-[#3D7081] uppercase tracking-wider">Escolhe o teu plano</span>
+        <h2 className="text-2xl font-light text-[#1e3a5f] mt-1">3 opções à tua medida</h2>
       </div>
 
-      {/* Resumo Executivo */}
-      <motion.div 
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mb-3 p-3 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border border-green-200"
-      >
-        <p className="text-green-800 text-xs">
-          <span className="font-semibold">Resumo:</span> No mercado, pagarias ~20.364 €/ano por soluções dispersas. 
-          Com a <span className="font-semibold">ARIFA</span>, investes <span className="font-bold">4.888 € uma vez</span> e ficas com tudo à medida.
-        </p>
-      </motion.div>
-
-      <div className="flex-1 grid grid-cols-3 gap-3">
-        {/* Investimento */}
-        <div className="bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] rounded-xl p-4 text-white">
-          <span className="text-blue-200 text-xs uppercase tracking-wider">Investimento único</span>
-          <p className="text-3xl font-bold mt-1">4.888 €</p>
-          <p className="text-blue-200 text-xs">Sem subscrições mensais</p>
-          
-          <div className="mt-3 pt-2 border-t border-white/20 space-y-1.5">
-            <div className="flex justify-between text-xs">
-              <span className="text-blue-100">Poupança vs. SaaS (3 anos)</span>
-              <span className="font-semibold">~56.000 €</span>
-            </div>
-            <div className="flex justify-between text-xs">
-              <span className="text-blue-100">Tempo poupado/ano</span>
-              <span className="font-semibold">200h</span>
-            </div>
-            <div className="flex justify-between text-xs">
-              <span className="text-blue-100">Valor do tempo (40€/h)</span>
-              <span className="font-semibold">8.000 €</span>
-            </div>
-          </div>
-          
-          <div className="mt-3 p-2 bg-white/10 rounded-lg">
-            <div className="flex justify-between items-center">
-              <span className="text-xs">ROI 1º ano</span>
-              <span className="text-base font-bold text-green-300">~318%</span>
-            </div>
-            <p className="text-xs text-blue-200">Paga-se em ~3 meses</p>
-          </div>
-        </div>
-
-        {/* Incluído */}
-        <div className="bg-green-50 rounded-xl p-4 border border-green-100">
-          <h3 className="font-semibold text-green-700 text-xs mb-2 flex items-center gap-1">
-            <CheckCircle2 className="w-3 h-3" /> INCLUÍDO pelos 4.888 €
-          </h3>
-          <ul className="space-y-1.5">
-            {included.map((item, i) => (
-              <li key={i} className="text-xs text-green-700 flex items-start gap-1.5">
-                <Check className="w-3 h-3 mt-0.5 flex-shrink-0" /> 
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Não Incluído */}
-        <div className="bg-slate-50 rounded-xl p-4 border border-slate-200">
-          <h3 className="font-semibold text-slate-600 text-xs mb-2 flex items-center gap-1">
-            <X className="w-3 h-3" /> FORA DE ESCOPO
-          </h3>
-          <ul className="space-y-1.5">
-            {notIncluded.map((item, i) => (
-              <li key={i} className="text-xs text-slate-500 flex items-start gap-1.5">
-                <X className="w-3 h-3 mt-0.5 flex-shrink-0 text-slate-400" /> 
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-          
-          <div className="mt-3 pt-2 border-t border-slate-200">
-            <p className="text-xs text-slate-500 italic">
-              Contratados separadamente se necessário.
+      <div className="flex-1 grid grid-cols-3 gap-4">
+        {tiers.map((tier, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.1 }}
+            className={`rounded-xl p-4 flex flex-col ${
+              tier.recommended
+                ? "bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] text-white ring-2 ring-[#3D7081] ring-offset-2"
+                : "bg-slate-50 border border-slate-200"
+            }`}
+          >
+            {tier.recommended && (
+              <div className="text-center mb-2">
+                <span className="bg-green-400 text-green-900 text-xs font-semibold px-3 py-1 rounded-full">
+                  RECOMENDADO
+                </span>
+              </div>
+            )}
+            <h3 className={`text-lg font-semibold ${tier.recommended ? "text-white" : "text-[#1e3a5f]"}`}>
+              {tier.name}
+            </h3>
+            <p className={`text-xs mb-3 ${tier.recommended ? "text-blue-200" : "text-slate-500"}`}>
+              {tier.description}
             </p>
-          </div>
-        </div>
+            <p className={`text-3xl font-bold mb-3 ${tier.recommended ? "text-white" : "text-[#1e3a5f]"}`}>
+              {tier.price} €
+            </p>
+            
+            <div className="flex-1 space-y-1.5">
+              {tier.features.map((feature, j) => (
+                <div key={j} className="flex items-start gap-1.5">
+                  <Check className={`w-3 h-3 mt-0.5 flex-shrink-0 ${tier.recommended ? "text-green-300" : "text-green-600"}`} />
+                  <span className={`text-xs ${tier.recommended ? "text-blue-100" : "text-slate-600"}`}>{feature}</span>
+                </div>
+              ))}
+              {tier.notIncluded.map((item, j) => (
+                <div key={j} className="flex items-start gap-1.5">
+                  <X className={`w-3 h-3 mt-0.5 flex-shrink-0 ${tier.recommended ? "text-red-300" : "text-slate-400"}`} />
+                  <span className={`text-xs line-through ${tier.recommended ? "text-blue-200/50" : "text-slate-400"}`}>{item}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="mt-3 text-center">
+        <p className="text-xs text-slate-500">
+          Todos os planos incluem design por <span className="font-medium text-[#1e3a5f]">Helder Faria</span> e desenvolvimento por <span className="font-medium text-[#1e3a5f]">AiParaTi</span>
+        </p>
       </div>
       
       <GlobalSignature />
@@ -894,7 +902,7 @@ const SlideValue = () => {
 };
 
 // ============================================
-// SLIDE 11: CONDIÇÕES COMERCIAIS (expandido)
+// SLIDE 11: CONDIÇÕES COMERCIAIS + OFERTA URGÊNCIA
 // ============================================
 const SlideTerms = () => {
   const included = [
@@ -909,66 +917,78 @@ const SlideTerms = () => {
   const notIncluded = [
     "Conteúdo editorial",
     "Fotografia",
-    "Formação avançada",
   ];
 
   return (
-    <div className="h-full flex flex-col bg-white p-8 relative">
-      <div className="mb-3">
+    <div className="h-full flex flex-col bg-white p-6 relative">
+      <div className="mb-2">
         <span className="text-xs font-medium text-[#3D7081] uppercase tracking-wider">Termos & Condições</span>
         <h2 className="text-2xl font-light text-[#1e3a5f] mt-1">Como funciona</h2>
-        <p className="text-xs text-slate-500">
-          Proposta de <span className="font-medium text-[#1e3a5f]">AiParaTi</span> | Parceria com <span className="font-medium text-[#1e3a5f]">Helder Faria</span>
-        </p>
       </div>
 
-      <div className="flex-1 grid grid-cols-3 gap-4">
+      {/* OFERTA ESPECIAL - URGÊNCIA */}
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="mb-3 p-3 bg-gradient-to-r from-amber-50 via-yellow-50 to-amber-50 rounded-xl border-2 border-amber-300 relative overflow-hidden"
+      >
+        <div className="absolute top-0 right-0 bg-amber-400 text-amber-900 text-xs font-bold px-3 py-1 rounded-bl-lg">
+          OFERTA LIMITADA
+        </div>
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 bg-amber-400 rounded-full flex items-center justify-center flex-shrink-0">
+            <Zap className="w-6 h-6 text-amber-900" />
+          </div>
+          <div>
+            <h3 className="font-bold text-amber-900 text-sm">Bónus Exclusivo: 4 horas de Formação IA</h3>
+            <p className="text-amber-700 text-xs">Para ti e toda a equipa — Valor: 400 €</p>
+            <p className="text-amber-800 font-semibold text-xs mt-1">
+              ⏰ Válido se aceitares até <span className="underline">18 de Janeiro de 2025</span>
+            </p>
+          </div>
+        </div>
+      </motion.div>
+
+      <div className="flex-1 grid grid-cols-3 gap-3">
         {/* Payment */}
-        <div className="bg-slate-50 rounded-xl p-4">
+        <div className="bg-slate-50 rounded-xl p-3">
           <h3 className="font-semibold text-[#1e3a5f] mb-2 flex items-center gap-2 text-sm">
-            <Euro className="w-4 h-4" /> Investimento
+            <Euro className="w-4 h-4" /> Pagamento (Profissional)
           </h3>
-          <p className="text-2xl font-bold text-[#1e3a5f] mb-3">4.888 €</p>
-          <div className="space-y-2 text-xs">
-            <div className="flex justify-between py-1.5 border-b border-slate-200">
+          <p className="text-xl font-bold text-[#1e3a5f] mb-2">4.888 €</p>
+          <div className="space-y-1.5 text-xs">
+            <div className="flex justify-between py-1 border-b border-slate-200">
               <span className="text-slate-600">40% assinatura</span>
               <span className="font-medium">1.955 €</span>
             </div>
-            <div className="flex justify-between py-1.5 border-b border-slate-200">
+            <div className="flex justify-between py-1 border-b border-slate-200">
               <span className="text-slate-600">40% go-live</span>
               <span className="font-medium">1.955 €</span>
             </div>
-            <div className="flex justify-between py-1.5">
+            <div className="flex justify-between py-1">
               <span className="text-slate-600">20% após 30 dias</span>
               <span className="font-medium">978 €</span>
             </div>
           </div>
-          
-          {/* Quem entrega */}
-          <div className="mt-3 pt-3 border-t border-slate-200">
-            <p className="text-xs text-slate-500">
-              <span className="font-medium">Quem entrega:</span> AiParaTi + Helder Faria
-            </p>
-          </div>
         </div>
 
         {/* Timeline & Included */}
-        <div className="space-y-3">
-          <div className="bg-blue-50 rounded-xl p-4">
-            <h3 className="font-semibold text-[#1e3a5f] mb-1 flex items-center gap-2 text-sm">
-              <Calendar className="w-4 h-4" /> Prazo
+        <div className="space-y-2">
+          <div className="bg-blue-50 rounded-xl p-3">
+            <h3 className="font-semibold text-[#1e3a5f] mb-1 flex items-center gap-2 text-xs">
+              <Calendar className="w-3 h-3" /> Prazo
             </h3>
-            <p className="text-xl font-bold text-[#1e3a5f]">6-8 semanas</p>
+            <p className="text-lg font-bold text-[#1e3a5f]">6-8 semanas</p>
             <p className="text-xs text-slate-500">Após aprovação design</p>
           </div>
-          <div className="bg-green-50 rounded-xl p-3">
-            <h3 className="font-semibold text-green-700 mb-2 flex items-center gap-1 text-xs">
+          <div className="bg-green-50 rounded-xl p-2">
+            <h3 className="font-semibold text-green-700 mb-1 flex items-center gap-1 text-xs">
               <CheckCircle2 className="w-3 h-3" /> Incluído
             </h3>
-            <ul className="space-y-1">
+            <ul className="space-y-0.5">
               {included.map((item, i) => (
                 <li key={i} className="text-xs text-green-700 flex items-center gap-1">
-                  <Check className="w-2.5 h-2.5" /> {item}
+                  <Check className="w-2 h-2" /> {item}
                 </li>
               ))}
             </ul>
@@ -976,27 +996,26 @@ const SlideTerms = () => {
         </div>
 
         {/* Not Included & Optional */}
-        <div className="space-y-3">
-          <div className="bg-slate-100 rounded-xl p-3">
-            <h3 className="font-semibold text-slate-600 mb-2 text-xs">Não incluído</h3>
-            <ul className="space-y-1">
+        <div className="space-y-2">
+          <div className="bg-slate-100 rounded-xl p-2">
+            <h3 className="font-semibold text-slate-600 mb-1 text-xs">Não incluído</h3>
+            <ul className="space-y-0.5">
               {notIncluded.map((item, i) => (
                 <li key={i} className="text-xs text-slate-500">• {item}</li>
               ))}
             </ul>
           </div>
-          <div className="bg-purple-50 rounded-xl p-3 border border-purple-100">
+          <div className="bg-purple-50 rounded-xl p-2 border border-purple-100">
             <h3 className="font-semibold text-purple-700 mb-1 text-xs">Opcional</h3>
             <p className="text-xs text-purple-600">Manutenção mensal</p>
-            <p className="text-base font-bold text-purple-700">150-250 €/mês</p>
-            <p className="text-xs text-purple-500">Updates, monitorização</p>
+            <p className="text-sm font-bold text-purple-700">150-250 €/mês</p>
+          </div>
+          <div className="bg-[#1e3a5f] rounded-xl p-2 text-white">
+            <p className="text-xs text-blue-200">Quem entrega:</p>
+            <p className="text-xs font-medium">AiParaTi + Helder Faria</p>
           </div>
         </div>
       </div>
-
-      <p className="text-center text-slate-400 text-xs mt-3">
-        Simples e claro. Sem surpresas.
-      </p>
       
       <GlobalSignature />
     </div>
@@ -1004,84 +1023,207 @@ const SlideTerms = () => {
 };
 
 // ============================================
-// SLIDE 12: PRÓXIMOS PASSOS (com contacto)
+// SLIDE 12: FAQ
 // ============================================
-const SlideNextSteps = () => {
-  const steps = [
-    { week: "Hoje", title: "Aprovação", desc: "Avançamos" },
-    { week: "Sem. 1", title: "Kickoff", desc: "Design c/ Helder" },
-    { week: "Sem. 2-5", title: "Dev", desc: "Construção" },
-    { week: "Sem. 6", title: "Testes", desc: "Feedback" },
-    { week: "Sem. 7-8", title: "Go-Live", desc: "Lançamento" },
-    { week: "Pós", title: "Suporte", desc: "60 dias" },
+const SlideFAQ = () => {
+  const faqs = [
+    {
+      question: "Posso pedir alterações durante o desenvolvimento?",
+      answer: "Sim! Até 3 rondas de revisão estão incluídas. Trabalhamos em sprints semanais com feedback contínuo.",
+    },
+    {
+      question: "E se precisar de mais funcionalidades depois?",
+      answer: "Orçamento adicional com 20% de desconto para clientes. Ou escolhe o plano Premium com manutenção incluída.",
+    },
+    {
+      question: "Quem faz a manutenção após os 60 dias?",
+      answer: "Opção 1: Contrato mensal (150-250€). Opção 2: Formamos a tua equipa para gerir autonomamente.",
+    },
+    {
+      question: "Posso pagar em prestações?",
+      answer: "Sim! 40% na assinatura, 40% no go-live, 20% após 30 dias. Flexível conforme necessidade.",
+    },
+    {
+      question: "Quanto tempo demora a formação da equipa?",
+      answer: "2-3 horas para equipa completa. + Bónus: 4h formação IA se aceitares até 18 Janeiro!",
+    },
   ];
 
   return (
-    <div className="h-full flex flex-col bg-gradient-to-br from-white via-slate-50 to-blue-50 p-8 relative">
+    <div className="h-full flex flex-col bg-white p-6 relative">
       <div className="mb-4 text-center">
-        <span className="text-xs font-medium text-[#3D7081] uppercase tracking-wider">O caminho</span>
-        <h2 className="text-3xl font-light text-[#1e3a5f] mt-1">Como começamos?</h2>
+        <span className="text-xs font-medium text-[#3D7081] uppercase tracking-wider">Perguntas Frequentes</span>
+        <h2 className="text-2xl font-light text-[#1e3a5f] mt-1">O que podes estar a pensar</h2>
       </div>
 
-      <div className="flex items-center justify-center">
-        <div className="grid grid-cols-6 gap-1.5 w-full">
-          {steps.map((step, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-              className="relative"
-            >
-              <div className={`p-3 rounded-lg text-center h-full ${
-                i === 0 
-                  ? "bg-[#1e3a5f] text-white" 
-                  : "bg-white border border-slate-200"
-              }`}>
-                <span className={`text-xs font-medium ${
-                  i === 0 ? "text-blue-200" : "text-[#3D7081]"
-                }`}>{step.week}</span>
-                <h3 className={`font-semibold text-xs mt-1 ${
-                  i === 0 ? "text-white" : "text-[#1e3a5f]"
-                }`}>{step.title}</h3>
-                <p className={`text-xs ${
-                  i === 0 ? "text-blue-200" : "text-slate-500"
-                }`}>{step.desc}</p>
-              </div>
-              {i < steps.length - 1 && (
-                <ArrowRight className="absolute -right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-[#3D7081] z-10" />
-              )}
-            </motion.div>
-          ))}
-        </div>
+      <div className="flex-1 grid grid-cols-2 gap-3">
+        {faqs.map((faq, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.08 }}
+            className="bg-slate-50 rounded-xl p-4 border border-slate-100"
+          >
+            <h3 className="font-semibold text-[#1e3a5f] text-sm mb-2 flex items-start gap-2">
+              <MessageSquare className="w-4 h-4 mt-0.5 text-[#3D7081] flex-shrink-0" />
+              {faq.question}
+            </h3>
+            <p className="text-slate-600 text-xs leading-relaxed pl-6">{faq.answer}</p>
+          </motion.div>
+        ))}
       </div>
 
-      {/* CTA */}
+      <div className="mt-3 text-center">
+        <p className="text-xs text-slate-500">
+          Tens mais dúvidas? Fala connosco: <span className="font-medium text-[#1e3a5f]">bilal.machraa@aiparati.pt</span>
+        </p>
+      </div>
+      
+      <GlobalSignature />
+    </div>
+  );
+};
+
+// ============================================
+// SLIDE 13: TIMELINE DETALHADA
+// ============================================
+const SlideTimeline = () => {
+  const weeks = [
+    { week: "Sem. 1", title: "Kickoff", tasks: ["Briefing detalhado", "Paleta cores c/ Helder", "Definição de conteúdos"] },
+    { week: "Sem. 2", title: "Design", tasks: ["Design homepage", "Wireframes portal", "Feedback Teresa"] },
+    { week: "Sem. 3", title: "Site Público", tasks: ["Desenvolvimento site", "Portfólio", "Blog/SEO"] },
+    { week: "Sem. 4", title: "Portal Cliente", tasks: ["Portal privado", "Sistema documentos", "Notificações"] },
+    { week: "Sem. 5", title: "Dashboard", tasks: ["Admin completo", "Integrações", "Automações"] },
+    { week: "Sem. 6", title: "Testes", tasks: ["QA completo", "Ajustes finais", "Feedback final"] },
+    { week: "Sem. 7", title: "Formação", tasks: ["Formação equipa", "Migração dados", "Documentação"] },
+    { week: "Sem. 8", title: "Go-Live!", tasks: ["Lançamento", "Monitorização", "Início suporte 60d"] },
+  ];
+
+  return (
+    <div className="h-full flex flex-col bg-white p-6 relative">
+      <div className="mb-4 text-center">
+        <span className="text-xs font-medium text-[#3D7081] uppercase tracking-wider">Roadmap detalhado</span>
+        <h2 className="text-2xl font-light text-[#1e3a5f] mt-1">As 8 semanas do projeto</h2>
+      </div>
+
+      <div className="flex-1 grid grid-cols-4 gap-2">
+        {weeks.map((item, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.08 }}
+            className={`rounded-xl p-3 ${
+              i === 7 
+                ? "bg-gradient-to-br from-green-500 to-emerald-600 text-white" 
+                : "bg-slate-50 border border-slate-100"
+            }`}
+          >
+            <span className={`text-xs font-medium ${i === 7 ? "text-green-100" : "text-[#3D7081]"}`}>
+              {item.week}
+            </span>
+            <h3 className={`font-semibold text-sm mt-1 ${i === 7 ? "text-white" : "text-[#1e3a5f]"}`}>
+              {item.title}
+            </h3>
+            <ul className="mt-2 space-y-1">
+              {item.tasks.map((task, j) => (
+                <li key={j} className={`text-xs flex items-start gap-1 ${i === 7 ? "text-green-100" : "text-slate-600"}`}>
+                  <Check className={`w-2.5 h-2.5 mt-0.5 flex-shrink-0 ${i === 7 ? "text-green-200" : "text-[#3D7081]"}`} />
+                  {task}
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="mt-3 p-3 bg-blue-50 rounded-lg border border-blue-100 text-center">
+        <p className="text-[#1e3a5f] text-xs">
+          <span className="font-semibold">Comunicação semanal:</span> Reunião de 30min todas as sextas para alinhamento e feedback
+        </p>
+      </div>
+      
+      <GlobalSignature />
+    </div>
+  );
+};
+
+// ============================================
+// SLIDE 14: PRÓXIMOS PASSOS (com contactos reais)
+// ============================================
+const SlideNextSteps = () => {
+  return (
+    <div className="h-full flex flex-col bg-gradient-to-br from-white via-slate-50 to-blue-50 p-8 relative">
+      <div className="mb-6 text-center">
+        <span className="text-xs font-medium text-[#3D7081] uppercase tracking-wider">O momento</span>
+        <h2 className="text-3xl font-light text-[#1e3a5f] mt-1">Pronta para começar, Teresa?</h2>
+      </div>
+
+      {/* Lembrete da oferta */}
+      <motion.div 
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mb-4 p-3 bg-gradient-to-r from-amber-50 to-yellow-50 rounded-xl border border-amber-200 text-center"
+      >
+        <p className="text-amber-800 text-sm font-medium">
+          ⏰ Lembra-te: <span className="font-bold">4h Formação IA GRÁTIS</span> se aceitares até 18 Janeiro
+        </p>
+      </motion.div>
+
+      {/* CTA Principal */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.8 }}
-        className="mt-4 text-center flex-1 flex items-center justify-center"
+        transition={{ delay: 0.3 }}
+        className="flex-1 flex items-center justify-center"
       >
-        <div className="inline-flex flex-col items-center gap-3 p-5 bg-white rounded-2xl shadow-lg border border-slate-100">
-          <Rocket className="w-8 h-8 text-[#3D7081]" />
-          <h3 className="text-xl font-semibold text-[#1e3a5f]">Pronta para começar, Teresa?</h3>
-          <p className="text-slate-500 text-sm">Assinemos o contrato esta semana.</p>
-          <div className="flex gap-2 mt-1">
-            <Button size="sm" className="gap-1.5 bg-[#1e3a5f] hover:bg-[#2a4a6f] text-white px-4">
-              <Phone className="w-3.5 h-3.5" />
-              Marcar Call
+        <div className="inline-flex flex-col items-center gap-4 p-8 bg-white rounded-2xl shadow-xl border border-slate-100 max-w-lg">
+          <Rocket className="w-12 h-12 text-[#3D7081]" />
+          <h3 className="text-2xl font-semibold text-[#1e3a5f]">Vamos avançar juntos?</h3>
+          <p className="text-slate-500 text-center">
+            Estamos prontos para transformar a forma como geres o teu estúdio.
+          </p>
+          
+          {/* Botões CTA */}
+          <div className="flex flex-col sm:flex-row gap-3 mt-2 w-full">
+            <Button size="lg" className="gap-2 bg-[#1e3a5f] hover:bg-[#2a4a6f] text-white flex-1">
+              <CheckCircle2 className="w-5 h-5" />
+              Aceitar Proposta
             </Button>
-            <Button size="sm" variant="outline" className="gap-1.5 border-[#1e3a5f] text-[#1e3a5f]">
-              <Mail className="w-3.5 h-3.5" />
-              Enviar Proposta
+            <Button size="lg" variant="outline" className="gap-2 border-[#1e3a5f] text-[#1e3a5f] flex-1">
+              <Calendar className="w-5 h-5" />
+              Agendar Call de Dúvidas
             </Button>
           </div>
           
-          {/* Contactos */}
-          <div className="mt-2 pt-2 border-t border-slate-100 w-full text-center">
+          {/* Contactos Reais */}
+          <div className="mt-4 pt-4 border-t border-slate-100 w-full">
+            <p className="text-xs text-slate-500 text-center mb-3">Contacta-nos diretamente:</p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <a 
+                href="mailto:bilal.machraa@aiparati.pt" 
+                className="flex items-center gap-2 text-[#1e3a5f] hover:underline"
+              >
+                <Mail className="w-4 h-4" />
+                <span className="text-sm font-medium">bilal.machraa@aiparati.pt</span>
+              </a>
+              <a 
+                href="https://wa.me/351918911308" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-green-600 hover:underline"
+              >
+                <Phone className="w-4 h-4" />
+                <span className="text-sm font-medium">+351 918 911 308</span>
+              </a>
+            </div>
+          </div>
+          
+          {/* Assinatura */}
+          <div className="mt-3 text-center">
             <p className="text-xs text-slate-400">
-              Questões? <span className="font-medium text-[#1e3a5f]">AiParaTi</span> | Design: <span className="font-medium text-[#1e3a5f]">Helder Faria</span>
+              Proposta por <span className="font-medium text-[#1e3a5f]">AiParaTi</span> | Design: <span className="font-medium text-[#1e3a5f]">Helder Faria</span>
             </p>
           </div>
         </div>
