@@ -472,6 +472,75 @@ export default function Documentation() {
             </Card>
           </div>
 
+          {/* NEW: Lightbox Premium Feature Highlight */}
+          <Card className="mt-6 overflow-hidden border-2 border-violet-500/30 bg-gradient-to-br from-violet-500/5 to-purple-500/5">
+            <CardHeader className="bg-gradient-to-r from-violet-500/10 to-purple-500/10">
+              <CardTitle className="flex items-center gap-2 text-violet-700 dark:text-violet-400">
+                <Camera className="w-5 h-5" />
+                Galeria de Fotos com Lightbox Premium
+                <Badge className="ml-2 bg-violet-500">Destaque</Badge>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-6">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <p className="text-muted-foreground mb-4">
+                    Sistema de visualização de imagens profissional com experiência premium para clientes explorarem cada detalhe dos seus projetos.
+                  </p>
+                  <ul className="space-y-2">
+                    <li className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <span><strong>Zoom até 400%</strong> com pan suave</span>
+                    </li>
+                    <li className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <span><strong>Organização por fase</strong> do projeto</span>
+                    </li>
+                    <li className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <span><strong>Slideshow automático</strong> com timer configurável</span>
+                    </li>
+                    <li className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <span><strong>Rotação de imagem</strong> 90°, 180°, 270°</span>
+                    </li>
+                    <li className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <span><strong>Download</strong> individual ou em lote</span>
+                    </li>
+                    <li className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <span><strong>Navegação por teclado</strong> (← → Esc)</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="bg-slate-900 rounded-xl p-4">
+                  <div className="flex justify-between items-center mb-3 text-white/60">
+                    <span className="text-xs">← Anterior</span>
+                    <div className="flex gap-2">
+                      <div className="p-1.5 bg-white/10 rounded"><ZoomIn className="w-4 h-4" /></div>
+                      <div className="p-1.5 bg-white/10 rounded"><Rotate3D className="w-4 h-4" /></div>
+                      <div className="p-1.5 bg-white/10 rounded"><Play className="w-4 h-4" /></div>
+                      <div className="p-1.5 bg-white/10 rounded"><Download className="w-4 h-4" /></div>
+                    </div>
+                    <span className="text-xs">Próximo →</span>
+                  </div>
+                  <div className="bg-gradient-to-br from-white/10 to-white/5 rounded-lg h-40 flex items-center justify-center border border-white/10">
+                    <div className="text-center">
+                      <Camera className="w-12 h-12 mx-auto mb-2 text-white/30" />
+                      <p className="text-white/50 text-sm">Imagem com Zoom 400%</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-1.5 justify-center mt-3">
+                    {[1,2,3,4,5,6].map(i => (
+                      <div key={i} className={`w-10 h-7 rounded ${i === 3 ? 'ring-2 ring-violet-400 bg-white/30' : 'bg-white/15'}`} />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
           {/* Note about protected areas */}
           <Card className="mt-6 border-dashed border-2">
             <CardContent className="p-6">
@@ -485,11 +554,7 @@ export default function Documentation() {
                     O <strong>Portal do Cliente</strong> e o <strong>Painel de Administração</strong> são áreas 
                     privadas protegidas por autenticação segura com MFA opcional.
                   </p>
-                  <p className="text-xs text-muted-foreground italic mb-4">
-                    Capturas reais destas áreas podem ser disponibilizadas na call de apresentação 
-                    ou mediante pedido, respeitando a privacidade dos dados de clientes existentes.
-                  </p>
-                  <div className="grid md:grid-cols-2 gap-4 mt-4">
+                  <div className="grid md:grid-cols-3 gap-4 mt-4">
                     <div className="p-3 bg-purple-500/10 rounded-lg">
                       <h5 className="font-medium text-purple-700 dark:text-purple-400 flex items-center gap-2 mb-2">
                         <Users className="w-4 h-4" />
@@ -497,10 +562,21 @@ export default function Documentation() {
                       </h5>
                       <ul className="text-xs space-y-1 text-muted-foreground">
                         <li>• Timeline visual do projeto</li>
-                        <li>• Galeria de fotos por fase</li>
                         <li>• Documentos com versionamento</li>
                         <li>• Chat em tempo real</li>
                         <li>• AI Weekly Updates</li>
+                      </ul>
+                    </div>
+                    <div className="p-3 bg-violet-500/10 rounded-lg">
+                      <h5 className="font-medium text-violet-700 dark:text-violet-400 flex items-center gap-2 mb-2">
+                        <Camera className="w-4 h-4" />
+                        Galeria de Fotos
+                      </h5>
+                      <ul className="text-xs space-y-1 text-muted-foreground">
+                        <li>• Lightbox premium</li>
+                        <li>• Zoom até 400%</li>
+                        <li>• Organização por fase</li>
+                        <li>• Download em lote</li>
                       </ul>
                     </div>
                     <div className="p-3 bg-blue-500/10 rounded-lg">
@@ -509,11 +585,10 @@ export default function Documentation() {
                         Painel Admin
                       </h5>
                       <ul className="text-xs space-y-1 text-muted-foreground">
-                        <li>• Dashboard com KPIs em tempo real</li>
+                        <li>• Dashboard com KPIs</li>
                         <li>• CRM Kanban de leads</li>
-                        <li>• Gestão completa de projetos</li>
                         <li>• Sistema de cotações</li>
-                        <li>• Audit logs de segurança</li>
+                        <li>• Audit logs</li>
                       </ul>
                     </div>
                   </div>
@@ -638,33 +713,59 @@ export default function Documentation() {
 
           {/* Detailed Wireframes */}
           <div className="grid md:grid-cols-2 gap-6">
-            {/* Lightbox Wireframe */}
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm flex items-center gap-2">
+            {/* Lightbox Premium - Featured Card */}
+            <Card className="border-2 border-violet-500/30 bg-gradient-to-br from-violet-500/5 to-purple-500/5">
+              <CardHeader className="pb-2 bg-gradient-to-r from-violet-500/10 to-purple-500/10">
+                <CardTitle className="text-sm flex items-center gap-2 text-violet-700 dark:text-violet-400">
                   <Eye className="w-4 h-4" />
                   Lightbox Premium
+                  <Badge variant="secondary" className="ml-2 text-[10px]">Destaque</Badge>
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-3">
-                <div className="bg-black/90 rounded-lg p-3 text-xs space-y-2">
-                  <div className="flex justify-between items-center text-white/50">
-                    <span>← Anterior</span>
+                <div className="bg-slate-900 rounded-lg p-3 text-xs space-y-2">
+                  <div className="flex justify-between items-center text-white/60">
+                    <span className="text-[10px]">← Anterior</span>
                     <div className="flex gap-2">
-                      <ZoomIn className="w-4 h-4" />
-                      <Rotate3D className="w-4 h-4" />
-                      <Play className="w-4 h-4" />
-                      <Download className="w-4 h-4" />
+                      <div className="p-1 bg-white/10 rounded">
+                        <ZoomIn className="w-3 h-3" />
+                      </div>
+                      <div className="p-1 bg-white/10 rounded">
+                        <Rotate3D className="w-3 h-3" />
+                      </div>
+                      <div className="p-1 bg-white/10 rounded">
+                        <Play className="w-3 h-3" />
+                      </div>
+                      <div className="p-1 bg-white/10 rounded">
+                        <Download className="w-3 h-3" />
+                      </div>
                     </div>
-                    <span>Próximo →</span>
+                    <span className="text-[10px]">Próximo →</span>
                   </div>
-                  <div className="bg-white/10 rounded h-32 flex items-center justify-center text-white/50">
-                    Imagem com Zoom 400%
+                  <div className="bg-gradient-to-br from-white/10 to-white/5 rounded h-28 flex items-center justify-center text-white/50 border border-white/10">
+                    <div className="text-center">
+                      <Camera className="w-8 h-8 mx-auto mb-1 opacity-40" />
+                      <span className="text-[10px]">Zoom até 400%</span>
+                    </div>
                   </div>
                   <div className="flex gap-1 justify-center">
-                    {[1,2,3,4,5].map(i => (
-                      <div key={i} className={`w-8 h-6 rounded ${i === 2 ? 'bg-white/40 ring-2 ring-primary' : 'bg-white/20'}`}></div>
+                    {[1,2,3,4,5,6].map(i => (
+                      <div key={i} className={`w-6 h-4 rounded ${i === 3 ? 'bg-violet-400/60 ring-1 ring-violet-400' : 'bg-white/20'}`}></div>
                     ))}
+                  </div>
+                </div>
+                <div className="mt-3 space-y-1">
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <CheckCircle className="w-3 h-3 text-green-500" />
+                    <span>Organização por fase do projeto</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <CheckCircle className="w-3 h-3 text-green-500" />
+                    <span>Navegação por teclado e gestos</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <CheckCircle className="w-3 h-3 text-green-500" />
+                    <span>Download individual ou em lote</span>
                   </div>
                 </div>
               </CardContent>
