@@ -55,9 +55,11 @@ import {
   AlertCircle
 } from "lucide-react";
 import arifaLogo from "@/assets/arifa-logo.png";
-import screenshotHomepage from "@/assets/screenshot-homepage.png";
-import screenshotPortfolio from "@/assets/screenshot-portfolio.png";
-import screenshotServicos from "@/assets/screenshot-servicos.png";
+import screenshotHomepage from "@/assets/screenshot-homepage-new.png";
+import screenshotPortfolio from "@/assets/screenshot-portfolio-new.png";
+import screenshotServicos from "@/assets/screenshot-servicos-new.png";
+import screenshotBlog from "@/assets/screenshot-blog.png";
+import screenshotContacto from "@/assets/screenshot-contacto.png";
 
 export default function Documentation() {
   const printRef = useRef<HTMLDivElement>(null);

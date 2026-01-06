@@ -46,9 +46,11 @@ import { toast } from "sonner";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import heroBg from "@/assets/presentation-hero-bg.jpg";
-import screenshotHomepage from "@/assets/screenshot-homepage.png";
-import screenshotPortfolio from "@/assets/screenshot-portfolio.png";
-import screenshotServicos from "@/assets/screenshot-servicos.png";
+import screenshotHomepage from "@/assets/screenshot-homepage-new.png";
+import screenshotPortfolio from "@/assets/screenshot-portfolio-new.png";
+import screenshotServicos from "@/assets/screenshot-servicos-new.png";
+import screenshotBlog from "@/assets/screenshot-blog.png";
+import screenshotContacto from "@/assets/screenshot-contacto.png";
 import teamBilal from "@/assets/team-bilal.png";
 import teamHelder from "@/assets/team-helder.png";
 
@@ -57,7 +59,7 @@ import teamHelder from "@/assets/team-helder.png";
 // ============================================
 const STAGE_WIDTH = 1920;
 const STAGE_HEIGHT = 1080;
-const TOTAL_SLIDES = 14;
+const TOTAL_SLIDES = 18;
 
 // ============================================
 // GLOBAL SIGNATURE
@@ -321,15 +323,19 @@ const SalesPresentation = () => {
                 {currentSlide === 2 && <SlideTransformation />}
                 {currentSlide === 3 && <SlideSolution />}
                 {currentSlide === 4 && <SlidePublicSite />}
-                {currentSlide === 5 && <SlideClientPortal />}
-                {currentSlide === 6 && <SlideAdminDashboard />}
-                {currentSlide === 7 && <SlideAutomations />}
-                {currentSlide === 8 && <SlideTimeline />}
-                {currentSlide === 9 && <SlideComparison />}
-                {currentSlide === 10 && <SlidePricing />}
-                {currentSlide === 11 && <SlideTerms />}
-                {currentSlide === 12 && <SlideFAQ />}
-                {currentSlide === 13 && <SlideNextSteps />}
+                {currentSlide === 5 && <SlidePortfolio />}
+                {currentSlide === 6 && <SlideBlog />}
+                {currentSlide === 7 && <SlideClientPortal />}
+                {currentSlide === 8 && <SlideAdminDashboard />}
+                {currentSlide === 9 && <SlideCRM />}
+                {currentSlide === 10 && <SlideAutomations />}
+                {currentSlide === 11 && <SlideTimeline />}
+                {currentSlide === 12 && <SlideComparison />}
+                {currentSlide === 13 && <SlidePricing />}
+                {currentSlide === 14 && <SlideTerms />}
+                {currentSlide === 15 && <SlideFAQ />}
+                {currentSlide === 16 && <SlideContacto />}
+                {currentSlide === 17 && <SlideNextSteps />}
               </motion.div>
             </AnimatePresence>
           </div>
@@ -878,6 +884,152 @@ const SlidePublicSite = () => {
 };
 
 // ============================================
+// SLIDE 6: PORTFOLIO
+// ============================================
+const SlidePortfolio = () => {
+  const features = [
+    "Filtros por categoria (Residencial, Corporativo, etc.)",
+    "Filtros por localização e segmento",
+    "Estados visuais (Em Projeto, Concluído)",
+    "Pesquisa instantânea de projetos",
+    "Galeria com Lightbox premium",
+  ];
+
+  return (
+    <SlideFrame className="bg-gradient-to-br from-white to-purple-50/30 relative">
+      <div className="flex items-center gap-4 mb-6">
+        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] flex items-center justify-center shadow-lg">
+          <FolderOpen className="w-7 h-7 text-white" />
+        </div>
+        <div>
+          <span className="text-xs font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 2</span>
+          <h2 className="text-3xl font-light text-[#1e3a5f]">Portfolio de Projetos</h2>
+        </div>
+      </div>
+
+      <div className="flex-1 grid grid-cols-[55%,45%] gap-8">
+        {/* Screenshot */}
+        <div className="bg-slate-100 rounded-2xl overflow-hidden border border-slate-200 shadow-lg">
+          <div className="bg-slate-200 h-8 flex items-center gap-2 px-4">
+            <div className="w-3 h-3 rounded-full bg-red-400" />
+            <div className="w-3 h-3 rounded-full bg-yellow-400" />
+            <div className="w-3 h-3 rounded-full bg-green-400" />
+            <span className="text-xs text-slate-500 ml-2">arifa.pt/portfolio</span>
+          </div>
+          <img 
+            src={screenshotPortfolio} 
+            alt="Screenshot Portfolio" 
+            className="w-full h-[calc(100%-32px)] object-cover object-top"
+          />
+        </div>
+
+        {/* Features */}
+        <div className="flex flex-col justify-center">
+          <p className="text-slate-600 mb-4 text-lg">Mostra o teu trabalho com classe</p>
+          <div className="space-y-3">
+            {features.map((feature, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: 15 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.06 }}
+                className="flex items-center gap-3 p-4 rounded-xl bg-white border border-slate-100 shadow-sm"
+              >
+                <div className="w-8 h-8 rounded-lg bg-[#3D7081]/10 flex items-center justify-center flex-shrink-0">
+                  <Check className="w-4 h-4 text-[#3D7081]" />
+                </div>
+                <p className="text-slate-700 text-base">{feature}</p>
+              </motion.div>
+            ))}
+          </div>
+          <div className="mt-4 p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border border-purple-100">
+            <p className="text-[#1e3a5f] text-sm font-medium flex items-center gap-2">
+              <Eye className="w-4 h-4 text-[#3D7081]" />
+              Cada projeto vende por ti — 24/7.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <GlobalSignature />
+    </SlideFrame>
+  );
+};
+
+// ============================================
+// SLIDE 7: BLOG
+// ============================================
+const SlideBlog = () => {
+  const features = [
+    "Artigos organizados por categoria",
+    "Pesquisa instantânea de conteúdo",
+    "Filtros por tema (Arquitetura, Design, etc.)",
+    "Autoridade e SEO melhorado",
+    "Lead magnets integrados",
+  ];
+
+  return (
+    <SlideFrame className="bg-gradient-to-br from-white to-orange-50/30 relative">
+      <div className="flex items-center gap-4 mb-6">
+        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] flex items-center justify-center shadow-lg">
+          <FileText className="w-7 h-7 text-white" />
+        </div>
+        <div>
+          <span className="text-xs font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 3</span>
+          <h2 className="text-3xl font-light text-[#1e3a5f]">Blog & Conteúdo</h2>
+        </div>
+      </div>
+
+      <div className="flex-1 grid grid-cols-[55%,45%] gap-8">
+        {/* Screenshot */}
+        <div className="bg-slate-100 rounded-2xl overflow-hidden border border-slate-200 shadow-lg">
+          <div className="bg-slate-200 h-8 flex items-center gap-2 px-4">
+            <div className="w-3 h-3 rounded-full bg-red-400" />
+            <div className="w-3 h-3 rounded-full bg-yellow-400" />
+            <div className="w-3 h-3 rounded-full bg-green-400" />
+            <span className="text-xs text-slate-500 ml-2">arifa.pt/blog</span>
+          </div>
+          <img 
+            src={screenshotBlog} 
+            alt="Screenshot Blog" 
+            className="w-full h-[calc(100%-32px)] object-cover object-top"
+          />
+        </div>
+
+        {/* Features */}
+        <div className="flex flex-col justify-center">
+          <p className="text-slate-600 mb-4 text-lg">Posiciona-te como especialista</p>
+          <div className="space-y-3">
+            {features.map((feature, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: 15 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.06 }}
+                className="flex items-center gap-3 p-4 rounded-xl bg-white border border-slate-100 shadow-sm"
+              >
+                <div className="w-8 h-8 rounded-lg bg-[#3D7081]/10 flex items-center justify-center flex-shrink-0">
+                  <Check className="w-4 h-4 text-[#3D7081]" />
+                </div>
+                <p className="text-slate-700 text-base">{feature}</p>
+              </motion.div>
+            ))}
+          </div>
+          <div className="mt-4 p-4 bg-gradient-to-r from-orange-50 to-amber-50 rounded-xl border border-orange-100">
+            <p className="text-[#1e3a5f] text-sm font-medium flex items-center gap-2">
+              <TrendingUp className="w-4 h-4 text-[#3D7081]" />
+              Conteúdo que atrai clientes e melhora o Google.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <GlobalSignature />
+    </SlideFrame>
+  );
+};
+
+// ============================================
 // SLIDE 6: PORTAL CLIENTE
 // ============================================
 const SlideClientPortal = () => {
@@ -896,7 +1048,7 @@ const SlideClientPortal = () => {
           <Lock className="w-7 h-7 text-white" />
         </div>
         <div>
-          <span className="text-xs font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 2</span>
+          <span className="text-xs font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 4</span>
           <h2 className="text-3xl font-light text-[#1e3a5f]">Portal do Cliente</h2>
         </div>
       </div>
@@ -951,7 +1103,7 @@ const SlideClientPortal = () => {
 };
 
 // ============================================
-// SLIDE 7: DASHBOARD ADMIN
+// SLIDE 9: DASHBOARD ADMIN
 // ============================================
 const SlideAdminDashboard = () => {
   const features = [
@@ -969,7 +1121,7 @@ const SlideAdminDashboard = () => {
           <LayoutDashboard className="w-7 h-7 text-white" />
         </div>
         <div>
-          <span className="text-xs font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 3</span>
+          <span className="text-xs font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 5</span>
           <h2 className="text-3xl font-light text-[#1e3a5f]">Dashboard Admin</h2>
         </div>
       </div>
@@ -1024,7 +1176,107 @@ const SlideAdminDashboard = () => {
 };
 
 // ============================================
-// SLIDE 8: AUTOMAÇÕES
+// SLIDE 10: CRM KANBAN
+// ============================================
+const SlideCRM = () => {
+  const stages = [
+    { name: "Novo", count: 3, color: "bg-blue-100 border-blue-300 text-blue-700" },
+    { name: "Contactado", count: 5, color: "bg-yellow-100 border-yellow-300 text-yellow-700" },
+    { name: "Proposta", count: 2, color: "bg-purple-100 border-purple-300 text-purple-700" },
+    { name: "Fechado", count: 4, color: "bg-green-100 border-green-300 text-green-700" },
+  ];
+
+  const features = [
+    "Kanban visual drag & drop",
+    "AI Lead Scoring automático",
+    "Histórico completo de atividades",
+    "Conversão lead → cliente integrada",
+    "Exportação CSV/PDF",
+  ];
+
+  return (
+    <SlideFrame className="bg-gradient-to-br from-white to-cyan-50/30 relative">
+      <div className="flex items-center gap-4 mb-6">
+        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] flex items-center justify-center shadow-lg">
+          <Users className="w-7 h-7 text-white" />
+        </div>
+        <div>
+          <span className="text-xs font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 6</span>
+          <h2 className="text-3xl font-light text-[#1e3a5f]">CRM de Leads</h2>
+        </div>
+      </div>
+
+      <div className="flex-1 grid grid-cols-[55%,45%] gap-8">
+        {/* Kanban Mockup */}
+        <div className="bg-slate-100 rounded-2xl overflow-hidden border border-slate-200 shadow-lg">
+          <div className="bg-slate-200 h-8 flex items-center gap-2 px-4">
+            <div className="w-3 h-3 rounded-full bg-red-400" />
+            <div className="w-3 h-3 rounded-full bg-yellow-400" />
+            <div className="w-3 h-3 rounded-full bg-green-400" />
+            <span className="text-xs text-slate-500 ml-2">arifa.pt/admin/leads</span>
+          </div>
+          <div className="p-4 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-32px)]">
+            <div className="grid grid-cols-4 gap-3 h-full">
+              {stages.map((stage, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  className="flex flex-col"
+                >
+                  <div className={`text-center text-xs font-bold py-2 rounded-t-lg border-2 ${stage.color}`}>
+                    {stage.name} ({stage.count})
+                  </div>
+                  <div className="flex-1 bg-white/80 border-x-2 border-b-2 border-slate-200 rounded-b-lg p-2 space-y-2">
+                    {[...Array(Math.min(stage.count, 3))].map((_, j) => (
+                      <div key={j} className="bg-white rounded-lg p-2 border border-slate-100 shadow-sm">
+                        <div className="h-2 w-16 bg-slate-200 rounded mb-1.5" />
+                        <div className="h-2 w-12 bg-slate-100 rounded" />
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Features */}
+        <div className="flex flex-col justify-center">
+          <p className="text-slate-600 mb-4 text-lg">Nunca percas um lead</p>
+          <div className="space-y-3">
+            {features.map((feature, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: 15 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.06 }}
+                className="flex items-center gap-3 p-4 rounded-xl bg-white border border-slate-100 shadow-sm"
+              >
+                <div className="w-8 h-8 rounded-lg bg-[#3D7081]/10 flex items-center justify-center flex-shrink-0">
+                  <Check className="w-4 h-4 text-[#3D7081]" />
+                </div>
+                <p className="text-slate-700 text-base">{feature}</p>
+              </motion.div>
+            ))}
+          </div>
+          <div className="mt-4 p-4 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl border border-cyan-100">
+            <p className="text-[#1e3a5f] text-sm font-medium flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-[#3D7081]" />
+              A IA qualifica leads por ti. Tu fechas negócios.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <GlobalSignature />
+    </SlideFrame>
+  );
+};
+
+// ============================================
+// SLIDE 11: AUTOMAÇÕES
 // ============================================
 const SlideAutomations = () => {
   const automations = [
@@ -1740,7 +1992,80 @@ const SlideFAQ = () => {
 };
 
 // ============================================
-// SLIDE 14: CTA FINAL
+// SLIDE 17: CONTACTO
+// ============================================
+const SlideContacto = () => {
+  const features = [
+    "Formulário inteligente com segmentação",
+    "Leads capturados direto no CRM",
+    "Notificação instantânea para ti",
+    "AI Lead Scoring automático",
+    "Integração com WhatsApp",
+  ];
+
+  return (
+    <SlideFrame className="bg-gradient-to-br from-white to-rose-50/30 relative">
+      <div className="flex items-center gap-4 mb-6">
+        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] flex items-center justify-center shadow-lg">
+          <Mail className="w-7 h-7 text-white" />
+        </div>
+        <div>
+          <span className="text-xs font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade Bónus</span>
+          <h2 className="text-3xl font-light text-[#1e3a5f]">Página de Contacto</h2>
+        </div>
+      </div>
+
+      <div className="flex-1 grid grid-cols-[55%,45%] gap-8">
+        {/* Screenshot */}
+        <div className="bg-slate-100 rounded-2xl overflow-hidden border border-slate-200 shadow-lg">
+          <div className="bg-slate-200 h-8 flex items-center gap-2 px-4">
+            <div className="w-3 h-3 rounded-full bg-red-400" />
+            <div className="w-3 h-3 rounded-full bg-yellow-400" />
+            <div className="w-3 h-3 rounded-full bg-green-400" />
+            <span className="text-xs text-slate-500 ml-2">arifa.pt/contacto</span>
+          </div>
+          <img 
+            src={screenshotContacto} 
+            alt="Screenshot Contacto" 
+            className="w-full h-[calc(100%-32px)] object-cover object-top"
+          />
+        </div>
+
+        {/* Features */}
+        <div className="flex flex-col justify-center">
+          <p className="text-slate-600 mb-4 text-lg">Converte visitantes em leads</p>
+          <div className="space-y-3">
+            {features.map((feature, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: 15 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.06 }}
+                className="flex items-center gap-3 p-4 rounded-xl bg-white border border-slate-100 shadow-sm"
+              >
+                <div className="w-8 h-8 rounded-lg bg-[#3D7081]/10 flex items-center justify-center flex-shrink-0">
+                  <Check className="w-4 h-4 text-[#3D7081]" />
+                </div>
+                <p className="text-slate-700 text-base">{feature}</p>
+              </motion.div>
+            ))}
+          </div>
+          <div className="mt-4 p-4 bg-gradient-to-r from-rose-50 to-pink-50 rounded-xl border border-rose-100">
+            <p className="text-[#1e3a5f] text-sm font-medium flex items-center gap-2">
+              <Zap className="w-4 h-4 text-[#3D7081]" />
+              Do formulário ao CRM em segundos.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <GlobalSignature />
+    </SlideFrame>
+  );
+};
+
+// ============================================
+// SLIDE 18: CTA FINAL
 // ============================================
 const SlideNextSteps = () => {
   const techBadges = [
