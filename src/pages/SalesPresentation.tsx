@@ -33,9 +33,7 @@ import {
   Target,
   TrendingDown,
   Eye,
-  MonitorPlay,
   Sparkles,
-  PlayCircle,
   Settings,
   Award,
   HelpCircle,
@@ -48,25 +46,80 @@ import { toast } from "sonner";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import heroBg from "@/assets/presentation-hero-bg.jpg";
+import screenshotHomepage from "@/assets/screenshot-homepage.png";
+import screenshotPortfolio from "@/assets/screenshot-portfolio.png";
+import screenshotServicos from "@/assets/screenshot-servicos.png";
 
 // ============================================
-// ASSINATURA GLOBAL
+// CONSTANTS
+// ============================================
+const STAGE_WIDTH = 1920;
+const STAGE_HEIGHT = 1080;
+const TOTAL_SLIDES = 14;
+
+// ============================================
+// GLOBAL SIGNATURE
 // ============================================
 const GlobalSignature = () => (
-  <div className="absolute bottom-3 right-4 text-xs text-slate-400">
+  <div className="absolute bottom-4 right-6 text-[11px] text-slate-400/80">
     AiParaTi | Plataforma ARIFA | Design: Helder Faria
   </div>
 );
 
+// ============================================
+// SLIDE FRAME (safe area wrapper)
+// ============================================
+const SlideFrame = ({ 
+  children, 
+  className = "",
+  padding = "p-12"
+}: { 
+  children: React.ReactNode; 
+  className?: string;
+  padding?: string;
+}) => (
+  <div className={`w-full h-full flex flex-col ${padding} ${className}`}>
+    {children}
+  </div>
+);
+
+// ============================================
+// MAIN COMPONENT
+// ============================================
 const SalesPresentation = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
-  const slideContainerRef = useRef<HTMLDivElement>(null);
-  const totalSlides = 14;
+  const [stageScale, setStageScale] = useState(1);
+  const [direction, setDirection] = useState(0);
+  const [hideControls, setHideControls] = useState(false);
+  
+  const containerRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+
+  // Calculate scale to fit viewport
+  useEffect(() => {
+    const updateScale = () => {
+      if (!containerRef.current) return;
+      
+      const container = containerRef.current;
+      const availableWidth = container.clientWidth - 32; // padding
+      const availableHeight = container.clientHeight - 32; // padding
+      
+      const scaleX = availableWidth / STAGE_WIDTH;
+      const scaleY = availableHeight / STAGE_HEIGHT;
+      const scale = Math.min(scaleX, scaleY, 1); // Never scale up beyond 1
+      
+      setStageScale(scale);
+    };
+
+    updateScale();
+    window.addEventListener("resize", updateScale);
+    return () => window.removeEventListener("resize", updateScale);
+  }, []);
 
   const nextSlide = useCallback(() => {
-    setCurrentSlide((prev) => Math.min(prev + 1, totalSlides - 1));
+    setCurrentSlide((prev) => Math.min(prev + 1, TOTAL_SLIDES - 1));
   }, []);
 
   const prevSlide = useCallback(() => {
@@ -83,41 +136,38 @@ const SalesPresentation = () => {
     }
   }, []);
 
-  // Export to PDF function - with proper wait for animations
+  // Export to PDF
   const exportToPDF = useCallback(async () => {
-    if (!slideContainerRef.current || isExporting) return;
+    if (!stageRef.current || isExporting) return;
     
     setIsExporting(true);
     toast.info("A gerar PDF... Aguarda enquanto cada slide é capturado.");
+    
+    // Wait for fonts
+    await document.fonts.ready;
     
     const originalSlide = currentSlide;
     const pdf = new jsPDF({
       orientation: "landscape",
       unit: "px",
-      format: [1920, 1080]
+      format: [STAGE_WIDTH, STAGE_HEIGHT]
     });
 
     try {
-      for (let i = 0; i < totalSlides; i++) {
+      for (let i = 0; i < TOTAL_SLIDES; i++) {
         setCurrentSlide(i);
         
-        await new Promise(resolve => setTimeout(resolve, 100));
-        await new Promise(resolve => setTimeout(resolve, 1200));
+        // Wait for render
+        await new Promise(resolve => setTimeout(resolve, 300));
         
-        if (slideContainerRef.current) {
-          slideContainerRef.current.style.opacity = '0.99';
-          await new Promise(resolve => requestAnimationFrame(resolve));
-          slideContainerRef.current.style.opacity = '1';
-          await new Promise(resolve => setTimeout(resolve, 100));
-        }
-        
-        const canvas = await html2canvas(slideContainerRef.current!, {
-          scale: 2,
+        const canvas = await html2canvas(stageRef.current!, {
+          scale: 1,
           useCORS: true,
           allowTaint: true,
           backgroundColor: "#ffffff",
           logging: false,
-          imageTimeout: 5000,
+          width: STAGE_WIDTH,
+          height: STAGE_HEIGHT,
           onclone: (clonedDoc) => {
             const motionElements = clonedDoc.querySelectorAll('[style*="opacity"]');
             motionElements.forEach((el) => {
@@ -130,15 +180,15 @@ const SalesPresentation = () => {
         const imgData = canvas.toDataURL("image/jpeg", 0.95);
         
         if (i > 0) {
-          pdf.addPage([1920, 1080], "landscape");
+          pdf.addPage([STAGE_WIDTH, STAGE_HEIGHT], "landscape");
         }
         
-        pdf.addImage(imgData, "JPEG", 0, 0, 1920, 1080);
-        toast.info(`Slide ${i + 1} de ${totalSlides} capturado...`);
+        pdf.addImage(imgData, "JPEG", 0, 0, STAGE_WIDTH, STAGE_HEIGHT);
+        toast.info(`Slide ${i + 1} de ${TOTAL_SLIDES} capturado...`);
       }
       
       pdf.save("ARIFA-Proposta-Comercial.pdf");
-      toast.success("PDF exportado com sucesso! Todos os 14 slides incluídos.");
+      toast.success("PDF exportado com sucesso!");
     } catch (error) {
       console.error("Erro ao exportar PDF:", error);
       toast.error("Erro ao exportar PDF. Tenta novamente.");
@@ -146,8 +196,9 @@ const SalesPresentation = () => {
       setCurrentSlide(originalSlide);
       setIsExporting(false);
     }
-  }, [currentSlide, isExporting, totalSlides]);
+  }, [currentSlide, isExporting]);
 
+  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (isExporting) return;
@@ -161,6 +212,8 @@ const SalesPresentation = () => {
         prevSlide();
       } else if (e.key === "f" || e.key === "F") {
         toggleFullscreen();
+      } else if (e.key === "h" || e.key === "H") {
+        setHideControls(prev => !prev);
       } else if (e.key === "Escape" && isFullscreen) {
         setIsFullscreen(false);
       }
@@ -178,25 +231,20 @@ const SalesPresentation = () => {
     return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
   }, []);
 
-  const [direction, setDirection] = useState(0);
-
   const slideVariants = {
     enter: (direction: number) => ({
-      x: direction > 0 ? 100 : -100,
+      x: direction > 0 ? 50 : -50,
       opacity: 0,
-      scale: 0.98,
     }),
     center: {
       zIndex: 1,
       x: 0,
       opacity: 1,
-      scale: 1,
     },
     exit: (direction: number) => ({
       zIndex: 0,
-      x: direction < 0 ? 100 : -100,
+      x: direction < 0 ? 50 : -50,
       opacity: 0,
-      scale: 0.98,
     }),
   };
 
@@ -216,79 +264,100 @@ const SalesPresentation = () => {
   }, [currentSlide]);
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-slate-900 flex flex-col overflow-hidden">
       {/* Export Overlay */}
       {isExporting && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
+        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center">
           <div className="bg-white rounded-xl p-8 flex flex-col items-center gap-4 shadow-2xl">
             <Loader2 className="w-12 h-12 text-[#1e3a5f] animate-spin" />
             <p className="text-lg font-medium text-slate-700">A gerar PDF...</p>
-            <p className="text-sm text-slate-500">Slide {currentSlide + 1} de {totalSlides}</p>
+            <p className="text-sm text-slate-500">Slide {currentSlide + 1} de {TOTAL_SLIDES}</p>
           </div>
         </div>
       )}
 
-      {/* Main Content */}
-      <div className="flex-1 flex items-center justify-center p-4 md:p-8">
-        <div 
-          ref={slideContainerRef}
-          className="w-full max-w-6xl aspect-[16/9] bg-white rounded-lg shadow-2xl overflow-hidden relative"
+      {/* Stage Container */}
+      <div 
+        ref={containerRef}
+        className="flex-1 flex items-center justify-center p-4"
+      >
+        {/* Scaled Stage Wrapper */}
+        <div
+          style={{
+            width: STAGE_WIDTH * stageScale,
+            height: STAGE_HEIGHT * stageScale,
+          }}
+          className="relative"
         >
-          <AnimatePresence initial={false} custom={direction} mode="wait">
-            <motion.div
-              key={currentSlide}
-              custom={direction}
-              variants={slideVariants}
-              initial={isExporting ? false : "enter"}
-              animate="center"
-              exit={isExporting ? undefined : "exit"}
-              transition={isExporting ? { duration: 0 } : {
-                x: { type: "spring", stiffness: 300, damping: 30 },
-                opacity: { duration: 0.3 },
-                scale: { duration: 0.3 },
-              }}
-              className="absolute inset-0"
-            >
-              {/* Nova ordem otimizada para narrativa de vendas */}
-              {currentSlide === 0 && <SlideCover />}
-              {currentSlide === 1 && <SlideProblem />}
-              {currentSlide === 2 && <SlideTransformation />}
-              {currentSlide === 3 && <SlideSolution />}
-              {currentSlide === 4 && <SlidePublicSite />}
-              {currentSlide === 5 && <SlideClientPortal />}
-              {currentSlide === 6 && <SlideAdminDashboard />}
-              {currentSlide === 7 && <SlideAutomations />}
-              {currentSlide === 8 && <SlideTimeline />}
-              {currentSlide === 9 && <SlideComparison />}
-              {currentSlide === 10 && <SlidePricing />}
-              {currentSlide === 11 && <SlideTerms />}
-              {currentSlide === 12 && <SlideFAQ />}
-              {currentSlide === 13 && <SlideNextSteps />}
-            </motion.div>
-          </AnimatePresence>
+          {/* Fixed 1920x1080 Stage */}
+          <div
+            ref={stageRef}
+            style={{
+              width: STAGE_WIDTH,
+              height: STAGE_HEIGHT,
+              transform: `scale(${stageScale})`,
+              transformOrigin: "top left",
+            }}
+            className="bg-white rounded-lg shadow-2xl overflow-hidden"
+          >
+            <AnimatePresence initial={false} custom={direction} mode="wait">
+              <motion.div
+                key={currentSlide}
+                custom={direction}
+                variants={slideVariants}
+                initial={isExporting ? false : "enter"}
+                animate="center"
+                exit={isExporting ? undefined : "exit"}
+                transition={isExporting ? { duration: 0 } : {
+                  x: { type: "spring", stiffness: 400, damping: 40 },
+                  opacity: { duration: 0.2 },
+                }}
+                className="absolute inset-0"
+              >
+                {currentSlide === 0 && <SlideCover />}
+                {currentSlide === 1 && <SlideProblem />}
+                {currentSlide === 2 && <SlideTransformation />}
+                {currentSlide === 3 && <SlideSolution />}
+                {currentSlide === 4 && <SlidePublicSite />}
+                {currentSlide === 5 && <SlideClientPortal />}
+                {currentSlide === 6 && <SlideAdminDashboard />}
+                {currentSlide === 7 && <SlideAutomations />}
+                {currentSlide === 8 && <SlideTimeline />}
+                {currentSlide === 9 && <SlideComparison />}
+                {currentSlide === 10 && <SlidePricing />}
+                {currentSlide === 11 && <SlideTerms />}
+                {currentSlide === 12 && <SlideFAQ />}
+                {currentSlide === 13 && <SlideNextSteps />}
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
 
       {/* Navigation Bar */}
-      <div className="bg-slate-50 border-t border-slate-200 px-4 py-3">
+      <div 
+        className={`bg-slate-800 border-t border-slate-700 px-4 py-3 transition-all duration-300 ${
+          hideControls ? "opacity-0 pointer-events-none" : "opacity-100"
+        }`}
+      >
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           {/* Progress Dots */}
           <div className="flex items-center gap-2">
-            {Array.from({ length: totalSlides }).map((_, i) => (
+            {Array.from({ length: TOTAL_SLIDES }).map((_, i) => (
               <button
                 key={i}
                 onClick={() => handleSlideClick(i)}
                 className={`w-2.5 h-2.5 rounded-full transition-all duration-200 ${
                   i === currentSlide 
-                    ? "bg-[#1e3a5f] scale-125" 
+                    ? "bg-white scale-125" 
                     : i < currentSlide 
                       ? "bg-[#3D7081]" 
-                      : "bg-slate-300"
+                      : "bg-slate-600"
                 }`}
               />
             ))}
-            <span className="ml-4 text-sm text-slate-500 font-medium">
-              Slide {currentSlide + 1} de {totalSlides}
+            <span className="ml-4 text-sm text-slate-400 font-medium">
+              {currentSlide + 1} / {TOTAL_SLIDES}
             </span>
           </div>
 
@@ -299,7 +368,7 @@ const SalesPresentation = () => {
               size="sm"
               onClick={exportToPDF}
               disabled={isExporting}
-              className="gap-1 border-slate-300 text-slate-600 hover:bg-slate-100"
+              className="gap-1 border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white"
             >
               {isExporting ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -313,26 +382,24 @@ const SalesPresentation = () => {
               size="sm"
               onClick={handlePrevSlide}
               disabled={currentSlide === 0 || isExporting}
-              className="gap-1 border-slate-300 text-slate-600 hover:bg-slate-100"
+              className="gap-1 border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white"
             >
               <ChevronLeft className="w-4 h-4" />
-              Anterior
             </Button>
             <Button
               variant="outline"
               size="sm"
               onClick={toggleFullscreen}
-              className="border-slate-300 text-slate-600 hover:bg-slate-100"
+              className="border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white"
             >
               {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
             </Button>
             <Button
               size="sm"
               onClick={handleNextSlide}
-              disabled={currentSlide === totalSlides - 1 || isExporting}
-              className="gap-1 bg-[#1e3a5f] hover:bg-[#2a4a6f] text-white"
+              disabled={currentSlide === TOTAL_SLIDES - 1 || isExporting}
+              className="gap-1 bg-[#3D7081] hover:bg-[#4D8091] text-white"
             >
-              Seguinte
               <ChevronRight className="w-4 h-4" />
             </Button>
           </div>
@@ -343,48 +410,46 @@ const SalesPresentation = () => {
 };
 
 // ============================================
-// SLIDE 1: CAPA PREMIUM COM HERO IMAGE
+// SLIDE 1: CAPA
 // ============================================
 const SlideCover = () => (
-  <div className="h-full flex flex-col items-center justify-center relative overflow-hidden">
-    {/* Hero Background Image */}
+  <div className="w-full h-full flex flex-col items-center justify-center relative overflow-hidden">
+    {/* Hero Background */}
     <div 
       className="absolute inset-0 bg-cover bg-center"
       style={{ backgroundImage: `url(${heroBg})` }}
     />
-    {/* Dark Overlay */}
+    {/* Overlay */}
     <div className="absolute inset-0 bg-gradient-to-br from-[#1e3a5f]/90 via-[#1e3a5f]/85 to-[#3D7081]/80" />
     
-    {/* Geometric Pattern Overlay */}
+    {/* Geometric Pattern */}
     <div className="absolute inset-0 opacity-10">
-      <div className="absolute top-10 left-10 w-32 h-32 border border-white/30 rotate-45" />
-      <div className="absolute top-20 left-20 w-24 h-24 border border-white/20 rotate-45" />
-      <div className="absolute bottom-10 right-10 w-40 h-40 border border-white/30 rotate-12" />
-      <div className="absolute bottom-20 right-24 w-28 h-28 border border-white/20 rotate-12" />
+      <div className="absolute top-20 left-20 w-48 h-48 border border-white/30 rotate-45" />
+      <div className="absolute bottom-20 right-20 w-56 h-56 border border-white/30 rotate-12" />
     </div>
 
-    {/* AiParaTi Badge - Topo esquerdo */}
+    {/* AiParaTi Badge */}
     <motion.div 
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
-      className="absolute top-6 left-6 flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2"
+      className="absolute top-12 left-12 flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-full px-5 py-2.5"
     >
-      <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center">
-        <span className="text-[#1e3a5f] font-bold text-xs">Ai</span>
+      <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center">
+        <span className="text-[#1e3a5f] font-bold text-sm">Ai</span>
       </div>
-      <span className="text-sm font-medium text-white/90">AiParaTi</span>
+      <span className="text-base font-medium text-white/90">AiParaTi</span>
     </motion.div>
 
     {/* Content */}
-    <div className="text-center z-10 px-8">
+    <div className="text-center z-10 px-12">
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="mb-8"
+        className="mb-10"
       >
-        <div className="w-20 h-20 mx-auto mb-8 border-2 border-white/80 rotate-45 flex items-center justify-center shadow-2xl bg-white/10 backdrop-blur-sm">
-          <span className="text-white font-bold text-2xl -rotate-45">A</span>
+        <div className="w-28 h-28 mx-auto border-2 border-white/80 rotate-45 flex items-center justify-center shadow-2xl bg-white/10 backdrop-blur-sm">
+          <span className="text-white font-bold text-4xl -rotate-45">A</span>
         </div>
       </motion.div>
       
@@ -392,7 +457,7 @@ const SlideCover = () => (
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="text-5xl md:text-6xl font-light text-white mb-4 tracking-tight"
+        className="text-7xl font-light text-white mb-6 tracking-tight"
       >
         Plataforma Digital <span className="font-semibold">ARIFA</span>
       </motion.h1>
@@ -401,7 +466,7 @@ const SlideCover = () => (
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="text-2xl text-white/80 font-light mt-2"
+        className="text-3xl text-white/80 font-light"
       >
         Para o teu estúdio de arquitetura
       </motion.p>
@@ -410,44 +475,42 @@ const SlideCover = () => (
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
-        className="mt-6 inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20"
+        className="mt-10 inline-flex items-center gap-4 px-8 py-4 bg-white/10 backdrop-blur-sm rounded-full border border-white/20"
       >
-        <Timer className="w-5 h-5 text-white/70" />
-        <span className="text-xl text-white/90 font-light">
+        <Timer className="w-6 h-6 text-white/70" />
+        <span className="text-2xl text-white/90 font-light">
           Transformar em 6-8 semanas
         </span>
       </motion.div>
       
-      {/* Rodapé com créditos */}
+      {/* Footer */}
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6 }}
-        className="mt-16 flex flex-col items-center gap-3"
+        className="mt-20 flex flex-col items-center gap-4"
       >
-        <div className="flex items-center justify-center gap-4 text-sm text-white/60">
+        <div className="flex items-center justify-center gap-6 text-base text-white/60">
           <span className="flex items-center gap-2">
-            <ChevronLeft className="w-4 h-4" />
-            <ChevronRight className="w-4 h-4" />
+            <ChevronLeft className="w-5 h-5" />
+            <ChevronRight className="w-5 h-5" />
             navegar
           </span>
           <span className="text-white/40">•</span>
           <span>F para fullscreen</span>
+          <span className="text-white/40">•</span>
+          <span>H para ocultar controlos</span>
         </div>
-        <p className="text-xs text-white/50 mt-2">
+        <p className="text-sm text-white/50">
           Proposição por <span className="font-medium text-white/70">AiParaTi</span> | Design por <span className="font-medium text-white/70">Helder Faria</span>
         </p>
       </motion.div>
-    </div>
-    
-    <div className="absolute bottom-3 right-4 text-xs text-white/40">
-      AiParaTi | Plataforma ARIFA | Design: Helder Faria
     </div>
   </div>
 );
 
 // ============================================
-// SLIDE 2: O PROBLEMA (Grid premium com cores)
+// SLIDE 2: PROBLEMA
 // ============================================
 const SlideProblem = () => {
   const problemBlocks = [
@@ -520,35 +583,35 @@ const SlideProblem = () => {
   ];
 
   return (
-    <div className="h-full flex flex-col bg-gradient-to-br from-white to-slate-50 p-5 relative overflow-hidden">
-      <div className="mb-2">
-        <span className="text-xs font-semibold text-[#3D7081] uppercase tracking-wider bg-[#3D7081]/10 px-2 py-0.5 rounded-full">Teresa, sabemos que...</span>
-        <h2 className="text-2xl font-light text-[#1e3a5f] mt-2">Onde estás hoje</h2>
-        <p className="text-slate-500 mt-1 text-xs">
+    <SlideFrame className="bg-gradient-to-br from-white to-slate-50 relative">
+      <div className="mb-6">
+        <span className="text-sm font-semibold text-[#3D7081] uppercase tracking-wider bg-[#3D7081]/10 px-3 py-1 rounded-full">Teresa, sabemos que...</span>
+        <h2 className="text-4xl font-light text-[#1e3a5f] mt-4">Onde estás hoje</h2>
+        <p className="text-slate-500 mt-2 text-lg">
           A AiParaTi viu isto dezenas de vezes em estúdios como o teu. Não estás sozinha:
         </p>
       </div>
       
-      <div className="flex-1 grid grid-cols-3 gap-2 content-center">
+      <div className="flex-1 grid grid-cols-3 gap-5 content-center">
         {problemBlocks.map((block, blockIndex) => (
           <motion.div
             key={blockIndex}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: blockIndex * 0.05 }}
-            className={`bg-gradient-to-br ${block.color} rounded-xl p-3 border ${block.borderColor} shadow-sm`}
+            className={`bg-gradient-to-br ${block.color} rounded-2xl p-5 border ${block.borderColor} shadow-sm`}
           >
-            <h3 className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-2 flex items-center gap-1">
-              <div className={`w-1.5 h-1.5 rounded-full ${block.iconBg}`} />
+            <h3 className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-4 flex items-center gap-2">
+              <div className={`w-2 h-2 rounded-full ${block.iconBg}`} />
               {block.title}
             </h3>
-            <div className="space-y-2">
+            <div className="space-y-3">
               {block.items.map((item, i) => (
-                <div key={i} className="flex items-start gap-2">
-                  <div className={`w-7 h-7 rounded-lg ${block.iconBg} flex items-center justify-center flex-shrink-0`}>
-                    <item.icon className={`w-3 h-3 ${block.iconColor}`} />
+                <div key={i} className="flex items-start gap-3">
+                  <div className={`w-10 h-10 rounded-xl ${block.iconBg} flex items-center justify-center flex-shrink-0`}>
+                    <item.icon className={`w-5 h-5 ${block.iconColor}`} />
                   </div>
-                  <p className="text-slate-700 text-xs leading-snug">{item.text}</p>
+                  <p className="text-slate-700 text-base leading-snug pt-2">{item.text}</p>
                 </div>
               ))}
             </div>
@@ -560,103 +623,18 @@ const SlideProblem = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4 }}
-        className="text-center text-slate-500 text-xs mt-2 bg-white/50 py-1.5 rounded-lg"
+        className="text-center text-slate-500 text-lg mt-6 bg-white/50 py-3 rounded-xl"
       >
         Isto é comum. <span className="font-medium text-[#1e3a5f]">Mas não tem de ser assim.</span>
       </motion.p>
       
       <GlobalSignature />
-    </div>
+    </SlideFrame>
   );
 };
 
 // ============================================
-// SLIDE 3: A SOLUÇÃO (Ícones grandes + descrições)
-// ============================================
-const SlideSolution = () => {
-  const solutions = [
-    { 
-      icon: Globe, 
-      title: "Site Público", 
-      desc: "Portfólio + Credibilidade",
-      detail: "Mostra o teu trabalho ao mundo com SEO otimizado"
-    },
-    { 
-      icon: Lock, 
-      title: "Portal Privado", 
-      desc: "Para os teus clientes",
-      detail: "Tudo num só lugar, organizado e acessível"
-    },
-    { 
-      icon: LayoutDashboard, 
-      title: "Dashboard Admin", 
-      desc: "Gestão centralizada",
-      detail: "Controla tudo de um único painel"
-    },
-    { 
-      icon: Zap, 
-      title: "Automações", 
-      desc: "Trabalho invisível",
-      detail: "Follow-ups e notificações automáticas"
-    },
-    { 
-      icon: Shield, 
-      title: "Segurança", 
-      desc: "Dados protegidos",
-      detail: "Backup automático e RGPD compliant"
-    },
-  ];
-
-  return (
-    <div className="h-full flex flex-col bg-gradient-to-br from-white via-blue-50/30 to-white p-5 relative overflow-hidden">
-      <div className="mb-3">
-        <span className="text-xs font-semibold text-[#3D7081] uppercase tracking-wider bg-[#3D7081]/10 px-2 py-0.5 rounded-full">A solução</span>
-        <h2 className="text-2xl font-light text-[#1e3a5f] mt-2">
-          O que tu vais ter
-        </h2>
-        <p className="text-slate-500 text-xs mt-1">Entregue por AiParaTi + Helder Faria</p>
-      </div>
-
-      <div className="flex-1 flex items-center justify-center">
-        <div className="grid grid-cols-5 gap-3 w-full">
-          {solutions.map((item, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0.9, y: 15 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: i * 0.08 }}
-              className="flex flex-col items-center text-center p-3 rounded-xl bg-white border border-slate-100 shadow-md"
-            >
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] flex items-center justify-center mb-2 shadow-md">
-                <item.icon className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="font-semibold text-[#1e3a5f] text-xs mb-0.5">{item.title}</h3>
-              <p className="text-[#3D7081] text-[10px] font-medium mb-1">{item.desc}</p>
-              <p className="text-slate-400 text-[10px] leading-snug">{item.detail}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-
-      <motion.div 
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-        className="mt-2 text-center"
-      >
-        <p className="text-[10px] text-slate-400 bg-slate-50 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full">
-          <Sparkles className="w-3 h-3 text-[#3D7081]" />
-          Tudo desenvolvido por <span className="font-medium text-[#1e3a5f]">AiParaTi</span>
-        </p>
-      </motion.div>
-      
-      <GlobalSignature />
-    </div>
-  );
-};
-
-// ============================================
-// SLIDE 4: TRANSFORMAÇÃO (Antes/Depois melhorado)
+// SLIDE 3: TRANSFORMAÇÃO
 // ============================================
 const SlideTransformation = () => {
   const comparisons = [
@@ -693,54 +671,573 @@ const SlideTransformation = () => {
   ];
 
   return (
-    <div className="h-full flex flex-col bg-white p-5 relative overflow-hidden">
-      <div className="mb-3">
-        <span className="text-xs font-semibold text-[#3D7081] uppercase tracking-wider bg-[#3D7081]/10 px-2 py-0.5 rounded-full">A transformação</span>
-        <h2 className="text-2xl font-light text-[#1e3a5f] mt-2">O que muda para ti</h2>
+    <SlideFrame className="bg-white relative">
+      <div className="mb-8">
+        <span className="text-sm font-semibold text-[#3D7081] uppercase tracking-wider bg-[#3D7081]/10 px-3 py-1 rounded-full">A transformação</span>
+        <h2 className="text-4xl font-light text-[#1e3a5f] mt-4">O que muda para ti</h2>
       </div>
 
-      <div className="flex-1 flex flex-col justify-center gap-2">
+      <div className="flex-1 flex flex-col justify-center gap-5">
         {comparisons.map((item, i) => (
           <motion.div
             key={i}
             initial={{ opacity: 0, x: -15 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: i * 0.08 }}
-            className="grid grid-cols-[1fr,auto,1fr] gap-3 items-center"
+            className="grid grid-cols-[1fr,80px,1fr] gap-6 items-center"
           >
             {/* Before */}
-            <div className="bg-gradient-to-r from-red-50 to-red-100/50 border-l-3 border-red-400 rounded-r-lg p-2.5 flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-red-100 flex items-center justify-center flex-shrink-0">
-                <item.iconBefore className="w-4 h-4 text-red-500" />
+            <div className="bg-gradient-to-r from-red-50 to-red-100/50 border-l-4 border-red-400 rounded-r-xl p-4 flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-red-100 flex items-center justify-center flex-shrink-0">
+                <item.iconBefore className="w-6 h-6 text-red-500" />
               </div>
-              <p className="text-slate-600 text-xs">{item.before}</p>
+              <p className="text-slate-600 text-lg">{item.before}</p>
             </div>
             
             {/* Arrow */}
             <div className="flex items-center justify-center">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#1e3a5f] to-[#3D7081] flex items-center justify-center shadow-md">
-                <ArrowRight className="w-4 h-4 text-white" />
+              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#1e3a5f] to-[#3D7081] flex items-center justify-center shadow-lg">
+                <ArrowRight className="w-6 h-6 text-white" />
               </div>
             </div>
             
             {/* After */}
-            <div className="bg-gradient-to-r from-green-100/50 to-green-50 border-r-3 border-green-500 rounded-l-lg p-2.5 flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
-                <item.iconAfter className="w-4 h-4 text-green-600" />
+            <div className="bg-gradient-to-r from-green-100/50 to-green-50 border-r-4 border-green-500 rounded-l-xl p-4 flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center flex-shrink-0">
+                <item.iconAfter className="w-6 h-6 text-green-600" />
               </div>
-              <p className="text-slate-700 text-xs font-medium">{item.after}</p>
+              <p className="text-slate-700 text-lg font-medium">{item.after}</p>
             </div>
           </motion.div>
         ))}
       </div>
       
       <GlobalSignature />
-    </div>
+    </SlideFrame>
   );
 };
 
 // ============================================
-// SLIDE 5: COMPARAÇÃO MERCADO
+// SLIDE 4: SOLUÇÃO
+// ============================================
+const SlideSolution = () => {
+  const solutions = [
+    { 
+      icon: Globe, 
+      title: "Site Público", 
+      desc: "Portfólio + Credibilidade",
+      detail: "Mostra o teu trabalho ao mundo com SEO otimizado"
+    },
+    { 
+      icon: Lock, 
+      title: "Portal Privado", 
+      desc: "Para os teus clientes",
+      detail: "Tudo num só lugar, organizado e acessível"
+    },
+    { 
+      icon: LayoutDashboard, 
+      title: "Dashboard Admin", 
+      desc: "Gestão centralizada",
+      detail: "Controla tudo de um único painel"
+    },
+    { 
+      icon: Zap, 
+      title: "Automações", 
+      desc: "Trabalho invisível",
+      detail: "Follow-ups e notificações automáticas"
+    },
+    { 
+      icon: Shield, 
+      title: "Segurança", 
+      desc: "Dados protegidos",
+      detail: "Backup automático e RGPD compliant"
+    },
+  ];
+
+  return (
+    <SlideFrame className="bg-gradient-to-br from-white via-blue-50/30 to-white relative">
+      <div className="mb-8">
+        <span className="text-sm font-semibold text-[#3D7081] uppercase tracking-wider bg-[#3D7081]/10 px-3 py-1 rounded-full">A solução</span>
+        <h2 className="text-4xl font-light text-[#1e3a5f] mt-4">
+          O que tu vais ter
+        </h2>
+        <p className="text-slate-500 text-lg mt-2">Entregue por AiParaTi + Helder Faria</p>
+      </div>
+
+      <div className="flex-1 flex items-center justify-center">
+        <div className="grid grid-cols-5 gap-6 w-full">
+          {solutions.map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0.9, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ delay: i * 0.08 }}
+              className="flex flex-col items-center text-center p-6 rounded-2xl bg-white border border-slate-100 shadow-lg"
+            >
+              <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] flex items-center justify-center mb-4 shadow-lg">
+                <item.icon className="w-10 h-10 text-white" />
+              </div>
+              <h3 className="font-semibold text-[#1e3a5f] text-lg mb-1">{item.title}</h3>
+              <p className="text-[#3D7081] text-sm font-medium mb-2">{item.desc}</p>
+              <p className="text-slate-400 text-sm leading-snug">{item.detail}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      <motion.div 
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+        className="mt-6 text-center"
+      >
+        <p className="text-sm text-slate-400 bg-slate-50 inline-flex items-center gap-2 px-4 py-2 rounded-full">
+          <Sparkles className="w-4 h-4 text-[#3D7081]" />
+          Tudo desenvolvido por <span className="font-medium text-[#1e3a5f]">AiParaTi</span>
+        </p>
+      </motion.div>
+      
+      <GlobalSignature />
+    </SlideFrame>
+  );
+};
+
+// ============================================
+// SLIDE 5: SITE PÚBLICO
+// ============================================
+const SlidePublicSite = () => {
+  const features = [
+    "Portfólio com filtros (tipo, localização, tema)",
+    "Galeria profissional (high-res, rápida, mobile)",
+    "Sobre a Teresa & equipa (storytelling)",
+    "Blog/News (para SEO + autoridade)",
+    "Formulário inteligente → direto para admin",
+  ];
+
+  return (
+    <SlideFrame className="bg-gradient-to-br from-white to-blue-50/30 relative">
+      <div className="flex items-center gap-4 mb-6">
+        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] flex items-center justify-center shadow-lg">
+          <Globe className="w-7 h-7 text-white" />
+        </div>
+        <div>
+          <span className="text-xs font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 1</span>
+          <h2 className="text-3xl font-light text-[#1e3a5f]">Site Público</h2>
+        </div>
+      </div>
+
+      <div className="flex-1 grid grid-cols-[55%,45%] gap-8">
+        {/* Screenshot */}
+        <div className="bg-slate-100 rounded-2xl overflow-hidden border border-slate-200 shadow-lg">
+          <div className="bg-slate-200 h-8 flex items-center gap-2 px-4">
+            <div className="w-3 h-3 rounded-full bg-red-400" />
+            <div className="w-3 h-3 rounded-full bg-yellow-400" />
+            <div className="w-3 h-3 rounded-full bg-green-400" />
+            <span className="text-xs text-slate-500 ml-2">arifa.pt</span>
+          </div>
+          <img 
+            src={screenshotHomepage} 
+            alt="Screenshot Homepage" 
+            className="w-full h-[calc(100%-32px)] object-cover object-top"
+          />
+        </div>
+
+        {/* Features */}
+        <div className="flex flex-col justify-center">
+          <p className="text-slate-600 mb-4 text-lg">O teu cartão de visita digital</p>
+          <div className="space-y-3">
+            {features.map((feature, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: 15 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.06 }}
+                className="flex items-center gap-3 p-4 rounded-xl bg-white border border-slate-100 shadow-sm"
+              >
+                <div className="w-8 h-8 rounded-lg bg-[#3D7081]/10 flex items-center justify-center flex-shrink-0">
+                  <Check className="w-4 h-4 text-[#3D7081]" />
+                </div>
+                <p className="text-slate-700 text-base">{feature}</p>
+              </motion.div>
+            ))}
+          </div>
+          <div className="mt-4 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
+            <p className="text-[#1e3a5f] text-sm font-medium flex items-center gap-2">
+              <Sparkles className="w-4 h-4" />
+              Otimizado para Google — clientes encontram-te.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <GlobalSignature />
+    </SlideFrame>
+  );
+};
+
+// ============================================
+// SLIDE 6: PORTAL CLIENTE
+// ============================================
+const SlideClientPortal = () => {
+  const features = [
+    "Login seguro (cada cliente vê só o seu projeto)",
+    "Timeline visual (onde está o projeto agora?)",
+    "Galeria de renders e fotos de obra",
+    "Documentos organizados (contratos, plantas)",
+    "Mensagens internas (fim do WhatsApp caótico)",
+  ];
+
+  return (
+    <SlideFrame className="bg-gradient-to-br from-white to-indigo-50/30 relative">
+      <div className="flex items-center gap-4 mb-6">
+        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] flex items-center justify-center shadow-lg">
+          <Lock className="w-7 h-7 text-white" />
+        </div>
+        <div>
+          <span className="text-xs font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 2</span>
+          <h2 className="text-3xl font-light text-[#1e3a5f]">Portal do Cliente</h2>
+        </div>
+      </div>
+
+      <div className="flex-1 grid grid-cols-[55%,45%] gap-8">
+        {/* Screenshot */}
+        <div className="bg-slate-100 rounded-2xl overflow-hidden border border-slate-200 shadow-lg">
+          <div className="bg-slate-200 h-8 flex items-center gap-2 px-4">
+            <div className="w-3 h-3 rounded-full bg-red-400" />
+            <div className="w-3 h-3 rounded-full bg-yellow-400" />
+            <div className="w-3 h-3 rounded-full bg-green-400" />
+            <span className="text-xs text-slate-500 ml-2">arifa.pt/cliente</span>
+          </div>
+          <img 
+            src={screenshotPortfolio} 
+            alt="Screenshot Portal" 
+            className="w-full h-[calc(100%-32px)] object-cover object-top"
+          />
+        </div>
+
+        {/* Features */}
+        <div className="flex flex-col justify-center">
+          <p className="text-slate-600 mb-4 text-lg">Onde os teus clientes acompanham tudo</p>
+          <div className="space-y-3">
+            {features.map((feature, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: 15 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.06 }}
+                className="flex items-center gap-3 p-4 rounded-xl bg-white border border-slate-100 shadow-sm"
+              >
+                <div className="w-8 h-8 rounded-lg bg-indigo-100 flex items-center justify-center flex-shrink-0">
+                  <Check className="w-4 h-4 text-indigo-600" />
+                </div>
+                <p className="text-slate-700 text-base">{feature}</p>
+              </motion.div>
+            ))}
+          </div>
+          <div className="mt-4 p-4 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl border border-indigo-100">
+            <p className="text-indigo-700 text-sm font-medium flex items-center gap-2">
+              <Shield className="w-4 h-4" />
+              100% privado — cada cliente vê apenas o seu.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <GlobalSignature />
+    </SlideFrame>
+  );
+};
+
+// ============================================
+// SLIDE 7: DASHBOARD ADMIN
+// ============================================
+const SlideAdminDashboard = () => {
+  const features = [
+    "Visão de todos os projetos (status, datas)",
+    "Gestão de clientes (histórico, contratos)",
+    "Biblioteca de documentos (templates)",
+    "Automações configuráveis (sem código)",
+    "Relatórios (projetos/mês, valor médio)",
+  ];
+
+  return (
+    <SlideFrame className="bg-gradient-to-br from-white to-emerald-50/30 relative">
+      <div className="flex items-center gap-4 mb-6">
+        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] flex items-center justify-center shadow-lg">
+          <LayoutDashboard className="w-7 h-7 text-white" />
+        </div>
+        <div>
+          <span className="text-xs font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 3</span>
+          <h2 className="text-3xl font-light text-[#1e3a5f]">Dashboard Admin</h2>
+        </div>
+      </div>
+
+      <div className="flex-1 grid grid-cols-[55%,45%] gap-8">
+        {/* Screenshot */}
+        <div className="bg-slate-100 rounded-2xl overflow-hidden border border-slate-200 shadow-lg">
+          <div className="bg-slate-200 h-8 flex items-center gap-2 px-4">
+            <div className="w-3 h-3 rounded-full bg-red-400" />
+            <div className="w-3 h-3 rounded-full bg-yellow-400" />
+            <div className="w-3 h-3 rounded-full bg-green-400" />
+            <span className="text-xs text-slate-500 ml-2">arifa.pt/admin</span>
+          </div>
+          <img 
+            src={screenshotServicos} 
+            alt="Screenshot Admin" 
+            className="w-full h-[calc(100%-32px)] object-cover object-top"
+          />
+        </div>
+
+        {/* Features */}
+        <div className="flex flex-col justify-center">
+          <p className="text-slate-600 mb-4 text-lg">O teu painel de comando</p>
+          <div className="space-y-3">
+            {features.map((feature, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: 15 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.06 }}
+                className="flex items-center gap-3 p-4 rounded-xl bg-white border border-slate-100 shadow-sm"
+              >
+                <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center flex-shrink-0">
+                  <Check className="w-4 h-4 text-emerald-600" />
+                </div>
+                <p className="text-slate-700 text-base">{feature}</p>
+              </motion.div>
+            ))}
+          </div>
+          <div className="mt-4 p-4 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl border border-emerald-100">
+            <p className="text-emerald-700 text-sm font-medium flex items-center gap-2">
+              <Target className="w-4 h-4" />
+              Gestão da empresa com um golpe de vista.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <GlobalSignature />
+    </SlideFrame>
+  );
+};
+
+// ============================================
+// SLIDE 8: AUTOMAÇÕES
+// ============================================
+const SlideAutomations = () => {
+  const features = [
+    "Follow-ups automáticos (5 dias sem resposta? Lembrete)",
+    "Notificações smart (Teresa + clientes sabem tudo)",
+    "Geração automática de documentos",
+    "IA integrada (sugestões, análise de feedbacks)",
+  ];
+
+  const automationExamples = [
+    { trigger: "Cliente não responde 5 dias", action: "Email automático de follow-up" },
+    { trigger: "Novo documento adicionado", action: "Notificação push ao cliente" },
+    { trigger: "Milestone concluída", action: "Email + atualização do portal" },
+  ];
+
+  return (
+    <SlideFrame className="bg-gradient-to-br from-white to-amber-50/30 relative">
+      <div className="flex items-center gap-4 mb-6">
+        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] flex items-center justify-center shadow-lg">
+          <Zap className="w-7 h-7 text-white" />
+        </div>
+        <div>
+          <span className="text-xs font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 4</span>
+          <h2 className="text-3xl font-light text-[#1e3a5f]">Automações Inteligentes</h2>
+        </div>
+      </div>
+
+      <div className="flex-1 grid grid-cols-[55%,45%] gap-8">
+        {/* Automation Flow Visualization */}
+        <div className="bg-gradient-to-br from-amber-50 to-amber-100/50 rounded-2xl p-6 border border-amber-200">
+          <h3 className="text-lg font-semibold text-amber-800 mb-4 flex items-center gap-2">
+            <Sparkles className="w-5 h-5" />
+            Exemplos de automações
+          </h3>
+          <div className="space-y-4">
+            {automationExamples.map((example, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -15 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.1 }}
+                className="flex items-center gap-4"
+              >
+                <div className="flex-1 bg-white rounded-xl p-4 shadow-sm border border-amber-100">
+                  <p className="text-sm text-amber-700 font-medium">Se: {example.trigger}</p>
+                </div>
+                <ArrowRight className="w-5 h-5 text-amber-500 flex-shrink-0" />
+                <div className="flex-1 bg-amber-200/50 rounded-xl p-4">
+                  <p className="text-sm text-amber-800 font-medium">Então: {example.action}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Features */}
+        <div className="flex flex-col justify-center">
+          <p className="text-slate-600 mb-4 text-lg">O trabalho invisível que liberta o teu tempo</p>
+          <div className="space-y-3">
+            {features.map((feature, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: 15 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.06 }}
+                className="flex items-center gap-3 p-4 rounded-xl bg-white border border-slate-100 shadow-sm"
+              >
+                <div className="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center flex-shrink-0">
+                  <Check className="w-4 h-4 text-amber-600" />
+                </div>
+                <p className="text-slate-700 text-base">{feature}</p>
+              </motion.div>
+            ))}
+          </div>
+          <div className="mt-4 p-4 bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl border border-amber-100">
+            <p className="text-amber-700 text-sm font-medium flex items-center gap-2">
+              <Sparkles className="w-4 h-4" />
+              Funcionam 24/7. Tu dormes, elas trabalham.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <GlobalSignature />
+    </SlideFrame>
+  );
+};
+
+// ============================================
+// SLIDE 9: TIMELINE
+// ============================================
+const SlideTimeline = () => {
+  const weeks = [
+    {
+      week: "Semana 1-2",
+      title: "Discovery",
+      icon: Target,
+      color: "bg-blue-100",
+      iconColor: "text-blue-600",
+      tasks: ["Briefing detalhado", "Análise de conteúdos", "Wireframes"]
+    },
+    {
+      week: "Semana 3-4",
+      title: "Design",
+      icon: Sparkles,
+      color: "bg-purple-100",
+      iconColor: "text-purple-600",
+      tasks: ["UI/UX por Helder Faria", "Revisão com Teresa", "Aprovação"]
+    },
+    {
+      week: "Semana 5-6",
+      title: "Desenvolvimento",
+      icon: Settings,
+      color: "bg-emerald-100",
+      iconColor: "text-emerald-600",
+      tasks: ["Frontend + Backend", "Integrações", "Testes internos"]
+    },
+    {
+      week: "Semana 7",
+      title: "Testes",
+      icon: Shield,
+      color: "bg-amber-100",
+      iconColor: "text-amber-600",
+      tasks: ["QA completo", "Testes com Teresa", "Ajustes finais"]
+    },
+    {
+      week: "Semana 8",
+      title: "Go-Live!",
+      icon: Rocket,
+      color: "bg-green-100",
+      iconColor: "text-green-600",
+      tasks: ["Deploy produção", "Formação", "Suporte ativo"]
+    },
+  ];
+
+  return (
+    <SlideFrame className="bg-gradient-to-br from-white to-slate-50 relative">
+      <div className="mb-6">
+        <span className="text-sm font-semibold text-[#3D7081] uppercase tracking-wider bg-[#3D7081]/10 px-3 py-1 rounded-full">Cronograma</span>
+        <h2 className="text-4xl font-light text-[#1e3a5f] mt-4">8 Semanas até ao Go-Live</h2>
+      </div>
+
+      {/* Progress Bar */}
+      <div className="mb-8 px-4">
+        <div className="h-3 bg-slate-200 rounded-full overflow-hidden">
+          <motion.div 
+            initial={{ width: 0 }}
+            animate={{ width: "100%" }}
+            transition={{ duration: 1.5, delay: 0.3 }}
+            className="h-full bg-gradient-to-r from-[#1e3a5f] via-[#3D7081] to-green-500 rounded-full"
+          />
+        </div>
+        <div className="flex justify-between mt-2">
+          <span className="text-sm text-slate-400">Início</span>
+          <span className="text-sm text-green-600 font-medium">Go-Live!</span>
+        </div>
+      </div>
+
+      <div className="flex-1 grid grid-cols-5 gap-4">
+        {weeks.map((item, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.08 }}
+            className={`rounded-2xl p-5 flex flex-col ${
+              i === 4 
+                ? "bg-gradient-to-br from-green-500 to-emerald-600 text-white shadow-xl ring-2 ring-green-300" 
+                : "bg-white border border-slate-100 shadow-md"
+            }`}
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <div className={`w-12 h-12 rounded-xl ${i === 4 ? "bg-white/20" : item.color} flex items-center justify-center`}>
+                <item.icon className={`w-6 h-6 ${i === 4 ? "text-white" : item.iconColor}`} />
+              </div>
+              <div>
+                <span className={`text-xs font-medium ${i === 4 ? "text-green-100" : "text-[#3D7081]"}`}>
+                  {item.week}
+                </span>
+                <h3 className={`font-semibold text-lg ${i === 4 ? "text-white" : "text-[#1e3a5f]"}`}>
+                  {item.title}
+                </h3>
+              </div>
+            </div>
+            <ul className="space-y-2 flex-1">
+              {item.tasks.map((task, j) => (
+                <li key={j} className={`text-sm flex items-start gap-2 ${i === 4 ? "text-green-100" : "text-slate-600"}`}>
+                  <Check className={`w-4 h-4 mt-0.5 flex-shrink-0 ${i === 4 ? "text-green-200" : "text-[#3D7081]"}`} />
+                  {task}
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        ))}
+      </div>
+
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.8 }}
+        className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100 text-center"
+      >
+        <p className="text-[#1e3a5f] text-base flex items-center justify-center gap-3">
+          <Calendar className="w-5 h-5" />
+          <span className="font-semibold">Comunicação semanal:</span> Reunião de 30min todas as sextas para alinhamento
+        </p>
+      </motion.div>
+      
+      <GlobalSignature />
+    </SlideFrame>
+  );
+};
+
+// ============================================
+// SLIDE 10: COMPARAÇÃO
 // ============================================
 const SlideComparison = () => {
   const traditionalTools = [
@@ -765,81 +1262,81 @@ const SlideComparison = () => {
   ];
 
   return (
-    <div className="h-full flex flex-col bg-white p-5 relative overflow-hidden">
-      <div className="mb-2">
-        <span className="text-xs font-semibold text-[#3D7081] uppercase tracking-wider bg-[#3D7081]/10 px-2 py-0.5 rounded-full">Comparação</span>
-        <h2 className="text-xl font-light text-[#1e3a5f] mt-2">Outras soluções vs. Solução integrada</h2>
+    <SlideFrame className="bg-white relative">
+      <div className="mb-6">
+        <span className="text-sm font-semibold text-[#3D7081] uppercase tracking-wider bg-[#3D7081]/10 px-3 py-1 rounded-full">Comparação</span>
+        <h2 className="text-4xl font-light text-[#1e3a5f] mt-4">Outras soluções vs. Solução integrada</h2>
       </div>
 
-      <div className="flex-1 grid grid-cols-2 gap-4">
-        {/* Coluna esquerda: Ferramentas separadas */}
+      <div className="flex-1 grid grid-cols-2 gap-8">
+        {/* Traditional */}
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           className="flex flex-col"
         >
-          <h3 className="text-xs font-semibold text-red-600 uppercase tracking-wider mb-2 flex items-center gap-2">
-            <X className="w-3 h-3" /> Abordagem Tradicional
+          <h3 className="text-base font-semibold text-red-600 uppercase tracking-wider mb-4 flex items-center gap-2">
+            <X className="w-4 h-4" /> Abordagem Tradicional
           </h3>
-          <div className="bg-gradient-to-br from-red-50 to-red-100/50 rounded-2xl p-4 flex-1 border border-red-200">
-            <div className="grid grid-cols-2 gap-1">
+          <div className="bg-gradient-to-br from-red-50 to-red-100/50 rounded-2xl p-5 flex-1 border border-red-200">
+            <div className="grid grid-cols-2 gap-2">
               {traditionalTools.map((tool, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.03 }}
-                  className="flex justify-between items-center py-1.5 px-2 bg-white rounded-lg text-xs shadow-sm"
+                  className="flex justify-between items-center py-2 px-3 bg-white rounded-lg text-sm shadow-sm"
                 >
-                  <span className="text-slate-600 flex items-center gap-1">
-                    <X className="w-2.5 h-2.5 text-red-400" />
+                  <span className="text-slate-600 flex items-center gap-2">
+                    <X className="w-3 h-3 text-red-400" />
                     {tool.name}
                   </span>
                   <span className="text-red-600 font-medium">{tool.cost}</span>
                 </motion.div>
               ))}
             </div>
-            <div className="mt-3 pt-3 border-t border-red-200">
+            <div className="mt-4 pt-4 border-t border-red-200">
               <div className="flex justify-between items-center">
-                <span className="font-semibold text-red-700 text-sm">TOTAL/ANO</span>
-                <span className="font-bold text-red-700 text-lg">~20.364 €</span>
+                <span className="font-semibold text-red-700 text-lg">TOTAL/ANO</span>
+                <span className="font-bold text-red-700 text-2xl">~20.364 €</span>
               </div>
-              <p className="text-xs text-red-500 mt-1">+ tempo a integrar manualmente</p>
+              <p className="text-sm text-red-500 mt-2">+ tempo a integrar manualmente</p>
             </div>
           </div>
         </motion.div>
 
-        {/* Coluna direita: ARIFA */}
+        {/* ARIFA */}
         <motion.div 
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2 }}
           className="flex flex-col"
         >
-          <h3 className="text-xs font-semibold text-green-600 uppercase tracking-wider mb-2 flex items-center gap-2">
-            <Check className="w-3 h-3" /> Solução ARIFA (por AiParaTi)
+          <h3 className="text-base font-semibold text-green-600 uppercase tracking-wider mb-4 flex items-center gap-2">
+            <Check className="w-4 h-4" /> Solução ARIFA (por AiParaTi)
           </h3>
-          <div className="bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] rounded-2xl p-4 flex-1 text-white shadow-xl">
-            <div className="space-y-2 mb-4">
+          <div className="bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] rounded-2xl p-6 flex-1 text-white shadow-xl">
+            <div className="space-y-3 mb-6">
               {arifaBenefits.map((benefit, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, x: 10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3 + i * 0.05 }}
-                  className="flex items-center gap-2 py-1"
+                  className="flex items-center gap-3 py-2"
                 >
-                  <CheckCircle2 className="w-4 h-4 text-green-300 flex-shrink-0" />
-                  <span className="text-blue-100 text-sm">{benefit}</span>
+                  <CheckCircle2 className="w-5 h-5 text-green-300 flex-shrink-0" />
+                  <span className="text-blue-100 text-lg">{benefit}</span>
                 </motion.div>
               ))}
             </div>
-            <div className="pt-3 border-t border-white/20">
-              <span className="text-blue-200 text-xs">Investimento único</span>
-              <p className="text-3xl font-bold mt-1">4.888 €</p>
-              <div className="mt-3 flex items-center gap-2">
-                <TrendingUp className="w-4 h-4 text-green-300" />
-                <span className="text-green-300 font-medium text-sm">Poupança: ~56.000 € em 3 anos</span>
+            <div className="pt-4 border-t border-white/20">
+              <span className="text-blue-200 text-sm">Investimento único</span>
+              <p className="text-5xl font-bold mt-2">4.888 €</p>
+              <div className="mt-4 flex items-center gap-2">
+                <TrendingUp className="w-5 h-5 text-green-300" />
+                <span className="text-green-300 font-medium text-lg">Poupança: ~56.000 € em 3 anos</span>
               </div>
             </div>
           </div>
@@ -850,280 +1347,21 @@ const SlideComparison = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="mt-4 p-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100 flex items-center gap-3"
+        className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100 flex items-center gap-4"
       >
-        <Puzzle className="w-6 h-6 text-[#1e3a5f] flex-shrink-0" />
-        <p className="text-[#1e3a5f] text-xs">
+        <Puzzle className="w-8 h-8 text-[#1e3a5f] flex-shrink-0" />
+        <p className="text-[#1e3a5f] text-base">
           <span className="font-semibold">A grande diferença?</span> Tudo funciona junto. Sem ferramentas soltas, sem dados espalhados.
         </p>
       </motion.div>
       
       <GlobalSignature />
-    </div>
+    </SlideFrame>
   );
 };
 
 // ============================================
-// SLIDE 6: SITE PÚBLICO (com área mockup)
-// ============================================
-const SlidePublicSite = () => {
-  const features = [
-    "Portfólio com filtros (tipo, localização, tema)",
-    "Galeria profissional (high-res, rápida, mobile)",
-    "Sobre a Teresa & equipa (storytelling)",
-    "Blog/News (para SEO + autoridade)",
-    "Formulário inteligente → direto para admin",
-  ];
-
-  return (
-    <div className="h-full flex flex-col bg-gradient-to-br from-white to-blue-50/30 p-5 relative overflow-hidden">
-      <div className="flex items-center gap-3 mb-3">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] flex items-center justify-center shadow-md">
-          <Globe className="w-5 h-5 text-white" />
-        </div>
-        <div className="flex-1">
-          <span className="text-[10px] font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 1</span>
-          <h2 className="text-xl font-light text-[#1e3a5f]">Site Público</h2>
-        </div>
-      </div>
-
-      <div className="flex-1 grid grid-cols-[50%,50%] gap-4">
-        {/* Área do Mockup */}
-        <div className="bg-gradient-to-br from-slate-100 to-slate-50 rounded-xl border-2 border-dashed border-slate-300 flex flex-col items-center justify-center p-4">
-          <MonitorPlay className="w-12 h-12 text-slate-300 mb-2" />
-          <p className="text-slate-400 text-center font-medium text-sm">Visualização da plataforma</p>
-          <p className="text-slate-300 text-xs text-center mt-1">Mockup em desenvolvimento</p>
-        </div>
-
-        {/* Features */}
-        <div className="flex flex-col justify-center">
-          <p className="text-slate-600 mb-2 text-xs">O teu cartão de visita digital</p>
-          <div className="space-y-1.5">
-            {features.map((feature, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: 15 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.06 }}
-                className="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-100 shadow-sm"
-              >
-                <div className="w-5 h-5 rounded bg-[#3D7081]/10 flex items-center justify-center flex-shrink-0">
-                  <Check className="w-3 h-3 text-[#3D7081]" />
-                </div>
-                <p className="text-slate-700 text-xs">{feature}</p>
-              </motion.div>
-            ))}
-          </div>
-          <div className="mt-2 p-2 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
-            <p className="text-[#1e3a5f] text-[10px] font-medium flex items-center gap-1">
-              <Sparkles className="w-3 h-3" />
-              Otimizado para Google — clientes encontram-te.
-            </p>
-          </div>
-        </div>
-      </div>
-      
-      <GlobalSignature />
-    </div>
-  );
-};
-
-// ============================================
-// SLIDE 7: PORTAL CLIENTE (com área mockup)
-// ============================================
-const SlideClientPortal = () => {
-  const features = [
-    "Briefing estruturado (formulário configurável)",
-    "Galeria de progresso (uploads, renders, aprovações)",
-    "Timeline do projeto (marcos, datas)",
-    "Documentos centralizados (PDFs, especificações)",
-    "Notificações automáticas",
-  ];
-
-  return (
-    <div className="h-full flex flex-col bg-gradient-to-br from-white to-purple-50/30 p-5 relative overflow-hidden">
-      <div className="flex items-center gap-3 mb-3">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] flex items-center justify-center shadow-md">
-          <Lock className="w-5 h-5 text-white" />
-        </div>
-        <div className="flex-1">
-          <span className="text-[10px] font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 2</span>
-          <h2 className="text-xl font-light text-[#1e3a5f]">Portal Privado</h2>
-        </div>
-      </div>
-
-      <div className="flex-1 grid grid-cols-[50%,50%] gap-4">
-        {/* Área do Mockup */}
-        <div className="bg-gradient-to-br from-purple-100/50 to-purple-50 rounded-xl border-2 border-dashed border-purple-200 flex flex-col items-center justify-center p-4">
-          <Lock className="w-12 h-12 text-purple-200 mb-2" />
-          <p className="text-purple-400 text-center font-medium text-sm">Portal do Cliente</p>
-          <p className="text-purple-300 text-xs text-center mt-1">Mockup em desenvolvimento</p>
-        </div>
-
-        {/* Features */}
-        <div className="flex flex-col justify-center">
-          <p className="text-slate-600 mb-2 text-xs">Controlo total sobre a experiência do cliente</p>
-          <div className="space-y-1.5">
-            {features.map((feature, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: 15 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.06 }}
-                className="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-100 shadow-sm"
-              >
-                <div className="w-5 h-5 rounded bg-purple-100 flex items-center justify-center flex-shrink-0">
-                  <Check className="w-3 h-3 text-purple-600" />
-                </div>
-                <p className="text-slate-700 text-xs">{feature}</p>
-              </motion.div>
-            ))}
-          </div>
-          <div className="mt-2 p-2 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg border border-purple-100">
-            <p className="text-purple-700 text-[10px] font-medium flex items-center gap-1">
-              <Shield className="w-3 h-3" />
-              O cliente vê só o que precisa. Tu decides.
-            </p>
-          </div>
-        </div>
-      </div>
-      
-      <GlobalSignature />
-    </div>
-  );
-};
-
-// ============================================
-// SLIDE 8: DASHBOARD ADMIN (com área mockup)
-// ============================================
-const SlideAdminDashboard = () => {
-  const features = [
-    "Visão de todos os projetos (status, datas)",
-    "Gestão de clientes (histórico, contratos)",
-    "Biblioteca de documentos (templates)",
-    "Automações configuráveis (sem código)",
-    "Relatórios (projetos/mês, valor médio)",
-  ];
-
-  return (
-    <div className="h-full flex flex-col bg-gradient-to-br from-white to-emerald-50/30 p-5 relative overflow-hidden">
-      <div className="flex items-center gap-3 mb-3">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] flex items-center justify-center shadow-md">
-          <LayoutDashboard className="w-5 h-5 text-white" />
-        </div>
-        <div className="flex-1">
-          <span className="text-[10px] font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 3</span>
-          <h2 className="text-xl font-light text-[#1e3a5f]">Dashboard Admin</h2>
-        </div>
-      </div>
-
-      <div className="flex-1 grid grid-cols-[50%,50%] gap-4">
-        {/* Área do Mockup */}
-        <div className="bg-gradient-to-br from-emerald-100/50 to-emerald-50 rounded-xl border-2 border-dashed border-emerald-200 flex flex-col items-center justify-center p-4">
-          <Settings className="w-12 h-12 text-emerald-200 mb-2" />
-          <p className="text-emerald-500 text-center font-medium text-sm">Painel Administrativo</p>
-          <p className="text-emerald-300 text-xs text-center mt-1">Mockup em desenvolvimento</p>
-        </div>
-
-        {/* Features */}
-        <div className="flex flex-col justify-center">
-          <p className="text-slate-600 mb-2 text-xs">O teu painel de comando</p>
-          <div className="space-y-1.5">
-            {features.map((feature, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: 15 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.06 }}
-                className="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-100 shadow-sm"
-              >
-                <div className="w-5 h-5 rounded bg-emerald-100 flex items-center justify-center flex-shrink-0">
-                  <Check className="w-3 h-3 text-emerald-600" />
-                </div>
-                <p className="text-slate-700 text-xs">{feature}</p>
-              </motion.div>
-            ))}
-          </div>
-          <div className="mt-2 p-2 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-lg border border-emerald-100">
-            <p className="text-emerald-700 text-[10px] font-medium flex items-center gap-1">
-              <Target className="w-3 h-3" />
-              Gestão da empresa com um golpe de vista.
-            </p>
-          </div>
-        </div>
-      </div>
-      
-      <GlobalSignature />
-    </div>
-  );
-};
-
-// ============================================
-// SLIDE 9: AUTOMAÇÕES (com área mockup)
-// ============================================
-const SlideAutomations = () => {
-  const features = [
-    "Follow-ups automáticos (5 dias sem resposta? Lembrete)",
-    "Notificações smart (Teresa + clientes sabem tudo)",
-    "Geração automática de documentos",
-    "IA integrada (sugestões, análise de feedbacks)",
-  ];
-
-  return (
-    <div className="h-full flex flex-col bg-gradient-to-br from-white to-amber-50/30 p-5 relative overflow-hidden">
-      <div className="flex items-center gap-3 mb-3">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] flex items-center justify-center shadow-md">
-          <Zap className="w-5 h-5 text-white" />
-        </div>
-        <div className="flex-1">
-          <span className="text-[10px] font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 4</span>
-          <h2 className="text-xl font-light text-[#1e3a5f]">Automações Inteligentes</h2>
-        </div>
-      </div>
-
-      <div className="flex-1 grid grid-cols-[50%,50%] gap-4">
-        {/* Área do Mockup */}
-        <div className="bg-gradient-to-br from-amber-100/50 to-amber-50 rounded-xl border-2 border-dashed border-amber-200 flex flex-col items-center justify-center p-4">
-          <Zap className="w-12 h-12 text-amber-200 mb-2" />
-          <p className="text-amber-500 text-center font-medium text-sm">Sistema de Automações</p>
-          <p className="text-amber-300 text-xs text-center mt-1">Mockup em desenvolvimento</p>
-        </div>
-
-        {/* Features */}
-        <div className="flex flex-col justify-center">
-          <p className="text-slate-600 mb-2 text-xs">O trabalho invisível que liberta o teu tempo</p>
-          <div className="space-y-1.5">
-            {features.map((feature, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: 15 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.06 }}
-                className="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-100 shadow-sm"
-              >
-                <div className="w-5 h-5 rounded bg-amber-100 flex items-center justify-center flex-shrink-0">
-                  <Check className="w-3 h-3 text-amber-600" />
-                </div>
-                <p className="text-slate-700 text-xs">{feature}</p>
-              </motion.div>
-            ))}
-          </div>
-          <div className="mt-2 p-2 bg-gradient-to-r from-amber-50 to-orange-50 rounded-lg border border-amber-100">
-            <p className="text-amber-700 text-[10px] font-medium flex items-center gap-1">
-              <Sparkles className="w-3 h-3" />
-              Funcionam 24/7. Tu dormes, elas trabalham.
-            </p>
-          </div>
-        </div>
-      </div>
-      
-      <GlobalSignature />
-    </div>
-  );
-};
-
-// ============================================
-// SLIDE 10: PRICING - 3 TIERS (melhorado)
+// SLIDE 11: PRICING
 // ============================================
 const SlidePricing = () => {
   const tiers = [
@@ -1176,54 +1414,54 @@ const SlidePricing = () => {
   ];
 
   return (
-    <div className="h-full flex flex-col bg-gradient-to-br from-white to-slate-50 p-6 relative">
-      <div className="mb-4 text-center">
-        <span className="text-xs font-semibold text-[#3D7081] uppercase tracking-wider bg-[#3D7081]/10 px-3 py-1 rounded-full">Escolhe o teu plano</span>
-        <h2 className="text-2xl font-light text-[#1e3a5f] mt-3">3 opções à tua medida</h2>
+    <SlideFrame className="bg-gradient-to-br from-white to-slate-50 relative">
+      <div className="mb-6 text-center">
+        <span className="text-sm font-semibold text-[#3D7081] uppercase tracking-wider bg-[#3D7081]/10 px-3 py-1 rounded-full">Escolhe o teu plano</span>
+        <h2 className="text-4xl font-light text-[#1e3a5f] mt-4">3 opções à tua medida</h2>
       </div>
 
-      <div className="flex-1 grid grid-cols-3 gap-4">
+      <div className="flex-1 grid grid-cols-3 gap-6">
         {tiers.map((tier, i) => (
           <motion.div
             key={i}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1 }}
-            className={`rounded-2xl p-4 flex flex-col relative ${
+            className={`rounded-2xl p-6 flex flex-col relative ${
               tier.recommended
-                ? "bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] text-white ring-4 ring-[#3D7081]/30 ring-offset-2 shadow-2xl scale-105 z-10"
+                ? "bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] text-white ring-4 ring-[#3D7081]/30 shadow-2xl z-10"
                 : "bg-white border border-slate-200 shadow-lg"
             }`}
           >
             {tier.recommended && (
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                <span className="bg-gradient-to-r from-amber-400 to-yellow-400 text-amber-900 text-xs font-bold px-4 py-1.5 rounded-full shadow-lg flex items-center gap-1">
-                  <Award className="w-3 h-3" />
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                <span className="bg-gradient-to-r from-amber-400 to-yellow-400 text-amber-900 text-sm font-bold px-5 py-2 rounded-full shadow-lg flex items-center gap-2">
+                  <Award className="w-4 h-4" />
                   RECOMENDADO
                 </span>
               </div>
             )}
-            <h3 className={`text-lg font-semibold ${tier.recommended ? "text-white mt-2" : "text-[#1e3a5f]"}`}>
+            <h3 className={`text-2xl font-semibold ${tier.recommended ? "text-white mt-4" : "text-[#1e3a5f]"}`}>
               {tier.name}
             </h3>
-            <p className={`text-xs mb-3 ${tier.recommended ? "text-blue-200" : "text-slate-500"}`}>
+            <p className={`text-sm mb-4 ${tier.recommended ? "text-blue-200" : "text-slate-500"}`}>
               {tier.description}
             </p>
-            <p className={`text-3xl font-bold mb-3 ${tier.recommended ? "text-white" : "text-[#1e3a5f]"}`}>
+            <p className={`text-4xl font-bold mb-4 ${tier.recommended ? "text-white" : "text-[#1e3a5f]"}`}>
               {tier.price} €
             </p>
             
-            <div className="flex-1 space-y-1.5">
+            <div className="flex-1 space-y-2">
               {tier.features.map((feature, j) => (
-                <div key={j} className="flex items-start gap-1.5">
-                  <feature.icon className={`w-3 h-3 mt-0.5 flex-shrink-0 ${tier.recommended ? "text-green-300" : "text-[#3D7081]"}`} />
-                  <span className={`text-xs ${tier.recommended ? "text-blue-100" : "text-slate-600"}`}>{feature.text}</span>
+                <div key={j} className="flex items-start gap-2">
+                  <feature.icon className={`w-4 h-4 mt-0.5 flex-shrink-0 ${tier.recommended ? "text-green-300" : "text-[#3D7081]"}`} />
+                  <span className={`text-sm ${tier.recommended ? "text-blue-100" : "text-slate-600"}`}>{feature.text}</span>
                 </div>
               ))}
               {tier.notIncluded.map((item, j) => (
-                <div key={j} className="flex items-start gap-1.5">
-                  <X className={`w-3 h-3 mt-0.5 flex-shrink-0 ${tier.recommended ? "text-red-300" : "text-slate-400"}`} />
-                  <span className={`text-xs line-through ${tier.recommended ? "text-blue-200/50" : "text-slate-400"}`}>{item}</span>
+                <div key={j} className="flex items-start gap-2">
+                  <X className="w-4 h-4 mt-0.5 flex-shrink-0 text-slate-400" />
+                  <span className="text-sm line-through text-slate-400">{item}</span>
                 </div>
               ))}
             </div>
@@ -1231,31 +1469,31 @@ const SlidePricing = () => {
         ))}
       </div>
 
-      {/* Bónus destacado */}
+      {/* Bonus */}
       <motion.div 
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
-        className="mt-3 p-3 bg-gradient-to-r from-amber-50 via-yellow-50 to-amber-50 rounded-xl border-2 border-amber-300 shadow-lg"
+        className="mt-6 p-4 bg-gradient-to-r from-amber-50 via-yellow-50 to-amber-50 rounded-xl border-2 border-amber-300 shadow-lg"
       >
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-amber-400 to-yellow-400 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
-            <Zap className="w-5 h-5 text-amber-900" />
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 bg-gradient-to-br from-amber-400 to-yellow-400 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
+            <Zap className="w-6 h-6 text-amber-900" />
           </div>
           <div className="flex-1">
-            <h3 className="font-bold text-amber-900 text-sm">Bónus Exclusivo: 4 horas de Formação IA</h3>
-            <p className="text-amber-700 text-xs">Valor: 400 € — Válido se aceitares até 18 de Janeiro de 2025</p>
+            <h3 className="font-bold text-amber-900 text-lg">Bónus Exclusivo: 4 horas de Formação IA</h3>
+            <p className="text-amber-700">Valor: 400 € — Válido se aceitares até 18 de Janeiro de 2025</p>
           </div>
         </div>
       </motion.div>
       
       <GlobalSignature />
-    </div>
+    </SlideFrame>
   );
 };
 
 // ============================================
-// SLIDE 11: CONDIÇÕES COMERCIAIS (com ícones)
+// SLIDE 12: TERMOS
 // ============================================
 const SlideTerms = () => {
   const included = [
@@ -1273,56 +1511,56 @@ const SlideTerms = () => {
   ];
 
   return (
-    <div className="h-full flex flex-col bg-gradient-to-br from-white to-slate-50 p-6 relative">
-      <div className="mb-3">
-        <span className="text-xs font-semibold text-[#3D7081] uppercase tracking-wider bg-[#3D7081]/10 px-3 py-1 rounded-full">Termos & Condições</span>
-        <h2 className="text-2xl font-light text-[#1e3a5f] mt-3">Como funciona</h2>
+    <SlideFrame className="bg-gradient-to-br from-white to-slate-50 relative">
+      <div className="mb-4">
+        <span className="text-sm font-semibold text-[#3D7081] uppercase tracking-wider bg-[#3D7081]/10 px-3 py-1 rounded-full">Termos & Condições</span>
+        <h2 className="text-4xl font-light text-[#1e3a5f] mt-4">Como funciona</h2>
       </div>
 
-      {/* OFERTA ESPECIAL - URGÊNCIA */}
+      {/* Special Offer */}
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="mb-3 p-3 bg-gradient-to-r from-amber-50 via-yellow-50 to-amber-50 rounded-2xl border-2 border-amber-300 relative overflow-hidden shadow-lg"
+        className="mb-4 p-4 bg-gradient-to-r from-amber-50 via-yellow-50 to-amber-50 rounded-2xl border-2 border-amber-300 relative overflow-hidden shadow-lg"
       >
-        <div className="absolute top-0 right-0 bg-gradient-to-l from-amber-400 to-yellow-400 text-amber-900 text-xs font-bold px-4 py-1 rounded-bl-xl">
+        <div className="absolute top-0 right-0 bg-gradient-to-l from-amber-400 to-yellow-400 text-amber-900 text-xs font-bold px-5 py-1.5 rounded-bl-xl">
           OFERTA LIMITADA
         </div>
-        <div className="flex items-center gap-4">
-          <div className="w-14 h-14 bg-gradient-to-br from-amber-400 to-yellow-400 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-md">
-            <Sparkles className="w-7 h-7 text-amber-900" />
+        <div className="flex items-center gap-5">
+          <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-yellow-400 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-md">
+            <Sparkles className="w-8 h-8 text-amber-900" />
           </div>
           <div>
-            <h3 className="font-bold text-amber-900 text-sm">Bónus Exclusivo: 4 horas de Formação IA</h3>
-            <p className="text-amber-700 text-xs">Para ti e toda a equipa — Valor: 400 €</p>
-            <p className="text-amber-800 font-semibold text-xs mt-1 flex items-center gap-1">
-              <Timer className="w-3 h-3" />
+            <h3 className="font-bold text-amber-900 text-lg">Bónus Exclusivo: 4 horas de Formação IA</h3>
+            <p className="text-amber-700">Para ti e toda a equipa — Valor: 400 €</p>
+            <p className="text-amber-800 font-semibold mt-1 flex items-center gap-2">
+              <Timer className="w-4 h-4" />
               Válido se aceitares até <span className="underline">18 de Janeiro de 2025</span>
             </p>
           </div>
         </div>
       </motion.div>
 
-      <div className="flex-1 grid grid-cols-3 gap-3">
+      <div className="flex-1 grid grid-cols-3 gap-5">
         {/* Payment */}
-        <div className="bg-white rounded-2xl p-4 border border-slate-100 shadow-md">
-          <h3 className="font-semibold text-[#1e3a5f] mb-3 flex items-center gap-2 text-sm">
-            <div className="w-8 h-8 rounded-xl bg-[#1e3a5f]/10 flex items-center justify-center">
-              <Euro className="w-4 h-4 text-[#1e3a5f]" />
+        <div className="bg-white rounded-2xl p-5 border border-slate-100 shadow-md">
+          <h3 className="font-semibold text-[#1e3a5f] mb-4 flex items-center gap-3 text-lg">
+            <div className="w-10 h-10 rounded-xl bg-[#1e3a5f]/10 flex items-center justify-center">
+              <Euro className="w-5 h-5 text-[#1e3a5f]" />
             </div>
             Pagamento
           </h3>
-          <p className="text-2xl font-bold text-[#1e3a5f] mb-3">4.888 €</p>
-          <div className="space-y-2 text-xs">
-            <div className="flex justify-between items-center py-2 px-3 bg-slate-50 rounded-lg">
+          <p className="text-3xl font-bold text-[#1e3a5f] mb-4">4.888 €</p>
+          <div className="space-y-2">
+            <div className="flex justify-between items-center py-3 px-4 bg-slate-50 rounded-xl">
               <span className="text-slate-600">40% assinatura</span>
               <span className="font-semibold text-[#1e3a5f]">1.955 €</span>
             </div>
-            <div className="flex justify-between items-center py-2 px-3 bg-slate-50 rounded-lg">
+            <div className="flex justify-between items-center py-3 px-4 bg-slate-50 rounded-xl">
               <span className="text-slate-600">40% go-live</span>
               <span className="font-semibold text-[#1e3a5f]">1.955 €</span>
             </div>
-            <div className="flex justify-between items-center py-2 px-3 bg-slate-50 rounded-lg">
+            <div className="flex justify-between items-center py-3 px-4 bg-slate-50 rounded-xl">
               <span className="text-slate-600">20% após 30 dias</span>
               <span className="font-semibold text-[#1e3a5f]">978 €</span>
             </div>
@@ -1330,22 +1568,22 @@ const SlideTerms = () => {
         </div>
 
         {/* Timeline & Included */}
-        <div className="space-y-3">
-          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-3 border border-blue-100">
-            <h3 className="font-semibold text-[#1e3a5f] mb-1 flex items-center gap-2 text-xs">
-              <Calendar className="w-4 h-4" /> Prazo de Entrega
+        <div className="space-y-4">
+          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-4 border border-blue-100">
+            <h3 className="font-semibold text-[#1e3a5f] mb-2 flex items-center gap-2">
+              <Calendar className="w-5 h-5" /> Prazo de Entrega
             </h3>
-            <p className="text-2xl font-bold text-[#1e3a5f]">6-8 semanas</p>
-            <p className="text-xs text-slate-500">Após aprovação do design</p>
+            <p className="text-3xl font-bold text-[#1e3a5f]">6-8 semanas</p>
+            <p className="text-sm text-slate-500">Após aprovação do design</p>
           </div>
-          <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-3 border border-green-100">
-            <h3 className="font-semibold text-green-700 mb-2 flex items-center gap-1 text-xs">
-              <CheckCircle2 className="w-4 h-4" /> Incluído
+          <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-4 border border-green-100 flex-1">
+            <h3 className="font-semibold text-green-700 mb-3 flex items-center gap-2">
+              <CheckCircle2 className="w-5 h-5" /> Incluído
             </h3>
-            <ul className="space-y-1">
+            <ul className="space-y-2">
               {included.map((item, i) => (
-                <li key={i} className="text-xs text-green-700 flex items-center gap-1.5">
-                  <item.icon className="w-3 h-3" /> {item.text}
+                <li key={i} className="text-sm text-green-700 flex items-center gap-2">
+                  <item.icon className="w-4 h-4" /> {item.text}
                 </li>
               ))}
             </ul>
@@ -1353,106 +1591,104 @@ const SlideTerms = () => {
         </div>
 
         {/* Not Included & Optional */}
-        <div className="space-y-3">
-          <div className="bg-slate-100 rounded-2xl p-3">
-            <h3 className="font-semibold text-slate-600 mb-2 text-xs flex items-center gap-1">
-              <X className="w-4 h-4" /> Não incluído
+        <div className="space-y-4">
+          <div className="bg-slate-100 rounded-2xl p-4">
+            <h3 className="font-semibold text-slate-600 mb-3 flex items-center gap-2">
+              <X className="w-5 h-5" /> Não incluído
             </h3>
-            <ul className="space-y-1">
+            <ul className="space-y-2">
               {notIncluded.map((item, i) => (
-                <li key={i} className="text-xs text-slate-500 flex items-center gap-1.5">
-                  <item.icon className="w-3 h-3" /> {item.text}
+                <li key={i} className="text-sm text-slate-500 flex items-center gap-2">
+                  <item.icon className="w-4 h-4" /> {item.text}
                 </li>
               ))}
             </ul>
           </div>
-          <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-3 border border-purple-100">
-            <h3 className="font-semibold text-purple-700 mb-1 text-xs flex items-center gap-1">
-              <Settings className="w-4 h-4" /> Opcional
+          <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-4 border border-purple-100">
+            <h3 className="font-semibold text-purple-700 mb-2 flex items-center gap-2">
+              <Settings className="w-5 h-5" /> Opcional
             </h3>
-            <p className="text-xs text-purple-600">Manutenção mensal</p>
-            <p className="text-lg font-bold text-purple-700">150-250 €/mês</p>
+            <p className="text-sm text-purple-600">Manutenção mensal</p>
+            <p className="text-2xl font-bold text-purple-700">150-250 €/mês</p>
           </div>
-          <div className="bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] rounded-2xl p-3 text-white">
-            <p className="text-xs text-blue-200">Quem entrega:</p>
-            <p className="text-sm font-semibold">AiParaTi + Helder Faria</p>
+          <div className="bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] rounded-2xl p-4 text-white">
+            <h3 className="font-semibold mb-2 flex items-center gap-2 text-sm">
+              <Award className="w-5 h-5" /> Garantia
+            </h3>
+            <p className="text-sm text-blue-100">60 dias de suporte incluído</p>
+            <p className="text-lg font-bold mt-1">Satisfação garantida</p>
           </div>
         </div>
       </div>
       
       <GlobalSignature />
-    </div>
+    </SlideFrame>
   );
 };
 
 // ============================================
-// SLIDE 12: FAQ (Cards visuais)
+// SLIDE 13: FAQ
 // ============================================
 const SlideFAQ = () => {
   const faqs = [
     {
-      question: "Posso pedir alterações durante o desenvolvimento?",
-      answer: "Sim! Até 3 rondas de revisão estão incluídas. Trabalhamos em sprints semanais com feedback contínuo.",
-      icon: Settings,
-      color: "from-blue-50 to-indigo-50",
-      borderColor: "border-blue-200",
-      iconBg: "bg-blue-100",
-      iconColor: "text-blue-600"
+      question: "Quanto tempo demora?",
+      answer: "6-8 semanas desde a assinatura até ao go-live, com reuniões semanais.",
+      icon: Calendar
     },
     {
-      question: "E se precisar de mais funcionalidades depois?",
-      answer: "Orçamento adicional com 20% de desconto para clientes. Ou escolhe o plano Premium com manutenção incluída.",
-      icon: Puzzle,
-      color: "from-purple-50 to-pink-50",
-      borderColor: "border-purple-200",
-      iconBg: "bg-purple-100",
-      iconColor: "text-purple-600"
+      question: "E se eu quiser alterações depois?",
+      answer: "60 dias de suporte incluído. Depois, manutenção opcional a partir de 150€/mês.",
+      icon: Settings
     },
     {
-      question: "Quem faz a manutenção após os 60 dias?",
-      answer: "Opção 1: Contrato mensal (150-250€). Opção 2: Formamos a tua equipa para gerir autonomamente.",
-      icon: Shield,
-      color: "from-emerald-50 to-teal-50",
-      borderColor: "border-emerald-200",
-      iconBg: "bg-emerald-100",
-      iconColor: "text-emerald-600"
+      question: "Preciso de conhecimentos técnicos?",
+      answer: "Não. O admin é 100% visual. E fazemos formação incluída.",
+      icon: Lightbulb
     },
     {
-      question: "Posso pagar em prestações?",
-      answer: "Sim! 40% na assinatura, 40% no go-live, 20% após 30 dias. Flexível conforme necessidade.",
-      icon: Euro,
-      color: "from-amber-50 to-yellow-50",
-      borderColor: "border-amber-200",
-      iconBg: "bg-amber-100",
-      iconColor: "text-amber-600"
+      question: "Os meus dados estão seguros?",
+      answer: "Sim. Backups automáticos, HTTPS, RGPD compliant. Tudo em servidores europeus.",
+      icon: Shield
+    },
+    {
+      question: "Posso adicionar mais funcionalidades depois?",
+      answer: "Sim. A plataforma é modular e pode crescer consigo.",
+      icon: Puzzle
+    },
+    {
+      question: "E se não gostar do resultado?",
+      answer: "Trabalhamos juntos em cada fase. Aprovação antes de avançar para a seguinte.",
+      icon: CheckCircle2
     },
   ];
 
   return (
-    <div className="h-full flex flex-col bg-gradient-to-br from-white to-slate-50 p-6 relative">
-      <div className="mb-4 text-center">
-        <span className="text-xs font-semibold text-[#3D7081] uppercase tracking-wider bg-[#3D7081]/10 px-3 py-1 rounded-full">Perguntas Frequentes</span>
-        <h2 className="text-2xl font-light text-[#1e3a5f] mt-3">O que podes estar a pensar</h2>
+    <SlideFrame className="bg-gradient-to-br from-white to-slate-50 relative">
+      <div className="mb-6 text-center">
+        <span className="text-sm font-semibold text-[#3D7081] uppercase tracking-wider bg-[#3D7081]/10 px-3 py-1 rounded-full">Perguntas Frequentes</span>
+        <h2 className="text-4xl font-light text-[#1e3a5f] mt-4">Respondemos às tuas dúvidas</h2>
       </div>
 
-      <div className="flex-1 grid grid-cols-2 gap-4">
+      <div className="flex-1 grid grid-cols-2 gap-5">
         {faqs.map((faq, i) => (
           <motion.div
             key={i}
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.1 }}
-            className={`bg-gradient-to-br ${faq.color} rounded-2xl p-5 border ${faq.borderColor} shadow-md hover:shadow-lg transition-shadow`}
+            transition={{ delay: i * 0.05 }}
+            className="bg-white rounded-2xl p-5 border border-slate-100 shadow-md flex gap-4"
           >
-            <div className="flex items-start gap-3 mb-3">
-              <div className={`w-10 h-10 rounded-xl ${faq.iconBg} flex items-center justify-center flex-shrink-0 shadow-sm`}>
-                <faq.icon className={`w-5 h-5 ${faq.iconColor}`} />
-              </div>
-              <h3 className="font-semibold text-[#1e3a5f] text-sm leading-tight">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#1e3a5f]/10 to-[#3D7081]/10 flex items-center justify-center flex-shrink-0">
+              <faq.icon className="w-6 h-6 text-[#3D7081]" />
+            </div>
+            <div className="flex-1">
+              <h3 className="font-semibold text-[#1e3a5f] mb-2 flex items-center gap-2 text-lg">
+                <HelpCircle className="w-4 h-4 text-[#3D7081]" />
                 {faq.question}
               </h3>
+              <p className="text-slate-600 text-base leading-relaxed">{faq.answer}</p>
             </div>
-            <p className="text-slate-600 text-sm leading-relaxed pl-13">{faq.answer}</p>
           </motion.div>
         ))}
       </div>
@@ -1460,115 +1696,23 @@ const SlideFAQ = () => {
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
-        className="mt-4 text-center"
+        transition={{ delay: 0.4 }}
+        className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100 text-center"
       >
-        <p className="text-sm text-slate-500 bg-white/80 inline-flex items-center gap-2 px-4 py-2 rounded-full shadow-sm">
-          <HelpCircle className="w-4 h-4 text-[#3D7081]" />
-          Tens mais dúvidas? <span className="font-medium text-[#1e3a5f]">bilal.machraa@aiparati.pt</span>
+        <p className="text-[#1e3a5f] text-base flex items-center justify-center gap-3">
+          <MessageSquare className="w-5 h-5" />
+          <span>Mais perguntas? </span>
+          <span className="font-semibold">bilal.machraa@aiparati.pt</span>
         </p>
       </motion.div>
       
       <GlobalSignature />
-    </div>
+    </SlideFrame>
   );
 };
 
 // ============================================
-// SLIDE 13: TIMELINE (com ícones e barra de progresso)
-// ============================================
-const SlideTimeline = () => {
-  const weeks = [
-    { week: "Sem. 1", title: "Kickoff", tasks: ["Briefing detalhado", "Paleta cores c/ Helder", "Definição de conteúdos"], icon: Rocket, color: "bg-blue-100", iconColor: "text-blue-600" },
-    { week: "Sem. 2", title: "Design", tasks: ["Design homepage", "Wireframes portal", "Feedback Teresa"], icon: Sparkles, color: "bg-purple-100", iconColor: "text-purple-600" },
-    { week: "Sem. 3", title: "Site", tasks: ["Desenvolvimento site", "Portfólio", "Blog/SEO"], icon: Globe, color: "bg-indigo-100", iconColor: "text-indigo-600" },
-    { week: "Sem. 4", title: "Portal", tasks: ["Portal privado", "Sistema documentos", "Notificações"], icon: Lock, color: "bg-pink-100", iconColor: "text-pink-600" },
-    { week: "Sem. 5", title: "Dashboard", tasks: ["Admin completo", "Integrações", "Automações"], icon: LayoutDashboard, color: "bg-amber-100", iconColor: "text-amber-600" },
-    { week: "Sem. 6", title: "Testes", tasks: ["QA completo", "Ajustes finais", "Feedback final"], icon: Shield, color: "bg-cyan-100", iconColor: "text-cyan-600" },
-    { week: "Sem. 7", title: "Formação", tasks: ["Formação equipa", "Migração dados", "Documentação"], icon: Users, color: "bg-orange-100", iconColor: "text-orange-600" },
-    { week: "Sem. 8", title: "GO-LIVE!", tasks: ["Lançamento", "Monitorização", "Início suporte"], icon: Star, color: "bg-green-100", iconColor: "text-green-600" },
-  ];
-
-  return (
-    <div className="h-full flex flex-col bg-gradient-to-br from-white to-slate-50 p-6 relative">
-      <div className="mb-3 text-center">
-        <span className="text-xs font-semibold text-[#3D7081] uppercase tracking-wider bg-[#3D7081]/10 px-3 py-1 rounded-full">Roadmap detalhado</span>
-        <h2 className="text-2xl font-light text-[#1e3a5f] mt-3">As 8 semanas do projeto</h2>
-      </div>
-
-      {/* Progress Bar */}
-      <div className="mb-4 px-4">
-        <div className="h-2 bg-slate-200 rounded-full overflow-hidden">
-          <motion.div 
-            initial={{ width: 0 }}
-            animate={{ width: "100%" }}
-            transition={{ duration: 1.5, delay: 0.3 }}
-            className="h-full bg-gradient-to-r from-[#1e3a5f] via-[#3D7081] to-green-500 rounded-full"
-          />
-        </div>
-        <div className="flex justify-between mt-1">
-          <span className="text-xs text-slate-400">Início</span>
-          <span className="text-xs text-green-600 font-medium">Go-Live!</span>
-        </div>
-      </div>
-
-      <div className="flex-1 grid grid-cols-4 gap-2">
-        {weeks.map((item, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.08 }}
-            className={`rounded-2xl p-3 ${
-              i === 7 
-                ? "bg-gradient-to-br from-green-500 to-emerald-600 text-white shadow-xl ring-2 ring-green-300 ring-offset-1" 
-                : "bg-white border border-slate-100 shadow-md"
-            }`}
-          >
-            <div className="flex items-center gap-2 mb-2">
-              <div className={`w-8 h-8 rounded-xl ${i === 7 ? "bg-white/20" : item.color} flex items-center justify-center`}>
-                <item.icon className={`w-4 h-4 ${i === 7 ? "text-white" : item.iconColor}`} />
-              </div>
-              <div>
-                <span className={`text-xs font-medium ${i === 7 ? "text-green-100" : "text-[#3D7081]"}`}>
-                  {item.week}
-                </span>
-                <h3 className={`font-semibold text-sm ${i === 7 ? "text-white" : "text-[#1e3a5f]"}`}>
-                  {item.title}
-                </h3>
-              </div>
-            </div>
-            <ul className="space-y-1">
-              {item.tasks.map((task, j) => (
-                <li key={j} className={`text-xs flex items-start gap-1 ${i === 7 ? "text-green-100" : "text-slate-600"}`}>
-                  <Check className={`w-2.5 h-2.5 mt-0.5 flex-shrink-0 ${i === 7 ? "text-green-200" : "text-[#3D7081]"}`} />
-                  {task}
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-        ))}
-      </div>
-
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.8 }}
-        className="mt-3 p-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100 text-center"
-      >
-        <p className="text-[#1e3a5f] text-xs flex items-center justify-center gap-2">
-          <Calendar className="w-4 h-4" />
-          <span className="font-semibold">Comunicação semanal:</span> Reunião de 30min todas as sextas para alinhamento
-        </p>
-      </motion.div>
-      
-      <GlobalSignature />
-    </div>
-  );
-};
-
-// ============================================
-// SLIDE 14: CTA FINAL (com equipa e badges)
+// SLIDE 14: CTA FINAL
 // ============================================
 const SlideNextSteps = () => {
   const techBadges = [
@@ -1581,64 +1725,63 @@ const SlideNextSteps = () => {
   ];
 
   return (
-    <div className="h-full flex flex-col bg-gradient-to-br from-[#1e3a5f] via-[#1e3a5f] to-[#3D7081] p-6 relative overflow-hidden">
+    <SlideFrame padding="p-10" className="bg-gradient-to-br from-[#1e3a5f] via-[#1e3a5f] to-[#3D7081] relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-10 right-10 w-40 h-40 border border-white/30 rotate-45" />
-        <div className="absolute bottom-10 left-10 w-32 h-32 border border-white/30 rotate-12" />
+        <div className="absolute top-20 right-20 w-56 h-56 border border-white/30 rotate-45" />
+        <div className="absolute bottom-20 left-20 w-40 h-40 border border-white/30 rotate-12" />
       </div>
 
-      <div className="mb-3 text-center">
-        <span className="text-xs font-semibold text-white/60 uppercase tracking-wider bg-white/10 px-3 py-1 rounded-full">O momento</span>
-        <h2 className="text-2xl font-light text-white mt-3">Pronta para começar, Teresa?</h2>
+      <div className="mb-4 text-center relative z-10">
+        <span className="text-sm font-semibold text-white/60 uppercase tracking-wider bg-white/10 px-4 py-1.5 rounded-full">O momento</span>
+        <h2 className="text-4xl font-light text-white mt-4">Pronta para começar, Teresa?</h2>
       </div>
 
-      {/* Lembrete da oferta */}
+      {/* Offer Reminder */}
       <motion.div 
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-3 p-3 bg-gradient-to-r from-amber-400/20 to-yellow-400/20 rounded-xl border border-amber-400/30 text-center backdrop-blur-sm"
+        className="mb-4 p-4 bg-gradient-to-r from-amber-400/20 to-yellow-400/20 rounded-xl border border-amber-400/30 text-center backdrop-blur-sm relative z-10"
       >
-        <p className="text-amber-200 text-sm font-medium flex items-center justify-center gap-2">
-          <Timer className="w-4 h-4" />
+        <p className="text-amber-200 text-lg font-medium flex items-center justify-center gap-3">
+          <Timer className="w-5 h-5" />
           <span className="font-bold text-amber-100">4h Formação IA GRÁTIS</span> se aceitares até 18 Janeiro
         </p>
       </motion.div>
 
-      <div className="flex-1 grid grid-cols-2 gap-4">
-        {/* Equipa */}
+      <div className="flex-1 grid grid-cols-2 gap-6 relative z-10">
+        {/* Team */}
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-white/10 backdrop-blur-sm rounded-2xl p-5 border border-white/20"
+          className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20"
         >
-          <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
-            <Users className="w-5 h-5 text-white/70" />
+          <h3 className="text-white font-semibold mb-5 flex items-center gap-3 text-xl">
+            <Users className="w-6 h-6 text-white/70" />
             Quem vai trabalhar contigo
           </h3>
-          <div className="flex items-center gap-4 mb-4">
-            {/* Placeholders para fotos */}
-            <div className="flex -space-x-3">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-amber-400 to-yellow-400 border-3 border-white/30 flex items-center justify-center text-amber-900 font-bold text-lg shadow-xl">
+          <div className="flex items-center gap-5 mb-5">
+            <div className="flex -space-x-4">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-amber-400 to-yellow-400 border-4 border-white/30 flex items-center justify-center text-amber-900 font-bold text-xl shadow-xl">
                 BM
               </div>
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 border-3 border-white/30 flex items-center justify-center text-purple-900 font-bold text-lg shadow-xl">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 border-4 border-white/30 flex items-center justify-center text-purple-900 font-bold text-xl shadow-xl">
                 HF
               </div>
             </div>
             <div>
-              <p className="text-white font-semibold">AiParaTi + Helder Faria Design</p>
-              <p className="text-white/60 text-sm">A tua equipa dedicada para este projeto</p>
+              <p className="text-white font-semibold text-lg">AiParaTi + Helder Faria Design</p>
+              <p className="text-white/60">A tua equipa dedicada para este projeto</p>
             </div>
           </div>
           
           {/* Tech badges */}
-          <div className="pt-4 border-t border-white/10">
-            <p className="text-white/50 text-xs mb-2">Tecnologias utilizadas:</p>
-            <div className="flex flex-wrap gap-1.5">
+          <div className="pt-5 border-t border-white/10">
+            <p className="text-white/50 text-sm mb-3">Tecnologias utilizadas:</p>
+            <div className="flex flex-wrap gap-2">
               {techBadges.map((badge, i) => (
-                <span key={i} className={`text-xs px-2 py-1 rounded-full font-medium ${badge.color}`}>
+                <span key={i} className={`text-sm px-3 py-1.5 rounded-full font-medium ${badge.color}`}>
                   {badge.name}
                 </span>
               ))}
@@ -1646,74 +1789,70 @@ const SlideNextSteps = () => {
           </div>
         </motion.div>
 
-        {/* CTA Principal */}
+        {/* CTA */}
         <motion.div 
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-white rounded-2xl p-5 shadow-2xl flex flex-col"
+          className="bg-white rounded-2xl p-6 shadow-2xl flex flex-col"
         >
-          <div className="text-center mb-4">
-            <Rocket className="w-12 h-12 text-[#3D7081] mx-auto mb-3" />
-            <h3 className="text-xl font-semibold text-[#1e3a5f]">Vamos avançar juntos?</h3>
-            <p className="text-slate-500 text-sm mt-1">
+          <div className="text-center mb-5">
+            <Rocket className="w-14 h-14 text-[#3D7081] mx-auto mb-4" />
+            <h3 className="text-2xl font-semibold text-[#1e3a5f]">Vamos avançar juntos?</h3>
+            <p className="text-slate-500 mt-2">
               Estamos prontos para transformar o teu estúdio.
             </p>
           </div>
           
-          {/* Botões CTA */}
-          <div className="space-y-2 mb-4">
-            <Button size="lg" className="w-full gap-2 bg-gradient-to-r from-[#1e3a5f] to-[#3D7081] hover:from-[#2a4a6f] hover:to-[#4D8091] text-white shadow-lg">
-              <CheckCircle2 className="w-5 h-5" />
+          {/* CTA Buttons */}
+          <div className="space-y-3 mb-5">
+            <Button size="lg" className="w-full gap-3 bg-gradient-to-r from-[#1e3a5f] to-[#3D7081] hover:from-[#2a4a6f] hover:to-[#4D8091] text-white shadow-lg text-lg h-14">
+              <CheckCircle2 className="w-6 h-6" />
               Aceitar Proposta
             </Button>
-            <Button size="lg" variant="outline" className="w-full gap-2 border-2 border-[#1e3a5f] text-[#1e3a5f] hover:bg-[#1e3a5f]/5">
-              <Calendar className="w-5 h-5" />
+            <Button size="lg" variant="outline" className="w-full gap-3 border-2 border-[#1e3a5f] text-[#1e3a5f] hover:bg-[#1e3a5f]/5 text-lg h-14">
+              <Calendar className="w-6 h-6" />
               Agendar Call
             </Button>
           </div>
           
-          {/* Contactos Reais */}
-          <div className="pt-3 border-t border-slate-100">
-            <p className="text-xs text-slate-500 text-center mb-2">Contacta-nos diretamente:</p>
+          {/* Contacts */}
+          <div className="pt-4 border-t border-slate-100">
+            <p className="text-sm text-slate-500 text-center mb-3">Contacta-nos diretamente:</p>
             <div className="flex flex-col gap-2">
               <a 
                 href="mailto:bilal.machraa@aiparati.pt" 
-                className="flex items-center justify-center gap-2 text-[#1e3a5f] hover:underline bg-slate-50 rounded-lg py-2"
+                className="flex items-center justify-center gap-2 text-[#1e3a5f] hover:underline bg-slate-50 rounded-xl py-3"
               >
-                <Mail className="w-4 h-4" />
-                <span className="text-sm font-medium">bilal.machraa@aiparati.pt</span>
+                <Mail className="w-5 h-5" />
+                <span className="font-medium">bilal.machraa@aiparati.pt</span>
               </a>
               <a 
                 href="https://wa.me/351918911308" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 text-green-600 hover:underline bg-green-50 rounded-lg py-2"
+                className="flex items-center justify-center gap-2 text-green-600 hover:underline bg-green-50 rounded-xl py-3"
               >
-                <Phone className="w-4 h-4" />
-                <span className="text-sm font-medium">+351 918 911 308</span>
+                <Phone className="w-5 h-5" />
+                <span className="font-medium">+351 918 911 308</span>
               </a>
             </div>
           </div>
         </motion.div>
       </div>
 
-      {/* Assinatura fixa no fundo */}
+      {/* Signature */}
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
-        className="mt-3 text-center"
+        className="mt-4 text-center relative z-10"
       >
-        <p className="text-xs text-white/40">
+        <p className="text-sm text-white/40">
           Proposta por <span className="font-medium text-white/60">AiParaTi</span> | Design: <span className="font-medium text-white/60">Helder Faria</span>
         </p>
       </motion.div>
-      
-      <div className="absolute bottom-3 right-4 text-xs text-white/30">
-        AiParaTi | Plataforma ARIFA | Design: Helder Faria
-      </div>
-    </div>
+    </SlideFrame>
   );
 };
 
