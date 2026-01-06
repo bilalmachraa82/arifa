@@ -42,7 +42,10 @@ import {
   Star,
   Image,
   Camera,
-  Bell
+  Bell,
+  ZoomIn,
+  Rotate3D,
+  Play
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -61,7 +64,7 @@ import teamHelder from "@/assets/team-helder.png";
 // ============================================
 const STAGE_WIDTH = 1920;
 const STAGE_HEIGHT = 1080;
-const TOTAL_SLIDES = 18;
+const TOTAL_SLIDES = 19;
 
 // ============================================
 // GLOBAL SIGNATURE - Bigger for Zoom 2026
@@ -325,16 +328,17 @@ const SalesPresentation = () => {
                 {currentSlide === 5 && <SlidePortfolio />}
                 {currentSlide === 6 && <SlideBlog />}
                 {currentSlide === 7 && <SlideClientPortal />}
-                {currentSlide === 8 && <SlideAdminDashboard />}
-                {currentSlide === 9 && <SlideCRM />}
-                {currentSlide === 10 && <SlideAutomations />}
-                {currentSlide === 11 && <SlideTimeline />}
-                {currentSlide === 12 && <SlideComparison />}
-                {currentSlide === 13 && <SlidePricing />}
-                {currentSlide === 14 && <SlideTerms />}
-                {currentSlide === 15 && <SlideFAQ />}
-                {currentSlide === 16 && <SlideContacto />}
-                {currentSlide === 17 && <SlideNextSteps />}
+                {currentSlide === 8 && <SlidePhotoGallery />}
+                {currentSlide === 9 && <SlideAdminDashboard />}
+                {currentSlide === 10 && <SlideCRM />}
+                {currentSlide === 11 && <SlideAutomations />}
+                {currentSlide === 12 && <SlideTimeline />}
+                {currentSlide === 13 && <SlideComparison />}
+                {currentSlide === 14 && <SlidePricing />}
+                {currentSlide === 15 && <SlideTerms />}
+                {currentSlide === 16 && <SlideFAQ />}
+                {currentSlide === 17 && <SlideContacto />}
+                {currentSlide === 18 && <SlideNextSteps />}
               </motion.div>
             </AnimatePresence>
           </div>
@@ -1118,7 +1122,162 @@ const SlideClientPortal = () => {
 };
 
 // ============================================
-// SLIDE 9: DASHBOARD ADMIN - Visual Mockup
+// SLIDE 9: GALERIA DE FOTOS - Lightbox Premium
+// ============================================
+const SlidePhotoGallery = () => {
+  const features = [
+    "Organização por fase do projeto",
+    "Zoom até 400% com pan suave",
+    "Slideshow automático",
+    "Download individual ou em lote",
+  ];
+
+  return (
+    <SlideFrame className="bg-gradient-to-br from-white to-violet-50/30 relative">
+      <div className="flex items-center gap-5 mb-8">
+        <div className="w-18 h-18 rounded-2xl bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] flex items-center justify-center shadow-xl p-4">
+          <Camera className="w-10 h-10 text-white" />
+        </div>
+        <div>
+          <span className="text-[16px] font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 5</span>
+          <h2 className="text-[48px] font-light text-[#1e3a5f]">Galeria de Fotos</h2>
+        </div>
+      </div>
+
+      <div className="flex-1 grid grid-cols-[55%,45%] gap-10">
+        {/* Lightbox Visual Mockup */}
+        <div className="bg-slate-900 rounded-3xl overflow-hidden border-2 border-slate-700 shadow-2xl">
+          {/* Browser chrome */}
+          <div className="bg-slate-800 h-10 flex items-center gap-2 px-5">
+            <div className="w-4 h-4 rounded-full bg-red-400" />
+            <div className="w-4 h-4 rounded-full bg-yellow-400" />
+            <div className="w-4 h-4 rounded-full bg-green-400" />
+            <span className="text-[14px] text-slate-400 ml-3">Lightbox Premium</span>
+          </div>
+          
+          <div className="p-6 h-[calc(100%-40px)] flex flex-col">
+            {/* Lightbox controls */}
+            <div className="flex justify-between items-center mb-4">
+              <motion.button 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="flex items-center gap-2 text-white/60 hover:text-white"
+              >
+                <ChevronLeft className="w-6 h-6" />
+                <span className="text-sm">Anterior</span>
+              </motion.button>
+              
+              <div className="flex items-center gap-4">
+                <motion.div 
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="flex items-center gap-3"
+                >
+                  <div className="p-2 bg-white/10 rounded-lg hover:bg-white/20 cursor-pointer">
+                    <ZoomIn className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="p-2 bg-white/10 rounded-lg hover:bg-white/20 cursor-pointer">
+                    <Rotate3D className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="p-2 bg-white/10 rounded-lg hover:bg-white/20 cursor-pointer">
+                    <Play className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="p-2 bg-white/10 rounded-lg hover:bg-white/20 cursor-pointer">
+                    <Download className="w-5 h-5 text-white" />
+                  </div>
+                </motion.div>
+              </div>
+              
+              <motion.button 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="flex items-center gap-2 text-white/60 hover:text-white"
+              >
+                <span className="text-sm">Próximo</span>
+                <ChevronRight className="w-6 h-6" />
+              </motion.button>
+            </div>
+            
+            {/* Main image area */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3 }}
+              className="flex-1 bg-gradient-to-br from-slate-800 to-slate-700 rounded-2xl flex items-center justify-center mb-4 relative overflow-hidden"
+            >
+              <div className="absolute inset-4 border-2 border-dashed border-white/20 rounded-xl flex items-center justify-center">
+                <div className="text-center">
+                  <Camera className="w-16 h-16 text-white/30 mx-auto mb-3" />
+                  <p className="text-white/50 text-lg">Foto do Projeto</p>
+                  <p className="text-white/30 text-sm">Casa na Comporta - Fase Construção</p>
+                </div>
+              </div>
+              {/* Zoom indicator */}
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+                className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm rounded-lg px-3 py-1.5"
+              >
+                <span className="text-white text-sm font-medium">100%</span>
+              </motion.div>
+            </motion.div>
+            
+            {/* Thumbnails */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="flex justify-center gap-2"
+            >
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div 
+                  key={i} 
+                  className={`w-16 h-12 rounded-lg ${i === 3 ? 'ring-2 ring-[#3D7081] bg-white/30' : 'bg-white/10'} flex items-center justify-center`}
+                >
+                  <Camera className="w-4 h-4 text-white/40" />
+                </div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Features */}
+        <div className="flex flex-col justify-center">
+          <p className="text-slate-700 mb-6 text-[24px]">Cada detalhe em alta resolução</p>
+          <div className="space-y-5">
+            {features.map((feature, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: 15 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.08 }}
+                className="flex items-center gap-5 p-6 rounded-2xl bg-white border border-slate-100 shadow-lg"
+              >
+                <div className="w-12 h-12 rounded-xl bg-[#3D7081]/10 flex items-center justify-center flex-shrink-0">
+                  <Check className="w-6 h-6 text-[#3D7081]" />
+                </div>
+                <p className="text-slate-800 text-[22px] font-medium">{feature}</p>
+              </motion.div>
+            ))}
+          </div>
+          <div className="mt-6 p-5 bg-gradient-to-r from-violet-50 to-purple-50 rounded-2xl border border-violet-100">
+            <p className="text-[#1e3a5f] text-[18px] font-semibold flex items-center gap-3">
+              <Eye className="w-6 h-6 text-[#3D7081]" />
+              Navegação por teclado, touch e gestos.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <GlobalSignature />
+    </SlideFrame>
+  );
+};
+
+// ============================================
+// SLIDE 10: DASHBOARD ADMIN - Visual Mockup
 // ============================================
 const SlideAdminDashboard = () => {
   const features = [
