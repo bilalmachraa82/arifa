@@ -65,9 +65,11 @@ const SalesPresentation = () => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight" || e.key === " ") {
         e.preventDefault();
+        setDirection(1);
         nextSlide();
       } else if (e.key === "ArrowLeft") {
         e.preventDefault();
+        setDirection(-1);
         prevSlide();
       } else if (e.key === "f" || e.key === "F") {
         toggleFullscreen();
@@ -88,25 +90,61 @@ const SalesPresentation = () => {
     return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
   }, []);
 
+  const [direction, setDirection] = useState(0);
+
   const slideVariants = {
-    enter: { opacity: 0, x: 50 },
-    center: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: -50 }
+    enter: (direction: number) => ({
+      x: direction > 0 ? 100 : -100,
+      opacity: 0,
+      scale: 0.98,
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1,
+      scale: 1,
+    },
+    exit: (direction: number) => ({
+      zIndex: 0,
+      x: direction < 0 ? 100 : -100,
+      opacity: 0,
+      scale: 0.98,
+    }),
   };
+
+  const handleNextSlide = useCallback(() => {
+    setDirection(1);
+    nextSlide();
+  }, [nextSlide]);
+
+  const handlePrevSlide = useCallback(() => {
+    setDirection(-1);
+    prevSlide();
+  }, [prevSlide]);
+
+  const handleSlideClick = useCallback((index: number) => {
+    setDirection(index > currentSlide ? 1 : -1);
+    setCurrentSlide(index);
+  }, [currentSlide]);
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
       {/* Main Content */}
       <div className="flex-1 flex items-center justify-center p-4 md:p-8">
         <div className="w-full max-w-6xl aspect-[16/9] bg-white rounded-lg shadow-2xl overflow-hidden relative">
-          <AnimatePresence mode="wait">
+          <AnimatePresence initial={false} custom={direction} mode="wait">
             <motion.div
               key={currentSlide}
+              custom={direction}
               variants={slideVariants}
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{ duration: 0.3, ease: "easeInOut" }}
+              transition={{
+                x: { type: "spring", stiffness: 300, damping: 30 },
+                opacity: { duration: 0.3 },
+                scale: { duration: 0.3 },
+              }}
               className="absolute inset-0"
             >
               {currentSlide === 0 && <SlideCover />}
@@ -134,7 +172,7 @@ const SalesPresentation = () => {
             {Array.from({ length: totalSlides }).map((_, i) => (
               <button
                 key={i}
-                onClick={() => setCurrentSlide(i)}
+                onClick={() => handleSlideClick(i)}
                 className={`w-2.5 h-2.5 rounded-full transition-all duration-200 ${
                   i === currentSlide 
                     ? "bg-[#1e3a5f] scale-125" 
@@ -154,7 +192,7 @@ const SalesPresentation = () => {
             <Button
               variant="outline"
               size="sm"
-              onClick={prevSlide}
+              onClick={handlePrevSlide}
               disabled={currentSlide === 0}
               className="gap-1 border-slate-300 text-slate-600 hover:bg-slate-100"
             >
@@ -171,7 +209,7 @@ const SalesPresentation = () => {
             </Button>
             <Button
               size="sm"
-              onClick={nextSlide}
+              onClick={handleNextSlide}
               disabled={currentSlide === totalSlides - 1}
               className="gap-1 bg-[#1e3a5f] hover:bg-[#2a4a6f] text-white"
             >
