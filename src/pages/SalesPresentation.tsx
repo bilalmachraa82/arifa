@@ -1025,21 +1025,33 @@ const SlideAdminDashboard = () => {
 // SLIDE 8: AUTOMAÇÕES
 // ============================================
 const SlideAutomations = () => {
-  const features = [
-    "Follow-ups automáticos (5 dias sem resposta? Lembrete)",
-    "Notificações smart (Teresa + clientes sabem tudo)",
-    "Geração automática de documentos",
-    "IA integrada (sugestões, análise de feedbacks)",
+  const automations = [
+    { 
+      name: "Follow-up Automático", 
+      trigger: "Cliente sem resposta 5 dias",
+      action: "Email de seguimento"
+    },
+    { 
+      name: "Notificação de Documento", 
+      trigger: "Novo documento adicionado",
+      action: "Push notification"
+    },
+    { 
+      name: "Milestone Concluída", 
+      trigger: "Estado da milestone muda",
+      action: "Email + Atualizar portal"
+    },
   ];
 
-  const automationExamples = [
-    { trigger: "Cliente não responde 5 dias", action: "Email automático de follow-up" },
-    { trigger: "Novo documento adicionado", action: "Notificação push ao cliente" },
-    { trigger: "Milestone concluída", action: "Email + atualização do portal" },
+  const features = [
+    "Follow-ups automáticos (nunca perdes um cliente)",
+    "Notificações smart (Teresa + clientes informados)",
+    "Geração automática de documentos",
+    "IA integrada (sugestões, análise de feedback)",
   ];
 
   return (
-    <SlideFrame className="bg-gradient-to-br from-white to-amber-50/30 relative">
+    <SlideFrame className="bg-gradient-to-br from-white to-slate-50 relative">
       <div className="flex items-center gap-4 mb-6">
         <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] flex items-center justify-center shadow-lg">
           <Zap className="w-7 h-7 text-white" />
@@ -1051,30 +1063,44 @@ const SlideAutomations = () => {
       </div>
 
       <div className="flex-1 grid grid-cols-[55%,45%] gap-8">
-        {/* Automation Flow Visualization */}
-        <div className="bg-gradient-to-br from-amber-50 to-amber-100/50 rounded-2xl p-6 border border-amber-200">
-          <h3 className="text-lg font-semibold text-amber-800 mb-4 flex items-center gap-2">
-            <Sparkles className="w-5 h-5" />
-            Exemplos de automações
-          </h3>
-          <div className="space-y-4">
-            {automationExamples.map((example, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: -15 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.1 }}
-                className="flex items-center gap-4"
-              >
-                <div className="flex-1 bg-white rounded-xl p-4 shadow-sm border border-amber-100">
-                  <p className="text-sm text-amber-700 font-medium">Se: {example.trigger}</p>
-                </div>
-                <ArrowRight className="w-5 h-5 text-amber-500 flex-shrink-0" />
-                <div className="flex-1 bg-amber-200/50 rounded-xl p-4">
-                  <p className="text-sm text-amber-800 font-medium">Então: {example.action}</p>
-                </div>
-              </motion.div>
-            ))}
+        {/* Mockup visual de automações */}
+        <div className="bg-slate-100 rounded-2xl overflow-hidden border border-slate-200 shadow-lg">
+          {/* Browser chrome */}
+          <div className="bg-slate-200 h-8 flex items-center gap-2 px-4">
+            <div className="w-3 h-3 rounded-full bg-red-400" />
+            <div className="w-3 h-3 rounded-full bg-yellow-400" />
+            <div className="w-3 h-3 rounded-full bg-green-400" />
+            <span className="text-xs text-slate-500 ml-2">arifa.pt/admin/automacoes</span>
+          </div>
+          
+          {/* Conteúdo mockup */}
+          <div className="p-5 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-32px)]">
+            <div className="flex items-center justify-between mb-5">
+              <h4 className="text-base font-semibold text-[#1e3a5f]">Automações Ativas</h4>
+              <div className="px-3 py-1.5 bg-[#3D7081] text-white text-xs rounded-lg cursor-pointer hover:bg-[#2d5a6a] transition-colors">+ Nova</div>
+            </div>
+            
+            <div className="space-y-3">
+              {automations.map((auto, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  className="bg-white rounded-xl p-4 border border-slate-100 shadow-sm"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-medium text-[#1e3a5f] text-sm">{auto.name}</span>
+                    <div className="w-10 h-5 bg-emerald-500 rounded-full relative">
+                      <div className="absolute right-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow-sm" />
+                    </div>
+                  </div>
+                  <p className="text-xs text-slate-500">
+                    Se: <span className="text-slate-600">{auto.trigger}</span> → <span className="text-[#3D7081] font-medium">{auto.action}</span>
+                  </p>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -1090,16 +1116,16 @@ const SlideAutomations = () => {
                 transition={{ delay: i * 0.06 }}
                 className="flex items-center gap-3 p-4 rounded-xl bg-white border border-slate-100 shadow-sm"
               >
-                <div className="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center flex-shrink-0">
-                  <Check className="w-4 h-4 text-amber-600" />
+                <div className="w-8 h-8 rounded-lg bg-[#3D7081]/10 flex items-center justify-center flex-shrink-0">
+                  <Check className="w-4 h-4 text-[#3D7081]" />
                 </div>
                 <p className="text-slate-700 text-base">{feature}</p>
               </motion.div>
             ))}
           </div>
-          <div className="mt-4 p-4 bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl border border-amber-100">
-            <p className="text-amber-700 text-sm font-medium flex items-center gap-2">
-              <Sparkles className="w-4 h-4" />
+          <div className="mt-4 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
+            <p className="text-[#1e3a5f] text-sm font-medium flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-[#3D7081]" />
               Funcionam 24/7. Tu dormes, elas trabalham.
             </p>
           </div>
