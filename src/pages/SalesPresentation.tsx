@@ -1448,7 +1448,7 @@ const SlideCRM = () => {
           <Users className="w-10 h-10 text-white" />
         </div>
         <div>
-          <span className="text-[16px] font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 6</span>
+<span className="text-[16px] font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 7</span>
           <h2 className="text-[48px] font-light text-[#1e3a5f]">CRM de Leads</h2>
         </div>
       </div>
@@ -1546,7 +1546,7 @@ const SlideAutomations = () => {
           <Zap className="w-10 h-10 text-white" />
         </div>
         <div>
-          <span className="text-[16px] font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 7</span>
+<span className="text-[16px] font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 8</span>
           <h2 className="text-[48px] font-light text-[#1e3a5f]">Automações Inteligentes</h2>
         </div>
       </div>
@@ -2211,7 +2211,7 @@ const SlideNextSteps = () => {
       >
         <p className="text-amber-200 text-[22px] font-medium flex items-center justify-center gap-4">
           <Timer className="w-6 h-6" />
-          <span className="font-bold text-amber-100">4h Formação IA GRÁTIS</span> se aceitares até 18 Janeiro
+          <span className="font-bold text-amber-100">4h Formação IA GRÁTIS</span> se aceitares nos próximos 7 dias
         </p>
       </motion.div>
 
