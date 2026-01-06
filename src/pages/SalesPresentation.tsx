@@ -68,12 +68,12 @@ const SalesPresentation = () => {
     }
   }, []);
 
-  // Export to PDF function
+  // Export to PDF function - with proper wait for animations
   const exportToPDF = useCallback(async () => {
     if (!slideContainerRef.current || isExporting) return;
     
     setIsExporting(true);
-    toast.info("A gerar PDF... Isto pode demorar alguns segundos.");
+    toast.info("A gerar PDF... Aguarda enquanto cada slide é capturado.");
     
     const originalSlide = currentSlide;
     const pdf = new jsPDF({
@@ -85,14 +85,37 @@ const SalesPresentation = () => {
     try {
       for (let i = 0; i < totalSlides; i++) {
         setCurrentSlide(i);
-        // Wait for slide to render
-        await new Promise(resolve => setTimeout(resolve, 500));
         
-        const canvas = await html2canvas(slideContainerRef.current, {
+        // Wait longer for slide to fully render and animations to complete
+        // First wait for React state update
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
+        // Then wait for framer-motion animations (most take 0.3-0.5s + delays up to 0.8s)
+        await new Promise(resolve => setTimeout(resolve, 1200));
+        
+        // Force a repaint before capture
+        if (slideContainerRef.current) {
+          slideContainerRef.current.style.opacity = '0.99';
+          await new Promise(resolve => requestAnimationFrame(resolve));
+          slideContainerRef.current.style.opacity = '1';
+          await new Promise(resolve => setTimeout(resolve, 100));
+        }
+        
+        const canvas = await html2canvas(slideContainerRef.current!, {
           scale: 2,
           useCORS: true,
           allowTaint: true,
-          backgroundColor: "#ffffff"
+          backgroundColor: "#ffffff",
+          logging: false,
+          imageTimeout: 5000,
+          onclone: (clonedDoc) => {
+            // Force all motion elements to their final state in the clone
+            const motionElements = clonedDoc.querySelectorAll('[style*="opacity"]');
+            motionElements.forEach((el) => {
+              (el as HTMLElement).style.opacity = '1';
+              (el as HTMLElement).style.transform = 'none';
+            });
+          }
         });
         
         const imgData = canvas.toDataURL("image/jpeg", 0.95);
@@ -102,10 +125,13 @@ const SalesPresentation = () => {
         }
         
         pdf.addImage(imgData, "JPEG", 0, 0, 1920, 1080);
+        
+        // Update progress
+        toast.info(`Slide ${i + 1} de ${totalSlides} capturado...`);
       }
       
       pdf.save("ARIFA-Proposta-Comercial.pdf");
-      toast.success("PDF exportado com sucesso!");
+      toast.success("PDF exportado com sucesso! Todos os 14 slides incluídos.");
     } catch (error) {
       console.error("Erro ao exportar PDF:", error);
       toast.error("Erro ao exportar PDF. Tenta novamente.");
