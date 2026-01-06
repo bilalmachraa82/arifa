@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   ChevronLeft, 
@@ -25,9 +25,14 @@ import {
   CheckCircle2,
   X,
   Puzzle,
-  TrendingUp
+  TrendingUp,
+  Download,
+  Loader2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 // ============================================
 // ASSINATURA GLOBAL
@@ -41,6 +46,8 @@ const GlobalSignature = () => (
 const SalesPresentation = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
+  const slideContainerRef = useRef<HTMLDivElement>(null);
   const totalSlides = 14; // Atualizado para 14 (adicionado FAQ e Timeline detalhada)
 
   const nextSlide = useCallback(() => {
@@ -61,8 +68,56 @@ const SalesPresentation = () => {
     }
   }, []);
 
+  // Export to PDF function
+  const exportToPDF = useCallback(async () => {
+    if (!slideContainerRef.current || isExporting) return;
+    
+    setIsExporting(true);
+    toast.info("A gerar PDF... Isto pode demorar alguns segundos.");
+    
+    const originalSlide = currentSlide;
+    const pdf = new jsPDF({
+      orientation: "landscape",
+      unit: "px",
+      format: [1920, 1080]
+    });
+
+    try {
+      for (let i = 0; i < totalSlides; i++) {
+        setCurrentSlide(i);
+        // Wait for slide to render
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        const canvas = await html2canvas(slideContainerRef.current, {
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: "#ffffff"
+        });
+        
+        const imgData = canvas.toDataURL("image/jpeg", 0.95);
+        
+        if (i > 0) {
+          pdf.addPage([1920, 1080], "landscape");
+        }
+        
+        pdf.addImage(imgData, "JPEG", 0, 0, 1920, 1080);
+      }
+      
+      pdf.save("ARIFA-Proposta-Comercial.pdf");
+      toast.success("PDF exportado com sucesso!");
+    } catch (error) {
+      console.error("Erro ao exportar PDF:", error);
+      toast.error("Erro ao exportar PDF. Tenta novamente.");
+    } finally {
+      setCurrentSlide(originalSlide);
+      setIsExporting(false);
+    }
+  }, [currentSlide, isExporting, totalSlides]);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (isExporting) return; // Disable keyboard during export
       if (e.key === "ArrowRight" || e.key === " ") {
         e.preventDefault();
         setDirection(1);
@@ -80,7 +135,7 @@ const SalesPresentation = () => {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [nextSlide, prevSlide, toggleFullscreen, isFullscreen]);
+  }, [nextSlide, prevSlide, toggleFullscreen, isFullscreen, isExporting]);
 
   useEffect(() => {
     const handleFullscreenChange = () => {
@@ -129,18 +184,32 @@ const SalesPresentation = () => {
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
+      {/* Export Overlay */}
+      {isExporting && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
+          <div className="bg-white rounded-xl p-8 flex flex-col items-center gap-4 shadow-2xl">
+            <Loader2 className="w-12 h-12 text-[#1e3a5f] animate-spin" />
+            <p className="text-lg font-medium text-slate-700">A gerar PDF...</p>
+            <p className="text-sm text-slate-500">Slide {currentSlide + 1} de {totalSlides}</p>
+          </div>
+        </div>
+      )}
+
       {/* Main Content */}
       <div className="flex-1 flex items-center justify-center p-4 md:p-8">
-        <div className="w-full max-w-6xl aspect-[16/9] bg-white rounded-lg shadow-2xl overflow-hidden relative">
+        <div 
+          ref={slideContainerRef}
+          className="w-full max-w-6xl aspect-[16/9] bg-white rounded-lg shadow-2xl overflow-hidden relative"
+        >
           <AnimatePresence initial={false} custom={direction} mode="wait">
             <motion.div
               key={currentSlide}
               custom={direction}
               variants={slideVariants}
-              initial="enter"
+              initial={isExporting ? false : "enter"}
               animate="center"
-              exit="exit"
-              transition={{
+              exit={isExporting ? undefined : "exit"}
+              transition={isExporting ? { duration: 0 } : {
                 x: { type: "spring", stiffness: 300, damping: 30 },
                 opacity: { duration: 0.3 },
                 scale: { duration: 0.3 },
@@ -194,8 +263,22 @@ const SalesPresentation = () => {
             <Button
               variant="outline"
               size="sm"
+              onClick={exportToPDF}
+              disabled={isExporting}
+              className="gap-1 border-slate-300 text-slate-600 hover:bg-slate-100"
+            >
+              {isExporting ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <Download className="w-4 h-4" />
+              )}
+              PDF
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
               onClick={handlePrevSlide}
-              disabled={currentSlide === 0}
+              disabled={currentSlide === 0 || isExporting}
               className="gap-1 border-slate-300 text-slate-600 hover:bg-slate-100"
             >
               <ChevronLeft className="w-4 h-4" />
@@ -212,7 +295,7 @@ const SalesPresentation = () => {
             <Button
               size="sm"
               onClick={handleNextSlide}
-              disabled={currentSlide === totalSlides - 1}
+              disabled={currentSlide === totalSlides - 1 || isExporting}
               className="gap-1 bg-[#1e3a5f] hover:bg-[#2a4a6f] text-white"
             >
               Seguinte
