@@ -708,27 +708,32 @@ const SlideSolution = () => {
     { 
       icon: Globe, 
       title: "Site Público", 
-      desc: "Portfólio + SEO"
+      desc: "Portfólio + SEO",
+      badge: null
     },
     { 
       icon: Lock, 
-      title: "Portal Privado", 
-      desc: "Para clientes"
+      title: "Portal Cliente", 
+      desc: "Área privada",
+      badge: "PRIVADO"
     },
     { 
       icon: LayoutDashboard, 
-      title: "Dashboard Admin", 
-      desc: "Gestão centralizada"
+      title: "Dashboard", 
+      desc: "Gestão centralizada",
+      badge: "ADMIN"
     },
     { 
       icon: Zap, 
       title: "Automações", 
-      desc: "Follow-ups automáticos"
+      desc: "Follow-ups automáticos",
+      badge: null
     },
     { 
       icon: Shield, 
       title: "Segurança", 
-      desc: "RGPD compliant"
+      desc: "RGPD compliant",
+      badge: null
     },
   ];
 
@@ -750,8 +755,19 @@ const SlideSolution = () => {
               initial={{ opacity: 0, scale: 0.9, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              className="flex flex-col items-center text-center p-8 rounded-3xl bg-white border border-slate-100 shadow-xl"
+              className="flex flex-col items-center text-center p-8 rounded-3xl bg-white border border-slate-100 shadow-xl relative"
             >
+              {item.badge && (
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                  <span className={`text-[12px] font-bold px-3 py-1 rounded-full ${
+                    item.badge === "PRIVADO" 
+                      ? "bg-indigo-100 text-indigo-700 border border-indigo-200" 
+                      : "bg-emerald-100 text-emerald-700 border border-emerald-200"
+                  }`}>
+                    {item.badge}
+                  </span>
+                </div>
+              )}
               <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] flex items-center justify-center mb-6 shadow-xl">
                 <item.icon className="w-12 h-12 text-white" />
               </div>
@@ -1126,10 +1142,10 @@ const SlideClientPortal = () => {
 // ============================================
 const SlidePhotoGallery = () => {
   const features = [
-    "Organização por fase do projeto",
     "Zoom até 400% com pan suave",
-    "Slideshow automático",
-    "Download individual ou em lote",
+    "Rotação 90° e slideshow automático (3s)",
+    "Navegação por teclado, touch e gestos",
+    "Download individual + miniaturas",
   ];
 
   return (
@@ -1301,7 +1317,7 @@ const SlideAdminDashboard = () => {
           <LayoutDashboard className="w-10 h-10 text-white" />
         </div>
         <div>
-          <span className="text-[16px] font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 5</span>
+          <span className="text-[16px] font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 6</span>
           <h2 className="text-[48px] font-light text-[#1e3a5f]">Dashboard Admin</h2>
         </div>
       </div>
@@ -1675,18 +1691,18 @@ const SlideTimeline = () => {
 // ============================================
 const SlideComparison = () => {
   const traditionalTools = [
-    { name: "Website Premium", cost: "1.680 €" },
-    { name: "Portal Cliente", cost: "648 €" },
-    { name: "CRM + Gestão", cost: "2.028 €" },
-    { name: "Assinaturas + Chat", cost: "1.056 €" },
-    { name: "PWA Mobile", cost: "12.000 €" },
-    { name: "Segurança + Multi-idioma", cost: "2.952 €" },
+    { name: "Website Premium (WordPress)", cost: "3.000-5.000 €" },
+    { name: "Portal Cliente (SaaS/ano)", cost: "1.200 €/ano" },
+    { name: "CRM (HubSpot/ano)", cost: "600 €/ano" },
+    { name: "Gestão Docs (Notion/ano)", cost: "240 €/ano" },
+    { name: "Chat (Intercom/ano)", cost: "500 €/ano" },
+    { name: "Segurança + SSL", cost: "300 €" },
   ];
 
   const arifaBenefits = [
     "Tudo integrado em 1 plataforma",
     "100% à medida do teu estúdio",
-    "Sem subscrições mensais",
+    "Sem subscrições mensais SaaS",
     "Suporte direto AiParaTi",
   ];
 
@@ -1727,10 +1743,10 @@ const SlideComparison = () => {
             </div>
             <div className="mt-6 pt-5 border-t-2 border-red-200">
               <div className="flex justify-between items-center">
-                <span className="font-bold text-red-700 text-[22px]">TOTAL/ANO</span>
-                <span className="font-bold text-red-700 text-[36px]">~20.364 €</span>
+                <span className="font-bold text-red-700 text-[20px]">1º ANO</span>
+                <span className="font-bold text-red-700 text-[32px]">~6.000-8.000 €</span>
               </div>
-              <p className="text-[16px] text-red-500 mt-2">+ tempo a integrar manualmente</p>
+              <p className="text-[16px] text-red-500 mt-2">+ ~2.500 €/ano em SaaS recorrentes</p>
             </div>
           </div>
         </motion.div>
@@ -1765,7 +1781,7 @@ const SlideComparison = () => {
               <p className="text-[64px] font-bold mt-2">4.888 €</p>
               <div className="mt-5 flex items-center gap-3">
                 <TrendingUp className="w-7 h-7 text-green-300" />
-                <span className="text-green-300 font-semibold text-[22px]">Poupança: ~56.000 € em 3 anos</span>
+                <span className="text-green-300 font-semibold text-[20px]">Poupança: ~7.500 € em 3 anos</span>
               </div>
             </div>
           </div>
@@ -1784,30 +1800,49 @@ const SlidePricing = () => {
   const tiers = [
     {
       name: "Essencial",
-      price: "3.500",
+      price: "2.990",
       description: "Para começar",
-      features: ["Site público", "Portal básico", "30 dias suporte"],
+      features: [
+        "Site público (5 páginas)",
+        "Portfólio básico",
+        "Formulário de contacto",
+        "SEO otimizado",
+        "30 dias suporte",
+      ],
       recommended: false,
     },
     {
       name: "Profissional",
       price: "4.888",
       description: "Solução completa",
-      features: ["Tudo do Essencial", "Portal completo", "Automações + IA", "60 dias suporte"],
+      features: [
+        "Tudo do Essencial",
+        "Portal Cliente completo",
+        "Dashboard Admin",
+        "Mensagens + Documentos",
+        "Blog + Newsletter",
+        "60 dias suporte",
+      ],
       recommended: true,
     },
     {
       name: "Premium",
       price: "6.500",
       description: "Tudo + manutenção",
-      features: ["Tudo do Profissional", "6 meses manutenção", "Prioridade suporte"],
+      features: [
+        "Tudo do Profissional",
+        "CRM + Lead Scoring IA",
+        "Automações + Cotações",
+        "12 meses manutenção incluída",
+        "Suporte prioritário",
+      ],
       recommended: false,
     },
   ];
 
   return (
     <SlideFrame className="bg-gradient-to-br from-white to-slate-50 relative">
-      <div className="mb-8 text-center">
+      <div className="mb-6 text-center">
         <span className="text-[18px] font-semibold text-[#3D7081] uppercase tracking-wider bg-[#3D7081]/10 px-4 py-2 rounded-full">Escolhe o teu plano</span>
         <h2 className="text-[56px] font-light text-[#1e3a5f] mt-6">3 opções à tua medida</h2>
       </div>
@@ -1819,7 +1854,7 @@ const SlidePricing = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1 }}
-            className={`rounded-3xl p-8 flex flex-col relative ${
+            className={`rounded-3xl p-6 flex flex-col relative ${
               tier.recommended
                 ? "bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] text-white ring-4 ring-[#3D7081]/30 shadow-2xl z-10 scale-105"
                 : "bg-white border-2 border-slate-200 shadow-xl"
@@ -1827,27 +1862,27 @@ const SlidePricing = () => {
           >
             {tier.recommended && (
               <div className="absolute -top-5 left-1/2 -translate-x-1/2">
-                <span className="bg-gradient-to-r from-amber-400 to-yellow-400 text-amber-900 text-[16px] font-bold px-6 py-2.5 rounded-full shadow-lg flex items-center gap-2">
-                  <Award className="w-5 h-5" />
+                <span className="bg-gradient-to-r from-amber-400 to-yellow-400 text-amber-900 text-[14px] font-bold px-5 py-2 rounded-full shadow-lg flex items-center gap-2">
+                  <Award className="w-4 h-4" />
                   RECOMENDADO
                 </span>
               </div>
             )}
-            <h3 className={`text-[32px] font-bold ${tier.recommended ? "text-white mt-4" : "text-[#1e3a5f]"}`}>
+            <h3 className={`text-[28px] font-bold ${tier.recommended ? "text-white mt-2" : "text-[#1e3a5f]"}`}>
               {tier.name}
             </h3>
-            <p className={`text-[18px] mb-5 ${tier.recommended ? "text-blue-200" : "text-slate-500"}`}>
+            <p className={`text-[16px] mb-3 ${tier.recommended ? "text-blue-200" : "text-slate-500"}`}>
               {tier.description}
             </p>
-            <p className={`text-[56px] font-bold mb-6 ${tier.recommended ? "text-white" : "text-[#1e3a5f]"}`}>
+            <p className={`text-[48px] font-bold mb-4 ${tier.recommended ? "text-white" : "text-[#1e3a5f]"}`}>
               {tier.price} €
             </p>
             
-            <div className="flex-1 space-y-4">
+            <div className="flex-1 space-y-2">
               {tier.features.map((feature, j) => (
-                <div key={j} className="flex items-center gap-3">
-                  <CheckCircle2 className={`w-6 h-6 flex-shrink-0 ${tier.recommended ? "text-green-300" : "text-[#3D7081]"}`} />
-                  <span className={`text-[20px] ${tier.recommended ? "text-blue-100" : "text-slate-700"}`}>{feature}</span>
+                <div key={j} className="flex items-center gap-2">
+                  <CheckCircle2 className={`w-5 h-5 flex-shrink-0 ${tier.recommended ? "text-green-300" : "text-[#3D7081]"}`} />
+                  <span className={`text-[16px] ${tier.recommended ? "text-blue-100" : "text-slate-700"}`}>{feature}</span>
                 </div>
               ))}
             </div>
@@ -1860,15 +1895,15 @@ const SlidePricing = () => {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
-        className="mt-8 p-5 bg-gradient-to-r from-amber-50 via-yellow-50 to-amber-50 rounded-2xl border-2 border-amber-300 shadow-lg"
+        className="mt-6 p-4 bg-gradient-to-r from-amber-50 via-yellow-50 to-amber-50 rounded-2xl border-2 border-amber-300 shadow-lg"
       >
         <div className="flex items-center gap-5">
-          <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-yellow-400 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-md">
-            <Zap className="w-8 h-8 text-amber-900" />
+          <div className="w-14 h-14 bg-gradient-to-br from-amber-400 to-yellow-400 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-md">
+            <Zap className="w-7 h-7 text-amber-900" />
           </div>
           <div>
-            <h3 className="font-bold text-amber-900 text-[22px]">Bónus: 4 horas de Formação IA</h3>
-            <p className="text-amber-700 text-[18px]">Valor: 400 € — Válido até 18 Janeiro 2025</p>
+            <h3 className="font-bold text-amber-900 text-[20px]">Bónus: 4 horas de Formação IA</h3>
+            <p className="text-amber-700 text-[16px]">Valor: 400 € — Válido até 18 Janeiro 2025</p>
           </div>
         </div>
       </motion.div>
@@ -1884,17 +1919,17 @@ const SlidePricing = () => {
 const SlideTerms = () => {
   return (
     <SlideFrame className="bg-gradient-to-br from-white to-slate-50 relative">
-      <div className="mb-8">
+      <div className="mb-6">
         <span className="text-[18px] font-semibold text-[#3D7081] uppercase tracking-wider bg-[#3D7081]/10 px-4 py-2 rounded-full">Termos & Condições</span>
-        <h2 className="text-[56px] font-light text-[#1e3a5f] mt-6">Como funciona</h2>
+        <h2 className="text-[48px] font-light text-[#1e3a5f] mt-4">Como funciona</h2>
       </div>
 
-      <div className="flex-1 grid grid-cols-3 gap-8">
+      <div className="flex-1 grid grid-cols-4 gap-6">
         {/* Payment */}
-        <div className="bg-white rounded-3xl p-8 border-2 border-slate-100 shadow-xl">
-          <h3 className="font-bold text-[#1e3a5f] mb-6 flex items-center gap-4 text-[24px]">
-            <div className="w-14 h-14 rounded-2xl bg-[#1e3a5f]/10 flex items-center justify-center">
-              <Euro className="w-7 h-7 text-[#1e3a5f]" />
+        <div className="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-xl">
+          <h3 className="font-bold text-[#1e3a5f] mb-4 flex items-center gap-3 text-[20px]">
+            <div className="w-12 h-12 rounded-2xl bg-[#1e3a5f]/10 flex items-center justify-center">
+              <Euro className="w-6 h-6 text-[#1e3a5f]" />
             </div>
             Pagamento
           </h3>
@@ -1939,24 +1974,47 @@ const SlideTerms = () => {
         </div>
 
         {/* Optional + Bonus */}
-        <div className="space-y-6">
-          <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl p-6 border-2 border-purple-100">
-            <h3 className="font-bold text-purple-700 mb-4 flex items-center gap-3 text-[22px]">
-              <Settings className="w-7 h-7" /> Opcional
+        <div className="space-y-4">
+          <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl p-5 border-2 border-purple-100">
+            <h3 className="font-bold text-purple-700 mb-2 flex items-center gap-3 text-[18px]">
+              <Settings className="w-6 h-6" /> Opcional
             </h3>
-            <p className="text-[18px] text-purple-600">Manutenção mensal</p>
-            <p className="text-[36px] font-bold text-purple-700">150-250 €/mês</p>
+            <p className="text-[16px] text-purple-600">Manutenção mensal</p>
+            <p className="text-[28px] font-bold text-purple-700">150-250 €/mês</p>
           </div>
-          <div className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-3xl p-6 border-2 border-amber-300">
-            <h3 className="font-bold text-amber-900 mb-3 flex items-center gap-3 text-[22px]">
-              <Sparkles className="w-7 h-7" /> Bónus Exclusivo
+          <div className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-3xl p-5 border-2 border-amber-300">
+            <h3 className="font-bold text-amber-900 mb-2 flex items-center gap-3 text-[18px]">
+              <Sparkles className="w-6 h-6" /> Bónus Exclusivo
             </h3>
-            <p className="text-[18px] text-amber-700">4 horas Formação IA</p>
-            <p className="text-[28px] font-bold text-amber-900">Valor: 400 €</p>
-            <p className="text-[16px] text-amber-700 mt-2 flex items-center gap-2">
-              <Timer className="w-5 h-5" /> Até 18 Janeiro 2025
+            <p className="text-[16px] text-amber-700">4 horas Formação IA</p>
+            <p className="text-[24px] font-bold text-amber-900">Valor: 400 €</p>
+            <p className="text-[14px] text-amber-700 mt-1 flex items-center gap-2">
+              <Timer className="w-4 h-4" /> Até 18 Janeiro 2025
             </p>
           </div>
+        </div>
+
+        {/* O que inclui a manutenção */}
+        <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-3xl p-6 border-2 border-emerald-200">
+          <h3 className="font-bold text-emerald-700 mb-4 flex items-center gap-3 text-[20px]">
+            <Shield className="w-6 h-6" /> O Que Inclui a Manutenção
+          </h3>
+          <ul className="space-y-2">
+            {[
+              "Atualizações de segurança",
+              "Backup semanal automático",
+              "Correção de bugs",
+              "2 horas/mês de melhorias",
+              "Suporte por email/WhatsApp",
+            ].map((item, i) => (
+              <li key={i} className="text-[16px] text-emerald-700 flex items-center gap-2">
+                <Check className="w-4 h-4" /> {item}
+              </li>
+            ))}
+          </ul>
+          <p className="text-emerald-600 text-[14px] mt-3 pt-3 border-t border-emerald-200">
+            Após período incluído: 150€/mês
+          </p>
         </div>
       </div>
       
@@ -1970,35 +2028,61 @@ const SlideTerms = () => {
 // ============================================
 const SlideFAQ = () => {
   const faqs = [
-    { q: "E se quiser mudar algo depois?", a: "60 dias de suporte incluído. Depois, manutenção mensal opcional." },
-    { q: "E se o projeto atrasar?", a: "Comunicação semanal. Se atrasar do nosso lado, desconto proporcional." },
-    { q: "Posso adicionar funcionalidades?", a: "Sim! Orçamento adicional para novas features." },
-    { q: "Como funciona o suporte?", a: "Email + WhatsApp. Resposta em 24h úteis." },
+    { 
+      q: "Quantos projetos posso gerir?", 
+      a: "Ilimitados. Não há limite de projetos, clientes ou documentos na plataforma.",
+      icon: FolderOpen
+    },
+    { 
+      q: "Os meus clientes pagam para aceder?", 
+      a: "Não. Tu geres tudo, os clientes acedem gratuitamente com login seguro.",
+      icon: Users
+    },
+    { 
+      q: "O site funciona em telemóvel?", 
+      a: "Sim, 100% responsivo e otimizado para todos os dispositivos (PWA ready).",
+      icon: Layers
+    },
+    { 
+      q: "Quanto tempo demora a ficar pronto?", 
+      a: "6-8 semanas do briefing ao lançamento, com reuniões semanais de acompanhamento.",
+      icon: Calendar
+    },
+    { 
+      q: "E se precisar de ajustes após o lançamento?", 
+      a: "60 dias de suporte incluído. Depois, manutenção mensal opcional (150€/mês).",
+      icon: Settings
+    },
+    { 
+      q: "Quem é o dono do código e dados?", 
+      a: "Tu. Todo o código, design e dados são teus. Podes migrar quando quiseres.",
+      icon: Shield
+    },
   ];
 
   return (
     <SlideFrame className="bg-white relative">
-      <div className="mb-10 text-center">
+      <div className="mb-8 text-center">
         <span className="text-[18px] font-semibold text-[#3D7081] uppercase tracking-wider bg-[#3D7081]/10 px-4 py-2 rounded-full">Dúvidas frequentes</span>
-        <h2 className="text-[56px] font-light text-[#1e3a5f] mt-6">Perguntas & Respostas</h2>
+        <h2 className="text-[56px] font-light text-[#1e3a5f] mt-4">Perguntas & Respostas</h2>
       </div>
 
-      <div className="flex-1 grid grid-cols-2 gap-8">
+      <div className="flex-1 grid grid-cols-3 gap-6">
         {faqs.map((faq, i) => (
           <motion.div
             key={i}
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.1 }}
-            className="bg-gradient-to-br from-slate-50 to-white rounded-3xl p-8 border-2 border-slate-100 shadow-lg"
+            transition={{ delay: i * 0.08 }}
+            className="bg-gradient-to-br from-slate-50 to-white rounded-2xl p-6 border-2 border-slate-100 shadow-lg"
           >
-            <div className="flex items-start gap-5">
-              <div className="w-14 h-14 rounded-2xl bg-[#3D7081]/10 flex items-center justify-center flex-shrink-0">
-                <HelpCircle className="w-7 h-7 text-[#3D7081]" />
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-xl bg-[#3D7081]/10 flex items-center justify-center flex-shrink-0">
+                <faq.icon className="w-6 h-6 text-[#3D7081]" />
               </div>
               <div>
-                <h3 className="font-bold text-[#1e3a5f] text-[24px] mb-3">{faq.q}</h3>
-                <p className="text-slate-600 text-[20px] leading-relaxed">{faq.a}</p>
+                <h3 className="font-bold text-[#1e3a5f] text-[18px] mb-2">{faq.q}</h3>
+                <p className="text-slate-600 text-[16px] leading-relaxed">{faq.a}</p>
               </div>
             </div>
           </motion.div>
@@ -2009,7 +2093,7 @@ const SlideFAQ = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
-        className="mt-8 text-center"
+        className="mt-6 text-center"
       >
         <p className="text-slate-500 text-[20px]">
           Mais perguntas? <span className="font-semibold text-[#1e3a5f]">Falamos na call!</span>
@@ -2098,10 +2182,11 @@ const SlideContacto = () => {
 // ============================================
 const SlideNextSteps = () => {
   const techBadges = [
-    { name: "Lovable", color: "bg-pink-100 text-pink-700" },
-    { name: "Supabase", color: "bg-emerald-100 text-emerald-700" },
-    { name: "React", color: "bg-sky-100 text-sky-700" },
+    { name: "React 18", color: "bg-sky-100 text-sky-700" },
     { name: "TypeScript", color: "bg-blue-100 text-blue-700" },
+    { name: "Tailwind CSS", color: "bg-teal-100 text-teal-700" },
+    { name: "PostgreSQL", color: "bg-indigo-100 text-indigo-700" },
+    { name: "PWA Ready", color: "bg-purple-100 text-purple-700" },
   ];
 
   return (
@@ -2141,22 +2226,20 @@ const SlideNextSteps = () => {
             <Users className="w-8 h-8 text-white/70" />
             Quem vai trabalhar contigo
           </h3>
-          <div className="flex items-center gap-6 mb-6">
-            <div className="flex -space-x-4">
-              <img 
-                src={teamBilal} 
-                alt="Bilal Machraa" 
-                className="w-24 h-24 rounded-full object-cover border-4 border-amber-400/50 shadow-xl"
-              />
-              <img 
-                src={teamHelder} 
-                alt="Helder Faria" 
-                className="w-24 h-24 rounded-full object-cover border-4 border-purple-400/50 shadow-xl"
-              />
-            </div>
+          <div className="flex items-center gap-8 mb-6">
+            <img 
+              src={teamBilal} 
+              alt="Bilal Machraa" 
+              className="w-32 h-32 rounded-full object-cover border-4 border-amber-400/50 shadow-xl"
+            />
+            <img 
+              src={teamHelder} 
+              alt="Helder Faria" 
+              className="w-32 h-32 rounded-full object-cover border-4 border-purple-400/50 shadow-xl"
+            />
             <div>
-              <p className="text-white font-bold text-[24px]">Bilal & Helder</p>
-              <p className="text-white/60 text-[18px]">AiParaTi — A tua equipa</p>
+              <p className="text-white font-bold text-[28px]">Bilal & Helder</p>
+              <p className="text-white/60 text-[20px]">AiParaTi — A tua equipa</p>
             </div>
           </div>
           
