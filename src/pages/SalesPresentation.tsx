@@ -249,19 +249,20 @@ const SalesPresentation = () => {
               }}
               className="absolute inset-0"
             >
+              {/* Nova ordem otimizada para narrativa de vendas */}
               {currentSlide === 0 && <SlideCover />}
               {currentSlide === 1 && <SlideProblem />}
-              {currentSlide === 2 && <SlideSolution />}
-              {currentSlide === 3 && <SlideTransformation />}
-              {currentSlide === 4 && <SlideComparison />}
-              {currentSlide === 5 && <SlidePublicSite />}
-              {currentSlide === 6 && <SlideClientPortal />}
-              {currentSlide === 7 && <SlideAdminDashboard />}
-              {currentSlide === 8 && <SlideAutomations />}
-              {currentSlide === 9 && <SlidePricing />}
-              {currentSlide === 10 && <SlideTerms />}
-              {currentSlide === 11 && <SlideFAQ />}
-              {currentSlide === 12 && <SlideTimeline />}
+              {currentSlide === 2 && <SlideTransformation />}
+              {currentSlide === 3 && <SlideSolution />}
+              {currentSlide === 4 && <SlidePublicSite />}
+              {currentSlide === 5 && <SlideClientPortal />}
+              {currentSlide === 6 && <SlideAdminDashboard />}
+              {currentSlide === 7 && <SlideAutomations />}
+              {currentSlide === 8 && <SlideTimeline />}
+              {currentSlide === 9 && <SlideComparison />}
+              {currentSlide === 10 && <SlidePricing />}
+              {currentSlide === 11 && <SlideTerms />}
+              {currentSlide === 12 && <SlideFAQ />}
               {currentSlide === 13 && <SlideNextSteps />}
             </motion.div>
           </AnimatePresence>
