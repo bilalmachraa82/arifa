@@ -49,6 +49,8 @@ import heroBg from "@/assets/presentation-hero-bg.jpg";
 import screenshotHomepage from "@/assets/screenshot-homepage.png";
 import screenshotPortfolio from "@/assets/screenshot-portfolio.png";
 import screenshotServicos from "@/assets/screenshot-servicos.png";
+import teamBilal from "@/assets/team-bilal.png";
+import teamHelder from "@/assets/team-helder.png";
 
 // ============================================
 // CONSTANTS
@@ -927,16 +929,16 @@ const SlideClientPortal = () => {
                 transition={{ delay: i * 0.06 }}
                 className="flex items-center gap-3 p-4 rounded-xl bg-white border border-slate-100 shadow-sm"
               >
-                <div className="w-8 h-8 rounded-lg bg-indigo-100 flex items-center justify-center flex-shrink-0">
-                  <Check className="w-4 h-4 text-indigo-600" />
+                <div className="w-8 h-8 rounded-lg bg-[#3D7081]/10 flex items-center justify-center flex-shrink-0">
+                  <Check className="w-4 h-4 text-[#3D7081]" />
                 </div>
                 <p className="text-slate-700 text-base">{feature}</p>
               </motion.div>
             ))}
           </div>
-          <div className="mt-4 p-4 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl border border-indigo-100">
-            <p className="text-indigo-700 text-sm font-medium flex items-center gap-2">
-              <Shield className="w-4 h-4" />
+          <div className="mt-4 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
+            <p className="text-[#1e3a5f] text-sm font-medium flex items-center gap-2">
+              <Shield className="w-4 h-4 text-[#3D7081]" />
               100% privado — cada cliente vê apenas o seu.
             </p>
           </div>
@@ -1000,16 +1002,16 @@ const SlideAdminDashboard = () => {
                 transition={{ delay: i * 0.06 }}
                 className="flex items-center gap-3 p-4 rounded-xl bg-white border border-slate-100 shadow-sm"
               >
-                <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center flex-shrink-0">
-                  <Check className="w-4 h-4 text-emerald-600" />
+                <div className="w-8 h-8 rounded-lg bg-[#3D7081]/10 flex items-center justify-center flex-shrink-0">
+                  <Check className="w-4 h-4 text-[#3D7081]" />
                 </div>
                 <p className="text-slate-700 text-base">{feature}</p>
               </motion.div>
             ))}
           </div>
-          <div className="mt-4 p-4 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl border border-emerald-100">
-            <p className="text-emerald-700 text-sm font-medium flex items-center gap-2">
-              <Target className="w-4 h-4" />
+          <div className="mt-4 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
+            <p className="text-[#1e3a5f] text-sm font-medium flex items-center gap-2">
+              <Target className="w-4 h-4 text-[#3D7081]" />
               Gestão da empresa com um golpe de vista.
             </p>
           </div>
@@ -1696,24 +1698,24 @@ const SlideFAQ = () => {
         <h2 className="text-4xl font-light text-[#1e3a5f] mt-4">Respondemos às tuas dúvidas</h2>
       </div>
 
-      <div className="flex-1 grid grid-cols-2 gap-5">
+      <div className="flex-1 grid grid-cols-2 gap-4">
         {faqs.map((faq, i) => (
           <motion.div
             key={i}
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.05 }}
-            className="bg-white rounded-2xl p-5 border border-slate-100 shadow-md flex gap-4"
+            className="bg-white rounded-2xl p-4 border border-slate-100 shadow-md flex gap-4"
           >
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#1e3a5f]/10 to-[#3D7081]/10 flex items-center justify-center flex-shrink-0">
-              <faq.icon className="w-6 h-6 text-[#3D7081]" />
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#1e3a5f]/10 to-[#3D7081]/10 flex items-center justify-center flex-shrink-0">
+              <faq.icon className="w-5 h-5 text-[#3D7081]" />
             </div>
             <div className="flex-1">
-              <h3 className="font-semibold text-[#1e3a5f] mb-2 flex items-center gap-2 text-lg">
+              <h3 className="font-semibold text-[#1e3a5f] mb-1.5 flex items-center gap-2">
                 <HelpCircle className="w-4 h-4 text-[#3D7081]" />
                 {faq.question}
               </h3>
-              <p className="text-slate-600 text-base leading-relaxed">{faq.answer}</p>
+              <p className="text-slate-600 text-[15px] leading-relaxed">{faq.answer}</p>
             </div>
           </motion.div>
         ))}
@@ -1788,17 +1790,21 @@ const SlideNextSteps = () => {
             Quem vai trabalhar contigo
           </h3>
           <div className="flex items-center gap-5 mb-5">
-            <div className="flex -space-x-4">
-              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-amber-400 to-yellow-400 border-4 border-white/30 flex items-center justify-center text-amber-900 font-bold text-xl shadow-xl">
-                BM
-              </div>
-              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 border-4 border-white/30 flex items-center justify-center text-purple-900 font-bold text-xl shadow-xl">
-                HF
-              </div>
+            <div className="flex -space-x-3">
+              <img 
+                src={teamBilal} 
+                alt="Bilal Machraa" 
+                className="w-20 h-20 rounded-full object-cover border-4 border-amber-400/50 shadow-xl"
+              />
+              <img 
+                src={teamHelder} 
+                alt="Helder Faria" 
+                className="w-20 h-20 rounded-full object-cover border-4 border-purple-400/50 shadow-xl"
+              />
             </div>
             <div>
-              <p className="text-white font-semibold text-lg">AiParaTi + Helder Faria Design</p>
-              <p className="text-white/60">A tua equipa dedicada para este projeto</p>
+              <p className="text-white font-semibold text-lg">Bilal Machraa & Helder Faria</p>
+              <p className="text-white/60">AiParaTi — A tua equipa dedicada</p>
             </div>
           </div>
           
