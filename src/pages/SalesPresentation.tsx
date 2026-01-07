@@ -839,16 +839,25 @@ const SlidePublicSite = () => {
       </div>
 
       <div className="flex-1 grid grid-cols-[55%,45%] gap-10">
-        {/* Screenshot - Premium Frame */}
-        <div className="bg-slate-900 rounded-3xl overflow-hidden border border-slate-700 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)]">
-          <div className="bg-gradient-to-r from-slate-800 to-slate-700 h-12 flex items-center gap-2 px-5">
-            <div className="w-3.5 h-3.5 rounded-full bg-red-400 shadow-sm" />
-            <div className="w-3.5 h-3.5 rounded-full bg-yellow-400 shadow-sm" />
-            <div className="w-3.5 h-3.5 rounded-full bg-green-400 shadow-sm" />
-            <div className="flex-1 mx-4">
-              <div className="bg-slate-600/50 rounded-lg px-4 py-1.5 text-[13px] text-slate-300 font-mono max-w-[200px]">
-                arifa.pt
-              </div>
+        {/* Screenshot - Premium Frame with Glow */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.1 }}
+          className="bg-slate-900 rounded-3xl overflow-hidden border-2 border-slate-700 shadow-2xl"
+          style={{ boxShadow: '0 0 60px rgba(61, 112, 129, 0.25)' }}
+        >
+          <div className="bg-gradient-to-r from-slate-800 to-slate-700 h-12 flex items-center justify-between px-5">
+            <div className="flex items-center gap-2">
+              <div className="w-3.5 h-3.5 rounded-full bg-red-400 shadow-sm" />
+              <div className="w-3.5 h-3.5 rounded-full bg-yellow-400 shadow-sm" />
+              <div className="w-3.5 h-3.5 rounded-full bg-green-400 shadow-sm" />
+            </div>
+            <div className="bg-slate-600/50 rounded-lg px-4 py-1.5 text-[13px] text-slate-300 font-mono">
+              arifa.pt
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="bg-[#3D7081] text-white text-[10px] px-2 py-0.5 rounded font-bold">SSL</div>
             </div>
           </div>
           <div className="p-6 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-48px)]">
@@ -865,7 +874,8 @@ const SlidePublicSite = () => {
               </div>
             </div>
             {/* Hero Mockup */}
-            <div className="bg-gradient-to-r from-[#1e3a5f] to-[#3D7081] rounded-2xl p-6 mb-5">
+            <div className="bg-gradient-to-r from-[#1e3a5f] to-[#3D7081] rounded-2xl p-6 mb-5 relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent" />
               <div className="h-5 w-3/4 bg-white/30 rounded mb-2" />
               <div className="h-3 w-1/2 bg-white/20 rounded mb-4" />
               <div className="h-8 w-28 bg-white rounded-lg" />
@@ -873,15 +883,21 @@ const SlidePublicSite = () => {
             {/* Cards Mockup */}
             <div className="grid grid-cols-3 gap-3">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="bg-white rounded-xl p-3 border border-slate-100 shadow-sm">
+                <motion.div 
+                  key={i} 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 + i * 0.05 }}
+                  className="bg-white rounded-xl p-3 border border-slate-100 shadow-sm hover:shadow-md transition-shadow"
+                >
                   <div className="w-8 h-8 bg-[#3D7081]/10 rounded-lg mb-2" />
                   <div className="h-3 w-16 bg-slate-200 rounded mb-1" />
                   <div className="h-2 w-full bg-slate-100 rounded" />
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Features */}
         <div className="flex flex-col justify-center">
@@ -940,24 +956,33 @@ const SlidePortfolio = () => {
       </div>
 
       <div className="flex-1 grid grid-cols-[55%,45%] gap-10">
-        {/* Screenshot - Premium Frame */}
-        <div className="bg-slate-900 rounded-3xl overflow-hidden border border-slate-700 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)]">
-          <div className="bg-gradient-to-r from-slate-800 to-slate-700 h-12 flex items-center gap-2 px-5">
-            <div className="w-3.5 h-3.5 rounded-full bg-red-400 shadow-sm" />
-            <div className="w-3.5 h-3.5 rounded-full bg-yellow-400 shadow-sm" />
-            <div className="w-3.5 h-3.5 rounded-full bg-green-400 shadow-sm" />
-            <div className="flex-1 mx-4">
-              <div className="bg-slate-600/50 rounded-lg px-4 py-1.5 text-[13px] text-slate-300 font-mono max-w-[240px]">
-                arifa.pt/portfolio
-              </div>
+        {/* Screenshot - Premium Frame with Glow */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.1 }}
+          className="bg-slate-900 rounded-3xl overflow-hidden border-2 border-slate-700 shadow-2xl"
+          style={{ boxShadow: '0 0 60px rgba(61, 112, 129, 0.25)' }}
+        >
+          <div className="bg-gradient-to-r from-slate-800 to-slate-700 h-12 flex items-center justify-between px-5">
+            <div className="flex items-center gap-2">
+              <div className="w-3.5 h-3.5 rounded-full bg-red-400 shadow-sm" />
+              <div className="w-3.5 h-3.5 rounded-full bg-yellow-400 shadow-sm" />
+              <div className="w-3.5 h-3.5 rounded-full bg-green-400 shadow-sm" />
+            </div>
+            <div className="bg-slate-600/50 rounded-lg px-4 py-1.5 text-[13px] text-slate-300 font-mono">
+              arifa.pt/portfolio
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="bg-emerald-500 text-white text-[10px] px-2 py-0.5 rounded font-bold">LIVE</div>
             </div>
           </div>
           <div className="p-6 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-48px)]">
             {/* Filters Mockup */}
             <div className="flex gap-2 mb-5">
-              <div className="h-7 px-3 bg-[#1e3a5f] text-white text-xs rounded-lg flex items-center">Todos</div>
-              <div className="h-7 px-3 bg-slate-100 text-slate-600 text-xs rounded-lg flex items-center">Residencial</div>
-              <div className="h-7 px-3 bg-slate-100 text-slate-600 text-xs rounded-lg flex items-center">Comercial</div>
+              <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }} className="h-7 px-3 bg-[#1e3a5f] text-white text-xs rounded-lg flex items-center">Todos</motion.div>
+              <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.25 }} className="h-7 px-3 bg-slate-100 text-slate-600 text-xs rounded-lg flex items-center hover:bg-slate-200 transition-colors">Residencial</motion.div>
+              <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }} className="h-7 px-3 bg-slate-100 text-slate-600 text-xs rounded-lg flex items-center hover:bg-slate-200 transition-colors">Comercial</motion.div>
             </div>
             {/* Projects Grid Mockup */}
             <div className="grid grid-cols-2 gap-3">
@@ -967,7 +992,13 @@ const SlidePortfolio = () => {
                 { status: "Concluído", color: "bg-emerald-500" },
                 { status: "Em Construção", color: "bg-blue-500" },
               ].map((project, i) => (
-                <div key={i} className="bg-white rounded-xl overflow-hidden border border-slate-100 shadow-sm">
+                <motion.div 
+                  key={i} 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 + i * 0.05 }}
+                  className="bg-white rounded-xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-md hover:scale-[1.02] transition-all"
+                >
                   <div className="h-24 bg-gradient-to-br from-slate-200 to-slate-300 relative">
                     <span className={`absolute top-2 right-2 text-[9px] text-white px-2 py-0.5 rounded-full ${project.color}`}>
                       {project.status}
@@ -977,11 +1008,11 @@ const SlidePortfolio = () => {
                     <div className="h-3 w-3/4 bg-slate-200 rounded mb-1" />
                     <div className="h-2 w-1/2 bg-slate-100 rounded" />
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Features */}
         <div className="flex flex-col justify-center">
@@ -1040,30 +1071,47 @@ const SlideBlog = () => {
       </div>
 
       <div className="flex-1 grid grid-cols-[55%,45%] gap-10">
-        {/* Screenshot - Premium Frame */}
-        <div className="bg-slate-900 rounded-3xl overflow-hidden border border-slate-700 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)]">
-          <div className="bg-gradient-to-r from-slate-800 to-slate-700 h-12 flex items-center gap-2 px-5">
-            <div className="w-3.5 h-3.5 rounded-full bg-red-400 shadow-sm" />
-            <div className="w-3.5 h-3.5 rounded-full bg-yellow-400 shadow-sm" />
-            <div className="w-3.5 h-3.5 rounded-full bg-green-400 shadow-sm" />
-            <div className="flex-1 mx-4">
-              <div className="bg-slate-600/50 rounded-lg px-4 py-1.5 text-[13px] text-slate-300 font-mono max-w-[200px]">
-                arifa.pt/blog
-              </div>
+        {/* Screenshot - Premium Frame with Glow */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.1 }}
+          className="bg-slate-900 rounded-3xl overflow-hidden border-2 border-slate-700 shadow-2xl"
+          style={{ boxShadow: '0 0 60px rgba(61, 112, 129, 0.25)' }}
+        >
+          <div className="bg-gradient-to-r from-slate-800 to-slate-700 h-12 flex items-center justify-between px-5">
+            <div className="flex items-center gap-2">
+              <div className="w-3.5 h-3.5 rounded-full bg-red-400 shadow-sm" />
+              <div className="w-3.5 h-3.5 rounded-full bg-yellow-400 shadow-sm" />
+              <div className="w-3.5 h-3.5 rounded-full bg-green-400 shadow-sm" />
+            </div>
+            <div className="bg-slate-600/50 rounded-lg px-4 py-1.5 text-[13px] text-slate-300 font-mono">
+              arifa.pt/blog
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="bg-orange-500 text-white text-[10px] px-2 py-0.5 rounded font-bold">SEO</div>
             </div>
           </div>
           <div className="p-6 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-48px)]">
             {/* Categories Mockup */}
             <div className="flex gap-2 mb-5">
-              <div className="h-6 px-3 bg-[#3D7081]/10 text-[#3D7081] text-[10px] font-medium rounded-full flex items-center">Tendências</div>
-              <div className="h-6 px-3 bg-slate-100 text-slate-600 text-[10px] rounded-full flex items-center">Sustentabilidade</div>
-              <div className="h-6 px-3 bg-slate-100 text-slate-600 text-[10px] rounded-full flex items-center">Materiais</div>
+              <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="h-6 px-3 bg-[#3D7081]/10 text-[#3D7081] text-[10px] font-medium rounded-full flex items-center">Tendências</motion.div>
+              <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="h-6 px-3 bg-slate-100 text-slate-600 text-[10px] rounded-full flex items-center hover:bg-slate-200 transition-colors">Sustentabilidade</motion.div>
+              <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="h-6 px-3 bg-slate-100 text-slate-600 text-[10px] rounded-full flex items-center hover:bg-slate-200 transition-colors">Materiais</motion.div>
             </div>
             {/* Articles Mockup */}
             <div className="space-y-3">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="flex gap-3 bg-white rounded-xl p-3 border border-slate-100 shadow-sm">
-                  <div className="w-20 h-16 bg-gradient-to-br from-slate-200 to-slate-300 rounded-lg flex-shrink-0" />
+                <motion.div 
+                  key={i} 
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2 + i * 0.08 }}
+                  className="flex gap-3 bg-white rounded-xl p-3 border border-slate-100 shadow-sm hover:shadow-md hover:scale-[1.01] transition-all"
+                >
+                  <div className="w-20 h-16 bg-gradient-to-br from-slate-200 to-slate-300 rounded-lg flex-shrink-0 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#3D7081]/10 to-transparent" />
+                  </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-[8px] text-[#3D7081] bg-[#3D7081]/10 px-2 py-0.5 rounded-full">Tendências</span>
@@ -1072,11 +1120,11 @@ const SlideBlog = () => {
                     <div className="h-3 w-full bg-slate-200 rounded mb-1" />
                     <div className="h-2 w-3/4 bg-slate-100 rounded" />
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Features */}
         <div className="flex flex-col justify-center">
@@ -2286,52 +2334,75 @@ const SlideContacto = () => {
       </div>
 
       <div className="flex-1 grid grid-cols-[55%,45%] gap-10">
-        {/* Screenshot - Premium Frame */}
-        <div className="bg-slate-900 rounded-3xl overflow-hidden border border-slate-700 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)]">
-          <div className="bg-gradient-to-r from-slate-800 to-slate-700 h-12 flex items-center gap-2 px-5">
-            <div className="w-3.5 h-3.5 rounded-full bg-red-400 shadow-sm" />
-            <div className="w-3.5 h-3.5 rounded-full bg-yellow-400 shadow-sm" />
-            <div className="w-3.5 h-3.5 rounded-full bg-green-400 shadow-sm" />
-            <div className="flex-1 mx-4">
-              <div className="bg-slate-600/50 rounded-lg px-4 py-1.5 text-[13px] text-slate-300 font-mono max-w-[240px]">
-                arifa.pt/contacto
-              </div>
+        {/* Screenshot - Premium Frame with Glow */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.1 }}
+          className="bg-slate-900 rounded-3xl overflow-hidden border-2 border-slate-700 shadow-2xl"
+          style={{ boxShadow: '0 0 60px rgba(61, 112, 129, 0.25)' }}
+        >
+          <div className="bg-gradient-to-r from-slate-800 to-slate-700 h-12 flex items-center justify-between px-5">
+            <div className="flex items-center gap-2">
+              <div className="w-3.5 h-3.5 rounded-full bg-red-400 shadow-sm" />
+              <div className="w-3.5 h-3.5 rounded-full bg-yellow-400 shadow-sm" />
+              <div className="w-3.5 h-3.5 rounded-full bg-green-400 shadow-sm" />
+            </div>
+            <div className="bg-slate-600/50 rounded-lg px-4 py-1.5 text-[13px] text-slate-300 font-mono">
+              arifa.pt/contacto
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="bg-rose-500 text-white text-[10px] px-2 py-0.5 rounded font-bold">CRM</div>
             </div>
           </div>
           <div className="p-6 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-48px)]">
             {/* Form Mockup */}
-            <div className="bg-white rounded-2xl p-5 border border-slate-100 shadow-lg">
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="bg-white rounded-2xl p-5 border border-slate-100 shadow-lg"
+            >
               <div className="h-4 w-32 bg-slate-200 rounded mb-5" />
               <div className="grid grid-cols-2 gap-3 mb-3">
-                <div>
+                <motion.div initial={{ opacity: 0, x: -5 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.25 }}>
                   <div className="h-2 w-12 bg-slate-100 rounded mb-1" />
-                  <div className="h-8 bg-slate-50 rounded-lg border border-slate-200" />
-                </div>
-                <div>
+                  <div className="h-8 bg-slate-50 rounded-lg border border-slate-200 hover:border-[#3D7081]/30 transition-colors" />
+                </motion.div>
+                <motion.div initial={{ opacity: 0, x: 5 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }}>
                   <div className="h-2 w-12 bg-slate-100 rounded mb-1" />
-                  <div className="h-8 bg-slate-50 rounded-lg border border-slate-200" />
-                </div>
+                  <div className="h-8 bg-slate-50 rounded-lg border border-slate-200 hover:border-[#3D7081]/30 transition-colors" />
+                </motion.div>
               </div>
-              <div className="mb-3">
+              <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }} className="mb-3">
                 <div className="h-2 w-16 bg-slate-100 rounded mb-1" />
                 <div className="h-8 bg-slate-50 rounded-lg border border-slate-200" />
-              </div>
-              <div className="mb-3">
+              </motion.div>
+              <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="mb-3">
                 <div className="h-2 w-20 bg-slate-100 rounded mb-1" />
-                <div className="h-8 bg-slate-50 rounded-lg border border-slate-200 flex items-center px-2">
-                  <div className="h-2 w-24 bg-slate-200 rounded" />
+                <div className="h-8 bg-slate-50 rounded-lg border border-slate-200 flex items-center px-2 gap-2">
+                  <div className="flex gap-1">
+                    {['Privado', 'Empresa', 'Investidor'].map((seg, i) => (
+                      <span key={i} className={`text-[7px] px-1.5 py-0.5 rounded ${i === 0 ? 'bg-[#3D7081] text-white' : 'bg-slate-100 text-slate-400'}`}>{seg}</span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <div className="mb-4">
+              </motion.div>
+              <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }} className="mb-4">
                 <div className="h-2 w-16 bg-slate-100 rounded mb-1" />
                 <div className="h-16 bg-slate-50 rounded-lg border border-slate-200" />
-              </div>
-              <div className="h-10 bg-gradient-to-r from-[#1e3a5f] to-[#3D7081] rounded-xl flex items-center justify-center">
+              </motion.div>
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.5 }}
+                className="h-10 bg-gradient-to-r from-[#1e3a5f] to-[#3D7081] rounded-xl flex items-center justify-center hover:opacity-90 transition-opacity"
+              >
                 <div className="h-3 w-20 bg-white/30 rounded" />
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Features */}
         <div className="flex flex-col justify-center">
