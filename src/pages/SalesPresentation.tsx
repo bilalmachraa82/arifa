@@ -733,13 +733,13 @@ const SlideSolution = () => {
     },
     { 
       icon: Lock, 
-      title: "Portal Cliente", 
+      title: "Portal do Cliente", 
       desc: "Área privada",
       badge: "PRIVADO"
     },
     { 
       icon: LayoutDashboard, 
-      title: "Dashboard", 
+      title: "Backoffice", 
       desc: "Gestão centralizada",
       badge: "ADMIN"
     },
@@ -851,11 +851,36 @@ const SlidePublicSite = () => {
               </div>
             </div>
           </div>
-          <img 
-            src={screenshotHomepage} 
-            alt="Screenshot Homepage" 
-            className="w-full h-[calc(100%-48px)] object-cover object-top"
-          />
+          <div className="p-6 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-48px)]">
+            {/* Header Mockup */}
+            <div className="flex items-center justify-between mb-5">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-[#1e3a5f] rounded-lg" />
+                <div className="h-4 w-20 bg-slate-200 rounded" />
+              </div>
+              <div className="flex gap-4">
+                <div className="h-3 w-14 bg-slate-200 rounded" />
+                <div className="h-3 w-14 bg-slate-200 rounded" />
+                <div className="h-8 w-20 bg-[#3D7081] rounded-lg" />
+              </div>
+            </div>
+            {/* Hero Mockup */}
+            <div className="bg-gradient-to-r from-[#1e3a5f] to-[#3D7081] rounded-2xl p-6 mb-5">
+              <div className="h-5 w-3/4 bg-white/30 rounded mb-2" />
+              <div className="h-3 w-1/2 bg-white/20 rounded mb-4" />
+              <div className="h-8 w-28 bg-white rounded-lg" />
+            </div>
+            {/* Cards Mockup */}
+            <div className="grid grid-cols-3 gap-3">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="bg-white rounded-xl p-3 border border-slate-100 shadow-sm">
+                  <div className="w-8 h-8 bg-[#3D7081]/10 rounded-lg mb-2" />
+                  <div className="h-3 w-16 bg-slate-200 rounded mb-1" />
+                  <div className="h-2 w-full bg-slate-100 rounded" />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Features */}
@@ -927,11 +952,35 @@ const SlidePortfolio = () => {
               </div>
             </div>
           </div>
-          <img 
-            src={screenshotPortfolio} 
-            alt="Screenshot Portfolio" 
-            className="w-full h-[calc(100%-48px)] object-cover object-top"
-          />
+          <div className="p-6 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-48px)]">
+            {/* Filters Mockup */}
+            <div className="flex gap-2 mb-5">
+              <div className="h-7 px-3 bg-[#1e3a5f] text-white text-xs rounded-lg flex items-center">Todos</div>
+              <div className="h-7 px-3 bg-slate-100 text-slate-600 text-xs rounded-lg flex items-center">Residencial</div>
+              <div className="h-7 px-3 bg-slate-100 text-slate-600 text-xs rounded-lg flex items-center">Comercial</div>
+            </div>
+            {/* Projects Grid Mockup */}
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                { status: "Concluído", color: "bg-emerald-500" },
+                { status: "Em Projeto", color: "bg-amber-500" },
+                { status: "Concluído", color: "bg-emerald-500" },
+                { status: "Em Construção", color: "bg-blue-500" },
+              ].map((project, i) => (
+                <div key={i} className="bg-white rounded-xl overflow-hidden border border-slate-100 shadow-sm">
+                  <div className="h-24 bg-gradient-to-br from-slate-200 to-slate-300 relative">
+                    <span className={`absolute top-2 right-2 text-[9px] text-white px-2 py-0.5 rounded-full ${project.color}`}>
+                      {project.status}
+                    </span>
+                  </div>
+                  <div className="p-2">
+                    <div className="h-3 w-3/4 bg-slate-200 rounded mb-1" />
+                    <div className="h-2 w-1/2 bg-slate-100 rounded" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Features */}
@@ -1003,11 +1052,30 @@ const SlideBlog = () => {
               </div>
             </div>
           </div>
-          <img 
-            src={screenshotBlog} 
-            alt="Screenshot Blog" 
-            className="w-full h-[calc(100%-48px)] object-cover object-top"
-          />
+          <div className="p-6 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-48px)]">
+            {/* Categories Mockup */}
+            <div className="flex gap-2 mb-5">
+              <div className="h-6 px-3 bg-[#3D7081]/10 text-[#3D7081] text-[10px] font-medium rounded-full flex items-center">Tendências</div>
+              <div className="h-6 px-3 bg-slate-100 text-slate-600 text-[10px] rounded-full flex items-center">Sustentabilidade</div>
+              <div className="h-6 px-3 bg-slate-100 text-slate-600 text-[10px] rounded-full flex items-center">Materiais</div>
+            </div>
+            {/* Articles Mockup */}
+            <div className="space-y-3">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="flex gap-3 bg-white rounded-xl p-3 border border-slate-100 shadow-sm">
+                  <div className="w-20 h-16 bg-gradient-to-br from-slate-200 to-slate-300 rounded-lg flex-shrink-0" />
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-[8px] text-[#3D7081] bg-[#3D7081]/10 px-2 py-0.5 rounded-full">Tendências</span>
+                      <span className="text-[8px] text-slate-400">12 Jan 2025</span>
+                    </div>
+                    <div className="h-3 w-full bg-slate-200 rounded mb-1" />
+                    <div className="h-2 w-3/4 bg-slate-100 rounded" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Features */}
@@ -1208,14 +1276,16 @@ const SlidePhotoGallery = () => {
               <div className="w-3 h-3 rounded-full bg-green-400" />
               <span className="text-[11px] text-slate-500 ml-2">/portfolio</span>
             </div>
-            <img 
-              src={screenshotPortfolioFilters} 
-              alt="Portfolio com filtros" 
-              className="w-full h-[calc(100%-32px)] object-cover object-top"
-            />
+            <div className="p-4 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-32px)]">
+              <div className="grid grid-cols-3 gap-2">
+                {[1, 2, 3, 4, 5, 6].map((i) => (
+                  <div key={i} className={`h-16 rounded-lg bg-gradient-to-br from-slate-200 to-slate-300 ${i === 1 ? 'ring-2 ring-[#3D7081]' : ''}`} />
+                ))}
+              </div>
+            </div>
           </motion.div>
 
-          {/* Project Detail Screenshot */}
+          {/* Project Detail Mockup */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -1228,11 +1298,13 @@ const SlidePhotoGallery = () => {
               <div className="w-3 h-3 rounded-full bg-green-400" />
               <span className="text-[11px] text-slate-500 ml-2">/portfolio/villa-oceano</span>
             </div>
-            <img 
-              src={screenshotProjectGallery} 
-              alt="Detalhe do projeto" 
-              className="w-full h-[calc(100%-32px)] object-cover object-top"
-            />
+            <div className="p-4 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-32px)]">
+              <div className="h-24 bg-gradient-to-br from-slate-200 to-slate-300 rounded-xl mb-3 flex items-center justify-center">
+                <Camera className="w-8 h-8 text-slate-400" />
+              </div>
+              <div className="h-3 w-3/4 bg-slate-200 rounded mb-2" />
+              <div className="h-2 w-1/2 bg-slate-100 rounded" />
+            </div>
           </motion.div>
 
           {/* Lightbox Mockup - Smaller */}
@@ -1265,13 +1337,9 @@ const SlidePhotoGallery = () => {
                 </div>
               </div>
               
-              {/* Image preview */}
+              {/* Image preview mockup */}
               <div className="flex-1 mx-6 h-32 bg-gradient-to-br from-slate-800 to-slate-700 rounded-xl flex items-center justify-center relative">
-                <img 
-                  src={screenshotProjectGallery} 
-                  alt="Lightbox" 
-                  className="w-full h-full object-cover rounded-xl opacity-80"
-                />
+                <Camera className="w-10 h-10 text-slate-500" />
                 <div className="absolute top-2 right-2 bg-white/20 backdrop-blur-sm rounded px-2 py-1">
                   <span className="text-white text-xs font-medium">400%</span>
                 </div>
@@ -1814,7 +1882,7 @@ const SlideComparison = () => {
             <div className="pt-6 border-t border-white/20 relative z-10">
               <span className="text-blue-200 text-[18px]">Investimento único</span>
               <div className="flex items-baseline gap-2 mt-2">
-                <span className="text-[64px] font-bold leading-none">4.888</span>
+                <span className="text-[64px] font-bold leading-none">5.888</span>
                 <span className="text-[28px] text-blue-200">€</span>
               </div>
               <div className="mt-5 flex items-center gap-3 bg-emerald-500/20 rounded-xl p-4">
@@ -1838,7 +1906,7 @@ const SlidePricing = () => {
   const tiers = [
     {
       name: "Essencial",
-      price: "2.990",
+      price: "3.590",
       description: "Para começar",
       features: [
         "Site público (5 páginas)",
@@ -1851,7 +1919,7 @@ const SlidePricing = () => {
     },
     {
       name: "Profissional",
-      price: "4.888",
+      price: "5.888",
       description: "Solução completa",
       features: [
         "Tudo do Essencial",
@@ -1865,7 +1933,7 @@ const SlidePricing = () => {
     },
     {
       name: "Premium",
-      price: "6.500",
+      price: "7.888",
       description: "Tudo + manutenção",
       features: [
         "Tudo do Profissional",
@@ -1987,19 +2055,19 @@ const SlideTerms = () => {
             </div>
             Pagamento
           </h3>
-          <p className="text-[48px] font-bold text-[#1e3a5f] mb-6">4.888 €</p>
+          <p className="text-[48px] font-bold text-[#1e3a5f] mb-6">5.888 €</p>
           <div className="space-y-4">
             <div className="flex justify-between items-center py-4 px-5 bg-slate-50 rounded-2xl">
               <span className="text-slate-700 text-[20px]">40% assinatura</span>
-              <span className="font-bold text-[#1e3a5f] text-[22px]">1.955 €</span>
+              <span className="font-bold text-[#1e3a5f] text-[22px]">2.355 €</span>
             </div>
             <div className="flex justify-between items-center py-4 px-5 bg-slate-50 rounded-2xl">
               <span className="text-slate-700 text-[20px]">40% go-live</span>
-              <span className="font-bold text-[#1e3a5f] text-[22px]">1.955 €</span>
+              <span className="font-bold text-[#1e3a5f] text-[22px]">2.355 €</span>
             </div>
             <div className="flex justify-between items-center py-4 px-5 bg-slate-50 rounded-2xl">
               <span className="text-slate-700 text-[20px]">20% após 30 dias</span>
-              <span className="font-bold text-[#1e3a5f] text-[22px]">978 €</span>
+              <span className="font-bold text-[#1e3a5f] text-[22px]">1.178 €</span>
             </div>
           </div>
         </div>
@@ -2195,11 +2263,39 @@ const SlideContacto = () => {
               </div>
             </div>
           </div>
-          <img 
-            src={screenshotContacto} 
-            alt="Screenshot Contacto" 
-            className="w-full h-[calc(100%-48px)] object-cover object-top"
-          />
+          <div className="p-6 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-48px)]">
+            {/* Form Mockup */}
+            <div className="bg-white rounded-2xl p-5 border border-slate-100 shadow-lg">
+              <div className="h-4 w-32 bg-slate-200 rounded mb-5" />
+              <div className="grid grid-cols-2 gap-3 mb-3">
+                <div>
+                  <div className="h-2 w-12 bg-slate-100 rounded mb-1" />
+                  <div className="h-8 bg-slate-50 rounded-lg border border-slate-200" />
+                </div>
+                <div>
+                  <div className="h-2 w-12 bg-slate-100 rounded mb-1" />
+                  <div className="h-8 bg-slate-50 rounded-lg border border-slate-200" />
+                </div>
+              </div>
+              <div className="mb-3">
+                <div className="h-2 w-16 bg-slate-100 rounded mb-1" />
+                <div className="h-8 bg-slate-50 rounded-lg border border-slate-200" />
+              </div>
+              <div className="mb-3">
+                <div className="h-2 w-20 bg-slate-100 rounded mb-1" />
+                <div className="h-8 bg-slate-50 rounded-lg border border-slate-200 flex items-center px-2">
+                  <div className="h-2 w-24 bg-slate-200 rounded" />
+                </div>
+              </div>
+              <div className="mb-4">
+                <div className="h-2 w-16 bg-slate-100 rounded mb-1" />
+                <div className="h-16 bg-slate-50 rounded-lg border border-slate-200" />
+              </div>
+              <div className="h-10 bg-gradient-to-r from-[#1e3a5f] to-[#3D7081] rounded-xl flex items-center justify-center">
+                <div className="h-3 w-20 bg-white/30 rounded" />
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Features */}
