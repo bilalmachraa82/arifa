@@ -982,19 +982,20 @@ const SlidePublicSite = () => {
 };
 
 // ============================================
-// SLIDE 6: PORTFOLIO - 4 features max
+// SLIDE 6: PORTFOLIO - 5 features aligned with real app
 // ============================================
 const SlidePortfolio = () => {
   const features = [
-    "Filtros por categoria e localização",
-    "Estados visuais (Em Projeto, Concluído)",
-    "Pesquisa instantânea de projetos",
-    "Galeria com Lightbox premium",
+    "Filtros por categoria, localização e segmento",
+    "Estados visuais (Em Estudo, Em Construção, Concluído)",
+    "Pesquisa instantânea + ordenação",
+    "Galeria Premium com Lightbox (zoom 400%, slideshow)",
+    "Página de detalhe rica com galeria + info",
   ];
 
   return (
     <SlideFrame className="bg-gradient-to-br from-white to-purple-50/30 relative">
-      <div className="flex items-center gap-5 mb-8">
+      <div className="flex items-center gap-5 mb-6">
         <div className="w-18 h-18 rounded-2xl bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] flex items-center justify-center shadow-xl p-4">
           <FolderOpen className="w-10 h-10 text-white" />
         </div>
@@ -1004,7 +1005,7 @@ const SlidePortfolio = () => {
         </div>
       </div>
 
-      <div className="flex-1 grid grid-cols-[55%,45%] gap-10">
+      <div className="flex-1 grid grid-cols-[55%,45%] gap-8">
         {/* Screenshot - Premium Frame with Glow */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
@@ -1013,31 +1014,52 @@ const SlidePortfolio = () => {
           className="bg-slate-900 rounded-3xl overflow-hidden border-2 border-slate-700 shadow-2xl"
           style={{ boxShadow: '0 0 60px rgba(61, 112, 129, 0.25)' }}
         >
-          <div className="bg-gradient-to-r from-slate-800 to-slate-700 h-12 flex items-center justify-between px-5">
-            <div className="flex items-center gap-2">
-              <div className="w-3.5 h-3.5 rounded-full bg-red-400 shadow-sm" />
-              <div className="w-3.5 h-3.5 rounded-full bg-yellow-400 shadow-sm" />
-              <div className="w-3.5 h-3.5 rounded-full bg-green-400 shadow-sm" />
+          <div className="bg-gradient-to-r from-slate-800 to-slate-700 h-10 flex items-center justify-between px-4">
+            <div className="flex items-center gap-1.5">
+              <div className="w-3 h-3 rounded-full bg-red-400" />
+              <div className="w-3 h-3 rounded-full bg-yellow-400" />
+              <div className="w-3 h-3 rounded-full bg-green-400" />
             </div>
-            <div className="bg-slate-600/50 rounded-lg px-4 py-1.5 text-[13px] text-slate-300 font-mono">
+            <div className="bg-slate-600/50 rounded-lg px-3 py-1 text-[11px] text-slate-300 font-mono">
               arifa.pt/portfolio
             </div>
-            <div className="flex items-center gap-2">
-              <div className="bg-emerald-500 text-white text-[10px] px-2 py-0.5 rounded font-bold">LIVE</div>
+            <div className="flex items-center gap-1">
+              <div className="bg-emerald-500 text-white text-[9px] px-1.5 py-0.5 rounded font-bold">LIVE</div>
+              <div className="bg-purple-500 text-white text-[9px] px-1.5 py-0.5 rounded font-bold">i18n</div>
             </div>
           </div>
-          <div className="p-6 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-48px)]">
-            {/* Filters Mockup */}
-            <div className="flex gap-2 mb-5">
-              <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }} className="h-7 px-3 bg-[#1e3a5f] text-white text-xs rounded-lg flex items-center">Todos</motion.div>
-              <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.25 }} className="h-7 px-3 bg-slate-100 text-slate-600 text-xs rounded-lg flex items-center hover:bg-slate-200 transition-colors">Residencial</motion.div>
-              <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }} className="h-7 px-3 bg-slate-100 text-slate-600 text-xs rounded-lg flex items-center hover:bg-slate-200 transition-colors">Comercial</motion.div>
+          <div className="p-4 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-40px)]">
+            {/* Search + Filters Row */}
+            <div className="flex items-center gap-2 mb-3">
+              <div className="flex-1 bg-white border border-slate-200 rounded-lg px-2 py-1 flex items-center gap-1">
+                <Eye className="w-3 h-3 text-slate-400" />
+                <div className="h-2 w-16 bg-slate-200 rounded" />
+              </div>
+              <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }} className="h-6 px-2 bg-[#1e3a5f] text-white text-[9px] rounded-lg flex items-center">Todos</motion.div>
+              <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.25 }} className="h-6 px-2 bg-slate-100 text-slate-600 text-[9px] rounded-lg flex items-center">Residencial</motion.div>
+              <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }} className="h-6 px-2 bg-slate-100 text-slate-600 text-[9px] rounded-lg flex items-center">Comercial</motion.div>
             </div>
+            
+            {/* Segment Pills */}
+            <div className="flex gap-1 mb-3">
+              {['🏠 Privados', '🏢 Empresas', '📈 Investidores'].map((seg, i) => (
+                <motion.div 
+                  key={i}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.3 + i * 0.05 }}
+                  className={`px-2 py-0.5 rounded-full text-[8px] font-medium ${i === 0 ? 'bg-[#3D7081] text-white' : 'bg-slate-100 text-slate-500'}`}
+                >
+                  {seg}
+                </motion.div>
+              ))}
+            </div>
+            
             {/* Projects Grid Mockup */}
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-2">
               {[
                 { status: "Concluído", color: "bg-emerald-500" },
-                { status: "Em Projeto", color: "bg-amber-500" },
+                { status: "Em Estudo", color: "bg-amber-500" },
                 { status: "Concluído", color: "bg-emerald-500" },
                 { status: "Em Construção", color: "bg-blue-500" },
               ].map((project, i) => (
@@ -1045,46 +1067,58 @@ const SlidePortfolio = () => {
                   key={i} 
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 + i * 0.05 }}
-                  className="bg-white rounded-xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-md hover:scale-[1.02] transition-all"
+                  transition={{ delay: 0.35 + i * 0.05 }}
+                  className="bg-white rounded-lg overflow-hidden border border-slate-100 shadow-sm hover:shadow-md hover:scale-[1.02] transition-all"
                 >
-                  <div className="h-24 bg-gradient-to-br from-slate-200 to-slate-300 relative">
-                    <span className={`absolute top-2 right-2 text-[9px] text-white px-2 py-0.5 rounded-full ${project.color}`}>
+                  <div className="h-16 bg-gradient-to-br from-slate-200 to-slate-300 relative">
+                    <span className={`absolute top-1 right-1 text-[7px] text-white px-1.5 py-0.5 rounded-full ${project.color}`}>
                       {project.status}
                     </span>
+                    <div className="absolute bottom-1 left-1 text-[6px] text-slate-600 bg-white/80 px-1 rounded">📍 Lisboa</div>
                   </div>
-                  <div className="p-2">
-                    <div className="h-3 w-3/4 bg-slate-200 rounded mb-1" />
-                    <div className="h-2 w-1/2 bg-slate-100 rounded" />
+                  <div className="p-1.5">
+                    <div className="h-2 w-3/4 bg-slate-200 rounded mb-0.5" />
+                    <div className="h-1.5 w-1/2 bg-slate-100 rounded" />
                   </div>
                 </motion.div>
               ))}
             </div>
+            
+            {/* Lightbox Preview Hint */}
+            <motion.div 
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+              className="mt-2 flex items-center justify-center gap-1 text-[8px] text-[#3D7081]"
+            >
+              <Camera className="w-3 h-3" />
+              <span>Clica para abrir Lightbox Premium</span>
+            </motion.div>
           </div>
         </motion.div>
 
         {/* Features */}
         <div className="flex flex-col justify-center">
-          <p className="text-slate-700 mb-6 text-[24px]">Mostra o teu trabalho com classe</p>
-          <div className="space-y-5">
+          <p className="text-slate-700 mb-5 text-[22px]">Mostra o teu trabalho com classe</p>
+          <div className="space-y-4">
             {features.map((feature, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, x: 15 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.08 }}
-                className="flex items-center gap-5 p-6 rounded-2xl bg-white border border-slate-100 shadow-lg"
+                className="flex items-center gap-4 p-5 rounded-2xl bg-white border border-slate-100 shadow-lg"
               >
-                <div className="w-12 h-12 rounded-xl bg-[#3D7081]/10 flex items-center justify-center flex-shrink-0">
-                  <Check className="w-6 h-6 text-[#3D7081]" />
+                <div className="w-10 h-10 rounded-xl bg-[#3D7081]/10 flex items-center justify-center flex-shrink-0">
+                  <Check className="w-5 h-5 text-[#3D7081]" />
                 </div>
-                <p className="text-slate-800 text-[22px] font-medium">{feature}</p>
+                <p className="text-slate-800 text-[18px] font-medium">{feature}</p>
               </motion.div>
             ))}
           </div>
-          <div className="mt-6 p-5 bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl border border-purple-100">
-            <p className="text-[#1e3a5f] text-[18px] font-semibold flex items-center gap-3">
-              <Eye className="w-6 h-6 text-[#3D7081]" />
+          <div className="mt-5 p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl border border-purple-100">
+            <p className="text-[#1e3a5f] text-[16px] font-semibold flex items-center gap-3">
+              <Eye className="w-5 h-5 text-[#3D7081]" />
               Cada projeto vende por ti — 24/7.
             </p>
           </div>
@@ -1097,19 +1131,20 @@ const SlidePortfolio = () => {
 };
 
 // ============================================
-// SLIDE 7: BLOG - 4 features max
+// SLIDE 7: BLOG - 5 features aligned with real app
 // ============================================
 const SlideBlog = () => {
   const features = [
-    "Artigos formatados profissionalmente",
-    "Categorização e pesquisa",
-    "SEO otimizado para Google",
-    "Lead magnets integrados",
+    "Artigos com imagens + tempo de leitura",
+    "Categorias dinâmicas + pesquisa",
+    "Artigos destacados (Featured)",
+    "Newsletter integrada com Resend",
+    "Lead magnets para captura de contactos",
   ];
 
   return (
     <SlideFrame className="bg-gradient-to-br from-white to-orange-50/30 relative">
-      <div className="flex items-center gap-5 mb-8">
+      <div className="flex items-center gap-5 mb-6">
         <div className="w-18 h-18 rounded-2xl bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] flex items-center justify-center shadow-xl p-4">
           <FileText className="w-10 h-10 text-white" />
         </div>
@@ -1119,7 +1154,7 @@ const SlideBlog = () => {
         </div>
       </div>
 
-      <div className="flex-1 grid grid-cols-[55%,45%] gap-10">
+      <div className="flex-1 grid grid-cols-[55%,45%] gap-8">
         {/* Screenshot - Premium Frame with Glow */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
@@ -1128,76 +1163,123 @@ const SlideBlog = () => {
           className="bg-slate-900 rounded-3xl overflow-hidden border-2 border-slate-700 shadow-2xl"
           style={{ boxShadow: '0 0 60px rgba(61, 112, 129, 0.25)' }}
         >
-          <div className="bg-gradient-to-r from-slate-800 to-slate-700 h-12 flex items-center justify-between px-5">
-            <div className="flex items-center gap-2">
-              <div className="w-3.5 h-3.5 rounded-full bg-red-400 shadow-sm" />
-              <div className="w-3.5 h-3.5 rounded-full bg-yellow-400 shadow-sm" />
-              <div className="w-3.5 h-3.5 rounded-full bg-green-400 shadow-sm" />
+          <div className="bg-gradient-to-r from-slate-800 to-slate-700 h-10 flex items-center justify-between px-4">
+            <div className="flex items-center gap-1.5">
+              <div className="w-3 h-3 rounded-full bg-red-400" />
+              <div className="w-3 h-3 rounded-full bg-yellow-400" />
+              <div className="w-3 h-3 rounded-full bg-green-400" />
             </div>
-            <div className="bg-slate-600/50 rounded-lg px-4 py-1.5 text-[13px] text-slate-300 font-mono">
+            <div className="bg-slate-600/50 rounded-lg px-3 py-1 text-[11px] text-slate-300 font-mono">
               arifa.pt/blog
             </div>
-            <div className="flex items-center gap-2">
-              <div className="bg-orange-500 text-white text-[10px] px-2 py-0.5 rounded font-bold">SEO</div>
+            <div className="flex items-center gap-1">
+              <div className="bg-orange-500 text-white text-[9px] px-1.5 py-0.5 rounded font-bold">SEO</div>
+              <div className="bg-pink-500 text-white text-[9px] px-1.5 py-0.5 rounded font-bold">RSS</div>
             </div>
           </div>
-          <div className="p-6 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-48px)]">
-            {/* Categories Mockup */}
-            <div className="flex gap-2 mb-5">
-              <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="h-6 px-3 bg-[#3D7081]/10 text-[#3D7081] text-[10px] font-medium rounded-full flex items-center">Tendências</motion.div>
-              <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="h-6 px-3 bg-slate-100 text-slate-600 text-[10px] rounded-full flex items-center hover:bg-slate-200 transition-colors">Sustentabilidade</motion.div>
-              <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="h-6 px-3 bg-slate-100 text-slate-600 text-[10px] rounded-full flex items-center hover:bg-slate-200 transition-colors">Materiais</motion.div>
+          <div className="p-4 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-40px)]">
+            {/* Categories Row */}
+            <div className="flex gap-1.5 mb-3 flex-wrap">
+              {['Tendências', 'Sustentabilidade', 'Materiais', 'Inovação'].map((cat, i) => (
+                <motion.div 
+                  key={i}
+                  initial={{ opacity: 0, y: -5 }} 
+                  animate={{ opacity: 1, y: 0 }} 
+                  transition={{ delay: 0.15 + i * 0.05 }} 
+                  className={`h-5 px-2 text-[9px] font-medium rounded-full flex items-center ${
+                    i === 0 ? 'bg-[#3D7081] text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors'
+                  }`}
+                >
+                  {cat}
+                </motion.div>
+              ))}
             </div>
-            {/* Articles Mockup */}
-            <div className="space-y-3">
-              {[1, 2, 3].map((i) => (
+            
+            {/* Featured Article */}
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25 }}
+              className="bg-white rounded-xl p-2 border border-slate-100 shadow-sm mb-2 relative overflow-hidden"
+            >
+              <div className="absolute top-2 right-2 bg-amber-500 text-white text-[7px] px-1.5 py-0.5 rounded-full font-bold">
+                ⭐ DESTAQUE
+              </div>
+              <div className="flex gap-2">
+                <div className="w-20 h-14 bg-gradient-to-br from-slate-200 to-slate-300 rounded-lg flex-shrink-0" />
+                <div className="flex-1">
+                  <div className="h-2.5 w-full bg-slate-200 rounded mb-1" />
+                  <div className="h-2 w-2/3 bg-slate-100 rounded mb-1.5" />
+                  <div className="flex items-center gap-2 text-[7px] text-slate-400">
+                    <span>📅 5 Jan 2025</span>
+                    <span>⏱ 5 min</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+            
+            {/* Article List */}
+            <div className="space-y-1.5">
+              {[1, 2].map((i) => (
                 <motion.div 
                   key={i} 
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.2 + i * 0.08 }}
-                  className="flex gap-3 bg-white rounded-xl p-3 border border-slate-100 shadow-sm hover:shadow-md hover:scale-[1.01] transition-all"
+                  transition={{ delay: 0.3 + i * 0.08 }}
+                  className="flex gap-2 bg-white rounded-lg p-2 border border-slate-100 shadow-sm hover:shadow-md hover:scale-[1.01] transition-all"
                 >
-                  <div className="w-20 h-16 bg-gradient-to-br from-slate-200 to-slate-300 rounded-lg flex-shrink-0 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#3D7081]/10 to-transparent" />
-                  </div>
+                  <div className="w-12 h-10 bg-gradient-to-br from-slate-200 to-slate-300 rounded-lg flex-shrink-0" />
                   <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-[8px] text-[#3D7081] bg-[#3D7081]/10 px-2 py-0.5 rounded-full">Tendências</span>
-                      <span className="text-[8px] text-slate-400">12 Jan 2025</span>
-                    </div>
-                    <div className="h-3 w-full bg-slate-200 rounded mb-1" />
-                    <div className="h-2 w-3/4 bg-slate-100 rounded" />
+                    <div className="h-2 w-full bg-slate-200 rounded mb-0.5" />
+                    <div className="h-1.5 w-3/4 bg-slate-100 rounded mb-1" />
+                    <div className="text-[6px] text-slate-400">⏱ {3 + i} min</div>
                   </div>
                 </motion.div>
               ))}
             </div>
+            
+            {/* Newsletter CTA */}
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="mt-2 bg-gradient-to-r from-[#1e3a5f] to-[#3D7081] rounded-lg p-2 text-white"
+            >
+              <div className="flex items-center gap-2">
+                <Mail className="w-4 h-4" />
+                <div className="flex-1">
+                  <div className="text-[9px] font-medium">Subscreve a Newsletter</div>
+                  <div className="text-[7px] opacity-70">Recebe novidades semanais</div>
+                </div>
+                <div className="bg-white text-[#1e3a5f] text-[8px] px-2 py-1 rounded font-bold">OK</div>
+              </div>
+            </motion.div>
           </div>
         </motion.div>
 
         {/* Features */}
         <div className="flex flex-col justify-center">
-          <p className="text-slate-700 mb-6 text-[24px]">Posiciona-te como especialista</p>
-          <div className="space-y-5">
+          <p className="text-slate-700 mb-5 text-[22px]">Conteúdo que gera autoridade</p>
+          <div className="space-y-4">
             {features.map((feature, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, x: 15 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.08 }}
-                className="flex items-center gap-5 p-6 rounded-2xl bg-white border border-slate-100 shadow-lg"
+                className="flex items-center gap-4 p-5 rounded-2xl bg-white border border-slate-100 shadow-lg"
               >
-                <div className="w-12 h-12 rounded-xl bg-[#3D7081]/10 flex items-center justify-center flex-shrink-0">
-                  <Check className="w-6 h-6 text-[#3D7081]" />
+                <div className="w-10 h-10 rounded-xl bg-[#3D7081]/10 flex items-center justify-center flex-shrink-0">
+                  <Check className="w-5 h-5 text-[#3D7081]" />
                 </div>
-                <p className="text-slate-800 text-[22px] font-medium">{feature}</p>
+                <p className="text-slate-800 text-[18px] font-medium">{feature}</p>
               </motion.div>
             ))}
           </div>
-          <div className="mt-6 p-5 bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl border border-orange-100">
-            <p className="text-[#1e3a5f] text-[18px] font-semibold flex items-center gap-3">
-              <TrendingUp className="w-6 h-6 text-[#3D7081]" />
-              Conteúdo que atrai clientes.
+          <div className="mt-5 p-4 bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl border border-orange-100">
+            <p className="text-[#1e3a5f] text-[16px] font-semibold flex items-center gap-3">
+              <TrendingUp className="w-5 h-5 text-[#3D7081]" />
+              SEO otimizado — clientes encontram-te no Google.
             </p>
           </div>
         </div>
@@ -1580,26 +1662,38 @@ const SlidePhotoGallery = () => {
 };
 
 // ============================================
-// SLIDE 10: DASHBOARD ADMIN - Visual Mockup
+// SLIDE 10: DASHBOARD ADMIN - All real features
 // ============================================
 const SlideAdminDashboard = () => {
   const features = [
-    "Visão de todos os projetos",
-    "Gestão de clientes e contratos",
-    "Biblioteca de documentos",
-    "Relatórios automáticos",
+    "KPIs em tempo real (projetos, leads, valor)",
+    "Gestão de projetos + milestones + fotos",
+    "Orçamentos + Ordens de alteração",
+    "Orçamentos PDF + Contratos assinatura digital",
+    "Audit logs de todas as ações",
+  ];
+
+  const tabs = [
+    { icon: LayoutDashboard, label: "Dashboard", active: true },
+    { icon: FolderOpen, label: "Projetos", active: false },
+    { icon: Target, label: "Milestones", active: false },
+    { icon: Camera, label: "Fotos", active: false },
+    { icon: Users, label: "Leads", active: false },
+    { icon: FileText, label: "Blog", active: false },
+    { icon: FileSignature, label: "Quotes", active: false },
+    { icon: Wallet, label: "Budget", active: false },
   ];
 
   const kpis = [
-    { label: "Projetos", value: "12", color: "bg-blue-100 text-blue-700" },
-    { label: "Ativos", value: "5", color: "bg-green-100 text-green-700" },
-    { label: "Leads", value: "8", color: "bg-amber-100 text-amber-700" },
-    { label: "Valor", value: "245k", color: "bg-purple-100 text-purple-700" },
+    { label: "Projetos", value: "12", color: "bg-blue-100 text-blue-700", icon: FolderOpen },
+    { label: "Ativos", value: "5", color: "bg-green-100 text-green-700", icon: CheckCircle2 },
+    { label: "Leads", value: "8", color: "bg-amber-100 text-amber-700", icon: Users },
+    { label: "Valor", value: "245k", color: "bg-purple-100 text-purple-700", icon: Euro },
   ];
 
   return (
     <SlideFrame className="bg-gradient-to-br from-white to-emerald-50/30 relative">
-      <div className="flex items-center gap-5 mb-8">
+      <div className="flex items-center gap-5 mb-6">
         <div className="w-18 h-18 rounded-2xl bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] flex items-center justify-center shadow-xl p-4">
           <LayoutDashboard className="w-10 h-10 text-white" />
         </div>
@@ -1609,96 +1703,140 @@ const SlideAdminDashboard = () => {
         </div>
       </div>
 
-      <div className="flex-1 grid grid-cols-[55%,45%] gap-10">
-        {/* Visual Mockup */}
-        <div className="bg-slate-100 rounded-3xl overflow-hidden border-2 border-slate-200 shadow-2xl">
-          <div className="bg-slate-200 h-10 flex items-center gap-2 px-5">
-            <div className="w-4 h-4 rounded-full bg-red-400" />
-            <div className="w-4 h-4 rounded-full bg-yellow-400" />
-            <div className="w-4 h-4 rounded-full bg-green-400" />
-            <span className="text-[14px] text-slate-500 ml-3 flex items-center gap-2">
-              <Lock className="w-3 h-3" /> arifa.pt/admin
-            </span>
+      <div className="flex-1 grid grid-cols-[55%,45%] gap-8">
+        {/* Visual Mockup - Enhanced */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.1 }}
+          className="bg-slate-900 rounded-3xl overflow-hidden border-2 border-slate-700 shadow-2xl"
+          style={{ boxShadow: '0 0 60px rgba(61, 112, 129, 0.25)' }}
+        >
+          <div className="bg-gradient-to-r from-slate-800 to-slate-700 h-10 flex items-center justify-between px-4">
+            <div className="flex items-center gap-1.5">
+              <div className="w-3 h-3 rounded-full bg-red-400" />
+              <div className="w-3 h-3 rounded-full bg-yellow-400" />
+              <div className="w-3 h-3 rounded-full bg-green-400" />
+            </div>
+            <div className="flex items-center gap-2 text-[11px] text-slate-300">
+              <Lock className="w-3 h-3" />
+              <span className="font-mono">arifa.pt/admin</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <div className="bg-emerald-500 text-white text-[9px] px-1.5 py-0.5 rounded font-bold">ADMIN</div>
+              <div className="bg-indigo-500 text-white text-[9px] px-1.5 py-0.5 rounded font-bold">RLS</div>
+            </div>
           </div>
-          <div className="p-6 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-40px)]">
+          
+          <div className="p-4 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-40px)]">
             {/* Header */}
-            <div className="flex items-center justify-between mb-6">
-              <h4 className="text-xl font-bold text-[#1e3a5f]">Dashboard</h4>
-              <span className="text-slate-500 text-sm">Janeiro 2025</span>
+            <div className="flex items-center justify-between mb-3">
+              <h4 className="text-base font-bold text-[#1e3a5f]">Dashboard</h4>
+              <span className="text-slate-500 text-[10px]">Janeiro 2025</span>
+            </div>
+            
+            {/* Tabs */}
+            <div className="flex gap-1 mb-3 overflow-x-auto">
+              {tabs.map((tab, i) => (
+                <motion.div 
+                  key={i}
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.15 + i * 0.02 }}
+                  className={`flex items-center gap-1 px-1.5 py-1 rounded-lg text-[8px] font-medium whitespace-nowrap ${
+                    tab.active 
+                      ? 'bg-[#3D7081] text-white' 
+                      : 'bg-slate-100 text-slate-500'
+                  }`}
+                >
+                  <tab.icon className="w-2.5 h-2.5" />
+                  {tab.label}
+                </motion.div>
+              ))}
             </div>
 
             {/* KPIs */}
-            <div className="grid grid-cols-4 gap-4 mb-5">
+            <div className="grid grid-cols-4 gap-2 mb-3">
               {kpis.map((kpi, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 + i * 0.1 }}
-                  className={`${kpi.color} rounded-2xl p-4 text-center`}
+                  transition={{ delay: 0.2 + i * 0.08 }}
+                  className={`${kpi.color} rounded-xl p-2 text-center`}
                 >
-                  <p className="text-3xl font-bold">{kpi.value}</p>
-                  <p className="text-sm font-medium opacity-80">{kpi.label}</p>
+                  <kpi.icon className="w-4 h-4 mx-auto mb-1 opacity-70" />
+                  <p className="text-lg font-bold">{kpi.value}</p>
+                  <p className="text-[9px] font-medium opacity-80">{kpi.label}</p>
                 </motion.div>
               ))}
             </div>
 
             {/* Chart mockup */}
-            <div className="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm mb-4">
-              <p className="text-sm font-medium text-slate-600 mb-3">Projetos por mês</p>
-              <div className="flex items-end gap-3 h-24">
+            <div className="bg-white rounded-xl p-2 border border-slate-100 shadow-sm mb-2">
+              <p className="text-[10px] font-medium text-slate-600 mb-2">Projetos por mês</p>
+              <div className="flex items-end gap-2 h-14">
                 {[40, 65, 50, 80, 60, 90].map((height, i) => (
                   <motion.div
                     key={i}
                     initial={{ height: 0 }}
                     animate={{ height: `${height}%` }}
-                    transition={{ delay: 0.5 + i * 0.1, duration: 0.5 }}
-                    className="flex-1 bg-gradient-to-t from-[#1e3a5f] to-[#3D7081] rounded-t-lg"
+                    transition={{ delay: 0.4 + i * 0.08, duration: 0.5 }}
+                    className="flex-1 bg-gradient-to-t from-[#1e3a5f] to-[#3D7081] rounded-t"
                   />
                 ))}
               </div>
             </div>
 
             {/* Recent leads */}
-            <div className="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm">
-              <p className="text-sm font-medium text-slate-600 mb-3">Leads recentes</p>
-              <div className="space-y-2">
+            <div className="bg-white rounded-xl p-2 border border-slate-100 shadow-sm">
+              <div className="flex items-center justify-between mb-1.5">
+                <p className="text-[10px] font-medium text-slate-600">Leads recentes</p>
+                <span className="text-[8px] text-[#3D7081] font-medium">Ver Kanban →</span>
+              </div>
+              <div className="space-y-1">
                 {["Teresa Oliveira", "João Silva"].map((name, i) => (
-                  <div key={i} className="flex items-center justify-between py-2 px-3 bg-slate-50 rounded-lg">
-                    <span className="text-sm text-slate-700">{name}</span>
-                    <span className={`text-xs px-2 py-1 rounded-full ${i === 0 ? "bg-blue-100 text-blue-700" : "bg-amber-100 text-amber-700"}`}>
-                      {i === 0 ? "Novo" : "Proposta"}
-                    </span>
+                  <div key={i} className="flex items-center justify-between py-1 px-2 bg-slate-50 rounded-lg">
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-5 h-5 rounded-full bg-slate-200 flex items-center justify-center text-[8px] font-bold text-slate-600">{name[0]}</div>
+                      <span className="text-[10px] text-slate-700">{name}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <span className={`text-[8px] px-1.5 py-0.5 rounded-full ${i === 0 ? "bg-blue-100 text-blue-700" : "bg-amber-100 text-amber-700"}`}>
+                        {i === 0 ? "Novo" : "Proposta"}
+                      </span>
+                      <span className="text-[8px] text-emerald-600 font-bold">AI: {85 - i * 10}</span>
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Features */}
         <div className="flex flex-col justify-center">
-          <p className="text-slate-700 mb-6 text-[24px]">O teu painel de comando</p>
-          <div className="space-y-5">
+          <p className="text-slate-700 mb-5 text-[22px]">O teu painel de comando</p>
+          <div className="space-y-4">
             {features.map((feature, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, x: 15 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.08 }}
-                className="flex items-center gap-5 p-6 rounded-2xl bg-white border border-slate-100 shadow-lg"
+                className="flex items-center gap-4 p-5 rounded-2xl bg-white border border-slate-100 shadow-lg"
               >
-                <div className="w-12 h-12 rounded-xl bg-[#3D7081]/10 flex items-center justify-center flex-shrink-0">
-                  <Check className="w-6 h-6 text-[#3D7081]" />
+                <div className="w-10 h-10 rounded-xl bg-[#3D7081]/10 flex items-center justify-center flex-shrink-0">
+                  <Check className="w-5 h-5 text-[#3D7081]" />
                 </div>
-                <p className="text-slate-800 text-[22px] font-medium">{feature}</p>
+                <p className="text-slate-800 text-[18px] font-medium">{feature}</p>
               </motion.div>
             ))}
           </div>
-          <div className="mt-6 p-5 bg-gradient-to-r from-emerald-50 to-green-50 rounded-2xl border border-emerald-100">
-            <p className="text-[#1e3a5f] text-[18px] font-semibold flex items-center gap-3">
-              <Target className="w-6 h-6 text-[#3D7081]" />
-              Gestão da empresa com um golpe de vista.
+          <div className="mt-5 p-4 bg-gradient-to-r from-emerald-50 to-green-50 rounded-2xl border border-emerald-100">
+            <p className="text-[#1e3a5f] text-[16px] font-semibold flex items-center gap-3">
+              <Target className="w-5 h-5 text-[#3D7081]" />
+              Gestão completa num único lugar.
             </p>
           </div>
         </div>
@@ -1710,94 +1848,153 @@ const SlideAdminDashboard = () => {
 };
 
 // ============================================
-// SLIDE 10: CRM KANBAN - 4 features max
+// SLIDE 11: CRM KANBAN - All real features
 // ============================================
 const SlideCRM = () => {
   const stages = [
-    { name: "Novo", count: 3, color: "bg-blue-100 border-blue-300 text-blue-700" },
-    { name: "Contactado", count: 5, color: "bg-yellow-100 border-yellow-300 text-yellow-700" },
-    { name: "Proposta", count: 2, color: "bg-purple-100 border-purple-300 text-purple-700" },
-    { name: "Fechado", count: 4, color: "bg-green-100 border-green-300 text-green-700" },
+    { name: "Novo", count: 3, color: "bg-blue-500", borderColor: "border-blue-500" },
+    { name: "Contactado", count: 5, color: "bg-yellow-500", borderColor: "border-yellow-500" },
+    { name: "Qualificado", count: 2, color: "bg-purple-500", borderColor: "border-purple-500" },
+    { name: "Convertido", count: 4, color: "bg-green-500", borderColor: "border-green-500" },
+    { name: "Perdido", count: 1, color: "bg-red-400", borderColor: "border-red-400" },
   ];
 
   const features = [
-    "Kanban visual drag & drop",
-    "AI Lead Scoring automático",
-    "Histórico de atividades",
-    "Conversão lead → cliente",
+    "Kanban visual drag & drop (5 etapas)",
+    "AI Lead Scoring automático (0-100)",
+    "Histórico de atividades por lead",
+    "Fases personalizáveis com cores",
+    "Conversão automática lead → cliente",
   ];
 
   return (
     <SlideFrame className="bg-gradient-to-br from-white to-cyan-50/30 relative">
-      <div className="flex items-center gap-5 mb-8">
+      <div className="flex items-center gap-5 mb-6">
         <div className="w-18 h-18 rounded-2xl bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] flex items-center justify-center shadow-xl p-4">
           <Users className="w-10 h-10 text-white" />
         </div>
         <div>
-<span className="text-[16px] font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 7</span>
+          <span className="text-[16px] font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 7</span>
           <h2 className="text-[48px] font-light text-[#1e3a5f]">CRM de Leads</h2>
         </div>
       </div>
 
-      <div className="flex-1 grid grid-cols-[55%,45%] gap-10">
-        {/* Kanban Mockup */}
-        <div className="bg-slate-100 rounded-3xl overflow-hidden border-2 border-slate-200 shadow-2xl">
-          <div className="bg-slate-200 h-10 flex items-center gap-2 px-5">
-            <div className="w-4 h-4 rounded-full bg-red-400" />
-            <div className="w-4 h-4 rounded-full bg-yellow-400" />
-            <div className="w-4 h-4 rounded-full bg-green-400" />
-            <span className="text-[14px] text-slate-500 ml-3">arifa.pt/admin/leads</span>
+      <div className="flex-1 grid grid-cols-[55%,45%] gap-8">
+        {/* Kanban Mockup - Enhanced */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.1 }}
+          className="bg-slate-900 rounded-3xl overflow-hidden border-2 border-slate-700 shadow-2xl"
+          style={{ boxShadow: '0 0 60px rgba(61, 112, 129, 0.25)' }}
+        >
+          <div className="bg-gradient-to-r from-slate-800 to-slate-700 h-10 flex items-center justify-between px-4">
+            <div className="flex items-center gap-1.5">
+              <div className="w-3 h-3 rounded-full bg-red-400" />
+              <div className="w-3 h-3 rounded-full bg-yellow-400" />
+              <div className="w-3 h-3 rounded-full bg-green-400" />
+            </div>
+            <div className="text-[11px] text-slate-300 font-mono">arifa.pt/admin/leads</div>
+            <div className="flex items-center gap-1">
+              <div className="bg-cyan-500 text-white text-[9px] px-1.5 py-0.5 rounded font-bold">CRM</div>
+              <div className="bg-purple-500 text-white text-[9px] px-1.5 py-0.5 rounded font-bold">AI</div>
+            </div>
           </div>
-          <div className="p-5 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-40px)]">
-            <div className="grid grid-cols-4 gap-4 h-full">
+          
+          <div className="p-3 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-40px)]">
+            {/* Kanban Header */}
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-bold text-[#1e3a5f]">Pipeline de Leads</span>
+                <span className="bg-slate-100 text-slate-600 text-[9px] px-2 py-0.5 rounded-full">15 total</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <div className="bg-[#3D7081]/10 text-[#3D7081] text-[8px] px-2 py-0.5 rounded font-medium flex items-center gap-1">
+                  <Settings className="w-3 h-3" />
+                  Configurar
+                </div>
+              </div>
+            </div>
+            
+            {/* Kanban Columns */}
+            <div className="flex gap-2 h-[calc(100%-40px)] overflow-x-auto">
               {stages.map((stage, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  className="flex flex-col"
+                  transition={{ delay: 0.15 + i * 0.08 }}
+                  className="flex-shrink-0 w-28 flex flex-col"
                 >
-                  <div className={`text-center text-sm font-bold py-3 rounded-t-xl border-2 ${stage.color}`}>
-                    {stage.name} ({stage.count})
+                  <div className={`text-center text-[9px] font-bold py-1.5 rounded-t-lg border-t-2 ${stage.borderColor} bg-white`}>
+                    <div className="flex items-center justify-center gap-1">
+                      <div className={`w-2 h-2 rounded-full ${stage.color}`} />
+                      {stage.name}
+                    </div>
+                    <div className="text-[8px] text-slate-400">({stage.count})</div>
                   </div>
-                  <div className="flex-1 bg-white/80 border-x-2 border-b-2 border-slate-200 rounded-b-xl p-3 space-y-3">
-                    {[...Array(Math.min(stage.count, 3))].map((_, j) => (
-                      <div key={j} className="bg-white rounded-xl p-3 border border-slate-100 shadow-sm">
-                        <div className="h-3 w-20 bg-slate-200 rounded mb-2" />
-                        <div className="h-2 w-14 bg-slate-100 rounded" />
-                      </div>
+                  <div className="flex-1 bg-slate-100/50 border-x border-b border-slate-200 rounded-b-lg p-1.5 space-y-1.5 min-h-[160px]">
+                    {[...Array(Math.min(stage.count, 2))].map((_, j) => (
+                      <motion.div 
+                        key={j} 
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.3 + i * 0.05 + j * 0.03 }}
+                        className="bg-white rounded-lg p-1.5 border border-slate-100 shadow-sm hover:shadow-md transition-shadow"
+                      >
+                        <div className="flex items-center gap-1 mb-0.5">
+                          <div className="w-4 h-4 rounded-full bg-slate-200 flex items-center justify-center text-[6px] font-bold text-slate-500">
+                            {String.fromCharCode(65 + i + j)}
+                          </div>
+                          <div className="h-1.5 w-10 bg-slate-200 rounded" />
+                        </div>
+                        <div className="h-1 w-14 bg-slate-100 rounded mb-1" />
+                        <div className="flex items-center justify-between">
+                          <span className="text-[6px] text-slate-400">📧</span>
+                          <span className={`text-[7px] font-bold ${
+                            85 - i * 15 >= 70 ? 'text-emerald-600' : 
+                            85 - i * 15 >= 50 ? 'text-amber-600' : 'text-red-500'
+                          }`}>
+                            AI: {85 - i * 15 - j * 5}
+                          </span>
+                        </div>
+                      </motion.div>
                     ))}
+                    {stage.count > 2 && (
+                      <div className="text-center text-[8px] text-slate-400 py-1">
+                        +{stage.count - 2} mais
+                      </div>
+                    )}
                   </div>
                 </motion.div>
               ))}
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Features */}
         <div className="flex flex-col justify-center">
-          <p className="text-slate-700 mb-6 text-[24px]">Nunca percas um lead</p>
-          <div className="space-y-5">
+          <p className="text-slate-700 mb-5 text-[22px]">Nunca percas um lead</p>
+          <div className="space-y-4">
             {features.map((feature, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, x: 15 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.08 }}
-                className="flex items-center gap-5 p-6 rounded-2xl bg-white border border-slate-100 shadow-lg"
+                className="flex items-center gap-4 p-5 rounded-2xl bg-white border border-slate-100 shadow-lg"
               >
-                <div className="w-12 h-12 rounded-xl bg-[#3D7081]/10 flex items-center justify-center flex-shrink-0">
-                  <Check className="w-6 h-6 text-[#3D7081]" />
+                <div className="w-10 h-10 rounded-xl bg-[#3D7081]/10 flex items-center justify-center flex-shrink-0">
+                  <Check className="w-5 h-5 text-[#3D7081]" />
                 </div>
-                <p className="text-slate-800 text-[22px] font-medium">{feature}</p>
+                <p className="text-slate-800 text-[18px] font-medium">{feature}</p>
               </motion.div>
             ))}
           </div>
-          <div className="mt-6 p-5 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-2xl border border-cyan-100">
-            <p className="text-[#1e3a5f] text-[18px] font-semibold flex items-center gap-3">
-              <Sparkles className="w-6 h-6 text-[#3D7081]" />
-              A IA qualifica leads por ti.
+          <div className="mt-5 p-4 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-2xl border border-cyan-100">
+            <p className="text-[#1e3a5f] text-[16px] font-semibold flex items-center gap-3">
+              <Sparkles className="w-5 h-5 text-[#3D7081]" />
+              A IA qualifica leads automaticamente.
             </p>
           </div>
         </div>
