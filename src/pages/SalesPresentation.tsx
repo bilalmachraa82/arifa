@@ -2294,9 +2294,9 @@ const SlideComparison = () => {
                 </div>
               </div>
               <div className="mt-3 flex gap-2">
-                <span className="text-[12px] bg-white/10 text-white/80 px-3 py-1 rounded-full">Essencial 3.590€</span>
-                <span className="text-[12px] bg-amber-400/20 text-amber-200 px-3 py-1 rounded-full">Profissional 5.888€</span>
                 <span className="text-[12px] bg-purple-400/20 text-purple-200 px-3 py-1 rounded-full">Premium 7.888€</span>
+                <span className="text-[12px] bg-amber-400/20 text-amber-200 px-3 py-1 rounded-full">Profissional 5.888€</span>
+                <span className="text-[12px] bg-white/10 text-white/80 px-3 py-1 rounded-full">Essencial 3.590€</span>
               </div>
             </div>
           </div>
@@ -2312,12 +2312,13 @@ const SlideComparison = () => {
 // SLIDE 14: PRICING
 // ============================================
 const SlidePricing = () => {
-  // Price Anchoring: Premium first to anchor higher value
+  // Price Anchoring: Premium first (left) to anchor higher value, then guide to Profissional (center, recommended)
   const tiers = [
     {
       name: "Premium",
       price: "7.888",
       description: "Tudo + manutenção",
+      valueStatement: "Para estúdios que querem zero preocupações. Nós cuidamos de tudo.",
       features: [
         "Tudo do Profissional",
         "CRM + Lead Scoring IA",
@@ -2334,6 +2335,7 @@ const SlidePricing = () => {
       name: "Profissional",
       price: "5.888",
       description: "Solução completa",
+      valueStatement: "Escolha de 80% dos estúdios - tudo o que precisas para gerir 10-50 projetos/ano",
       features: [
         "Tudo do Essencial",
         "Portal Cliente completo",
@@ -2349,6 +2351,7 @@ const SlidePricing = () => {
       name: "Essencial",
       price: "3.590",
       description: "Para começar",
+      valueStatement: "Perfeito se estás a começar e queres presença digital profissional",
       features: [
         "Site público (5 páginas)",
         "Portfólio básico",
@@ -2380,7 +2383,7 @@ const SlidePricing = () => {
               tier.recommended
                 ? "bg-gradient-to-br from-[#1e3a5f] via-[#2a4a6f] to-[#3D7081] text-white ring-4 ring-[#3D7081]/30 shadow-[0_25px_60px_-15px_rgba(30,58,95,0.5)] z-10 scale-[1.03]"
                 : tier.highlight
-                  ? "bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-300 shadow-xl"
+                  ? "bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-300 shadow-xl scale-[1.05] z-20 ring-2 ring-purple-400/50"
                   : "bg-white border-2 border-slate-200 shadow-xl hover:shadow-2xl transition-shadow"
             }`}
           >
@@ -2407,8 +2410,11 @@ const SlidePricing = () => {
             <h3 className={`text-[26px] font-bold ${tier.recommended ? "text-white mt-3" : tier.highlight ? "text-purple-800 mt-3" : "text-[#1e3a5f]"}`}>
               {tier.name}
             </h3>
-            <p className={`text-[15px] mb-3 ${tier.recommended ? "text-blue-200" : tier.highlight ? "text-purple-600" : "text-slate-500"}`}>
+            <p className={`text-[15px] mb-2 ${tier.recommended ? "text-blue-200" : tier.highlight ? "text-purple-600" : "text-slate-500"}`}>
               {tier.description}
+            </p>
+            <p className={`text-[13px] mb-4 italic ${tier.recommended ? "text-blue-100/80" : tier.highlight ? "text-purple-500" : "text-slate-400"}`}>
+              {tier.valueStatement}
             </p>
             <div className="flex items-baseline gap-1 mb-5">
               <span className={`text-[48px] font-bold leading-none ${tier.recommended ? "text-white" : tier.highlight ? "text-purple-800" : "text-[#1e3a5f]"}`}>
@@ -2455,15 +2461,18 @@ const SlidePricing = () => {
       </div>
 
       {/* Validity Banner */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
-        className="mt-6 p-4 bg-gradient-to-r from-slate-100 to-slate-50 rounded-2xl border border-slate-200 flex items-center justify-between"
+        className="mt-6 p-4 bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl border-2 border-amber-200 flex items-center justify-between"
       >
         <div className="flex items-center gap-4">
-          <Timer className="w-6 h-6 text-slate-600" />
-          <span className="text-slate-700 text-[18px]">Preços válidos até <strong>18 Janeiro 2026</strong></span>
+          <Timer className="w-6 h-6 text-amber-600" />
+          <div>
+            <span className="text-slate-700 text-[18px]">Preços de lançamento válidos até <strong>31 Janeiro 2026</strong></span>
+            <p className="text-amber-600 text-[14px] font-medium mt-0.5">Após esta data, os preços sobem 15%</p>
+          </div>
         </div>
         <div className="flex items-center gap-3">
           <span className="text-slate-500 text-[14px]">Pagamento flexível: 40% + 40% + 20%</span>
@@ -2600,7 +2609,7 @@ const SlideTerms = () => {
           <div className="mt-4 p-3 bg-white/60 rounded-xl">
             <p className="text-[12px] text-slate-500 flex items-center gap-2">
               <Timer className="w-4 h-4" />
-              Válido até 18 Janeiro 2026
+              Válido até 31 Janeiro 2026
             </p>
           </div>
         </div>
@@ -2855,8 +2864,9 @@ const SlideNextSteps = () => {
       >
         <p className="text-white/80 text-[20px] font-medium flex items-center justify-center gap-4">
           <Timer className="w-5 h-5" />
-          Preços válidos até <span className="font-bold text-white">18 Janeiro 2026</span>
+          Preços de lançamento válidos até <span className="font-bold text-white">31 Janeiro 2026</span>
         </p>
+        <p className="text-amber-300 text-[14px] font-medium mt-2">Após esta data, os preços sobem 15%</p>
       </motion.div>
 
       <div className="flex-1 grid grid-cols-2 gap-8 relative z-10">
