@@ -1260,100 +1260,135 @@ const SlidePhotoGallery = () => {
         </div>
       </div>
 
-      <div className="flex-1 grid grid-cols-[60%,40%] gap-8">
-        {/* Screenshots Grid */}
-        <div className="grid grid-cols-2 gap-4">
-          {/* Portfolio Screenshot */}
+      <div className="flex-1 grid grid-cols-[62%,38%] gap-6">
+        {/* Layout em L - Lightbox Principal + Mockups Secundários */}
+        <div className="grid grid-cols-[65%,35%] gap-4 h-full">
+          {/* Lightbox Premium - Elemento Principal (row-span-2) */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.1 }}
-            className="bg-slate-100 rounded-2xl overflow-hidden border-2 border-slate-200 shadow-xl"
+            className="row-span-2 bg-slate-900 rounded-2xl overflow-hidden border-2 border-slate-700 shadow-2xl relative"
+            style={{ boxShadow: '0 0 60px rgba(61, 112, 129, 0.3)' }}
           >
-            <div className="bg-slate-200 h-8 flex items-center gap-1.5 px-3">
-              <div className="w-3 h-3 rounded-full bg-red-400" />
-              <div className="w-3 h-3 rounded-full bg-yellow-400" />
-              <div className="w-3 h-3 rounded-full bg-green-400" />
-              <span className="text-[11px] text-slate-500 ml-2">/portfolio</span>
+            <div className="bg-slate-800 h-10 flex items-center justify-between px-4">
+              <div className="flex items-center gap-1.5">
+                <div className="w-3 h-3 rounded-full bg-red-400" />
+                <div className="w-3 h-3 rounded-full bg-yellow-400" />
+                <div className="w-3 h-3 rounded-full bg-green-400" />
+              </div>
+              <span className="text-[13px] text-white font-semibold">Lightbox Premium</span>
+              <div className="flex items-center gap-2">
+                <div className="bg-[#3D7081] text-white text-[10px] px-2 py-0.5 rounded font-bold">HD</div>
+                <X className="w-4 h-4 text-slate-400" />
+              </div>
             </div>
-            <div className="p-4 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-32px)]">
-              <div className="grid grid-cols-3 gap-2">
+            
+            {/* Controls Bar */}
+            <div className="bg-slate-800/80 px-4 py-2 flex items-center justify-between border-b border-slate-700">
+              <div className="flex items-center gap-2">
+                <div className="p-2 bg-white/10 rounded-lg hover:bg-white/20 transition-colors">
+                  <ZoomIn className="w-4 h-4 text-white" />
+                </div>
+                <div className="p-2 bg-white/10 rounded-lg hover:bg-white/20 transition-colors">
+                  <Rotate3D className="w-4 h-4 text-white" />
+                </div>
+                <div className="p-2 bg-[#3D7081] rounded-lg">
+                  <Play className="w-4 h-4 text-white" />
+                </div>
+                <div className="p-2 bg-white/10 rounded-lg hover:bg-white/20 transition-colors">
+                  <Download className="w-4 h-4 text-white" />
+                </div>
+              </div>
+              <span className="text-slate-400 text-sm">3 de 24 fotos</span>
+            </div>
+            
+            {/* Main Image Area */}
+            <div className="relative flex-1 p-4">
+              <div className="h-48 bg-gradient-to-br from-slate-800 to-slate-700 rounded-xl flex items-center justify-center relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#3D7081]/20 to-transparent" />
+                <Camera className="w-16 h-16 text-slate-500" />
+                <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm rounded-lg px-3 py-1.5">
+                  <span className="text-white text-sm font-bold">400%</span>
+                </div>
+                {/* Navigation Arrows */}
+                <div className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer hover:bg-black/60 transition-colors">
+                  <ChevronLeft className="w-6 h-6 text-white" />
+                </div>
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/40 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer hover:bg-black/60 transition-colors">
+                  <ChevronRight className="w-6 h-6 text-white" />
+                </div>
+              </div>
+              
+              {/* Progress Bar */}
+              <div className="mt-3 h-1 bg-slate-700 rounded-full overflow-hidden">
+                <div className="w-[12%] h-full bg-[#3D7081] rounded-full" />
+              </div>
+              
+              {/* Thumbnails */}
+              <div className="mt-3 flex gap-2 justify-center">
                 {[1, 2, 3, 4, 5, 6].map((i) => (
-                  <div key={i} className={`h-16 rounded-lg bg-gradient-to-br from-slate-200 to-slate-300 ${i === 1 ? 'ring-2 ring-[#3D7081]' : ''}`} />
+                  <div 
+                    key={i} 
+                    className={`w-14 h-10 rounded-lg ${i === 3 ? 'ring-2 ring-[#3D7081] ring-offset-2 ring-offset-slate-900' : ''} bg-gradient-to-br from-slate-700 to-slate-600 transition-all hover:scale-105`}
+                  />
                 ))}
               </div>
             </div>
           </motion.div>
 
-          {/* Project Detail Mockup */}
+          {/* Portfolio Grid - Superior Direito */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="bg-slate-100 rounded-2xl overflow-hidden border-2 border-slate-200 shadow-xl"
+            className="bg-white rounded-2xl overflow-hidden border-2 border-slate-200 shadow-xl"
           >
-            <div className="bg-slate-200 h-8 flex items-center gap-1.5 px-3">
-              <div className="w-3 h-3 rounded-full bg-red-400" />
-              <div className="w-3 h-3 rounded-full bg-yellow-400" />
-              <div className="w-3 h-3 rounded-full bg-green-400" />
-              <span className="text-[11px] text-slate-500 ml-2">/portfolio/villa-oceano</span>
+            <div className="bg-slate-100 h-8 flex items-center gap-1.5 px-3">
+              <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
+              <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
+              <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
+              <span className="text-[10px] text-slate-500 ml-2">/portfolio</span>
             </div>
-            <div className="p-4 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-32px)]">
-              <div className="h-24 bg-gradient-to-br from-slate-200 to-slate-300 rounded-xl mb-3 flex items-center justify-center">
-                <Camera className="w-8 h-8 text-slate-400" />
+            <div className="p-3 bg-gradient-to-br from-slate-50 to-white">
+              <div className="grid grid-cols-2 gap-2">
+                {[1, 2, 3, 4].map((i) => (
+                  <div 
+                    key={i} 
+                    className={`h-12 rounded-lg bg-gradient-to-br from-slate-200 to-slate-300 ${i === 1 ? 'ring-2 ring-[#3D7081]' : ''} hover:scale-105 transition-transform`} 
+                  />
+                ))}
               </div>
-              <div className="h-3 w-3/4 bg-slate-200 rounded mb-2" />
-              <div className="h-2 w-1/2 bg-slate-100 rounded" />
+              <div className="mt-2 flex gap-1">
+                {['Todos', 'Residencial', 'Comercial'].map((cat, i) => (
+                  <span key={i} className={`text-[8px] px-2 py-0.5 rounded-full ${i === 0 ? 'bg-[#3D7081] text-white' : 'bg-slate-100 text-slate-500'}`}>{cat}</span>
+                ))}
+              </div>
             </div>
           </motion.div>
 
-          {/* Lightbox Mockup - Smaller */}
+          {/* Project Detail - Inferior Direito */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="col-span-2 bg-slate-900 rounded-2xl overflow-hidden border-2 border-slate-700 shadow-xl"
+            className="bg-white rounded-2xl overflow-hidden border-2 border-slate-200 shadow-xl"
           >
-            <div className="bg-slate-800 h-8 flex items-center gap-1.5 px-3">
-              <div className="w-3 h-3 rounded-full bg-red-400" />
-              <div className="w-3 h-3 rounded-full bg-yellow-400" />
-              <div className="w-3 h-3 rounded-full bg-green-400" />
-              <span className="text-[11px] text-slate-400 ml-2">Lightbox Premium</span>
+            <div className="bg-slate-100 h-8 flex items-center gap-1.5 px-3">
+              <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
+              <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
+              <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
+              <span className="text-[10px] text-slate-500 ml-2">/projeto</span>
             </div>
-            <div className="p-4 flex items-center justify-between">
-              {/* Controls */}
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-white/10 rounded-lg">
-                  <ZoomIn className="w-4 h-4 text-white" />
-                </div>
-                <div className="p-2 bg-white/10 rounded-lg">
-                  <Rotate3D className="w-4 h-4 text-white" />
-                </div>
-                <div className="p-2 bg-white/10 rounded-lg">
-                  <Play className="w-4 h-4 text-white" />
-                </div>
-                <div className="p-2 bg-white/10 rounded-lg">
-                  <Download className="w-4 h-4 text-white" />
+            <div className="p-3 bg-gradient-to-br from-slate-50 to-white">
+              <div className="h-20 bg-gradient-to-br from-slate-200 to-slate-300 rounded-xl mb-2 flex items-center justify-center relative overflow-hidden">
+                <Camera className="w-6 h-6 text-slate-400" />
+                <div className="absolute bottom-1 right-1 bg-black/40 backdrop-blur-sm text-white text-[8px] px-1.5 py-0.5 rounded">
+                  +12 fotos
                 </div>
               </div>
-              
-              {/* Image preview mockup */}
-              <div className="flex-1 mx-6 h-32 bg-gradient-to-br from-slate-800 to-slate-700 rounded-xl flex items-center justify-center relative">
-                <Camera className="w-10 h-10 text-slate-500" />
-                <div className="absolute top-2 right-2 bg-white/20 backdrop-blur-sm rounded px-2 py-1">
-                  <span className="text-white text-xs font-medium">400%</span>
-                </div>
-              </div>
-              
-              {/* Thumbnails */}
-              <div className="flex gap-1.5">
-                {[1, 2, 3, 4].map((i) => (
-                  <div 
-                    key={i} 
-                    className={`w-10 h-8 rounded ${i === 2 ? 'ring-2 ring-[#3D7081]' : ''} bg-white/20`}
-                  />
-                ))}
-              </div>
+              <div className="h-2 w-3/4 bg-slate-200 rounded mb-1" />
+              <div className="h-1.5 w-1/2 bg-slate-100 rounded" />
             </div>
           </motion.div>
         </div>
