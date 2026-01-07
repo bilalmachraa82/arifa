@@ -98,8 +98,8 @@ export default defineConfig(({ mode }) => ({
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2,woff,ttf}"],
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // 5 MiB limit
-        navigateFallback: "/offline.html",
-        navigateFallbackDenylist: [/^\/api/, /^\/supabase/],
+        navigateFallback: "/index.html",
+        navigateFallbackDenylist: [/^\/api/, /^\/supabase/, /^\/offline\.html/],
         cleanupOutdatedCaches: true,
         skipWaiting: true,
         clientsClaim: true,
