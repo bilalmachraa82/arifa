@@ -1758,8 +1758,8 @@ export default function Documentation() {
               <div className="text-center">
                 <h3 className="text-xl font-bold mb-3">Resumo Executivo</h3>
                 <p className="text-lg max-w-2xl mx-auto">
-                  No mercado, pagarias aproximadamente <strong className="text-red-600">€6.000-8.000 no 1º ano + ~2.500 €/ano</strong> em SaaS recorrentes. 
-                  Com a ARIFA, investes <strong className="text-green-600">€5.888 uma única vez</strong> e ficas 
+                  No mercado, pagarias aproximadamente <strong className="text-red-600">€8.500-10.500 no 1º ano + ~4.500 €/ano</strong> em SaaS recorrentes (~17.500-19.500€ em 3 anos). 
+                  Com a ARIFA, investes a partir de <strong className="text-green-600">€3.590 uma única vez</strong> e ficas 
                   com tudo à medida do teu estúdio. <strong>Sem subscrições mensais, sem surpresas.</strong>
                 </p>
               </div>
@@ -1775,21 +1775,21 @@ export default function Documentation() {
               </div>
               <div className="grid md:grid-cols-3 gap-6 items-center text-center">
                 <div>
-                  <p className="text-sm text-muted-foreground mb-1">Abordagem Tradicional (1º Ano)</p>
-                  <p className="text-3xl font-bold text-red-600 line-through">~€6.000-8.000</p>
-                  <p className="text-xs text-muted-foreground">+ ~€2.500/ano em SaaS</p>
+                  <p className="text-sm text-muted-foreground mb-1">Abordagem Tradicional (3 Anos)</p>
+                  <p className="text-3xl font-bold text-red-600 line-through">~€17.500-19.500</p>
+                  <p className="text-xs text-muted-foreground">1º ano + SaaS recorrentes</p>
                 </div>
                 <div>
                   <div className="inline-flex p-4 bg-green-500/20 rounded-full mb-2">
                     <ArrowDown className="w-8 h-8 text-green-600" />
                   </div>
                   <Badge className="bg-green-600 text-white text-lg px-4 py-1">
-                    Poupança ~€7.500 em 3 anos
+                    Poupança ~€12.000-14.000 em 3 anos
                   </Badge>
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">Plataforma ARIFA</p>
-                  <p className="text-4xl font-bold text-green-600">€5.888</p>
+                  <p className="text-4xl font-bold text-green-600">a partir de €3.590</p>
                   <p className="text-xs text-muted-foreground">investimento único</p>
                 </div>
               </div>
@@ -1986,7 +1986,7 @@ export default function Documentation() {
                   </div>
                   <div>
                     <h4 className="font-bold text-amber-900">Bónus: 4 horas de Formação IA</h4>
-                    <p className="text-sm text-amber-700">Valor: 400 € — Válido até 18 Janeiro 2025</p>
+                    <p className="text-sm text-amber-700">Valor: 400 € — Incluído no plano Premium</p>
                   </div>
                 </div>
               </div>

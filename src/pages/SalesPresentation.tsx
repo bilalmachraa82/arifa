@@ -2179,8 +2179,14 @@ const SlideComparison = () => {
     { name: "Portal Cliente (SaaS/ano)", cost: "1.200 €/ano" },
     { name: "CRM (HubSpot/ano)", cost: "600 €/ano" },
     { name: "Gestão Docs (Notion/ano)", cost: "240 €/ano" },
-    { name: "Chat (Intercom/ano)", cost: "500 €/ano" },
-    { name: "Segurança + SSL", cost: "300 €" },
+    { name: "Chat/Suporte (Intercom/ano)", cost: "500 €/ano" },
+    { name: "Email Marketing (Mailchimp/ano)", cost: "360 €/ano" },
+    { name: "Analytics (Plausible/ano)", cost: "100 €/ano" },
+    { name: "Hosting + SSL + Domínio", cost: "300 €/ano" },
+    { name: "Automações (Zapier/ano)", cost: "240 €/ano" },
+    { name: "AI Chatbot (Intercom AI/ano)", cost: "600 €/ano" },
+    { name: "Gestão Contratos (DocuSign/ano)", cost: "300 €/ano" },
+    { name: "Backups + Segurança", cost: "200 €/ano" },
   ];
 
   const arifaBenefits = [
@@ -2188,49 +2194,59 @@ const SlideComparison = () => {
     "100% à medida do teu estúdio",
     "Sem subscrições mensais SaaS",
     "Suporte direto AiParaTi",
+    "Código e dados são teus",
   ];
 
   return (
     <SlideFrame className="bg-white relative">
-      <div className="mb-8">
+      <div className="mb-6">
         <span className="text-[18px] font-semibold text-[#3D7081] uppercase tracking-wider bg-[#3D7081]/10 px-4 py-2 rounded-full">Comparação</span>
-        <h2 className="text-[56px] font-light text-[#1e3a5f] mt-6">Outras soluções vs. ARIFA</h2>
+        <h2 className="text-[48px] font-light text-[#1e3a5f] mt-4">Outras soluções vs. ARIFA</h2>
       </div>
 
-      <div className="flex-1 grid grid-cols-2 gap-10">
+      <div className="flex-1 grid grid-cols-2 gap-8">
         {/* Traditional */}
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           className="flex flex-col"
         >
-          <h3 className="text-[20px] font-bold text-red-600 uppercase tracking-wider mb-5 flex items-center gap-3">
-            <X className="w-6 h-6" /> Abordagem Tradicional
+          <h3 className="text-[18px] font-bold text-red-600 uppercase tracking-wider mb-4 flex items-center gap-3">
+            <X className="w-5 h-5" /> Abordagem Tradicional
           </h3>
-          <div className="bg-gradient-to-br from-red-50 to-red-100/50 rounded-3xl p-6 flex-1 border-2 border-red-200">
-            <div className="space-y-3">
+          <div className="bg-gradient-to-br from-red-50 to-red-100/50 rounded-3xl p-5 flex-1 border-2 border-red-200">
+            <div className="grid grid-cols-2 gap-2">
               {traditionalTools.map((tool, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                  className="flex justify-between items-center py-4 px-5 bg-white rounded-xl text-[18px] shadow-sm"
+                  transition={{ delay: i * 0.03 }}
+                  className="flex justify-between items-center py-2.5 px-3 bg-white rounded-lg text-[14px] shadow-sm"
                 >
-                  <span className="text-slate-700 flex items-center gap-3">
-                    <X className="w-5 h-5 text-red-400" />
-                    {tool.name}
+                  <span className="text-slate-700 flex items-center gap-2">
+                    <X className="w-4 h-4 text-red-400 flex-shrink-0" />
+                    <span className="truncate">{tool.name}</span>
                   </span>
-                  <span className="text-red-600 font-bold">{tool.cost}</span>
+                  <span className="text-red-600 font-bold whitespace-nowrap ml-2">{tool.cost}</span>
                 </motion.div>
               ))}
             </div>
-            <div className="mt-6 pt-5 border-t-2 border-red-200">
-              <div className="flex justify-between items-center">
-                <span className="font-bold text-red-700 text-[20px]">1º ANO</span>
-                <span className="font-bold text-red-700 text-[32px]">~6.000-8.000 €</span>
+            <div className="mt-5 pt-4 border-t-2 border-red-200">
+              <div className="flex justify-between items-center mb-2">
+                <span className="font-bold text-red-700 text-[18px]">1º ANO</span>
+                <span className="font-bold text-red-700 text-[28px]">~8.500-10.500 €</span>
               </div>
-              <p className="text-[16px] text-red-500 mt-2">+ ~2.500 €/ano em SaaS recorrentes</p>
+              <div className="flex justify-between items-center">
+                <span className="text-red-600 text-[16px]">Anos seguintes</span>
+                <span className="text-red-600 font-semibold text-[18px]">~4.500 €/ano</span>
+              </div>
+              <div className="mt-4 p-3 bg-red-100 rounded-xl">
+                <div className="flex justify-between items-center">
+                  <span className="font-bold text-red-800 text-[16px]">TOTAL 3 ANOS</span>
+                  <span className="font-bold text-red-800 text-[24px]">~17.500-19.500 €</span>
+                </div>
+              </div>
             </div>
           </div>
         </motion.div>
@@ -2242,37 +2258,45 @@ const SlideComparison = () => {
           transition={{ delay: 0.2 }}
           className="flex flex-col"
         >
-          <h3 className="text-[20px] font-bold text-emerald-600 uppercase tracking-wider mb-5 flex items-center gap-3">
-            <Check className="w-6 h-6" /> Solução ARIFA
+          <h3 className="text-[18px] font-bold text-emerald-600 uppercase tracking-wider mb-4 flex items-center gap-3">
+            <Check className="w-5 h-5" /> Solução ARIFA
           </h3>
-          <div className="bg-gradient-to-br from-[#1e3a5f] via-[#2a4a6f] to-[#3D7081] rounded-3xl p-8 flex-1 text-white shadow-[0_25px_60px_-15px_rgba(30,58,95,0.5)] relative overflow-hidden">
+          <div className="bg-gradient-to-br from-[#1e3a5f] via-[#2a4a6f] to-[#3D7081] rounded-3xl p-6 flex-1 text-white shadow-[0_25px_60px_-15px_rgba(30,58,95,0.5)] relative overflow-hidden">
             {/* Decorative elements */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
             <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2" />
             
-            <div className="space-y-4 mb-8 relative z-10">
+            <div className="space-y-3 mb-6 relative z-10">
               {arifaBenefits.map((benefit, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, x: 10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3 + i * 0.08 }}
-                  className="flex items-center gap-4 py-3"
+                  transition={{ delay: 0.3 + i * 0.06 }}
+                  className="flex items-center gap-3 py-2"
                 >
-                  <CheckCircle2 className="w-7 h-7 text-emerald-300 flex-shrink-0" />
-                  <span className="text-blue-100 text-[22px]">{benefit}</span>
+                  <CheckCircle2 className="w-6 h-6 text-emerald-300 flex-shrink-0" />
+                  <span className="text-blue-100 text-[18px]">{benefit}</span>
                 </motion.div>
               ))}
             </div>
-            <div className="pt-6 border-t border-white/20 relative z-10">
-              <span className="text-blue-200 text-[18px]">Investimento único</span>
-              <div className="flex items-baseline gap-2 mt-2">
-                <span className="text-[64px] font-bold leading-none">5.888</span>
-                <span className="text-[28px] text-blue-200">€</span>
+            <div className="pt-5 border-t border-white/20 relative z-10">
+              <span className="text-blue-200 text-[16px]">A partir de</span>
+              <div className="flex items-baseline gap-2 mt-1">
+                <span className="text-[48px] font-bold leading-none">3.590</span>
+                <span className="text-[24px] text-blue-200">€</span>
               </div>
-              <div className="mt-5 flex items-center gap-3 bg-emerald-500/20 rounded-xl p-4">
-                <TrendingUp className="w-7 h-7 text-emerald-300" />
-                <span className="text-emerald-200 font-semibold text-[20px]">Poupança: ~7.500 € em 3 anos</span>
+              <p className="text-blue-300 text-[14px] mt-1">investimento único</p>
+              <div className="mt-4 p-3 bg-emerald-500/20 rounded-xl">
+                <div className="flex items-center gap-3">
+                  <TrendingUp className="w-6 h-6 text-emerald-300" />
+                  <span className="text-emerald-200 font-semibold text-[18px]">Poupança: ~12.000-14.000 € em 3 anos</span>
+                </div>
+              </div>
+              <div className="mt-3 flex gap-2">
+                <span className="text-[12px] bg-white/10 text-white/80 px-3 py-1 rounded-full">Essencial 3.590€</span>
+                <span className="text-[12px] bg-amber-400/20 text-amber-200 px-3 py-1 rounded-full">Profissional 5.888€</span>
+                <span className="text-[12px] bg-purple-400/20 text-purple-200 px-3 py-1 rounded-full">Premium 7.888€</span>
               </div>
             </div>
           </div>
@@ -2288,19 +2312,23 @@ const SlideComparison = () => {
 // SLIDE 14: PRICING
 // ============================================
 const SlidePricing = () => {
+  // Price Anchoring: Premium first to anchor higher value
   const tiers = [
     {
-      name: "Essencial",
-      price: "3.590",
-      description: "Para começar",
+      name: "Premium",
+      price: "7.888",
+      description: "Tudo + manutenção",
       features: [
-        "Site público (5 páginas)",
-        "Portfólio básico",
-        "Formulário de contacto",
-        "SEO otimizado",
-        "30 dias suporte",
+        "Tudo do Profissional",
+        "CRM + Lead Scoring IA",
+        "Automações + Cotações",
+        "Página Contacto Premium",
+        "12 meses manutenção incluída",
+        "Suporte prioritário",
+        "4h Formação IA GRÁTIS",
       ],
       recommended: false,
+      highlight: true,
     },
     {
       name: "Profissional",
@@ -2315,19 +2343,21 @@ const SlidePricing = () => {
         "60 dias suporte",
       ],
       recommended: true,
+      highlight: false,
     },
     {
-      name: "Premium",
-      price: "7.888",
-      description: "Tudo + manutenção",
+      name: "Essencial",
+      price: "3.590",
+      description: "Para começar",
       features: [
-        "Tudo do Profissional",
-        "CRM + Lead Scoring IA",
-        "Automações + Cotações",
-        "12 meses manutenção incluída",
-        "Suporte prioritário",
+        "Site público (5 páginas)",
+        "Portfólio básico",
+        "Formulário de contacto",
+        "SEO otimizado",
+        "30 dias suporte",
       ],
       recommended: false,
+      highlight: false,
     },
   ];
 
@@ -2335,7 +2365,8 @@ const SlidePricing = () => {
     <SlideFrame className="bg-gradient-to-br from-white to-slate-50 relative">
       <div className="mb-6 text-center">
         <span className="text-[18px] font-semibold text-[#3D7081] uppercase tracking-wider bg-[#3D7081]/10 px-4 py-2 rounded-full">Escolhe o teu plano</span>
-        <h2 className="text-[56px] font-light text-[#1e3a5f] mt-6">3 opções à tua medida</h2>
+        <h2 className="text-[48px] font-light text-[#1e3a5f] mt-4">3 opções à tua medida</h2>
+        <p className="text-slate-500 text-[18px] mt-2">Investimento único • Sem mensalidades</p>
       </div>
 
       <div className="flex-1 grid grid-cols-3 gap-6 items-stretch">
@@ -2345,10 +2376,12 @@ const SlidePricing = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1 }}
-            className={`rounded-3xl p-8 flex flex-col relative ${
+            className={`rounded-3xl p-7 flex flex-col relative ${
               tier.recommended
                 ? "bg-gradient-to-br from-[#1e3a5f] via-[#2a4a6f] to-[#3D7081] text-white ring-4 ring-[#3D7081]/30 shadow-[0_25px_60px_-15px_rgba(30,58,95,0.5)] z-10 scale-[1.03]"
-                : "bg-white border-2 border-slate-200 shadow-xl hover:shadow-2xl transition-shadow"
+                : tier.highlight
+                  ? "bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-300 shadow-xl"
+                  : "bg-white border-2 border-slate-200 shadow-xl hover:shadow-2xl transition-shadow"
             }`}
           >
             {tier.recommended && (
@@ -2363,33 +2396,57 @@ const SlidePricing = () => {
                 </motion.span>
               </div>
             )}
-            <h3 className={`text-[28px] font-bold ${tier.recommended ? "text-white mt-3" : "text-[#1e3a5f]"}`}>
+            {tier.highlight && !tier.recommended && (
+              <div className="absolute -top-5 left-1/2 -translate-x-1/2">
+                <span className="bg-gradient-to-r from-purple-500 to-purple-600 text-white text-[12px] font-bold px-5 py-2 rounded-full shadow-lg flex items-center gap-2">
+                  <Sparkles className="w-4 h-4" />
+                  COMPLETO
+                </span>
+              </div>
+            )}
+            <h3 className={`text-[26px] font-bold ${tier.recommended ? "text-white mt-3" : tier.highlight ? "text-purple-800 mt-3" : "text-[#1e3a5f]"}`}>
               {tier.name}
             </h3>
-            <p className={`text-[16px] mb-4 ${tier.recommended ? "text-blue-200" : "text-slate-500"}`}>
+            <p className={`text-[15px] mb-3 ${tier.recommended ? "text-blue-200" : tier.highlight ? "text-purple-600" : "text-slate-500"}`}>
               {tier.description}
             </p>
-            <div className="flex items-baseline gap-1 mb-6">
-              <span className={`text-[52px] font-bold leading-none ${tier.recommended ? "text-white" : "text-[#1e3a5f]"}`}>
+            <div className="flex items-baseline gap-1 mb-5">
+              <span className={`text-[48px] font-bold leading-none ${tier.recommended ? "text-white" : tier.highlight ? "text-purple-800" : "text-[#1e3a5f]"}`}>
                 {tier.price}
               </span>
-              <span className={`text-[24px] ${tier.recommended ? "text-blue-200" : "text-slate-400"}`}>€</span>
+              <span className={`text-[22px] ${tier.recommended ? "text-blue-200" : tier.highlight ? "text-purple-500" : "text-slate-400"}`}>€</span>
             </div>
             
-            <div className="flex-1 space-y-3">
+            <div className="flex-1 space-y-2.5">
               {tier.features.map((feature, j) => (
-                <div key={j} className="flex items-center gap-3">
-                  <CheckCircle2 className={`w-5 h-5 flex-shrink-0 ${tier.recommended ? "text-green-300" : "text-[#3D7081]"}`} />
-                  <span className={`text-[17px] ${tier.recommended ? "text-blue-100" : "text-slate-700"}`}>{feature}</span>
+                <div key={j} className="flex items-center gap-2.5">
+                  <CheckCircle2 className={`w-5 h-5 flex-shrink-0 ${
+                    tier.recommended ? "text-green-300" : 
+                    tier.highlight ? "text-purple-600" : 
+                    "text-[#3D7081]"
+                  }`} />
+                  <span className={`text-[15px] ${
+                    tier.recommended ? "text-blue-100" : 
+                    tier.highlight ? "text-purple-700" : 
+                    "text-slate-700"
+                  } ${feature.includes("GRÁTIS") ? "font-bold" : ""}`}>{feature}</span>
                 </div>
               ))}
             </div>
             
             {tier.recommended && (
-              <div className="mt-6 pt-4 border-t border-white/20">
+              <div className="mt-5 pt-4 border-t border-white/20">
                 <p className="text-blue-200 text-[14px] flex items-center gap-2">
                   <Star className="w-4 h-4 text-amber-300" />
                   Escolha mais popular
+                </p>
+              </div>
+            )}
+            {tier.highlight && !tier.recommended && (
+              <div className="mt-5 pt-4 border-t border-purple-200">
+                <p className="text-purple-600 text-[14px] flex items-center gap-2">
+                  <Zap className="w-4 h-4 text-purple-500" />
+                  Inclui 4h Formação IA
                 </p>
               </div>
             )}
@@ -2397,21 +2454,19 @@ const SlidePricing = () => {
         ))}
       </div>
 
-      {/* Bonus */}
+      {/* Validity Banner */}
       <motion.div 
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
-        className="mt-6 p-4 bg-gradient-to-r from-amber-50 via-yellow-50 to-amber-50 rounded-2xl border-2 border-amber-300 shadow-lg"
+        className="mt-6 p-4 bg-gradient-to-r from-slate-100 to-slate-50 rounded-2xl border border-slate-200 flex items-center justify-between"
       >
-        <div className="flex items-center gap-5">
-          <div className="w-14 h-14 bg-gradient-to-br from-amber-400 to-yellow-400 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-md">
-            <Zap className="w-7 h-7 text-amber-900" />
-          </div>
-          <div>
-            <h3 className="font-bold text-amber-900 text-[20px]">Bónus: 4 horas de Formação IA</h3>
-            <p className="text-amber-700 text-[16px]">Valor: 400 € — Válido até 18 Janeiro 2025</p>
-          </div>
+        <div className="flex items-center gap-4">
+          <Timer className="w-6 h-6 text-slate-600" />
+          <span className="text-slate-700 text-[18px]">Preços válidos até <strong>18 Janeiro 2026</strong></span>
+        </div>
+        <div className="flex items-center gap-3">
+          <span className="text-slate-500 text-[14px]">Pagamento flexível: 40% + 40% + 20%</span>
         </div>
       </motion.div>
       
@@ -2432,7 +2487,7 @@ const SlideTerms = () => {
       </div>
 
       <div className="flex-1 grid grid-cols-4 gap-6">
-        {/* Payment */}
+        {/* Payment - Flexible based on chosen tier */}
         <div className="bg-white rounded-3xl p-6 border-2 border-slate-100 shadow-xl">
           <h3 className="font-bold text-[#1e3a5f] mb-4 flex items-center gap-3 text-[20px]">
             <div className="w-12 h-12 rounded-2xl bg-[#1e3a5f]/10 flex items-center justify-center">
@@ -2440,71 +2495,86 @@ const SlideTerms = () => {
             </div>
             Pagamento
           </h3>
-          <p className="text-[48px] font-bold text-[#1e3a5f] mb-6">5.888 €</p>
-          <div className="space-y-4">
-            <div className="flex justify-between items-center py-4 px-5 bg-slate-50 rounded-2xl">
-              <span className="text-slate-700 text-[20px]">40% assinatura</span>
-              <span className="font-bold text-[#1e3a5f] text-[22px]">2.355 €</span>
+          <p className="text-[16px] text-slate-500 mb-3">Estrutura flexível 40/40/20</p>
+          <div className="space-y-3">
+            <div className="py-3 px-4 bg-slate-50 rounded-xl">
+              <div className="flex justify-between items-center mb-1">
+                <span className="text-slate-700 text-[16px] font-medium">40% assinatura</span>
+                <span className="text-[#1e3a5f] text-[14px]">início do projeto</span>
+              </div>
             </div>
-            <div className="flex justify-between items-center py-4 px-5 bg-slate-50 rounded-2xl">
-              <span className="text-slate-700 text-[20px]">40% go-live</span>
-              <span className="font-bold text-[#1e3a5f] text-[22px]">2.355 €</span>
+            <div className="py-3 px-4 bg-slate-50 rounded-xl">
+              <div className="flex justify-between items-center mb-1">
+                <span className="text-slate-700 text-[16px] font-medium">40% go-live</span>
+                <span className="text-[#1e3a5f] text-[14px]">lançamento</span>
+              </div>
             </div>
-            <div className="flex justify-between items-center py-4 px-5 bg-slate-50 rounded-2xl">
-              <span className="text-slate-700 text-[20px]">20% após 30 dias</span>
-              <span className="font-bold text-[#1e3a5f] text-[22px]">1.178 €</span>
+            <div className="py-3 px-4 bg-slate-50 rounded-xl">
+              <div className="flex justify-between items-center mb-1">
+                <span className="text-slate-700 text-[16px] font-medium">20% após 30 dias</span>
+                <span className="text-[#1e3a5f] text-[14px]">validação</span>
+              </div>
             </div>
+          </div>
+          <div className="mt-4 pt-4 border-t border-slate-100">
+            <p className="text-[14px] text-slate-500">Aplica-se a todos os planos</p>
           </div>
         </div>
 
         {/* Timeline */}
-        <div className="space-y-6">
-          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-6 border-2 border-blue-100">
-            <h3 className="font-bold text-[#1e3a5f] mb-4 flex items-center gap-3 text-[22px]">
-              <Calendar className="w-7 h-7" /> Prazo de Entrega
+        <div className="space-y-5">
+          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-5 border-2 border-blue-100">
+            <h3 className="font-bold text-[#1e3a5f] mb-3 flex items-center gap-3 text-[20px]">
+              <Calendar className="w-6 h-6" /> Prazo de Entrega
             </h3>
-            <p className="text-[48px] font-bold text-[#1e3a5f]">6-8 semanas</p>
-            <p className="text-[18px] text-slate-600">Após aprovação do design</p>
+            <p className="text-[42px] font-bold text-[#1e3a5f]">6-8 semanas</p>
+            <p className="text-[16px] text-slate-600">Após aprovação do design</p>
           </div>
-          <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 border-2 border-green-100 flex-1">
-            <h3 className="font-bold text-green-700 mb-4 flex items-center gap-3 text-[22px]">
-              <CheckCircle2 className="w-7 h-7" /> Incluído
+          <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-5 border-2 border-green-100">
+            <h3 className="font-bold text-green-700 mb-3 flex items-center gap-3 text-[18px]">
+              <CheckCircle2 className="w-6 h-6" /> Incluído em Todos
             </h3>
-            <ul className="space-y-3">
-              {["Site público completo", "Portal do cliente", "Dashboard admin", "60 dias suporte"].map((item, i) => (
-                <li key={i} className="text-[18px] text-green-700 flex items-center gap-3">
-                  <Check className="w-5 h-5" /> {item}
+            <ul className="space-y-2">
+              {["Site público completo", "SEO otimizado", "Design responsivo", "Hosting 1º ano"].map((item, i) => (
+                <li key={i} className="text-[15px] text-green-700 flex items-center gap-2">
+                  <Check className="w-4 h-4" /> {item}
                 </li>
               ))}
             </ul>
           </div>
         </div>
 
-        {/* Optional + Bonus */}
+        {/* What's in each tier */}
         <div className="space-y-4">
-          <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl p-5 border-2 border-purple-100">
-            <h3 className="font-bold text-purple-700 mb-2 flex items-center gap-3 text-[18px]">
-              <Settings className="w-6 h-6" /> Opcional
-            </h3>
-            <p className="text-[16px] text-purple-600">Manutenção mensal</p>
-            <p className="text-[28px] font-bold text-purple-700">150-250 €/mês</p>
+          <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-4 border border-slate-200">
+            <h4 className="font-bold text-[#1e3a5f] text-[16px] mb-2">Essencial — 3.590€</h4>
+            <p className="text-[14px] text-slate-600">Site + Portfólio + 30 dias suporte</p>
           </div>
-          <div className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-3xl p-5 border-2 border-amber-300">
-            <h3 className="font-bold text-amber-900 mb-2 flex items-center gap-3 text-[18px]">
-              <Sparkles className="w-6 h-6" /> Bónus Exclusivo
-            </h3>
-            <p className="text-[16px] text-amber-700">4 horas Formação IA</p>
-            <p className="text-[24px] font-bold text-amber-900">Valor: 400 €</p>
-            <p className="text-[14px] text-amber-700 mt-1 flex items-center gap-2">
-              <Timer className="w-4 h-4" /> Até 18 Janeiro 2025
-            </p>
+          <div className="bg-gradient-to-br from-[#1e3a5f]/5 to-[#3D7081]/10 rounded-2xl p-4 border-2 border-[#3D7081]/30">
+            <h4 className="font-bold text-[#1e3a5f] text-[16px] mb-2 flex items-center gap-2">
+              Profissional — 5.888€
+              <span className="text-[10px] bg-amber-400 text-amber-900 px-2 py-0.5 rounded-full">RECOMENDADO</span>
+            </h4>
+            <p className="text-[14px] text-slate-600">+ Portal Cliente + Admin + 60 dias</p>
+          </div>
+          <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-4 border-2 border-purple-200">
+            <h4 className="font-bold text-purple-800 text-[16px] mb-2 flex items-center gap-2">
+              Premium — 7.888€
+              <Zap className="w-4 h-4 text-purple-600" />
+            </h4>
+            <p className="text-[14px] text-purple-700">+ CRM + 12 meses manutenção + Formação IA</p>
+          </div>
+          <div className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-2xl p-4 border border-amber-200">
+            <h4 className="font-bold text-amber-800 text-[14px] mb-1">Manutenção (opcional)</h4>
+            <p className="text-[18px] font-bold text-amber-900">150-250 €/mês</p>
+            <p className="text-[12px] text-amber-700">Após período incluído no plano</p>
           </div>
         </div>
 
         {/* O que inclui a manutenção */}
-        <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-3xl p-6 border-2 border-emerald-200">
-          <h3 className="font-bold text-emerald-700 mb-4 flex items-center gap-3 text-[20px]">
-            <Shield className="w-6 h-6" /> O Que Inclui a Manutenção
+        <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-3xl p-5 border-2 border-emerald-200">
+          <h3 className="font-bold text-emerald-700 mb-4 flex items-center gap-3 text-[18px]">
+            <Shield className="w-5 h-5" /> Manutenção Inclui
           </h3>
           <ul className="space-y-2">
             {[
@@ -2514,14 +2584,25 @@ const SlideTerms = () => {
               "2 horas/mês de melhorias",
               "Suporte por email/WhatsApp",
             ].map((item, i) => (
-              <li key={i} className="text-[16px] text-emerald-700 flex items-center gap-2">
+              <li key={i} className="text-[15px] text-emerald-700 flex items-center gap-2">
                 <Check className="w-4 h-4" /> {item}
               </li>
             ))}
           </ul>
-          <p className="text-emerald-600 text-[14px] mt-3 pt-3 border-t border-emerald-200">
-            Após período incluído: 150€/mês
-          </p>
+          <div className="mt-4 pt-3 border-t border-emerald-200">
+            <p className="text-emerald-600 text-[13px]">
+              Premium: 12 meses incluídos
+            </p>
+            <p className="text-emerald-600 text-[13px]">
+              Outros: após 30-60 dias
+            </p>
+          </div>
+          <div className="mt-4 p-3 bg-white/60 rounded-xl">
+            <p className="text-[12px] text-slate-500 flex items-center gap-2">
+              <Timer className="w-4 h-4" />
+              Válido até 18 Janeiro 2026
+            </p>
+          </div>
         </div>
       </div>
       
@@ -2624,14 +2705,16 @@ const SlideContacto = () => {
   ];
 
   return (
-    <SlideFrame className="bg-gradient-to-br from-white to-rose-50/30 relative">
-      <div className="flex items-center gap-5 mb-8">
-        <div className="w-18 h-18 rounded-2xl bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] flex items-center justify-center shadow-xl p-4">
-          <Mail className="w-10 h-10 text-white" />
+    <SlideFrame className="bg-gradient-to-br from-white to-purple-50/30 relative">
+      <div className="flex items-center gap-5 mb-6">
+        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-600 to-purple-700 flex items-center justify-center shadow-xl">
+          <Mail className="w-8 h-8 text-white" />
         </div>
         <div>
-          <span className="text-[16px] font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade Bónus</span>
-          <h2 className="text-[48px] font-light text-[#1e3a5f]">Página de Contacto</h2>
+          <div className="flex items-center gap-3 mb-1">
+            <span className="text-[14px] font-bold text-purple-600 uppercase tracking-wider bg-purple-100 px-3 py-1 rounded-full">Premium Only</span>
+          </div>
+          <h2 className="text-[44px] font-light text-[#1e3a5f]">Página de Contacto Premium</h2>
         </div>
       </div>
 
@@ -2764,15 +2847,15 @@ const SlideNextSteps = () => {
         <h2 className="text-[56px] font-light text-white mt-6">Pronta para começar, Teresa?</h2>
       </div>
 
-      {/* Offer Reminder */}
+      {/* Urgency Banner */}
       <motion.div 
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-6 p-5 bg-gradient-to-r from-amber-400/20 to-yellow-400/20 rounded-2xl border border-amber-400/30 text-center backdrop-blur-sm relative z-10"
+        className="mb-6 p-4 bg-gradient-to-r from-slate-100/20 to-white/10 rounded-2xl border border-white/20 text-center backdrop-blur-sm relative z-10"
       >
-        <p className="text-amber-200 text-[22px] font-medium flex items-center justify-center gap-4">
-          <Timer className="w-6 h-6" />
-          <span className="font-bold text-amber-100">4h Formação IA GRÁTIS</span> se aceitares nos próximos 7 dias
+        <p className="text-white/80 text-[20px] font-medium flex items-center justify-center gap-4">
+          <Timer className="w-5 h-5" />
+          Preços válidos até <span className="font-bold text-white">18 Janeiro 2026</span>
         </p>
       </motion.div>
 
