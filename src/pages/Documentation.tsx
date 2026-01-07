@@ -1880,6 +1880,119 @@ export default function Documentation() {
             </CardContent>
           </Card>
 
+          {/* Pricing Tiers - Aligned with Slide 14 */}
+          <Card className="mb-8">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Coins className="w-5 h-5" />
+                Planos de Investimento
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground mb-6">
+                3 opções à medida das necessidades do teu estúdio. Investimento único, sem mensalidades.
+              </p>
+              <div className="grid md:grid-cols-3 gap-6">
+                {/* Tier 1: Essencial */}
+                <div className="rounded-xl border-2 border-slate-200 p-5 bg-gradient-to-br from-slate-50 to-white">
+                  <h4 className="text-xl font-bold text-foreground mb-1">Essencial</h4>
+                  <p className="text-sm text-muted-foreground mb-4">Para começar</p>
+                  <div className="flex items-baseline gap-1 mb-5">
+                    <span className="text-4xl font-bold text-foreground">3.590</span>
+                    <span className="text-xl text-muted-foreground">€</span>
+                  </div>
+                  <ul className="space-y-2 text-sm">
+                    {[
+                      "Site público (5 páginas)",
+                      "Portfólio básico",
+                      "Formulário de contacto",
+                      "SEO otimizado",
+                      "30 dias suporte"
+                    ].map((feature, i) => (
+                      <li key={i} className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Tier 2: Profissional - Recommended */}
+                <div className="rounded-xl p-5 bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] text-white ring-4 ring-primary/30 shadow-xl relative">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                    <Badge className="bg-amber-400 text-amber-900 font-bold px-3 py-1">
+                      RECOMENDADO
+                    </Badge>
+                  </div>
+                  <h4 className="text-xl font-bold mt-2 mb-1">Profissional</h4>
+                  <p className="text-sm text-blue-200 mb-4">Solução completa</p>
+                  <div className="flex items-baseline gap-1 mb-5">
+                    <span className="text-4xl font-bold">5.888</span>
+                    <span className="text-xl text-blue-200">€</span>
+                  </div>
+                  <ul className="space-y-2 text-sm">
+                    {[
+                      "Tudo do Essencial",
+                      "Portal Cliente completo",
+                      "Dashboard Admin",
+                      "Mensagens + Documentos",
+                      "Blog + Newsletter",
+                      "60 dias suporte"
+                    ].map((feature, i) => (
+                      <li key={i} className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-green-300 flex-shrink-0" />
+                        <span className="text-blue-100">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-4 pt-3 border-t border-white/20">
+                    <p className="text-blue-200 text-xs flex items-center gap-1">
+                      <Sparkles className="w-3 h-3" />
+                      Escolha mais popular
+                    </p>
+                  </div>
+                </div>
+
+                {/* Tier 3: Premium */}
+                <div className="rounded-xl border-2 border-slate-200 p-5 bg-gradient-to-br from-slate-50 to-white">
+                  <h4 className="text-xl font-bold text-foreground mb-1">Premium</h4>
+                  <p className="text-sm text-muted-foreground mb-4">Tudo + manutenção</p>
+                  <div className="flex items-baseline gap-1 mb-5">
+                    <span className="text-4xl font-bold text-foreground">7.888</span>
+                    <span className="text-xl text-muted-foreground">€</span>
+                  </div>
+                  <ul className="space-y-2 text-sm">
+                    {[
+                      "Tudo do Profissional",
+                      "CRM + Lead Scoring IA",
+                      "Automações + Cotações",
+                      "12 meses manutenção incluída",
+                      "Suporte prioritário"
+                    ].map((feature, i) => (
+                      <li key={i} className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Bonus */}
+              <div className="mt-6 p-4 bg-gradient-to-r from-amber-50 via-yellow-50 to-amber-50 rounded-xl border-2 border-amber-300">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-amber-400 to-yellow-400 rounded-xl flex items-center justify-center flex-shrink-0 shadow">
+                    <Zap className="w-6 h-6 text-amber-900" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-amber-900">Bónus: 4 horas de Formação IA</h4>
+                    <p className="text-sm text-amber-700">Valor: 400 € — Válido até 18 Janeiro 2025</p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
           {/* Included vs Out of Scope */}
           <Card className="mb-8 border-2 border-dashed">
             <CardHeader>
