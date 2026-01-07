@@ -1758,8 +1758,8 @@ export default function Documentation() {
               <div className="text-center">
                 <h3 className="text-xl font-bold mb-3">Resumo Executivo</h3>
                 <p className="text-lg max-w-2xl mx-auto">
-                  No mercado, pagarias aproximadamente <strong className="text-red-600">€20.364/ano</strong> por soluções dispersas 
-                  e menos integradas. Com a ARIFA, investes <strong className="text-green-600">€4.888 uma única vez</strong> e ficas 
+                  No mercado, pagarias aproximadamente <strong className="text-red-600">€6.000-8.000 no 1º ano + ~2.500 €/ano</strong> em SaaS recorrentes. 
+                  Com a ARIFA, investes <strong className="text-green-600">€5.888 uma única vez</strong> e ficas 
                   com tudo à medida do teu estúdio. <strong>Sem subscrições mensais, sem surpresas.</strong>
                 </p>
               </div>
@@ -1775,147 +1775,107 @@ export default function Documentation() {
               </div>
               <div className="grid md:grid-cols-3 gap-6 items-center text-center">
                 <div>
-                  <p className="text-sm text-muted-foreground mb-1">Custo de Mercado</p>
-                  <p className="text-3xl font-bold text-red-600 line-through">€20.364</p>
-                  <p className="text-xs text-muted-foreground">/ano (soluções separadas)</p>
+                  <p className="text-sm text-muted-foreground mb-1">Abordagem Tradicional (1º Ano)</p>
+                  <p className="text-3xl font-bold text-red-600 line-through">~€6.000-8.000</p>
+                  <p className="text-xs text-muted-foreground">+ ~€2.500/ano em SaaS</p>
                 </div>
                 <div>
                   <div className="inline-flex p-4 bg-green-500/20 rounded-full mb-2">
                     <ArrowDown className="w-8 h-8 text-green-600" />
                   </div>
                   <Badge className="bg-green-600 text-white text-lg px-4 py-1">
-                    Poupança 76%
+                    Poupança ~€7.500 em 3 anos
                   </Badge>
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">Plataforma ARIFA</p>
-                  <p className="text-4xl font-bold text-green-600">€4.888</p>
+                  <p className="text-4xl font-bold text-green-600">€5.888</p>
                   <p className="text-xs text-muted-foreground">investimento único</p>
                 </div>
               </div>
               <div className="mt-6 text-center">
                 <p className="text-lg font-medium text-green-700">
-                  ROI de 318% • Poupança de €15.476 no 1º ano
+                  Tudo integrado • 100% à medida • Sem subscrições mensais
                 </p>
               </div>
             </CardContent>
           </Card>
 
-          {/* Comparative Table */}
+          {/* Comparative Table - Aligned with Presentation */}
           <Card className="mb-8">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <BarChart3 className="w-5 h-5" />
-                Tabela Comparativa de Custos
+                Comparativo: Abordagem Tradicional vs. ARIFA
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b">
-                      <th className="text-left py-3 px-2">Funcionalidade</th>
-                      <th className="text-left py-3 px-2">Solução de Mercado</th>
-                      <th className="text-right py-3 px-2">Custo/Ano</th>
-                      <th className="text-center py-3 px-2">ARIFA</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y">
-                    <tr>
-                      <td className="py-3 px-2 font-medium">Website Premium</td>
-                      <td className="py-3 px-2 text-muted-foreground">Squarespace + Desenvolvimento Custom</td>
-                      <td className="py-3 px-2 text-right">€1.680</td>
-                      <td className="py-3 px-2 text-center"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
-                    </tr>
-                    <tr>
-                      <td className="py-3 px-2 font-medium">Portal do Cliente</td>
-                      <td className="py-3 px-2 text-muted-foreground">SuiteDash (Pro)</td>
-                      <td className="py-3 px-2 text-right">€648</td>
-                      <td className="py-3 px-2 text-center"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
-                    </tr>
-                    <tr>
-                      <td className="py-3 px-2 font-medium">CRM (3 utilizadores)</td>
-                      <td className="py-3 px-2 text-muted-foreground">Pipedrive Advanced</td>
-                      <td className="py-3 px-2 text-right">€1.368</td>
-                      <td className="py-3 px-2 text-center"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
-                    </tr>
-                    <tr>
-                      <td className="py-3 px-2 font-medium">Gestão Documental</td>
-                      <td className="py-3 px-2 text-muted-foreground">PandaDoc</td>
-                      <td className="py-3 px-2 text-right">€660</td>
-                      <td className="py-3 px-2 text-center"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
-                    </tr>
-                    <tr>
-                      <td className="py-3 px-2 font-medium">Assinaturas Digitais</td>
-                      <td className="py-3 px-2 text-muted-foreground">DocuSign Essentials</td>
-                      <td className="py-3 px-2 text-right">€360</td>
-                      <td className="py-3 px-2 text-center"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
-                    </tr>
-                    <tr>
-                      <td className="py-3 px-2 font-medium">Chat em Tempo Real</td>
-                      <td className="py-3 px-2 text-muted-foreground">Intercom Essentials</td>
-                      <td className="py-3 px-2 text-right">€420</td>
-                      <td className="py-3 px-2 text-center"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
-                    </tr>
-                    <tr>
-                      <td className="py-3 px-2 font-medium">Email Automatizado</td>
-                      <td className="py-3 px-2 text-muted-foreground">Mailchimp Essentials</td>
-                      <td className="py-3 px-2 text-right">€276</td>
-                      <td className="py-3 px-2 text-center"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
-                    </tr>
-                    <tr>
-                      <td className="py-3 px-2 font-medium">Analytics</td>
-                      <td className="py-3 px-2 text-muted-foreground">Plausible Analytics</td>
-                      <td className="py-3 px-2 text-right">€120</td>
-                      <td className="py-3 px-2 text-center"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
-                    </tr>
-                    <tr>
-                      <td className="py-3 px-2 font-medium">IA Integrada (BYOK)</td>
-                      <td className="py-3 px-2 text-muted-foreground">Gemini 2.5 Flash API</td>
-                      <td className="py-3 px-2 text-right">€360</td>
-                      <td className="py-3 px-2 text-center"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
-                    </tr>
-                    <tr>
-                      <td className="py-3 px-2 font-medium">Cloud Storage (50GB)</td>
-                      <td className="py-3 px-2 text-muted-foreground">AWS S3</td>
-                      <td className="py-3 px-2 text-right">€72</td>
-                      <td className="py-3 px-2 text-center"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
-                    </tr>
-                    <tr>
-                      <td className="py-3 px-2 font-medium">App Mobile (PWA)</td>
-                      <td className="py-3 px-2 text-muted-foreground">Desenvolvimento Custom</td>
-                      <td className="py-3 px-2 text-right">€12.000</td>
-                      <td className="py-3 px-2 text-center"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
-                    </tr>
-                    <tr>
-                      <td className="py-3 px-2 font-medium">Segurança + MFA</td>
-                      <td className="py-3 px-2 text-muted-foreground">Auth0 Essentials</td>
-                      <td className="py-3 px-2 text-right">€1.440</td>
-                      <td className="py-3 px-2 text-center"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
-                    </tr>
-                    <tr>
-                      <td className="py-3 px-2 font-medium">Multi-idioma (PT/EN)</td>
-                      <td className="py-3 px-2 text-muted-foreground">Traduções Profissionais</td>
-                      <td className="py-3 px-2 text-right">€600</td>
-                      <td className="py-3 px-2 text-center"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
-                    </tr>
-                    <tr>
-                      <td className="py-3 px-2 font-medium">Integrações</td>
-                      <td className="py-3 px-2 text-muted-foreground">Zapier Professional</td>
-                      <td className="py-3 px-2 text-right">€360</td>
-                      <td className="py-3 px-2 text-center"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
-                    </tr>
-                    <tr className="bg-muted/50 font-bold">
-                      <td className="py-4 px-2">TOTAL</td>
-                      <td className="py-4 px-2"></td>
-                      <td className="py-4 px-2 text-right text-red-600">€20.364/ano</td>
-                      <td className="py-4 px-2 text-center text-green-600">€4.888</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div className="grid md:grid-cols-2 gap-6">
+                {/* Traditional Approach */}
+                <div className="bg-gradient-to-br from-red-50 to-red-100/50 rounded-xl p-5 border border-red-200">
+                  <h4 className="font-bold text-red-700 mb-4 flex items-center gap-2">
+                    <X className="w-5 h-5" /> Abordagem Tradicional
+                  </h4>
+                  <div className="space-y-2">
+                    {[
+                      { name: "Website Premium (WordPress)", cost: "3.000-5.000 €" },
+                      { name: "Portal Cliente (SaaS/ano)", cost: "1.200 €/ano" },
+                      { name: "CRM (HubSpot/ano)", cost: "600 €/ano" },
+                      { name: "Gestão Docs (Notion/ano)", cost: "240 €/ano" },
+                      { name: "Chat (Intercom/ano)", cost: "500 €/ano" },
+                      { name: "Segurança + SSL", cost: "300 €" },
+                    ].map((tool, i) => (
+                      <div key={i} className="flex justify-between items-center py-2 px-3 bg-white rounded-lg text-sm">
+                        <span className="text-muted-foreground flex items-center gap-2">
+                          <X className="w-4 h-4 text-red-400" />
+                          {tool.name}
+                        </span>
+                        <span className="text-red-600 font-medium">{tool.cost}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-4 pt-4 border-t border-red-200">
+                    <div className="flex justify-between items-center">
+                      <span className="font-bold text-red-700">1º ANO</span>
+                      <span className="font-bold text-red-700 text-xl">~6.000-8.000 €</span>
+                    </div>
+                    <p className="text-sm text-red-500 mt-1">+ ~2.500 €/ano em SaaS recorrentes</p>
+                  </div>
+                </div>
+
+                {/* ARIFA Solution */}
+                <div className="bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] rounded-xl p-5 text-white">
+                  <h4 className="font-bold mb-4 flex items-center gap-2">
+                    <CheckCircle className="w-5 h-5 text-green-300" /> Solução ARIFA
+                  </h4>
+                  <div className="space-y-3 mb-6">
+                    {[
+                      "Tudo integrado em 1 plataforma",
+                      "100% à medida do teu estúdio",
+                      "Sem subscrições mensais SaaS",
+                      "Suporte direto AiParaTi",
+                    ].map((benefit, i) => (
+                      <div key={i} className="flex items-center gap-3">
+                        <CheckCircle className="w-5 h-5 text-green-300 flex-shrink-0" />
+                        <span className="text-blue-100">{benefit}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="pt-4 border-t border-white/20">
+                    <span className="text-blue-200 text-sm">Investimento único</span>
+                    <div className="flex items-baseline gap-2 mt-1">
+                      <span className="text-4xl font-bold">5.888</span>
+                      <span className="text-xl text-blue-200">€</span>
+                    </div>
+                    <div className="mt-4 flex items-center gap-2 bg-green-500/20 rounded-lg p-3">
+                      <TrendingUp className="w-5 h-5 text-green-300" />
+                      <span className="text-green-200 font-medium">Poupança: ~7.500 € em 3 anos</span>
+                    </div>
+                  </div>
+                </div>
               </div>
               <p className="text-xs text-muted-foreground mt-4">
-                * Preços de mercado pesquisados em Janeiro 2026. Valores podem variar consoante planos e promoções.
+                * Valores de referência para o mercado português. Janeiro 2026.
               </p>
             </CardContent>
           </Card>
@@ -1937,16 +1897,17 @@ export default function Documentation() {
                   </h4>
                   <ul className="space-y-2 text-sm">
                     {[
-                      "Site público completo",
-                      "Portal cliente completo",
-                      "Painel admin completo",
-                      "CRM com Kanban",
-                      "16 automações edge functions",
-                      "IA integrada (BYOK)",
+                      "Site público (10+ páginas)",
+                      "Portal cliente completo (7 tabs)",
+                      "Dashboard admin (12 módulos)",
+                      "CRM com Kanban + IA Scoring",
+                      "Mensagens em tempo real",
+                      "Gestão documental + versões",
+                      "Blog + Newsletter",
                       "PWA mobile instalável",
-                      "Segurança MFA",
+                      "Segurança MFA + RLS",
                       "Bilingue PT/EN",
-                      "60 dias bug-fix pós-lançamento"
+                      "60 dias suporte incluído"
                     ].map((item) => (
                       <li key={item} className="flex items-center gap-2">
                         <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
