@@ -45,7 +45,9 @@ import {
   Bell,
   ZoomIn,
   Rotate3D,
-  Play
+  Play,
+  Wallet,
+  FileSignature
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -775,11 +777,11 @@ const SlideSolution = () => {
               initial={{ opacity: 0, scale: 0.9, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              className="flex flex-col items-center text-center p-8 rounded-3xl bg-white border border-slate-100 shadow-xl relative"
+              className="flex flex-col items-center text-center p-8 pt-10 rounded-3xl bg-white border border-slate-100 shadow-xl relative mt-4"
             >
               {item.badge && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className={`text-[12px] font-bold px-3 py-1 rounded-full ${
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
+                  <span className={`text-[12px] font-bold px-3 py-1 rounded-full whitespace-nowrap ${
                     item.badge === "PRIVADO" 
                       ? "bg-indigo-100 text-indigo-700 border border-indigo-200" 
                       : "bg-emerald-100 text-emerald-700 border border-emerald-200"
@@ -791,8 +793,8 @@ const SlideSolution = () => {
               <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] flex items-center justify-center mb-6 shadow-xl">
                 <item.icon className="w-12 h-12 text-white" />
               </div>
-              <h3 className="font-bold text-[#1e3a5f] text-[24px] mb-2">{item.title}</h3>
-              <p className="text-[#3D7081] text-[18px] font-medium">{item.desc}</p>
+              <h3 className="font-bold text-[#1e3a5f] text-[22px] mb-2 leading-tight">{item.title}</h3>
+              <p className="text-[#3D7081] text-[16px] font-medium">{item.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -820,10 +822,10 @@ const SlideSolution = () => {
 // ============================================
 const SlidePublicSite = () => {
   const features = [
-    "Portfólio com filtros inteligentes",
-    "Galeria profissional high-res",
-    "Blog/News para SEO + autoridade",
-    "Formulário → direto para admin",
+    "Homepage com segmentos (Privado, Empresas, Investidores)",
+    "Portfolio com filtros + pesquisa + estados visuais",
+    "Blog + Lead Magnets + Newsletter",
+    "Páginas de Serviços + Sobre + Contacto com CRM",
   ];
 
   return (
@@ -839,7 +841,7 @@ const SlidePublicSite = () => {
       </div>
 
       <div className="flex-1 grid grid-cols-[55%,45%] gap-10">
-        {/* Screenshot - Premium Frame with Glow */}
+        {/* Screenshot - Premium Frame with Multiple Views */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -858,43 +860,90 @@ const SlidePublicSite = () => {
             </div>
             <div className="flex items-center gap-2">
               <div className="bg-[#3D7081] text-white text-[10px] px-2 py-0.5 rounded font-bold">SSL</div>
+              <div className="bg-emerald-500 text-white text-[10px] px-2 py-0.5 rounded font-bold">i18n</div>
             </div>
           </div>
-          <div className="p-6 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-48px)]">
+          <div className="p-5 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-48px)]">
             {/* Header Mockup */}
-            <div className="flex items-center justify-between mb-5">
+            <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-[#1e3a5f] rounded-lg" />
-                <div className="h-4 w-20 bg-slate-200 rounded" />
+                <div className="w-8 h-8 bg-[#1e3a5f] rounded-lg" />
+                <div className="h-3 w-16 bg-slate-200 rounded" />
               </div>
-              <div className="flex gap-4">
-                <div className="h-3 w-14 bg-slate-200 rounded" />
-                <div className="h-3 w-14 bg-slate-200 rounded" />
-                <div className="h-8 w-20 bg-[#3D7081] rounded-lg" />
+              <div className="flex gap-3 text-[10px]">
+                <span className="text-slate-500">Serviços</span>
+                <span className="text-slate-500">Portfolio</span>
+                <span className="text-slate-500">Blog</span>
+                <span className="bg-[#3D7081] text-white px-2 py-0.5 rounded">Contacto</span>
               </div>
             </div>
-            {/* Hero Mockup */}
-            <div className="bg-gradient-to-r from-[#1e3a5f] to-[#3D7081] rounded-2xl p-6 mb-5 relative overflow-hidden">
+            
+            {/* Hero with Segment Selector */}
+            <div className="bg-gradient-to-r from-[#1e3a5f] to-[#3D7081] rounded-2xl p-4 mb-3 relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent" />
-              <div className="h-5 w-3/4 bg-white/30 rounded mb-2" />
-              <div className="h-3 w-1/2 bg-white/20 rounded mb-4" />
-              <div className="h-8 w-28 bg-white rounded-lg" />
+              <div className="h-4 w-2/3 bg-white/30 rounded mb-2" />
+              <div className="h-2.5 w-1/2 bg-white/20 rounded mb-3" />
+              {/* Segment Pills */}
+              <div className="flex gap-2 mb-3">
+                <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }} className="px-2 py-1 bg-white/90 rounded-full text-[9px] font-bold text-[#1e3a5f]">🏠 Privados</motion.div>
+                <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.25 }} className="px-2 py-1 bg-white/20 rounded-full text-[9px] text-white">🏢 Empresas</motion.div>
+                <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3 }} className="px-2 py-1 bg-white/20 rounded-full text-[9px] text-white">📈 Investidores</motion.div>
+              </div>
+              <div className="h-6 w-24 bg-white rounded-lg" />
             </div>
-            {/* Cards Mockup */}
-            <div className="grid grid-cols-3 gap-3">
-              {[1, 2, 3].map((i) => (
+            
+            {/* Featured Projects Grid */}
+            <div className="grid grid-cols-3 gap-2 mb-3">
+              {[
+                { status: "Concluído", color: "bg-emerald-500" },
+                { status: "Em Projeto", color: "bg-amber-500" },
+                { status: "Em Construção", color: "bg-blue-500" },
+              ].map((project, i) => (
                 <motion.div 
                   key={i} 
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 + i * 0.05 }}
-                  className="bg-white rounded-xl p-3 border border-slate-100 shadow-sm hover:shadow-md transition-shadow"
+                  transition={{ delay: 0.3 + i * 0.05 }}
+                  className="bg-white rounded-xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-md hover:scale-[1.02] transition-all"
                 >
-                  <div className="w-8 h-8 bg-[#3D7081]/10 rounded-lg mb-2" />
-                  <div className="h-3 w-16 bg-slate-200 rounded mb-1" />
-                  <div className="h-2 w-full bg-slate-100 rounded" />
+                  <div className="h-16 bg-gradient-to-br from-slate-200 to-slate-300 relative">
+                    <span className={`absolute top-1 right-1 text-[7px] text-white px-1.5 py-0.5 rounded-full ${project.color}`}>
+                      {project.status}
+                    </span>
+                  </div>
+                  <div className="p-1.5">
+                    <div className="h-2 w-3/4 bg-slate-200 rounded mb-0.5" />
+                    <div className="h-1.5 w-1/2 bg-slate-100 rounded" />
+                  </div>
                 </motion.div>
               ))}
+            </div>
+            
+            {/* Testimonials + Blog Preview */}
+            <div className="grid grid-cols-2 gap-2">
+              <motion.div 
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.4 }}
+                className="bg-white rounded-lg p-2 border border-slate-100"
+              >
+                <div className="flex items-center gap-1 mb-1">
+                  <div className="w-5 h-5 rounded-full bg-slate-200" />
+                  <div className="text-[8px] text-slate-400">★★★★★</div>
+                </div>
+                <div className="h-1.5 w-full bg-slate-100 rounded mb-0.5" />
+                <div className="h-1.5 w-3/4 bg-slate-100 rounded" />
+              </motion.div>
+              <motion.div 
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.45 }}
+                className="bg-white rounded-lg p-2 border border-slate-100"
+              >
+                <div className="h-2 w-full bg-slate-200 rounded mb-1" />
+                <div className="h-1.5 w-2/3 bg-slate-100 rounded mb-1" />
+                <div className="text-[7px] text-[#3D7081] font-bold">Ler artigo →</div>
+              </motion.div>
             </div>
           </div>
         </motion.div>
@@ -914,14 +963,14 @@ const SlidePublicSite = () => {
                 <div className="w-12 h-12 rounded-xl bg-[#3D7081]/10 flex items-center justify-center flex-shrink-0">
                   <Check className="w-6 h-6 text-[#3D7081]" />
                 </div>
-                <p className="text-slate-800 text-[22px] font-medium">{feature}</p>
+                <p className="text-slate-800 text-[20px] font-medium">{feature}</p>
               </motion.div>
             ))}
           </div>
           <div className="mt-6 p-5 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100">
             <p className="text-[#1e3a5f] text-[18px] font-semibold flex items-center gap-3">
               <Sparkles className="w-6 h-6" />
-              Otimizado para Google — clientes encontram-te.
+              SEO + Analytics + PWA — performance máxima.
             </p>
           </div>
         </div>
@@ -1164,15 +1213,25 @@ const SlideBlog = () => {
 // ============================================
 const SlideClientPortal = () => {
   const features = [
-    "Login seguro por cliente",
-    "Timeline visual do projeto",
-    "Galeria de fotos e renders",
-    "Mensagens internas (fim do WhatsApp)",
+    "Timeline RIBA (7 fases) + Milestones",
+    "AI Weekly Updates (resumo inteligente)",
+    "Fotos de progresso + Galeria Premium",
+    "Orçamento + Contratos + Documentos versionados",
+    "Mensagens internas em tempo real",
+  ];
+
+  const tabs = [
+    { icon: FolderOpen, label: "Projetos", active: true },
+    { icon: Camera, label: "Fotos", active: false },
+    { icon: Wallet, label: "Budget", active: false },
+    { icon: FileText, label: "Docs", active: false },
+    { icon: FileSignature, label: "Contratos", active: false },
+    { icon: MessageSquare, label: "Msgs", count: 3, active: false },
   ];
 
   return (
     <SlideFrame className="bg-gradient-to-br from-white to-indigo-50/30 relative">
-      <div className="flex items-center gap-5 mb-8">
+      <div className="flex items-center gap-5 mb-6">
         <div className="w-18 h-18 rounded-2xl bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] flex items-center justify-center shadow-xl p-4">
           <Lock className="w-10 h-10 text-white" />
         </div>
@@ -1182,98 +1241,144 @@ const SlideClientPortal = () => {
         </div>
       </div>
 
-      <div className="flex-1 grid grid-cols-[55%,45%] gap-10">
-        {/* Visual Mockup */}
-        <div className="bg-slate-100 rounded-3xl overflow-hidden border-2 border-slate-200 shadow-2xl">
-          <div className="bg-slate-200 h-10 flex items-center gap-2 px-5">
-            <div className="w-4 h-4 rounded-full bg-red-400" />
-            <div className="w-4 h-4 rounded-full bg-yellow-400" />
-            <div className="w-4 h-4 rounded-full bg-green-400" />
-            <span className="text-[14px] text-slate-500 ml-3 flex items-center gap-2">
-              <Lock className="w-3 h-3" /> arifa.pt/cliente
-            </span>
+      <div className="flex-1 grid grid-cols-[55%,45%] gap-8">
+        {/* Visual Mockup - Enhanced */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.1 }}
+          className="bg-slate-900 rounded-3xl overflow-hidden border-2 border-slate-700 shadow-2xl"
+          style={{ boxShadow: '0 0 60px rgba(61, 112, 129, 0.25)' }}
+        >
+          <div className="bg-gradient-to-r from-slate-800 to-slate-700 h-10 flex items-center justify-between px-4">
+            <div className="flex items-center gap-1.5">
+              <div className="w-3 h-3 rounded-full bg-red-400" />
+              <div className="w-3 h-3 rounded-full bg-yellow-400" />
+              <div className="w-3 h-3 rounded-full bg-green-400" />
+            </div>
+            <div className="flex items-center gap-2 text-[12px] text-slate-300">
+              <Lock className="w-3 h-3" />
+              <span className="font-mono">arifa.pt/cliente</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <div className="bg-indigo-500 text-white text-[9px] px-1.5 py-0.5 rounded font-bold">MFA</div>
+              <div className="bg-emerald-500 text-white text-[9px] px-1.5 py-0.5 rounded font-bold">RLS</div>
+            </div>
           </div>
-          <div className="p-6 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-40px)]">
-            {/* Header mockup */}
-            <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-200">
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] flex items-center justify-center text-white font-bold text-xl">T</div>
+          
+          <div className="p-4 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-40px)]">
+            {/* Header */}
+            <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-200">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] flex items-center justify-center text-white font-bold text-sm">T</div>
                 <div>
-                  <p className="font-semibold text-[#1e3a5f] text-lg">Olá, Teresa!</p>
-                  <p className="text-slate-500 text-sm">Casa na Comporta</p>
+                  <p className="font-semibold text-[#1e3a5f] text-sm">Olá, Teresa!</p>
+                  <p className="text-slate-500 text-[10px]">Casa na Comporta</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <Bell className="w-6 h-6 text-slate-400" />
+                <Bell className="w-5 h-5 text-slate-400" />
                 <div className="w-2 h-2 rounded-full bg-red-500 -ml-2 -mt-3" />
               </div>
             </div>
             
-            {/* Progress */}
-            <div className="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm mb-4">
-              <div className="flex justify-between items-center mb-3">
-                <span className="font-medium text-[#1e3a5f]">Progresso do Projeto</span>
-                <span className="text-[#3D7081] font-bold text-xl">75%</span>
+            {/* Tabs */}
+            <div className="flex gap-1 mb-3 overflow-x-auto">
+              {tabs.map((tab, i) => (
+                <motion.div 
+                  key={i}
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.15 + i * 0.03 }}
+                  className={`flex items-center gap-1 px-2 py-1 rounded-lg text-[9px] font-medium whitespace-nowrap ${
+                    tab.active 
+                      ? 'bg-[#3D7081] text-white' 
+                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  }`}
+                >
+                  <tab.icon className="w-3 h-3" />
+                  {tab.label}
+                  {tab.count && <span className="bg-red-500 text-white text-[7px] px-1 rounded-full">{tab.count}</span>}
+                </motion.div>
+              ))}
+            </div>
+            
+            {/* Progress Card */}
+            <div className="bg-white rounded-xl p-3 border border-slate-100 shadow-sm mb-3">
+              <div className="flex justify-between items-center mb-2">
+                <span className="font-medium text-[#1e3a5f] text-sm">Progresso</span>
+                <span className="text-[#3D7081] font-bold">75%</span>
               </div>
-              <div className="h-4 bg-slate-100 rounded-full overflow-hidden">
+              <div className="h-2.5 bg-slate-100 rounded-full overflow-hidden">
                 <motion.div 
                   initial={{ width: 0 }}
                   animate={{ width: "75%" }}
                   transition={{ delay: 0.5, duration: 1 }}
-                  className="h-full bg-gradient-to-r from-[#3D7081] to-[#4D8091] rounded-full"
+                  className="h-full bg-gradient-to-r from-[#3D7081] to-emerald-500 rounded-full"
                 />
               </div>
-              <p className="text-slate-500 text-sm mt-2">Fase atual: Construção</p>
+              <p className="text-slate-500 text-[10px] mt-1">Fase atual: Construção (RIBA 5)</p>
             </div>
 
-            {/* Quick actions */}
-            <div className="grid grid-cols-4 gap-3">
-              {[
-                { icon: Clock, label: "Timeline", count: "" },
-                { icon: Image, label: "Fotos", count: "24" },
-                { icon: FileText, label: "Docs", count: "12" },
-                { icon: MessageSquare, label: "Msgs", count: "3" },
-              ].map((item, i) => (
+            {/* AI Weekly Update Card */}
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+              className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl p-3 border border-purple-100 mb-3"
+            >
+              <div className="flex items-center gap-2 mb-2">
+                <Sparkles className="w-4 h-4 text-purple-600" />
+                <span className="font-medium text-purple-800 text-[11px]">AI Weekly Update</span>
+                <span className="bg-purple-200 text-purple-700 text-[8px] px-1.5 py-0.5 rounded-full font-bold">NOVO</span>
+              </div>
+              <div className="h-1.5 w-full bg-purple-200/50 rounded mb-1" />
+              <div className="h-1.5 w-4/5 bg-purple-200/50 rounded" />
+            </motion.div>
+
+            {/* Timeline Pills */}
+            <div className="flex gap-1 overflow-x-auto pb-1">
+              {['Prep', 'Conceito', 'Coord', 'Técnico', 'Construção', 'Entrega', 'Uso'].map((phase, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 + i * 0.1 }}
-                  className="bg-white rounded-xl p-4 border border-slate-100 shadow-sm text-center"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.7 + i * 0.03 }}
+                  className={`px-2 py-1 rounded-full text-[8px] font-medium whitespace-nowrap ${
+                    i < 4 ? 'bg-emerald-100 text-emerald-700' :
+                    i === 4 ? 'bg-[#3D7081] text-white ring-2 ring-[#3D7081]/30' :
+                    'bg-slate-100 text-slate-400'
+                  }`}
                 >
-                  <div className="w-10 h-10 mx-auto rounded-lg bg-[#3D7081]/10 flex items-center justify-center mb-2">
-                    <item.icon className="w-5 h-5 text-[#3D7081]" />
-                  </div>
-                  <p className="text-sm text-slate-600 font-medium">{item.label}</p>
-                  {item.count && <span className="text-xs text-[#3D7081] font-bold">{item.count}</span>}
+                  {phase}
                 </motion.div>
               ))}
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Features */}
         <div className="flex flex-col justify-center">
-          <p className="text-slate-700 mb-6 text-[24px]">Onde os teus clientes acompanham tudo</p>
-          <div className="space-y-5">
+          <p className="text-slate-700 mb-5 text-[22px]">Onde os clientes acompanham tudo</p>
+          <div className="space-y-4">
             {features.map((feature, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, x: 15 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.08 }}
-                className="flex items-center gap-5 p-6 rounded-2xl bg-white border border-slate-100 shadow-lg"
+                className="flex items-center gap-4 p-5 rounded-2xl bg-white border border-slate-100 shadow-lg"
               >
-                <div className="w-12 h-12 rounded-xl bg-[#3D7081]/10 flex items-center justify-center flex-shrink-0">
-                  <Check className="w-6 h-6 text-[#3D7081]" />
+                <div className="w-10 h-10 rounded-xl bg-[#3D7081]/10 flex items-center justify-center flex-shrink-0">
+                  <Check className="w-5 h-5 text-[#3D7081]" />
                 </div>
-                <p className="text-slate-800 text-[22px] font-medium">{feature}</p>
+                <p className="text-slate-800 text-[18px] font-medium">{feature}</p>
               </motion.div>
             ))}
           </div>
-          <div className="mt-6 p-5 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100">
-            <p className="text-[#1e3a5f] text-[18px] font-semibold flex items-center gap-3">
-              <Shield className="w-6 h-6 text-[#3D7081]" />
+          <div className="mt-5 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100">
+            <p className="text-[#1e3a5f] text-[16px] font-semibold flex items-center gap-3">
+              <Shield className="w-5 h-5 text-[#3D7081]" />
               100% privado — cada cliente vê apenas o seu.
             </p>
           </div>
