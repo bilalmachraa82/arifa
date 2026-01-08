@@ -2836,152 +2836,205 @@ const SlideContacto = () => {
 };
 
 // ============================================
-// SLIDE 18: CTA FINAL
+// SLIDE 18: CTA FINAL - PREMIUM RECOMMENDED
 // ============================================
 const SlideNextSteps = () => {
-  const techBadges = [
-    { name: "React 18", color: "bg-sky-100 text-sky-700" },
-    { name: "TypeScript", color: "bg-blue-100 text-blue-700" },
-    { name: "Tailwind CSS", color: "bg-teal-100 text-teal-700" },
-    { name: "PostgreSQL", color: "bg-indigo-100 text-indigo-700" },
-    { name: "PWA Ready", color: "bg-purple-100 text-purple-700" },
-  ];
-
   return (
-    <SlideFrame padding="p-14" className="bg-gradient-to-br from-[#1e3a5f] via-[#1e3a5f] to-[#3D7081] relative overflow-hidden">
+    <SlideFrame padding="p-12" className="bg-gradient-to-br from-[#1e3a5f] via-[#1e3a5f] to-[#3D7081] relative overflow-hidden">
       {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 right-20 w-56 h-56 border border-white/30 rotate-45" />
-        <div className="absolute bottom-20 left-20 w-40 h-40 border border-white/30 rotate-12" />
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-10 right-10 w-96 h-96 border border-white/30 rotate-45" />
+        <div className="absolute bottom-10 left-10 w-64 h-64 border border-white/30 rotate-12" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-white/10" />
       </div>
 
-      <div className="mb-6 text-center relative z-10">
-        <span className="text-[18px] font-semibold text-white/60 uppercase tracking-wider bg-white/10 px-5 py-2 rounded-full">O momento</span>
-        <h2 className="text-[56px] font-light text-white mt-6">Prontos para começar, André e Teresa?</h2>
+      {/* Header */}
+      <div className="text-center relative z-10 mb-8">
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="inline-flex items-center gap-3 bg-amber-400/20 border border-amber-400/30 px-6 py-2.5 rounded-full mb-4"
+        >
+          <Crown className="w-5 h-5 text-amber-400" />
+          <span className="text-amber-300 font-semibold text-[16px]">A nossa recomendação</span>
+        </motion.div>
+        <h2 className="text-[52px] font-light text-white">Pacote Premium</h2>
+        <p className="text-white/60 text-[20px] mt-2">A solução completa para o estúdio ARIFA</p>
       </div>
 
-      {/* Urgency Banner */}
-      <motion.div
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mb-6 p-4 bg-gradient-to-r from-slate-100/20 to-white/10 rounded-2xl border border-white/20 text-center backdrop-blur-sm relative z-10"
-      >
-        <p className="text-white/80 text-[20px] font-medium flex items-center justify-center gap-4">
-          <Timer className="w-5 h-5" />
-          Preços de lançamento válidos até <span className="font-bold text-white">31 Janeiro 2026</span>
-        </p>
-        <p className="text-amber-300 text-[14px] font-medium mt-2">Após esta data, os preços sobem 15%</p>
-      </motion.div>
-
-      <div className="flex-1 grid grid-cols-2 gap-8 relative z-10">
-        {/* Team */}
+      <div className="flex-1 grid grid-cols-[1fr,1.2fr] gap-8 relative z-10">
+        {/* Left: Premium Highlight */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2 }}
-          className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20"
+          transition={{ delay: 0.1 }}
+          className="bg-gradient-to-br from-white to-slate-50 rounded-3xl p-8 shadow-2xl relative overflow-hidden"
         >
-          <h3 className="text-white font-bold mb-6 flex items-center gap-4 text-[26px]">
-            <Users className="w-8 h-8 text-white/70" />
-            Quem vai trabalhar contigo
-          </h3>
-          <div className="flex items-center gap-8 mb-6">
-            <img
-              src={teamBilal}
-              alt="Bilal Machraa"
-              className="w-32 h-32 rounded-full object-cover border-4 border-amber-400/50 shadow-xl"
-            />
-            <img
-              src={teamHelder}
-              alt="Helder Faria"
-              className="w-32 h-32 rounded-full object-cover border-4 border-purple-400/50 shadow-xl"
-            />
+          {/* Price Badge */}
+          <div className="absolute -top-2 -right-2">
+            <motion.div
+              animate={{ scale: [1, 1.05, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="bg-gradient-to-r from-amber-400 to-yellow-500 text-amber-900 px-5 py-2 rounded-bl-2xl rounded-tr-2xl font-bold text-[18px] shadow-lg"
+            >
+              7.888€
+            </motion.div>
+          </div>
+
+          <div className="flex items-center gap-4 mb-6">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-yellow-500 flex items-center justify-center shadow-lg">
+              <Crown className="w-7 h-7 text-white" />
+            </div>
             <div>
-              <p className="text-white font-bold text-[28px]">Bilal & Helder</p>
-              <p className="text-white/60 text-[20px]">AiParaTi — A tua equipa</p>
+              <h3 className="text-[28px] font-bold text-[#1e3a5f]">Premium</h3>
+              <p className="text-slate-500 text-[14px]">Tudo incluído</p>
             </div>
           </div>
 
-          {/* Tech badges */}
-          <div className="pt-6 border-t border-white/10">
-            <p className="text-white/50 text-[16px] mb-4">Tecnologias:</p>
-            <div className="flex flex-wrap gap-3">
-              {techBadges.map((badge, i) => (
-                <span key={i} className={`text-[16px] px-4 py-2 rounded-full font-semibold ${badge.color}`}>
-                  {badge.name}
-                </span>
-              ))}
+          {/* Key Differentiators - AI Features */}
+          <div className="mb-6 p-4 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-2xl border-2 border-purple-200">
+            <p className="text-purple-700 font-bold text-[14px] uppercase tracking-wide mb-3 flex items-center gap-2">
+              <Sparkles className="w-4 h-4" /> Exclusivo Premium
+            </p>
+            <div className="space-y-3">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center">
+                  <Target className="w-5 h-5 text-purple-600" />
+                </div>
+                <div>
+                  <p className="font-semibold text-[#1e3a5f] text-[15px]">AI Lead Scoring</p>
+                  <p className="text-slate-500 text-[12px]">Classificação automática de leads</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center">
+                  <MessageSquare className="w-5 h-5 text-purple-600" />
+                </div>
+                <div>
+                  <p className="font-semibold text-[#1e3a5f] text-[15px]">Chatbot IA</p>
+                  <p className="text-slate-500 text-[12px]">Atendimento 24/7 inteligente</p>
+                </div>
+              </div>
             </div>
+          </div>
+
+          {/* Other Premium Benefits */}
+          <div className="space-y-2.5">
+            {[
+              "Site + Portal + Backoffice completo",
+              "CRM + Cotações + Contratos",
+              "12 meses manutenção incluída",
+              "Suporte prioritário 24/7",
+              "4h Formação IA GRÁTIS",
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 + i * 0.05 }}
+                className="flex items-center gap-2.5"
+              >
+                <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                <span className="text-slate-700 text-[14px]">{item}</span>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
 
-        {/* CTA */}
+        {/* Right: CTA & Team */}
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.3 }}
-          className="bg-white rounded-3xl p-8 shadow-2xl flex flex-col"
+          transition={{ delay: 0.2 }}
+          className="flex flex-col gap-6"
         >
-          <div className="text-center mb-6">
-            <Rocket className="w-16 h-16 text-[#3D7081] mx-auto mb-5" />
-            <h3 className="text-[32px] font-bold text-[#1e3a5f]">Vamos avançar?</h3>
-            <p className="text-slate-500 mt-2 text-[20px]">
-              Estamos prontos para transformar o teu estúdio.
-            </p>
+          {/* Urgency Banner */}
+          <div className="p-5 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Timer className="w-6 h-6 text-amber-400" />
+                <div>
+                  <p className="text-white font-semibold text-[18px]">Válido até 31 Janeiro 2026</p>
+                  <p className="text-amber-300 text-[14px]">Após esta data, preços sobem 15%</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="text-white/60 text-[12px]">Pagamento flexível</p>
+                <p className="text-white font-bold text-[16px]">40% + 40% + 20%</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Team */}
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+            <p className="text-white/60 text-[14px] mb-4">A tua equipa</p>
+            <div className="flex items-center gap-5">
+              <img
+                src={teamBilal}
+                alt="Bilal Machraa"
+                className="w-20 h-20 rounded-full object-cover border-3 border-amber-400/50 shadow-lg"
+              />
+              <img
+                src={teamHelder}
+                alt="Helder Faria"
+                className="w-20 h-20 rounded-full object-cover border-3 border-purple-400/50 shadow-lg"
+              />
+              <div>
+                <p className="text-white font-bold text-[22px]">Bilal & Helder</p>
+                <p className="text-white/60 text-[16px]">AiParaTi</p>
+              </div>
+            </div>
           </div>
 
           {/* CTA Buttons */}
-          <div className="space-y-4 mb-6">
+          <div className="flex-1 flex flex-col justify-center gap-4">
             <motion.div
               animate={{ scale: [1, 1.02, 1] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             >
-              <Button size="lg" className="w-full gap-4 bg-gradient-to-r from-[#1e3a5f] to-[#3D7081] hover:from-[#2a4a6f] hover:to-[#4D8091] text-white shadow-[0_10px_40px_-10px_rgba(30,58,95,0.5)] text-[20px] h-16 relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-                <CheckCircle2 className="w-7 h-7" />
-                Aceitar Proposta
+              <Button size="lg" className="w-full gap-4 bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-500 hover:to-yellow-600 text-amber-900 shadow-[0_10px_40px_-10px_rgba(251,191,36,0.5)] text-[20px] h-16 font-bold relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+                <Crown className="w-7 h-7" />
+                Aceitar Premium
               </Button>
             </motion.div>
-            <Button size="lg" variant="outline" className="w-full gap-4 border-2 border-[#1e3a5f] text-[#1e3a5f] hover:bg-[#1e3a5f]/5 text-[20px] h-16">
-              <Calendar className="w-7 h-7" />
-              Agendar Call
+            <Button size="lg" variant="outline" className="w-full gap-4 border-2 border-white/30 text-white hover:bg-white/10 text-[18px] h-14">
+              <Calendar className="w-6 h-6" />
+              Agendar Call para Dúvidas
             </Button>
           </div>
 
           {/* Contacts */}
-          <div className="pt-5 border-t border-slate-100">
-            <p className="text-[16px] text-slate-500 text-center mb-4">Contacta-nos:</p>
-            <div className="flex flex-col gap-3">
-              <a
-                href="mailto:bilal.machraa@aiparati.pt"
-                className="flex items-center justify-center gap-3 text-[#1e3a5f] hover:underline bg-slate-50 rounded-xl py-4 text-[18px] font-medium"
-              >
-                <Mail className="w-6 h-6" />
-                bilal.machraa@aiparati.pt
-              </a>
-              <a
-                href="https://wa.me/351918911308"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-3 text-green-600 hover:underline bg-green-50 rounded-xl py-4 text-[18px] font-medium"
-              >
-                <Phone className="w-6 h-6" />
-                +351 918 911 308
-              </a>
-            </div>
+          <div className="flex gap-4">
+            <a
+              href="mailto:bilal.machraa@aiparati.pt"
+              className="flex-1 flex items-center justify-center gap-2 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 rounded-xl py-3 text-[14px] transition-colors"
+            >
+              <Mail className="w-5 h-5" />
+              bilal.machraa@aiparati.pt
+            </a>
+            <a
+              href="https://wa.me/351918911308"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 text-green-400 hover:text-green-300 bg-green-500/20 hover:bg-green-500/30 rounded-xl px-5 py-3 text-[14px] transition-colors"
+            >
+              <Phone className="w-5 h-5" />
+              WhatsApp
+            </a>
           </div>
         </motion.div>
       </div>
 
-      {/* Signature */}
+      {/* Footer */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
         className="mt-6 text-center relative z-10"
       >
-        <p className="text-[18px] text-white/50">
-          Proposta por <span className="font-semibold text-white/70">AiParaTi</span> | Design: <span className="font-semibold text-white/70">Helder Faria</span>
+        <p className="text-[14px] text-white/40">
+          Proposta exclusiva para <span className="text-white/60 font-medium">ARIFA Atelier</span> | André & Teresa
         </p>
       </motion.div>
     </SlideFrame>
