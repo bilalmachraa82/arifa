@@ -347,8 +347,8 @@ const SalesPresentation = () => {
                 {currentSlide === 9 && <SlideAdminDashboard />}
                 {currentSlide === 10 && <SlideCRM />}
                 {currentSlide === 11 && <SlideAutomations />}
-                {currentSlide === 12 && <SlideTimeline />}
-                {currentSlide === 13 && <SlideContacto />}
+                {currentSlide === 12 && <SlideContacto />}
+                {currentSlide === 13 && <SlideTimeline />}
                 {currentSlide === 14 && <SlideFAQ />}
                 {currentSlide === 15 && <SlideComparison />}
                 {currentSlide === 16 && <SlidePricing />}
