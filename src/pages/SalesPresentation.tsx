@@ -348,11 +348,11 @@ const SalesPresentation = () => {
                 {currentSlide === 10 && <SlideCRM />}
                 {currentSlide === 11 && <SlideAutomations />}
                 {currentSlide === 12 && <SlideTimeline />}
-                {currentSlide === 13 && <SlideFAQ />}
-                {currentSlide === 14 && <SlideComparison />}
-                {currentSlide === 15 && <SlidePricing />}
-                {currentSlide === 16 && <SlideTerms />}
-                {currentSlide === 17 && <SlideContacto />}
+                {currentSlide === 13 && <SlideContacto />}
+                {currentSlide === 14 && <SlideFAQ />}
+                {currentSlide === 15 && <SlideComparison />}
+                {currentSlide === 16 && <SlidePricing />}
+                {currentSlide === 17 && <SlideTerms />}
                 {currentSlide === 18 && <SlideNextSteps />}
               </motion.div>
             </AnimatePresence>
@@ -2732,31 +2732,31 @@ const SlideContacto = () => {
               <div className="h-4 w-32 bg-slate-200 rounded mb-5" />
               <div className="grid grid-cols-2 gap-3 mb-3">
                 <motion.div initial={{ opacity: 0, x: -5 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.25 }}>
-                  <div className="h-2 w-12 bg-slate-100 rounded mb-1" />
-                  <div className="h-8 bg-slate-50 rounded-lg border border-slate-200 hover:border-[#3D7081]/30 transition-colors" />
+                  <div className="h-2 w-12 bg-slate-200 rounded mb-1" />
+                  <div className="h-8 bg-slate-100 rounded-lg border border-slate-300 hover:border-[#3D7081]/50 transition-colors" />
                 </motion.div>
                 <motion.div initial={{ opacity: 0, x: 5 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }}>
-                  <div className="h-2 w-12 bg-slate-100 rounded mb-1" />
-                  <div className="h-8 bg-slate-50 rounded-lg border border-slate-200 hover:border-[#3D7081]/30 transition-colors" />
+                  <div className="h-2 w-12 bg-slate-200 rounded mb-1" />
+                  <div className="h-8 bg-slate-100 rounded-lg border border-slate-300 hover:border-[#3D7081]/50 transition-colors" />
                 </motion.div>
               </div>
               <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }} className="mb-3">
-                <div className="h-2 w-16 bg-slate-100 rounded mb-1" />
-                <div className="h-8 bg-slate-50 rounded-lg border border-slate-200" />
+                <div className="h-2 w-16 bg-slate-200 rounded mb-1" />
+                <div className="h-8 bg-slate-100 rounded-lg border border-slate-300" />
               </motion.div>
               <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="mb-3">
-                <div className="h-2 w-20 bg-slate-100 rounded mb-1" />
-                <div className="h-8 bg-slate-50 rounded-lg border border-slate-200 flex items-center px-2 gap-2">
+                <div className="h-2 w-20 bg-slate-200 rounded mb-1" />
+                <div className="h-8 bg-slate-100 rounded-lg border border-slate-300 flex items-center px-2 gap-2">
                   <div className="flex gap-1">
                     {['Privado', 'Empresa', 'Investidor'].map((seg, i) => (
-                      <span key={i} className={`text-[7px] px-1.5 py-0.5 rounded ${i === 0 ? 'bg-[#3D7081] text-white' : 'bg-slate-100 text-slate-400'}`}>{seg}</span>
+                      <span key={i} className={`text-[7px] px-1.5 py-0.5 rounded ${i === 0 ? 'bg-[#3D7081] text-white' : 'bg-slate-200 text-slate-500'}`}>{seg}</span>
                     ))}
                   </div>
                 </div>
               </motion.div>
               <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }} className="mb-4">
-                <div className="h-2 w-16 bg-slate-100 rounded mb-1" />
-                <div className="h-16 bg-slate-50 rounded-lg border border-slate-200" />
+                <div className="h-2 w-16 bg-slate-200 rounded mb-1" />
+                <div className="h-16 bg-slate-100 rounded-lg border border-slate-300" />
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
