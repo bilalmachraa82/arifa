@@ -373,10 +373,10 @@ const SalesPresentation = () => {
                 key={i}
                 onClick={() => handleSlideClick(i)}
                 className={`w-2.5 h-2.5 rounded-full transition-all duration-200 ${i === currentSlide
-                    ? "bg-white scale-125"
-                    : i < currentSlide
-                      ? "bg-[#3D7081]"
-                      : "bg-slate-600"
+                  ? "bg-white scale-125"
+                  : i < currentSlide
+                    ? "bg-[#3D7081]"
+                    : "bg-slate-600"
                   }`}
               />
             ))}
@@ -557,7 +557,7 @@ const SlideProblem = () => {
       ]
     },
     {
-      title: "GESTÃO",
+      title: "GESTÃO NÃO INTEGRADA",
       color: "from-sky-50 to-sky-100",
       borderColor: "border-sky-200",
       iconBg: "bg-sky-100",
@@ -579,7 +579,7 @@ const SlideProblem = () => {
       ]
     },
     {
-      title: "VISIBILIDADE",
+      title: "INFORMAÇÃO DISPERSA",
       color: "from-purple-50 to-purple-100",
       borderColor: "border-purple-200",
       iconBg: "bg-purple-100",
@@ -780,8 +780,8 @@ const SlideSolution = () => {
               {item.badge && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
                   <span className={`text-[12px] font-bold px-3 py-1 rounded-full whitespace-nowrap ${item.badge === "PRIVADO"
-                      ? "bg-indigo-100 text-indigo-700 border border-indigo-200"
-                      : "bg-emerald-100 text-emerald-700 border border-emerald-200"
+                    ? "bg-indigo-100 text-indigo-700 border border-indigo-200"
+                    : "bg-emerald-100 text-emerald-700 border border-emerald-200"
                     }`}>
                     {item.badge}
                   </span>
@@ -1369,8 +1369,8 @@ const SlideClientPortal = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.15 + i * 0.03 }}
                   className={`flex items-center gap-1 px-2 py-1 rounded-lg text-[9px] font-medium whitespace-nowrap ${tab.active
-                      ? 'bg-[#3D7081] text-white'
-                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                    ? 'bg-[#3D7081] text-white'
+                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                     }`}
                 >
                   <tab.icon className="w-3 h-3" />
@@ -1422,8 +1422,8 @@ const SlideClientPortal = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.7 + i * 0.03 }}
                   className={`px-2 py-1 rounded-full text-[8px] font-medium whitespace-nowrap ${i < 4 ? 'bg-emerald-100 text-emerald-700' :
-                      i === 4 ? 'bg-[#3D7081] text-white ring-2 ring-[#3D7081]/30' :
-                        'bg-slate-100 text-slate-400'
+                    i === 4 ? 'bg-[#3D7081] text-white ring-2 ring-[#3D7081]/30' :
+                      'bg-slate-100 text-slate-400'
                     }`}
                 >
                   {phase}
@@ -1738,8 +1738,8 @@ const SlideAdminDashboard = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.15 + i * 0.02 }}
                   className={`flex items-center gap-1 px-1.5 py-1 rounded-lg text-[8px] font-medium whitespace-nowrap ${tab.active
-                      ? 'bg-[#3D7081] text-white'
-                      : 'bg-slate-100 text-slate-500'
+                    ? 'bg-[#3D7081] text-white'
+                    : 'bg-slate-100 text-slate-500'
                     }`}
                 >
                   <tab.icon className="w-2.5 h-2.5" />
@@ -1945,7 +1945,7 @@ const SlideCRM = () => {
                         <div className="flex items-center justify-between">
                           <span className="text-[6px] text-slate-400">📧</span>
                           <span className={`text-[7px] font-bold ${85 - i * 15 >= 70 ? 'text-emerald-600' :
-                              85 - i * 15 >= 50 ? 'text-amber-600' : 'text-red-500'
+                            85 - i * 15 >= 50 ? 'text-amber-600' : 'text-red-500'
                             }`}>
                             AI: {85 - i * 15 - j * 5}
                           </span>
@@ -2022,7 +2022,7 @@ const SlideAutomations = () => {
         </div>
         <div>
           <span className="text-[16px] font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 8</span>
-          <h2 className="text-[48px] font-light text-[#1e3a5f]">Automações Inteligentes</h2>
+          <h2 className="text-[48px] font-light text-[#1e3a5f]">Processos Automatizados</h2>
         </div>
       </div>
 
@@ -2114,7 +2114,7 @@ const SlideTimeline = () => {
     <SlideFrame className="bg-white relative">
       <div className="mb-10">
         <span className="text-[18px] font-semibold text-[#3D7081] uppercase tracking-wider bg-[#3D7081]/10 px-4 py-2 rounded-full">Plano de entrega</span>
-        <h2 className="text-[56px] font-light text-[#1e3a5f] mt-6">6-8 Semanas até ao lançamento</h2>
+        <h2 className="text-[56px] font-light text-[#1e3a5f] mt-6">8 Semanas até ao lançamento</h2>
       </div>
 
       <div className="flex-1 flex items-center">
@@ -2273,22 +2273,21 @@ const SlideComparison = () => {
               ))}
             </div>
             <div className="pt-5 border-t border-white/20 relative z-10">
-              <span className="text-blue-200 text-[16px]">A partir de</span>
+              <span className="text-blue-200 text-[16px]">Plano Premium</span>
               <div className="flex items-baseline gap-2 mt-1">
-                <span className="text-[48px] font-bold leading-none">3.590</span>
+                <span className="text-[48px] font-bold leading-none">7.888</span>
                 <span className="text-[24px] text-blue-200">€</span>
               </div>
               <p className="text-blue-300 text-[14px] mt-1">investimento único</p>
               <div className="mt-4 p-3 bg-emerald-500/20 rounded-xl">
                 <div className="flex items-center gap-3">
                   <TrendingUp className="w-6 h-6 text-emerald-300" />
-                  <span className="text-emerald-200 font-semibold text-[18px]">Poupança: ~12.000-14.000 € em 3 anos</span>
+                  <span className="text-emerald-200 font-semibold text-[18px]">Poupança: ~10.000 € em 3 anos</span>
                 </div>
               </div>
               <div className="mt-3 flex gap-2">
-                <span className="text-[12px] bg-purple-400/20 text-purple-200 px-3 py-1 rounded-full">Premium 7.888€</span>
-                <span className="text-[12px] bg-amber-400/20 text-amber-200 px-3 py-1 rounded-full">Profissional 5.888€</span>
-                <span className="text-[12px] bg-white/10 text-white/80 px-3 py-1 rounded-full">Essencial 3.590€</span>
+                <span className="text-[12px] bg-white/20 text-white font-bold px-3 py-1 rounded-full">Premium 7.888€</span>
+                <span className="text-[12px] bg-white/10 text-white/70 px-3 py-1 rounded-full">Outros desde 3.590€</span>
               </div>
             </div>
           </div>
@@ -2372,10 +2371,10 @@ const SlidePricing = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1 }}
             className={`rounded-3xl p-7 flex flex-col relative ${tier.recommended
-                ? "bg-gradient-to-br from-[#1e3a5f] via-[#2a4a6f] to-[#3D7081] text-white ring-4 ring-[#3D7081]/30 shadow-[0_25px_60px_-15px_rgba(30,58,95,0.5)] z-10 scale-[1.03]"
-                : tier.highlight
-                  ? "bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-300 shadow-xl scale-[1.05] z-20 ring-2 ring-purple-400/50"
-                  : "bg-white border-2 border-slate-200 shadow-xl hover:shadow-2xl transition-shadow"
+              ? "bg-gradient-to-br from-[#1e3a5f] via-[#2a4a6f] to-[#3D7081] text-white ring-4 ring-[#3D7081]/30 shadow-[0_25px_60px_-15px_rgba(30,58,95,0.5)] z-10 scale-[1.03]"
+              : tier.highlight
+                ? "bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-300 shadow-xl scale-[1.05] z-20 ring-2 ring-purple-400/50"
+                : "bg-white border-2 border-slate-200 shadow-xl hover:shadow-2xl transition-shadow"
               }`}
           >
             {tier.recommended && (
@@ -2410,12 +2409,12 @@ const SlidePricing = () => {
               {tier.features.map((feature, j) => (
                 <div key={j} className="flex items-center gap-2.5">
                   <CheckCircle2 className={`w-5 h-5 flex-shrink-0 ${tier.recommended ? "text-green-300" :
-                      tier.highlight ? "text-purple-600" :
-                        "text-[#3D7081]"
+                    tier.highlight ? "text-purple-600" :
+                      "text-[#3D7081]"
                     }`} />
                   <span className={`text-[15px] ${tier.recommended ? "text-blue-100" :
-                      tier.highlight ? "text-purple-700" :
-                        "text-slate-700"
+                    tier.highlight ? "text-purple-700" :
+                      "text-slate-700"
                     } ${feature.includes("GRÁTIS") ? "font-bold" : ""}`}>{feature}</span>
                 </div>
               ))}
@@ -2826,7 +2825,7 @@ const SlideNextSteps = () => {
 
       <div className="mb-6 text-center relative z-10">
         <span className="text-[18px] font-semibold text-white/60 uppercase tracking-wider bg-white/10 px-5 py-2 rounded-full">O momento</span>
-        <h2 className="text-[56px] font-light text-white mt-6">Pronta para começar, Teresa?</h2>
+        <h2 className="text-[56px] font-light text-white mt-6">Prontos para começar, André e Teresa?</h2>
       </div>
 
       {/* Urgency Banner */}
