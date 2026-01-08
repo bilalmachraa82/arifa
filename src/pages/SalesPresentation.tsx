@@ -2557,63 +2557,92 @@ const SlideTerms = () => {
           </div>
         </div>
 
-        {/* What's in each tier */}
+        {/* Comparação: Premium vs Profissional */}
         <div className="space-y-4">
+          {/* Premium - RECOMENDADO */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-gradient-to-br from-purple-100 via-purple-50 to-violet-50 rounded-2xl p-5 border-2 border-purple-400 shadow-lg relative overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 bg-gradient-to-l from-purple-500 to-violet-500 text-white text-[11px] font-bold px-4 py-1.5 rounded-bl-xl">
+              ⭐ RECOMENDADO
+            </div>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center">
+                <Crown className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h4 className="font-bold text-purple-900 text-[20px]">Premium — 7.888€</h4>
+                <p className="text-[13px] text-purple-600">Tudo incluído + Inteligência Artificial</p>
+              </div>
+            </div>
+            <div className="bg-white/70 rounded-xl p-3 mt-3">
+              <p className="text-[12px] font-semibold text-purple-800 mb-2 flex items-center gap-2">
+                <Zap className="w-4 h-4" /> Exclusivo Premium (IA):
+              </p>
+              <ul className="grid grid-cols-2 gap-1.5">
+                {["AI Lead Scoring", "AI Weekly Updates", "AI Chatbot", "Formação IA (4h)"].map((item, i) => (
+                  <li key={i} className="text-[12px] text-purple-700 flex items-center gap-1.5">
+                    <Sparkles className="w-3 h-3 text-purple-500" /> {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <p className="text-[12px] text-purple-600 mt-2">+ CRM completo + 12 meses manutenção + Portal + Admin</p>
+          </motion.div>
+
+          {/* Profissional */}
           <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-4 border border-slate-200">
-            <h4 className="font-bold text-[#1e3a5f] text-[16px] mb-2">Essencial — 3.590€</h4>
-            <p className="text-[14px] text-slate-600">Site + Portfólio + 30 dias suporte</p>
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-8 h-8 rounded-full bg-[#3D7081] flex items-center justify-center">
+                <Rocket className="w-4 h-4 text-white" />
+              </div>
+              <div>
+                <h4 className="font-bold text-[#1e3a5f] text-[16px]">Profissional — 5.888€</h4>
+                <p className="text-[12px] text-slate-500">Sem funcionalidades de IA</p>
+              </div>
+            </div>
+            <p className="text-[13px] text-slate-600">Portal Cliente + Admin + CRM básico + 60 dias suporte</p>
           </div>
-          <div className="bg-gradient-to-br from-[#1e3a5f]/5 to-[#3D7081]/10 rounded-2xl p-4 border-2 border-[#3D7081]/30">
-            <h4 className="font-bold text-[#1e3a5f] text-[16px] mb-2 flex items-center gap-2">
-              Profissional — 5.888€
-              <span className="text-[10px] bg-amber-400 text-amber-900 px-2 py-0.5 rounded-full">RECOMENDADO</span>
-            </h4>
-            <p className="text-[14px] text-slate-600">+ Portal Cliente + Admin + 60 dias</p>
+
+          {/* Essencial */}
+          <div className="bg-white rounded-xl p-3 border border-slate-100">
+            <h4 className="font-semibold text-slate-700 text-[14px]">Essencial — 3.590€</h4>
+            <p className="text-[12px] text-slate-500">Site + Portfólio + 30 dias suporte</p>
           </div>
-          <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-4 border-2 border-purple-200">
-            <h4 className="font-bold text-purple-800 text-[16px] mb-2 flex items-center gap-2">
-              Premium — 7.888€
-              <Zap className="w-4 h-4 text-purple-600" />
-            </h4>
-            <p className="text-[14px] text-purple-700">+ CRM + 12 meses manutenção + Formação IA</p>
-          </div>
-          <div className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-2xl p-4 border border-amber-200">
-            <h4 className="font-bold text-amber-800 text-[14px] mb-1">Manutenção (opcional)</h4>
-            <p className="text-[18px] font-bold text-amber-900">150-250 €/mês</p>
-            <p className="text-[12px] text-amber-700">Após período incluído no plano</p>
+
+          {/* Diferença chave */}
+          <div className="bg-gradient-to-r from-amber-50 to-yellow-50 rounded-xl p-3 border border-amber-200">
+            <p className="text-[13px] text-amber-800 font-medium flex items-center gap-2">
+              <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
+              A diferença? <span className="font-bold">Inteligência Artificial</span> — automatiza leads, updates e suporte.
+            </p>
           </div>
         </div>
 
-        {/* O que inclui a manutenção */}
-        <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-3xl p-5 border-2 border-emerald-200">
-          <h3 className="font-bold text-emerald-700 mb-4 flex items-center gap-3 text-[18px]">
-            <Shield className="w-5 h-5" /> Manutenção Inclui
-          </h3>
-          <ul className="space-y-2">
-            {[
-              "Atualizações de segurança",
-              "Backup semanal automático",
-              "Correção de bugs",
-              "2 horas/mês de melhorias",
-              "Suporte por email/WhatsApp",
-            ].map((item, i) => (
-              <li key={i} className="text-[15px] text-emerald-700 flex items-center gap-2">
-                <Check className="w-4 h-4" /> {item}
-              </li>
-            ))}
-          </ul>
-          <div className="mt-4 pt-3 border-t border-emerald-200">
-            <p className="text-emerald-600 text-[13px]">
-              Premium: 12 meses incluídos
-            </p>
-            <p className="text-emerald-600 text-[13px]">
-              Outros: após 30-60 dias
-            </p>
+        {/* Manutenção + Validade */}
+        <div className="space-y-4">
+          <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-4 border border-emerald-200">
+            <h3 className="font-bold text-emerald-700 mb-3 flex items-center gap-2 text-[16px]">
+              <Shield className="w-5 h-5" /> Manutenção Inclui
+            </h3>
+            <ul className="space-y-1.5">
+              {["Atualizações segurança", "Backup automático", "Correção bugs", "2h/mês melhorias"].map((item, i) => (
+                <li key={i} className="text-[13px] text-emerald-700 flex items-center gap-2">
+                  <Check className="w-3 h-3" /> {item}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-3 pt-2 border-t border-emerald-200 text-[12px] text-emerald-600">
+              <p>Premium: 12 meses incluídos</p>
+              <p>Outros: 150-250€/mês após período inicial</p>
+            </div>
           </div>
-          <div className="mt-4 p-3 bg-white/60 rounded-xl">
-            <p className="text-[12px] text-slate-500 flex items-center gap-2">
+          <div className="bg-slate-50 rounded-xl p-3 border border-slate-200 text-center">
+            <p className="text-[13px] text-slate-600 flex items-center justify-center gap-2">
               <Timer className="w-4 h-4" />
-              Válido até 31 Janeiro 2026
+              Preços válidos até <span className="font-bold text-[#1e3a5f]">18 Janeiro 2026</span>
             </p>
           </div>
         </div>
