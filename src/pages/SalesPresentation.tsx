@@ -47,7 +47,8 @@ import {
   Rotate3D,
   Play,
   Wallet,
-  FileSignature
+  FileSignature,
+  Crown
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -2310,6 +2311,8 @@ const SlidePricing = () => {
       price: "7.888",
       description: "A solução completa",
       valueStatement: "Tudo incluído. Zero preocupações. Nós cuidamos da tua plataforma 12 meses.",
+      icon: Crown,
+      iconBg: "bg-gradient-to-br from-amber-400 to-yellow-500",
       features: [
         "Site + Portal + Backoffice",
         "CRM + Lead Scoring IA",
@@ -2327,6 +2330,8 @@ const SlidePricing = () => {
       price: "5.888",
       description: "Para crescer",
       valueStatement: "Ideal para estúdios com 10-50 projetos/ano que precisam de portal cliente",
+      icon: Rocket,
+      iconBg: "bg-gradient-to-br from-[#3D7081] to-[#1e3a5f]",
       features: [
         "Site público completo",
         "Portal Cliente completo",
@@ -2344,6 +2349,8 @@ const SlidePricing = () => {
       price: "3.590",
       description: "Para começar",
       valueStatement: "Presença digital profissional para quem está a começar",
+      icon: Sparkles,
+      iconBg: "bg-gradient-to-br from-slate-400 to-slate-500",
       features: [
         "Site público (5 páginas)",
         "Portfólio básico",
@@ -2365,72 +2372,96 @@ const SlidePricing = () => {
       </div>
 
       <div className="flex-1 grid grid-cols-3 gap-6 items-stretch">
-        {tiers.map((tier, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.1 }}
-            className={`rounded-3xl p-7 flex flex-col relative ${tier.recommended
-              ? "bg-gradient-to-br from-[#1e3a5f] via-[#2a4a6f] to-[#3D7081] text-white ring-4 ring-[#3D7081]/30 shadow-[0_25px_60px_-15px_rgba(30,58,95,0.5)] z-10 scale-[1.03]"
-              : tier.highlight
-                ? "bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-300 shadow-xl scale-[1.05] z-20 ring-2 ring-purple-400/50"
-                : "bg-white border-2 border-slate-200 shadow-xl hover:shadow-2xl transition-shadow"
-              }`}
-          >
-            {tier.recommended && (
-              <div className="absolute -top-5 left-1/2 -translate-x-1/2">
-                <motion.span
-                  animate={{ scale: [1, 1.05, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                  className="bg-gradient-to-r from-amber-400 to-yellow-400 text-amber-900 text-[14px] font-bold px-6 py-2.5 rounded-full shadow-lg flex items-center gap-2"
-                >
-                  <Award className="w-5 h-5" />
-                  MELHOR VALOR
-                </motion.span>
-              </div>
-            )}
-            <h3 className={`text-[26px] font-bold ${tier.recommended ? "text-white mt-3" : tier.highlight ? "text-purple-800 mt-3" : "text-[#1e3a5f]"}`}>
-              {tier.name}
-            </h3>
-            <p className={`text-[15px] mb-2 ${tier.recommended ? "text-blue-200" : tier.highlight ? "text-purple-600" : "text-slate-500"}`}>
-              {tier.description}
-            </p>
-            <p className={`text-[13px] mb-4 italic ${tier.recommended ? "text-blue-100/80" : tier.highlight ? "text-purple-500" : "text-slate-400"}`}>
-              {tier.valueStatement}
-            </p>
-            <div className="flex items-baseline gap-1 mb-5">
-              <span className={`text-[48px] font-bold leading-none ${tier.recommended ? "text-white" : tier.highlight ? "text-purple-800" : "text-[#1e3a5f]"}`}>
-                {tier.price}
-              </span>
-              <span className={`text-[22px] ${tier.recommended ? "text-blue-200" : tier.highlight ? "text-purple-500" : "text-slate-400"}`}>€</span>
-            </div>
-
-            <div className="flex-1 space-y-2.5">
-              {tier.features.map((feature, j) => (
-                <div key={j} className="flex items-center gap-2.5">
-                  <CheckCircle2 className={`w-5 h-5 flex-shrink-0 ${tier.recommended ? "text-green-300" :
-                    tier.highlight ? "text-purple-600" :
-                      "text-[#3D7081]"
-                    }`} />
-                  <span className={`text-[15px] ${tier.recommended ? "text-blue-100" :
-                    tier.highlight ? "text-purple-700" :
-                      "text-slate-700"
-                    } ${feature.includes("GRÁTIS") ? "font-bold" : ""}`}>{feature}</span>
+        {tiers.map((tier, i) => {
+          const IconComponent = tier.icon;
+          return (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
+              className={`rounded-3xl p-7 flex flex-col relative ${tier.recommended
+                ? "bg-gradient-to-br from-[#1e3a5f] via-[#2a4a6f] to-[#3D7081] text-white ring-4 ring-[#3D7081]/30 shadow-[0_25px_60px_-15px_rgba(30,58,95,0.5)] z-10 scale-[1.03]"
+                : tier.highlight
+                  ? "bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-300 shadow-xl scale-[1.05] z-20 ring-2 ring-purple-400/50"
+                  : "bg-white border-2 border-slate-200 shadow-xl hover:shadow-2xl transition-shadow"
+                }`}
+            >
+              {tier.recommended && (
+                <div className="absolute -top-5 left-1/2 -translate-x-1/2">
+                  <motion.span
+                    animate={{ scale: [1, 1.05, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="bg-gradient-to-r from-amber-400 to-yellow-400 text-amber-900 text-[14px] font-bold px-6 py-2.5 rounded-full shadow-lg flex items-center gap-2"
+                  >
+                    <Award className="w-5 h-5" />
+                    MELHOR VALOR
+                  </motion.span>
                 </div>
-              ))}
-            </div>
-
-            {tier.recommended && (
-              <div className="mt-5 pt-4 border-t border-white/20">
-                <p className="text-blue-200 text-[14px] flex items-center gap-2">
-                  <Star className="w-4 h-4 text-amber-300" />
-                  Tranquilidade total durante 12 meses
-                </p>
+              )}
+              
+              {/* Icon Badge */}
+              <div className="flex items-center gap-3 mb-2">
+                <motion.div 
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: i * 0.1 + 0.2, type: "spring", stiffness: 200 }}
+                  className={`w-12 h-12 rounded-2xl ${tier.iconBg} flex items-center justify-center shadow-lg ${tier.recommended ? "mt-3" : ""}`}
+                >
+                  <IconComponent className="w-6 h-6 text-white" />
+                </motion.div>
+                <div>
+                  <h3 className={`text-[26px] font-bold ${tier.recommended ? "text-white" : tier.highlight ? "text-purple-800" : "text-[#1e3a5f]"}`}>
+                    {tier.name}
+                  </h3>
+                  <p className={`text-[14px] ${tier.recommended ? "text-blue-200" : tier.highlight ? "text-purple-600" : "text-slate-500"}`}>
+                    {tier.description}
+                  </p>
+                </div>
               </div>
-            )}
-          </motion.div>
-        ))}
+              
+              <p className={`text-[13px] mb-4 italic ${tier.recommended ? "text-blue-100/80" : tier.highlight ? "text-purple-500" : "text-slate-400"}`}>
+                {tier.valueStatement}
+              </p>
+              <div className="flex items-baseline gap-1 mb-5">
+                <span className={`text-[48px] font-bold leading-none ${tier.recommended ? "text-white" : tier.highlight ? "text-purple-800" : "text-[#1e3a5f]"}`}>
+                  {tier.price}
+                </span>
+                <span className={`text-[22px] ${tier.recommended ? "text-blue-200" : tier.highlight ? "text-purple-500" : "text-slate-400"}`}>€</span>
+              </div>
+
+              <div className="flex-1 space-y-2.5">
+                {tier.features.map((feature, j) => (
+                  <motion.div 
+                    key={j} 
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.1 + j * 0.05 + 0.3 }}
+                    className="flex items-center gap-2.5"
+                  >
+                    <CheckCircle2 className={`w-5 h-5 flex-shrink-0 ${tier.recommended ? "text-green-300" :
+                      tier.highlight ? "text-purple-600" :
+                        "text-[#3D7081]"
+                      }`} />
+                    <span className={`text-[15px] ${tier.recommended ? "text-blue-100" :
+                      tier.highlight ? "text-purple-700" :
+                        "text-slate-700"
+                      } ${feature.includes("GRÁTIS") ? "font-bold" : ""}`}>{feature}</span>
+                  </motion.div>
+                ))}
+              </div>
+
+              {tier.recommended && (
+                <div className="mt-5 pt-4 border-t border-white/20">
+                  <p className="text-blue-200 text-[14px] flex items-center gap-2">
+                    <Star className="w-4 h-4 text-amber-300" />
+                    Tranquilidade total durante 12 meses
+                  </p>
+                </div>
+              )}
+            </motion.div>
+          );
+        })}
       </div>
 
       {/* Validity Banner */}
