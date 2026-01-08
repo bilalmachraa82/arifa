@@ -2313,8 +2313,8 @@ const SlidePricing = () => {
       features: [
         "Site + Portal + Backoffice",
         "CRM + Lead Scoring IA",
+        "Cotações + Contratos digitais",
         "Automações inteligentes",
-        "Página Contacto Premium",
         "12 meses manutenção incluída",
         "Suporte prioritário 24/7",
         "4h Formação IA GRÁTIS",
@@ -2329,8 +2329,9 @@ const SlidePricing = () => {
       valueStatement: "Ideal para estúdios com 10-50 projetos/ano que precisam de portal cliente",
       features: [
         "Site público completo",
-        "Portal Cliente",
+        "Portal Cliente completo",
         "Dashboard Admin",
+        "CRM + Gestão de Leads",
         "Mensagens + Documentos",
         "Blog + Newsletter",
         "60 dias suporte",
