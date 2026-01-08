@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  ChevronLeft, 
-  ChevronRight, 
-  Maximize2, 
+import {
+  ChevronLeft,
+  ChevronRight,
+  Maximize2,
   Minimize2,
   Mail,
   MessageSquare,
@@ -93,12 +93,12 @@ const GlobalSignature = () => (
 // ============================================
 // SLIDE FRAME (safe area wrapper) - More padding
 // ============================================
-const SlideFrame = ({ 
-  children, 
+const SlideFrame = ({
+  children,
   className = "",
   padding = "p-16"
-}: { 
-  children: React.ReactNode; 
+}: {
+  children: React.ReactNode;
   className?: string;
   padding?: string;
 }) => (
@@ -117,7 +117,7 @@ const SalesPresentation = () => {
   const [stageScale, setStageScale] = useState(1);
   const [direction, setDirection] = useState(0);
   const [hideControls, setHideControls] = useState(false);
-  
+
   const containerRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
 
@@ -125,15 +125,15 @@ const SalesPresentation = () => {
   useEffect(() => {
     const updateScale = () => {
       if (!containerRef.current) return;
-      
+
       const container = containerRef.current;
       const availableWidth = container.clientWidth - 32;
       const availableHeight = container.clientHeight - 32;
-      
+
       const scaleX = availableWidth / STAGE_WIDTH;
       const scaleY = availableHeight / STAGE_HEIGHT;
       const scale = Math.min(scaleX, scaleY, 1);
-      
+
       setStageScale(scale);
     };
 
@@ -163,12 +163,12 @@ const SalesPresentation = () => {
   // Export to PDF
   const exportToPDF = useCallback(async () => {
     if (!stageRef.current || isExporting) return;
-    
+
     setIsExporting(true);
     toast.info("A gerar PDF... Aguarda enquanto cada slide é capturado.");
-    
+
     await document.fonts.ready;
-    
+
     const originalSlide = currentSlide;
     const pdf = new jsPDF({
       orientation: "landscape",
@@ -180,7 +180,7 @@ const SalesPresentation = () => {
       for (let i = 0; i < TOTAL_SLIDES; i++) {
         setCurrentSlide(i);
         await new Promise(resolve => setTimeout(resolve, 300));
-        
+
         const canvas = await html2canvas(stageRef.current!, {
           scale: 1,
           useCORS: true,
@@ -197,17 +197,17 @@ const SalesPresentation = () => {
             });
           }
         });
-        
+
         const imgData = canvas.toDataURL("image/jpeg", 0.95);
-        
+
         if (i > 0) {
           pdf.addPage([STAGE_WIDTH, STAGE_HEIGHT], "landscape");
         }
-        
+
         pdf.addImage(imgData, "JPEG", 0, 0, STAGE_WIDTH, STAGE_HEIGHT);
         toast.info(`Slide ${i + 1} de ${TOTAL_SLIDES} capturado...`);
       }
-      
+
       pdf.save("ARIFA-Proposta-Comercial.pdf");
       toast.success("PDF exportado com sucesso!");
     } catch (error) {
@@ -298,7 +298,7 @@ const SalesPresentation = () => {
       )}
 
       {/* Stage Container */}
-      <div 
+      <div
         ref={containerRef}
         className="flex-1 flex items-center justify-center p-4"
       >
@@ -348,10 +348,10 @@ const SalesPresentation = () => {
                 {currentSlide === 10 && <SlideCRM />}
                 {currentSlide === 11 && <SlideAutomations />}
                 {currentSlide === 12 && <SlideTimeline />}
-                {currentSlide === 13 && <SlideComparison />}
-                {currentSlide === 14 && <SlidePricing />}
-                {currentSlide === 15 && <SlideTerms />}
-                {currentSlide === 16 && <SlideFAQ />}
+                {currentSlide === 13 && <SlideFAQ />}
+                {currentSlide === 14 && <SlideComparison />}
+                {currentSlide === 15 && <SlidePricing />}
+                {currentSlide === 16 && <SlideTerms />}
                 {currentSlide === 17 && <SlideContacto />}
                 {currentSlide === 18 && <SlideNextSteps />}
               </motion.div>
@@ -361,10 +361,9 @@ const SalesPresentation = () => {
       </div>
 
       {/* Navigation Bar */}
-      <div 
-        className={`bg-slate-800 border-t border-slate-700 px-4 py-3 transition-all duration-300 ${
-          hideControls ? "opacity-0 pointer-events-none" : "opacity-100"
-        }`}
+      <div
+        className={`bg-slate-800 border-t border-slate-700 px-4 py-3 transition-all duration-300 ${hideControls ? "opacity-0 pointer-events-none" : "opacity-100"
+          }`}
       >
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           {/* Progress Dots */}
@@ -373,13 +372,12 @@ const SalesPresentation = () => {
               <button
                 key={i}
                 onClick={() => handleSlideClick(i)}
-                className={`w-2.5 h-2.5 rounded-full transition-all duration-200 ${
-                  i === currentSlide 
-                    ? "bg-white scale-125" 
-                    : i < currentSlide 
-                      ? "bg-[#3D7081]" 
+                className={`w-2.5 h-2.5 rounded-full transition-all duration-200 ${i === currentSlide
+                    ? "bg-white scale-125"
+                    : i < currentSlide
+                      ? "bg-[#3D7081]"
                       : "bg-slate-600"
-                }`}
+                  }`}
               />
             ))}
             <span className="ml-4 text-sm text-slate-400 font-medium">
@@ -441,13 +439,13 @@ const SalesPresentation = () => {
 const SlideCover = () => (
   <div className="w-full h-full flex flex-col items-center justify-center relative overflow-hidden">
     {/* Hero Background */}
-    <div 
+    <div
       className="absolute inset-0 bg-cover bg-center"
       style={{ backgroundImage: `url(${heroBg})` }}
     />
     {/* Overlay */}
     <div className="absolute inset-0 bg-gradient-to-br from-[#1e3a5f]/90 via-[#1e3a5f]/85 to-[#3D7081]/80" />
-    
+
     {/* Geometric Pattern */}
     <div className="absolute inset-0 opacity-10">
       <div className="absolute top-20 left-20 w-48 h-48 border border-white/30 rotate-45" />
@@ -455,7 +453,7 @@ const SlideCover = () => (
     </div>
 
     {/* AiParaTi Badge - Premium */}
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       className="absolute top-12 left-12 flex items-center gap-4 bg-white/10 backdrop-blur-md rounded-2xl px-6 py-3 border border-white/20 shadow-2xl"
@@ -485,8 +483,8 @@ const SlideCover = () => (
           <div className="absolute inset-0 w-36 h-36 mx-auto rotate-45 bg-white/10 blur-xl" />
         </div>
       </motion.div>
-      
-      <motion.h1 
+
+      <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
@@ -494,8 +492,8 @@ const SlideCover = () => (
       >
         Plataforma Digital <span className="font-semibold">ARIFA</span>
       </motion.h1>
-      
-      <motion.p 
+
+      <motion.p
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
@@ -503,7 +501,7 @@ const SlideCover = () => (
       >
         Para o teu estúdio de arquitetura
       </motion.p>
-      
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -515,9 +513,9 @@ const SlideCover = () => (
           Transformar em 6-8 semanas
         </span>
       </motion.div>
-      
+
       {/* Footer */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6 }}
@@ -602,7 +600,7 @@ const SlideProblem = () => {
           A AiParaTi viu isto dezenas de vezes em estúdios como o teu:
         </p>
       </div>
-      
+
       <div className="flex-1 grid grid-cols-2 gap-8 content-center">
         {problemBlocks.map((block, blockIndex) => (
           <motion.div
@@ -630,7 +628,7 @@ const SlideProblem = () => {
         ))}
       </div>
 
-      <motion.p 
+      <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4 }}
@@ -638,7 +636,7 @@ const SlideProblem = () => {
       >
         Isto é comum. <span className="font-semibold text-[#1e3a5f]">Mas não tem de ser assim.</span>
       </motion.p>
-      
+
       <GlobalSignature />
     </SlideFrame>
   );
@@ -649,26 +647,26 @@ const SlideProblem = () => {
 // ============================================
 const SlideTransformation = () => {
   const comparisons = [
-    { 
-      before: "5 projetos em 5 lugares diferentes", 
+    {
+      before: "5 projetos em 5 lugares diferentes",
       after: "Um único hub centralizado",
       iconBefore: FolderOpen,
       iconAfter: LayoutDashboard
     },
-    { 
-      before: "2h/dia em emails e follow-ups", 
+    {
+      before: "2h/dia em emails e follow-ups",
       after: "20 minutos automático",
       iconBefore: Clock,
       iconAfter: Zap
     },
-    { 
-      before: "Clientes à deriva sem saber progresso", 
+    {
+      before: "Clientes à deriva sem saber progresso",
       after: "Portal com progresso em tempo real",
       iconBefore: AlertCircle,
       iconAfter: Eye
     },
-    { 
-      before: "Vendas apenas por 'boca a boca'", 
+    {
+      before: "Vendas apenas por 'boca a boca'",
       after: "Portfolio que vende 24/7",
       iconBefore: Users,
       iconAfter: Globe
@@ -698,14 +696,14 @@ const SlideTransformation = () => {
               </div>
               <p className="text-slate-700 text-[22px]">{item.before}</p>
             </div>
-            
+
             {/* Arrow */}
             <div className="flex items-center justify-center">
               <div className="w-16 h-16 rounded-full bg-gradient-to-r from-[#1e3a5f] to-[#3D7081] flex items-center justify-center shadow-xl">
                 <ArrowRight className="w-8 h-8 text-white" />
               </div>
             </div>
-            
+
             {/* After */}
             <div className="bg-gradient-to-r from-green-100/50 to-green-50 border-r-4 border-green-500 rounded-l-2xl p-6 flex items-center gap-5">
               <div className="w-16 h-16 rounded-2xl bg-green-100 flex items-center justify-center flex-shrink-0">
@@ -716,7 +714,7 @@ const SlideTransformation = () => {
           </motion.div>
         ))}
       </div>
-      
+
       <GlobalSignature />
     </SlideFrame>
   );
@@ -727,33 +725,33 @@ const SlideTransformation = () => {
 // ============================================
 const SlideSolution = () => {
   const solutions = [
-    { 
-      icon: Globe, 
-      title: "Site Público", 
+    {
+      icon: Globe,
+      title: "Site Público",
       desc: "Portfólio + SEO",
       badge: null
     },
-    { 
-      icon: Lock, 
-      title: "Portal do Cliente", 
+    {
+      icon: Lock,
+      title: "Portal do Cliente",
       desc: "Área privada",
       badge: "PRIVADO"
     },
-    { 
-      icon: LayoutDashboard, 
-      title: "Backoffice", 
+    {
+      icon: LayoutDashboard,
+      title: "Backoffice",
       desc: "Gestão centralizada",
       badge: "ADMIN"
     },
-    { 
-      icon: Zap, 
-      title: "Automações", 
+    {
+      icon: Zap,
+      title: "Automações",
       desc: "Follow-ups automáticos",
       badge: null
     },
-    { 
-      icon: Shield, 
-      title: "Segurança", 
+    {
+      icon: Shield,
+      title: "Segurança",
       desc: "RGPD compliant",
       badge: null
     },
@@ -781,11 +779,10 @@ const SlideSolution = () => {
             >
               {item.badge && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
-                  <span className={`text-[12px] font-bold px-3 py-1 rounded-full whitespace-nowrap ${
-                    item.badge === "PRIVADO" 
-                      ? "bg-indigo-100 text-indigo-700 border border-indigo-200" 
+                  <span className={`text-[12px] font-bold px-3 py-1 rounded-full whitespace-nowrap ${item.badge === "PRIVADO"
+                      ? "bg-indigo-100 text-indigo-700 border border-indigo-200"
                       : "bg-emerald-100 text-emerald-700 border border-emerald-200"
-                  }`}>
+                    }`}>
                     {item.badge}
                   </span>
                 </div>
@@ -800,7 +797,7 @@ const SlideSolution = () => {
         </div>
       </div>
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
@@ -811,7 +808,7 @@ const SlideSolution = () => {
           Tudo desenvolvido por <span className="font-semibold text-[#1e3a5f]">AiParaTi</span>
         </p>
       </motion.div>
-      
+
       <GlobalSignature />
     </SlideFrame>
   );
@@ -842,7 +839,7 @@ const SlidePublicSite = () => {
 
       <div className="flex-1 grid grid-cols-[55%,45%] gap-10">
         {/* Screenshot - Premium Frame with Multiple Views */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.1 }}
@@ -877,7 +874,7 @@ const SlidePublicSite = () => {
                 <span className="bg-[#3D7081] text-white px-2 py-0.5 rounded">Contacto</span>
               </div>
             </div>
-            
+
             {/* Hero with Segment Selector */}
             <div className="bg-gradient-to-r from-[#1e3a5f] to-[#3D7081] rounded-2xl p-4 mb-3 relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent" />
@@ -891,7 +888,7 @@ const SlidePublicSite = () => {
               </div>
               <div className="h-6 w-24 bg-white rounded-lg" />
             </div>
-            
+
             {/* Featured Projects Grid */}
             <div className="grid grid-cols-3 gap-2 mb-3">
               {[
@@ -899,8 +896,8 @@ const SlidePublicSite = () => {
                 { status: "Em Projeto", color: "bg-amber-500" },
                 { status: "Em Construção", color: "bg-blue-500" },
               ].map((project, i) => (
-                <motion.div 
-                  key={i} 
+                <motion.div
+                  key={i}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 + i * 0.05 }}
@@ -918,10 +915,10 @@ const SlidePublicSite = () => {
                 </motion.div>
               ))}
             </div>
-            
+
             {/* Testimonials + Blog Preview */}
             <div className="grid grid-cols-2 gap-2">
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.4 }}
@@ -934,7 +931,7 @@ const SlidePublicSite = () => {
                 <div className="h-1.5 w-full bg-slate-100 rounded mb-0.5" />
                 <div className="h-1.5 w-3/4 bg-slate-100 rounded" />
               </motion.div>
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, x: 10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.45 }}
@@ -975,7 +972,7 @@ const SlidePublicSite = () => {
           </div>
         </div>
       </div>
-      
+
       <GlobalSignature />
     </SlideFrame>
   );
@@ -1007,7 +1004,7 @@ const SlidePortfolio = () => {
 
       <div className="flex-1 grid grid-cols-[55%,45%] gap-8">
         {/* Screenshot - Premium Frame with Glow */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.1 }}
@@ -1039,11 +1036,11 @@ const SlidePortfolio = () => {
               <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.25 }} className="h-6 px-2 bg-slate-100 text-slate-600 text-[9px] rounded-lg flex items-center">Residencial</motion.div>
               <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }} className="h-6 px-2 bg-slate-100 text-slate-600 text-[9px] rounded-lg flex items-center">Comercial</motion.div>
             </div>
-            
+
             {/* Segment Pills */}
             <div className="flex gap-1 mb-3">
               {['🏠 Privados', '🏢 Empresas', '📈 Investidores'].map((seg, i) => (
-                <motion.div 
+                <motion.div
                   key={i}
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -1054,7 +1051,7 @@ const SlidePortfolio = () => {
                 </motion.div>
               ))}
             </div>
-            
+
             {/* Projects Grid Mockup */}
             <div className="grid grid-cols-2 gap-2">
               {[
@@ -1063,8 +1060,8 @@ const SlidePortfolio = () => {
                 { status: "Concluído", color: "bg-emerald-500" },
                 { status: "Em Construção", color: "bg-blue-500" },
               ].map((project, i) => (
-                <motion.div 
-                  key={i} 
+                <motion.div
+                  key={i}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.35 + i * 0.05 }}
@@ -1083,9 +1080,9 @@ const SlidePortfolio = () => {
                 </motion.div>
               ))}
             </div>
-            
+
             {/* Lightbox Preview Hint */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
@@ -1124,7 +1121,7 @@ const SlidePortfolio = () => {
           </div>
         </div>
       </div>
-      
+
       <GlobalSignature />
     </SlideFrame>
   );
@@ -1156,7 +1153,7 @@ const SlideBlog = () => {
 
       <div className="flex-1 grid grid-cols-[55%,45%] gap-8">
         {/* Screenshot - Premium Frame with Glow */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.1 }}
@@ -1181,22 +1178,21 @@ const SlideBlog = () => {
             {/* Categories Row */}
             <div className="flex gap-1.5 mb-3 flex-wrap">
               {['Tendências', 'Sustentabilidade', 'Materiais', 'Inovação'].map((cat, i) => (
-                <motion.div 
+                <motion.div
                   key={i}
-                  initial={{ opacity: 0, y: -5 }} 
-                  animate={{ opacity: 1, y: 0 }} 
-                  transition={{ delay: 0.15 + i * 0.05 }} 
-                  className={`h-5 px-2 text-[9px] font-medium rounded-full flex items-center ${
-                    i === 0 ? 'bg-[#3D7081] text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors'
-                  }`}
+                  initial={{ opacity: 0, y: -5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.15 + i * 0.05 }}
+                  className={`h-5 px-2 text-[9px] font-medium rounded-full flex items-center ${i === 0 ? 'bg-[#3D7081] text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors'
+                    }`}
                 >
                   {cat}
                 </motion.div>
               ))}
             </div>
-            
+
             {/* Featured Article */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.25 }}
@@ -1217,12 +1213,12 @@ const SlideBlog = () => {
                 </div>
               </div>
             </motion.div>
-            
+
             {/* Article List */}
             <div className="space-y-1.5">
               {[1, 2].map((i) => (
-                <motion.div 
-                  key={i} 
+                <motion.div
+                  key={i}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3 + i * 0.08 }}
@@ -1237,9 +1233,9 @@ const SlideBlog = () => {
                 </motion.div>
               ))}
             </div>
-            
+
             {/* Newsletter CTA */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
@@ -1284,7 +1280,7 @@ const SlideBlog = () => {
           </div>
         </div>
       </div>
-      
+
       <GlobalSignature />
     </SlideFrame>
   );
@@ -1325,7 +1321,7 @@ const SlideClientPortal = () => {
 
       <div className="flex-1 grid grid-cols-[55%,45%] gap-8">
         {/* Visual Mockup - Enhanced */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.1 }}
@@ -1347,7 +1343,7 @@ const SlideClientPortal = () => {
               <div className="bg-emerald-500 text-white text-[9px] px-1.5 py-0.5 rounded font-bold">RLS</div>
             </div>
           </div>
-          
+
           <div className="p-4 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-40px)]">
             {/* Header */}
             <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-200">
@@ -1363,20 +1359,19 @@ const SlideClientPortal = () => {
                 <div className="w-2 h-2 rounded-full bg-red-500 -ml-2 -mt-3" />
               </div>
             </div>
-            
+
             {/* Tabs */}
             <div className="flex gap-1 mb-3 overflow-x-auto">
               {tabs.map((tab, i) => (
-                <motion.div 
+                <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 5 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.15 + i * 0.03 }}
-                  className={`flex items-center gap-1 px-2 py-1 rounded-lg text-[9px] font-medium whitespace-nowrap ${
-                    tab.active 
-                      ? 'bg-[#3D7081] text-white' 
+                  className={`flex items-center gap-1 px-2 py-1 rounded-lg text-[9px] font-medium whitespace-nowrap ${tab.active
+                      ? 'bg-[#3D7081] text-white'
                       : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                  }`}
+                    }`}
                 >
                   <tab.icon className="w-3 h-3" />
                   {tab.label}
@@ -1384,7 +1379,7 @@ const SlideClientPortal = () => {
                 </motion.div>
               ))}
             </div>
-            
+
             {/* Progress Card */}
             <div className="bg-white rounded-xl p-3 border border-slate-100 shadow-sm mb-3">
               <div className="flex justify-between items-center mb-2">
@@ -1392,7 +1387,7 @@ const SlideClientPortal = () => {
                 <span className="text-[#3D7081] font-bold">75%</span>
               </div>
               <div className="h-2.5 bg-slate-100 rounded-full overflow-hidden">
-                <motion.div 
+                <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: "75%" }}
                   transition={{ delay: 0.5, duration: 1 }}
@@ -1403,7 +1398,7 @@ const SlideClientPortal = () => {
             </div>
 
             {/* AI Weekly Update Card */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
@@ -1426,11 +1421,10 @@ const SlideClientPortal = () => {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.7 + i * 0.03 }}
-                  className={`px-2 py-1 rounded-full text-[8px] font-medium whitespace-nowrap ${
-                    i < 4 ? 'bg-emerald-100 text-emerald-700' :
-                    i === 4 ? 'bg-[#3D7081] text-white ring-2 ring-[#3D7081]/30' :
-                    'bg-slate-100 text-slate-400'
-                  }`}
+                  className={`px-2 py-1 rounded-full text-[8px] font-medium whitespace-nowrap ${i < 4 ? 'bg-emerald-100 text-emerald-700' :
+                      i === 4 ? 'bg-[#3D7081] text-white ring-2 ring-[#3D7081]/30' :
+                        'bg-slate-100 text-slate-400'
+                    }`}
                 >
                   {phase}
                 </motion.div>
@@ -1466,7 +1460,7 @@ const SlideClientPortal = () => {
           </div>
         </div>
       </div>
-      
+
       <GlobalSignature />
     </SlideFrame>
   );
@@ -1518,7 +1512,7 @@ const SlidePhotoGallery = () => {
                 <X className="w-4 h-4 text-slate-400" />
               </div>
             </div>
-            
+
             {/* Controls Bar */}
             <div className="bg-slate-800/80 px-4 py-2 flex items-center justify-between border-b border-slate-700">
               <div className="flex items-center gap-2">
@@ -1537,7 +1531,7 @@ const SlidePhotoGallery = () => {
               </div>
               <span className="text-slate-400 text-sm">3 de 24 fotos</span>
             </div>
-            
+
             {/* Main Image Area */}
             <div className="relative flex-1 p-4">
               <div className="h-48 bg-gradient-to-br from-slate-800 to-slate-700 rounded-xl flex items-center justify-center relative overflow-hidden">
@@ -1554,17 +1548,17 @@ const SlidePhotoGallery = () => {
                   <ChevronRight className="w-6 h-6 text-white" />
                 </div>
               </div>
-              
+
               {/* Progress Bar */}
               <div className="mt-3 h-1 bg-slate-700 rounded-full overflow-hidden">
                 <div className="w-[12%] h-full bg-[#3D7081] rounded-full" />
               </div>
-              
+
               {/* Thumbnails */}
               <div className="mt-3 flex gap-2 justify-center">
                 {[1, 2, 3, 4, 5, 6].map((i) => (
-                  <div 
-                    key={i} 
+                  <div
+                    key={i}
                     className={`w-14 h-10 rounded-lg ${i === 3 ? 'ring-2 ring-[#3D7081] ring-offset-2 ring-offset-slate-900' : ''} bg-gradient-to-br from-slate-700 to-slate-600 transition-all hover:scale-105`}
                   />
                 ))}
@@ -1588,9 +1582,9 @@ const SlidePhotoGallery = () => {
             <div className="p-3 bg-gradient-to-br from-slate-50 to-white">
               <div className="grid grid-cols-2 gap-2">
                 {[1, 2, 3, 4].map((i) => (
-                  <div 
-                    key={i} 
-                    className={`h-12 rounded-lg bg-gradient-to-br from-slate-200 to-slate-300 ${i === 1 ? 'ring-2 ring-[#3D7081]' : ''} hover:scale-105 transition-transform`} 
+                  <div
+                    key={i}
+                    className={`h-12 rounded-lg bg-gradient-to-br from-slate-200 to-slate-300 ${i === 1 ? 'ring-2 ring-[#3D7081]' : ''} hover:scale-105 transition-transform`}
                   />
                 ))}
               </div>
@@ -1655,7 +1649,7 @@ const SlidePhotoGallery = () => {
           </div>
         </div>
       </div>
-      
+
       <GlobalSignature />
     </SlideFrame>
   );
@@ -1705,7 +1699,7 @@ const SlideAdminDashboard = () => {
 
       <div className="flex-1 grid grid-cols-[55%,45%] gap-8">
         {/* Visual Mockup - Enhanced */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.1 }}
@@ -1727,27 +1721,26 @@ const SlideAdminDashboard = () => {
               <div className="bg-indigo-500 text-white text-[9px] px-1.5 py-0.5 rounded font-bold">RLS</div>
             </div>
           </div>
-          
+
           <div className="p-4 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-40px)]">
             {/* Header */}
             <div className="flex items-center justify-between mb-3">
               <h4 className="text-base font-bold text-[#1e3a5f]">Dashboard</h4>
               <span className="text-slate-500 text-[10px]">Janeiro 2025</span>
             </div>
-            
+
             {/* Tabs */}
             <div className="flex gap-1 mb-3 overflow-x-auto">
               {tabs.map((tab, i) => (
-                <motion.div 
+                <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 5 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.15 + i * 0.02 }}
-                  className={`flex items-center gap-1 px-1.5 py-1 rounded-lg text-[8px] font-medium whitespace-nowrap ${
-                    tab.active 
-                      ? 'bg-[#3D7081] text-white' 
+                  className={`flex items-center gap-1 px-1.5 py-1 rounded-lg text-[8px] font-medium whitespace-nowrap ${tab.active
+                      ? 'bg-[#3D7081] text-white'
                       : 'bg-slate-100 text-slate-500'
-                  }`}
+                    }`}
                 >
                   <tab.icon className="w-2.5 h-2.5" />
                   {tab.label}
@@ -1841,7 +1834,7 @@ const SlideAdminDashboard = () => {
           </div>
         </div>
       </div>
-      
+
       <GlobalSignature />
     </SlideFrame>
   );
@@ -1881,7 +1874,7 @@ const SlideCRM = () => {
 
       <div className="flex-1 grid grid-cols-[55%,45%] gap-8">
         {/* Kanban Mockup - Enhanced */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.1 }}
@@ -1900,7 +1893,7 @@ const SlideCRM = () => {
               <div className="bg-purple-500 text-white text-[9px] px-1.5 py-0.5 rounded font-bold">AI</div>
             </div>
           </div>
-          
+
           <div className="p-3 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-40px)]">
             {/* Kanban Header */}
             <div className="flex items-center justify-between mb-3">
@@ -1915,7 +1908,7 @@ const SlideCRM = () => {
                 </div>
               </div>
             </div>
-            
+
             {/* Kanban Columns */}
             <div className="flex gap-2 h-[calc(100%-40px)] overflow-x-auto">
               {stages.map((stage, i) => (
@@ -1935,8 +1928,8 @@ const SlideCRM = () => {
                   </div>
                   <div className="flex-1 bg-slate-100/50 border-x border-b border-slate-200 rounded-b-lg p-1.5 space-y-1.5 min-h-[160px]">
                     {[...Array(Math.min(stage.count, 2))].map((_, j) => (
-                      <motion.div 
-                        key={j} 
+                      <motion.div
+                        key={j}
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.3 + i * 0.05 + j * 0.03 }}
@@ -1951,10 +1944,9 @@ const SlideCRM = () => {
                         <div className="h-1 w-14 bg-slate-100 rounded mb-1" />
                         <div className="flex items-center justify-between">
                           <span className="text-[6px] text-slate-400">📧</span>
-                          <span className={`text-[7px] font-bold ${
-                            85 - i * 15 >= 70 ? 'text-emerald-600' : 
-                            85 - i * 15 >= 50 ? 'text-amber-600' : 'text-red-500'
-                          }`}>
+                          <span className={`text-[7px] font-bold ${85 - i * 15 >= 70 ? 'text-emerald-600' :
+                              85 - i * 15 >= 50 ? 'text-amber-600' : 'text-red-500'
+                            }`}>
                             AI: {85 - i * 15 - j * 5}
                           </span>
                         </div>
@@ -1999,7 +1991,7 @@ const SlideCRM = () => {
           </div>
         </div>
       </div>
-      
+
       <GlobalSignature />
     </SlideFrame>
   );
@@ -2029,7 +2021,7 @@ const SlideAutomations = () => {
           <Zap className="w-10 h-10 text-white" />
         </div>
         <div>
-<span className="text-[16px] font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 8</span>
+          <span className="text-[16px] font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 8</span>
           <h2 className="text-[48px] font-light text-[#1e3a5f]">Automações Inteligentes</h2>
         </div>
       </div>
@@ -2043,13 +2035,13 @@ const SlideAutomations = () => {
             <div className="w-4 h-4 rounded-full bg-green-400" />
             <span className="text-[14px] text-slate-500 ml-3">arifa.pt/admin/automacoes</span>
           </div>
-          
+
           <div className="p-6 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-40px)]">
             <div className="flex items-center justify-between mb-6">
               <h4 className="text-xl font-bold text-[#1e3a5f]">Automações Ativas</h4>
               <div className="px-4 py-2 bg-[#3D7081] text-white text-sm rounded-xl font-medium">+ Nova</div>
             </div>
-            
+
             <div className="space-y-4">
               {automations.map((auto, i) => (
                 <motion.div
@@ -2101,7 +2093,7 @@ const SlideAutomations = () => {
           </div>
         </div>
       </div>
-      
+
       <GlobalSignature />
     </SlideFrame>
   );
@@ -2129,7 +2121,7 @@ const SlideTimeline = () => {
         <div className="w-full grid grid-cols-4 gap-6 relative">
           {/* Connection Line */}
           <div className="absolute top-12 left-[12.5%] right-[12.5%] h-1 bg-gradient-to-r from-blue-200 via-purple-200 via-amber-200 to-green-200 rounded-full" />
-          
+
           {weeks.map((week, i) => (
             <motion.div
               key={i}
@@ -2153,7 +2145,7 @@ const SlideTimeline = () => {
         </div>
       </div>
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8 }}
@@ -2164,7 +2156,7 @@ const SlideTimeline = () => {
           <span className="font-semibold">Comunicação semanal:</span> Reunião de 30min todas as sextas
         </p>
       </motion.div>
-      
+
       <GlobalSignature />
     </SlideFrame>
   );
@@ -2206,7 +2198,7 @@ const SlideComparison = () => {
 
       <div className="flex-1 grid grid-cols-2 gap-8">
         {/* Traditional */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           className="flex flex-col"
@@ -2252,7 +2244,7 @@ const SlideComparison = () => {
         </motion.div>
 
         {/* ARIFA */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2 }}
@@ -2265,7 +2257,7 @@ const SlideComparison = () => {
             {/* Decorative elements */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
             <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2" />
-            
+
             <div className="space-y-3 mb-6 relative z-10">
               {arifaBenefits.map((benefit, i) => (
                 <motion.div
@@ -2302,7 +2294,7 @@ const SlideComparison = () => {
           </div>
         </motion.div>
       </div>
-      
+
       <GlobalSignature />
     </SlideFrame>
   );
@@ -2312,46 +2304,46 @@ const SlideComparison = () => {
 // SLIDE 14: PRICING
 // ============================================
 const SlidePricing = () => {
-  // Price Anchoring: Premium first (left) to anchor higher value, then guide to Profissional (center, recommended)
+  // Price Anchoring: Premium first (left) with maximum visual prominence - this is what we want to sell
   const tiers = [
     {
       name: "Premium",
       price: "7.888",
-      description: "Tudo + manutenção",
-      valueStatement: "Para estúdios que querem zero preocupações. Nós cuidamos de tudo.",
+      description: "A solução completa",
+      valueStatement: "Tudo incluído. Zero preocupações. Nós cuidamos da tua plataforma 12 meses.",
       features: [
-        "Tudo do Profissional",
+        "Site + Portal + Backoffice",
         "CRM + Lead Scoring IA",
-        "Automações + Cotações",
+        "Automações inteligentes",
         "Página Contacto Premium",
         "12 meses manutenção incluída",
-        "Suporte prioritário",
+        "Suporte prioritário 24/7",
         "4h Formação IA GRÁTIS",
       ],
-      recommended: false,
+      recommended: true,
       highlight: true,
     },
     {
       name: "Profissional",
       price: "5.888",
-      description: "Solução completa",
-      valueStatement: "Escolha de 80% dos estúdios - tudo o que precisas para gerir 10-50 projetos/ano",
+      description: "Para crescer",
+      valueStatement: "Ideal para estúdios com 10-50 projetos/ano que precisam de portal cliente",
       features: [
-        "Tudo do Essencial",
-        "Portal Cliente completo",
+        "Site público completo",
+        "Portal Cliente",
         "Dashboard Admin",
         "Mensagens + Documentos",
         "Blog + Newsletter",
         "60 dias suporte",
       ],
-      recommended: true,
+      recommended: false,
       highlight: false,
     },
     {
       name: "Essencial",
       price: "3.590",
       description: "Para começar",
-      valueStatement: "Perfeito se estás a começar e queres presença digital profissional",
+      valueStatement: "Presença digital profissional para quem está a começar",
       features: [
         "Site público (5 páginas)",
         "Portfólio básico",
@@ -2379,32 +2371,23 @@ const SlidePricing = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1 }}
-            className={`rounded-3xl p-7 flex flex-col relative ${
-              tier.recommended
+            className={`rounded-3xl p-7 flex flex-col relative ${tier.recommended
                 ? "bg-gradient-to-br from-[#1e3a5f] via-[#2a4a6f] to-[#3D7081] text-white ring-4 ring-[#3D7081]/30 shadow-[0_25px_60px_-15px_rgba(30,58,95,0.5)] z-10 scale-[1.03]"
                 : tier.highlight
                   ? "bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-300 shadow-xl scale-[1.05] z-20 ring-2 ring-purple-400/50"
                   : "bg-white border-2 border-slate-200 shadow-xl hover:shadow-2xl transition-shadow"
-            }`}
+              }`}
           >
             {tier.recommended && (
               <div className="absolute -top-5 left-1/2 -translate-x-1/2">
-                <motion.span 
+                <motion.span
                   animate={{ scale: [1, 1.05, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
                   className="bg-gradient-to-r from-amber-400 to-yellow-400 text-amber-900 text-[14px] font-bold px-6 py-2.5 rounded-full shadow-lg flex items-center gap-2"
                 >
                   <Award className="w-5 h-5" />
-                  RECOMENDADO
+                  MELHOR VALOR
                 </motion.span>
-              </div>
-            )}
-            {tier.highlight && !tier.recommended && (
-              <div className="absolute -top-5 left-1/2 -translate-x-1/2">
-                <span className="bg-gradient-to-r from-purple-500 to-purple-600 text-white text-[12px] font-bold px-5 py-2 rounded-full shadow-lg flex items-center gap-2">
-                  <Sparkles className="w-4 h-4" />
-                  COMPLETO
-                </span>
               </div>
             )}
             <h3 className={`text-[26px] font-bold ${tier.recommended ? "text-white mt-3" : tier.highlight ? "text-purple-800 mt-3" : "text-[#1e3a5f]"}`}>
@@ -2422,37 +2405,27 @@ const SlidePricing = () => {
               </span>
               <span className={`text-[22px] ${tier.recommended ? "text-blue-200" : tier.highlight ? "text-purple-500" : "text-slate-400"}`}>€</span>
             </div>
-            
+
             <div className="flex-1 space-y-2.5">
               {tier.features.map((feature, j) => (
                 <div key={j} className="flex items-center gap-2.5">
-                  <CheckCircle2 className={`w-5 h-5 flex-shrink-0 ${
-                    tier.recommended ? "text-green-300" : 
-                    tier.highlight ? "text-purple-600" : 
-                    "text-[#3D7081]"
-                  }`} />
-                  <span className={`text-[15px] ${
-                    tier.recommended ? "text-blue-100" : 
-                    tier.highlight ? "text-purple-700" : 
-                    "text-slate-700"
-                  } ${feature.includes("GRÁTIS") ? "font-bold" : ""}`}>{feature}</span>
+                  <CheckCircle2 className={`w-5 h-5 flex-shrink-0 ${tier.recommended ? "text-green-300" :
+                      tier.highlight ? "text-purple-600" :
+                        "text-[#3D7081]"
+                    }`} />
+                  <span className={`text-[15px] ${tier.recommended ? "text-blue-100" :
+                      tier.highlight ? "text-purple-700" :
+                        "text-slate-700"
+                    } ${feature.includes("GRÁTIS") ? "font-bold" : ""}`}>{feature}</span>
                 </div>
               ))}
             </div>
-            
+
             {tier.recommended && (
               <div className="mt-5 pt-4 border-t border-white/20">
                 <p className="text-blue-200 text-[14px] flex items-center gap-2">
                   <Star className="w-4 h-4 text-amber-300" />
-                  Escolha mais popular
-                </p>
-              </div>
-            )}
-            {tier.highlight && !tier.recommended && (
-              <div className="mt-5 pt-4 border-t border-purple-200">
-                <p className="text-purple-600 text-[14px] flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-purple-500" />
-                  Inclui 4h Formação IA
+                  Tranquilidade total durante 12 meses
                 </p>
               </div>
             )}
@@ -2478,7 +2451,7 @@ const SlidePricing = () => {
           <span className="text-slate-500 text-[14px]">Pagamento flexível: 40% + 40% + 20%</span>
         </div>
       </motion.div>
-      
+
       <GlobalSignature />
     </SlideFrame>
   );
@@ -2614,7 +2587,7 @@ const SlideTerms = () => {
           </div>
         </div>
       </div>
-      
+
       <GlobalSignature />
     </SlideFrame>
   );
@@ -2625,33 +2598,33 @@ const SlideTerms = () => {
 // ============================================
 const SlideFAQ = () => {
   const faqs = [
-    { 
-      q: "Quantos projetos posso gerir?", 
+    {
+      q: "Quantos projetos posso gerir?",
       a: "Ilimitados. Não há limite de projetos, clientes ou documentos na plataforma.",
       icon: FolderOpen
     },
-    { 
-      q: "Os meus clientes pagam para aceder?", 
+    {
+      q: "Os meus clientes pagam para aceder?",
       a: "Não. Tu geres tudo, os clientes acedem gratuitamente com login seguro.",
       icon: Users
     },
-    { 
-      q: "O site funciona em telemóvel?", 
+    {
+      q: "O site funciona em telemóvel?",
       a: "Sim, 100% responsivo e otimizado para todos os dispositivos (PWA ready).",
       icon: Layers
     },
-    { 
-      q: "Quanto tempo demora a ficar pronto?", 
+    {
+      q: "Quanto tempo demora a ficar pronto?",
       a: "6-8 semanas do briefing ao lançamento, com reuniões semanais de acompanhamento.",
       icon: Calendar
     },
-    { 
-      q: "E se precisar de ajustes após o lançamento?", 
+    {
+      q: "E se precisar de ajustes após o lançamento?",
       a: "60 dias de suporte incluído. Depois, manutenção mensal opcional (150€/mês).",
       icon: Settings
     },
-    { 
-      q: "Quem é o dono do código e dados?", 
+    {
+      q: "Quem é o dono do código e dados?",
       a: "Tu. Todo o código, design e dados são teus. Podes migrar quando quiseres.",
       icon: Shield
     },
@@ -2686,7 +2659,7 @@ const SlideFAQ = () => {
         ))}
       </div>
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
@@ -2696,7 +2669,7 @@ const SlideFAQ = () => {
           Mais perguntas? <span className="font-semibold text-[#1e3a5f]">Falamos na call!</span>
         </p>
       </motion.div>
-      
+
       <GlobalSignature />
     </SlideFrame>
   );
@@ -2729,7 +2702,7 @@ const SlideContacto = () => {
 
       <div className="flex-1 grid grid-cols-[55%,45%] gap-10">
         {/* Screenshot - Premium Frame with Glow */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.1 }}
@@ -2751,7 +2724,7 @@ const SlideContacto = () => {
           </div>
           <div className="p-6 bg-gradient-to-br from-slate-50 to-white h-[calc(100%-48px)]">
             {/* Form Mockup */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -2786,7 +2759,7 @@ const SlideContacto = () => {
                 <div className="h-2 w-16 bg-slate-100 rounded mb-1" />
                 <div className="h-16 bg-slate-50 rounded-lg border border-slate-200" />
               </motion.div>
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.5 }}
@@ -2825,7 +2798,7 @@ const SlideContacto = () => {
           </div>
         </div>
       </div>
-      
+
       <GlobalSignature />
     </SlideFrame>
   );
@@ -2857,7 +2830,7 @@ const SlideNextSteps = () => {
       </div>
 
       {/* Urgency Banner */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         className="mb-6 p-4 bg-gradient-to-r from-slate-100/20 to-white/10 rounded-2xl border border-white/20 text-center backdrop-blur-sm relative z-10"
@@ -2871,7 +2844,7 @@ const SlideNextSteps = () => {
 
       <div className="flex-1 grid grid-cols-2 gap-8 relative z-10">
         {/* Team */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2 }}
@@ -2882,14 +2855,14 @@ const SlideNextSteps = () => {
             Quem vai trabalhar contigo
           </h3>
           <div className="flex items-center gap-8 mb-6">
-            <img 
-              src={teamBilal} 
-              alt="Bilal Machraa" 
+            <img
+              src={teamBilal}
+              alt="Bilal Machraa"
               className="w-32 h-32 rounded-full object-cover border-4 border-amber-400/50 shadow-xl"
             />
-            <img 
-              src={teamHelder} 
-              alt="Helder Faria" 
+            <img
+              src={teamHelder}
+              alt="Helder Faria"
               className="w-32 h-32 rounded-full object-cover border-4 border-purple-400/50 shadow-xl"
             />
             <div>
@@ -2897,7 +2870,7 @@ const SlideNextSteps = () => {
               <p className="text-white/60 text-[20px]">AiParaTi — A tua equipa</p>
             </div>
           </div>
-          
+
           {/* Tech badges */}
           <div className="pt-6 border-t border-white/10">
             <p className="text-white/50 text-[16px] mb-4">Tecnologias:</p>
@@ -2912,7 +2885,7 @@ const SlideNextSteps = () => {
         </motion.div>
 
         {/* CTA */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3 }}
@@ -2925,7 +2898,7 @@ const SlideNextSteps = () => {
               Estamos prontos para transformar o teu estúdio.
             </p>
           </div>
-          
+
           {/* CTA Buttons */}
           <div className="space-y-4 mb-6">
             <motion.div
@@ -2943,20 +2916,20 @@ const SlideNextSteps = () => {
               Agendar Call
             </Button>
           </div>
-          
+
           {/* Contacts */}
           <div className="pt-5 border-t border-slate-100">
             <p className="text-[16px] text-slate-500 text-center mb-4">Contacta-nos:</p>
             <div className="flex flex-col gap-3">
-              <a 
-                href="mailto:bilal.machraa@aiparati.pt" 
+              <a
+                href="mailto:bilal.machraa@aiparati.pt"
                 className="flex items-center justify-center gap-3 text-[#1e3a5f] hover:underline bg-slate-50 rounded-xl py-4 text-[18px] font-medium"
               >
                 <Mail className="w-6 h-6" />
                 bilal.machraa@aiparati.pt
               </a>
-              <a 
-                href="https://wa.me/351918911308" 
+              <a
+                href="https://wa.me/351918911308"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-3 text-green-600 hover:underline bg-green-50 rounded-xl py-4 text-[18px] font-medium"
@@ -2970,7 +2943,7 @@ const SlideNextSteps = () => {
       </div>
 
       {/* Signature */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
