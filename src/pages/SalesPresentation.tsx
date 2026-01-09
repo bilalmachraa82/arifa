@@ -123,6 +123,13 @@ const SalesPresentation = () => {
   // Handle exiting print mode
   useEffect(() => {
     const handleAfterPrint = () => setIsPrintingMode(false);
+
+    // Check for print mode in URL
+    if (window.location.search.includes('print=true')) {
+      setIsPrintingMode(true);
+      setTimeout(() => window.print(), 1000);
+    }
+
     window.addEventListener("afterprint", handleAfterPrint);
     return () => window.removeEventListener("afterprint", handleAfterPrint);
   }, []);
@@ -169,14 +176,15 @@ const SalesPresentation = () => {
     }
   }, []);
 
-  // Export to PDF
-  // Native Print (Save as PDF)
+  // Static PDF Download
   const exportToPDF = useCallback(() => {
-    setIsPrintingMode(true);
-    // Give React time to render all slides
-    setTimeout(() => {
-      window.print();
-    }, 500);
+    const link = document.createElement('a');
+    link.href = '/Arifa_Proposta_Comercial.pdf';
+    link.download = 'Arifa_Proposta_Comercial.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    toast.success("A iniciar download do PDF...");
   }, []);
 
   // Keyboard navigation
