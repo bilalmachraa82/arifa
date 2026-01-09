@@ -260,7 +260,7 @@ const SalesPresentation = () => {
           @media print {
             @page { size: landscape; margin: 0; }
             body { -webkit-print-color-adjust: exact; }
-            .print-slide { break-after: page; page-break-after: always; width: 100vw; height: 100vh; overflow: hidden; position: relative; }
+            .print-slide { break-after: page; page-break-after: always; width: 100%; position: relative; }
           }
         `}</style>
         {[
