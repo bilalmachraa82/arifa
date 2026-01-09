@@ -2375,11 +2375,21 @@ const SlidePricing = () => {
                   <motion.span
                     animate={{ scale: [1, 1.05, 1] }}
                     transition={{ duration: 2, repeat: Infinity }}
-                    className="bg-gradient-to-r from-amber-400 to-yellow-400 text-amber-900 text-[14px] font-bold px-6 py-2.5 rounded-full shadow-lg flex items-center gap-2"
+                    className="bg-gradient-to-r from-purple-500 to-indigo-500 text-white text-[14px] font-bold px-6 py-2.5 rounded-full shadow-lg flex items-center gap-2"
                   >
-                    <Award className="w-5 h-5" />
-                    MELHOR VALOR
+                    <Sparkles className="w-5 h-5" />
+                    A NOSSA RECOMENDAÇÃO
                   </motion.span>
+                </div>
+              )}
+
+              {/* Badge for Profissional - "O Vosso Pedido" */}
+              {tier.name === "Profissional" && (
+                <div className="absolute -top-5 left-1/2 -translate-x-1/2">
+                  <span className="bg-gradient-to-r from-amber-400 to-yellow-400 text-amber-900 text-[14px] font-bold px-6 py-2.5 rounded-full shadow-lg flex items-center gap-2">
+                    <CheckCircle2 className="w-5 h-5" />
+                    O VOSSO PEDIDO
+                  </span>
                 </div>
               )}
 
@@ -2389,7 +2399,7 @@ const SlidePricing = () => {
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: i * 0.1 + 0.2, type: "spring", stiffness: 200 }}
-                  className={`w-12 h-12 rounded-2xl ${tier.iconBg} flex items-center justify-center shadow-lg ${tier.recommended ? "mt-3" : ""}`}
+                  className={`w-12 h-12 rounded-2xl ${tier.iconBg} flex items-center justify-center shadow-lg mt-3`}
                 >
                   <IconComponent className="w-6 h-6 text-white" />
                 </motion.div>
