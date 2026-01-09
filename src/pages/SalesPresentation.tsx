@@ -124,8 +124,8 @@ const SalesPresentation = () => {
   useEffect(() => {
     const handleAfterPrint = () => setIsPrintingMode(false);
 
-    // Check for print mode in URL
-    if (window.location.search.includes('print=true')) {
+    // Check for print mode in URL (HashRouter compatible)
+    if (window.location.href.includes('print=true')) {
       setIsPrintingMode(true);
       setTimeout(() => window.print(), 1000);
     }

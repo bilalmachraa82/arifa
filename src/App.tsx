@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { AuthProvider } from "@/contexts/AuthContext";
@@ -45,38 +45,39 @@ const App = () => (
             <Sonner />
             <AnalyticsScripts />
             <InstallPWAPrompt />
-            <BrowserRouter>
+            <InstallPWAPrompt />
+            <HashRouter>
               <ScrollToTop />
               <AnalyticsProvider>
-              <PageTransition>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/privado" element={<Privado />} />
-                <Route path="/empresas" element={<Empresas />} />
-                <Route path="/investidores" element={<Investidores />} />
-                <Route path="/portfolio" element={<Portfolio />} />
-                <Route path="/portfolio/:slug" element={<ProjectDetail />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/blog/:slug" element={<BlogPost />} />
-                <Route path="/contacto" element={<Contacto />} />
-                <Route path="/servicos" element={<Servicos />} />
-                <Route path="/auth" element={<Auth />} />
-                <Route path="/dashboard" element={<ClientDashboard />} />
-                <Route path="/dashboard/settings" element={<ClientSettings />} />
-                <Route path="/admin" element={<AdminDashboard />} />
-                <Route path="/privacidade" element={<Privacidade />} />
-                <Route path="/termos" element={<Termos />} />
-                <Route path="/install" element={<Install />} />
-                <Route path="/convite/:token" element={<AcceptInvitation />} />
-                <Route path="/cotacao/:token" element={<QuotePublic />} />
-                <Route path="/documentacao" element={<Documentation />} />
-                <Route path="/designer_report" element={<DesignerReport />} />
-                <Route path="/apresentacao" element={<SalesPresentation />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-              </PageTransition>
+                <PageTransition>
+                  <Routes>
+                    <Route path="/" element={<Index />} />
+                    <Route path="/privado" element={<Privado />} />
+                    <Route path="/empresas" element={<Empresas />} />
+                    <Route path="/investidores" element={<Investidores />} />
+                    <Route path="/portfolio" element={<Portfolio />} />
+                    <Route path="/portfolio/:slug" element={<ProjectDetail />} />
+                    <Route path="/blog" element={<Blog />} />
+                    <Route path="/blog/:slug" element={<BlogPost />} />
+                    <Route path="/contacto" element={<Contacto />} />
+                    <Route path="/servicos" element={<Servicos />} />
+                    <Route path="/auth" element={<Auth />} />
+                    <Route path="/dashboard" element={<ClientDashboard />} />
+                    <Route path="/dashboard/settings" element={<ClientSettings />} />
+                    <Route path="/admin" element={<AdminDashboard />} />
+                    <Route path="/privacidade" element={<Privacidade />} />
+                    <Route path="/termos" element={<Termos />} />
+                    <Route path="/install" element={<Install />} />
+                    <Route path="/convite/:token" element={<AcceptInvitation />} />
+                    <Route path="/cotacao/:token" element={<QuotePublic />} />
+                    <Route path="/documentacao" element={<Documentation />} />
+                    <Route path="/designer_report" element={<DesignerReport />} />
+                    <Route path="/apresentacao" element={<SalesPresentation />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </PageTransition>
               </AnalyticsProvider>
-            </BrowserRouter>
+            </HashRouter>
           </TooltipProvider>
         </AuthProvider>
       </LanguageProvider>
