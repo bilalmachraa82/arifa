@@ -4,6 +4,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import {
+  Crown,
+  CheckCircle2,
+  Rocket,
+  Play,
+  Lightbulb,
+  Settings,
+  Timer,
+  Star,
   Printer,
   Globe,
   Users,
@@ -38,7 +46,6 @@ import {
   ZoomIn,
   Download,
   Keyboard,
-  Play,
   Sparkles,
   UserPlus,
   ShieldCheck,
@@ -55,11 +62,7 @@ import {
   AlertCircle
 } from "lucide-react";
 import arifaLogo from "@/assets/arifa-logo.png";
-import screenshotHomepage from "@/assets/screenshot-homepage-new.png";
-import screenshotPortfolio from "@/assets/screenshot-portfolio-new.png";
-import screenshotServicos from "@/assets/screenshot-servicos-new.png";
-import screenshotBlog from "@/assets/screenshot-blog.png";
-import screenshotContacto from "@/assets/screenshot-contacto.png";
+// Screenshots removed as per request to use presentation mockups
 
 export default function Documentation() {
   const printRef = useRef<HTMLDivElement>(null);
@@ -353,249 +356,92 @@ export default function Documentation() {
         <section className="mb-12 print:mb-8">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2 bg-primary/10 rounded-lg">
-              <Camera className="w-6 h-6 text-primary" />
+              <TrendingUp className="w-6 h-6 text-primary" />
             </div>
-            <h2 className="text-3xl font-bold">Screenshots Reais da Plataforma</h2>
+            <h2 className="text-3xl font-bold">Como vamos trabalhar (Roadmap)</h2>
           </div>
 
-          {/* Authenticity Statement */}
-          <Card className="mb-6 border-green-500/30 bg-green-500/5">
-            <CardContent className="py-4">
-              <div className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
-                <p className="text-sm font-medium text-green-700">
-                  Todos os screenshots abaixo são do sistema ARIFA real em funcionamento.
-                  Nenhuma imagem foi gerada por IA ou manipulada.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+          <div className="bg-gradient-to-br from-white to-slate-50 relative p-8 rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
 
-          {/* Homepage Screenshot */}
-          <Card className="mb-6 overflow-hidden">
-            <CardHeader className="bg-gradient-to-r from-primary/10 to-secondary/10">
-              <CardTitle className="flex items-center gap-2">
-                <Home className="w-5 h-5" />
-                Homepage - Site Público
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-0">
-              <img
-                src={screenshotHomepage}
-                alt="Screenshot real da Homepage ARIFA"
-                className="w-full h-auto border-b"
-              />
-            </CardContent>
-            <div className="p-4 bg-muted/30">
-              <div className="flex flex-wrap gap-2">
-                <Badge variant="outline">Hero Animado</Badge>
-                <Badge variant="outline">Navegação Inteligente</Badge>
-                <Badge variant="outline">Dark/Light Mode</Badge>
-                <Badge variant="outline">Multi-idioma</Badge>
-                <Badge variant="outline">CTAs Estratégicos</Badge>
+            {/* Header inside mockup */}
+            <div className="mb-14 text-center">
+              <span className="text-[14px] font-bold text-[#3D7081] uppercase tracking-widest bg-[#3D7081]/5 px-6 py-2 rounded-full border border-[#3D7081]/10">Roadmap & Investimento</span>
+              <h3 className="text-[36px] font-light text-[#1e3a5f] mt-4">Plano de 8 Semanas</h3>
+            </div>
+
+            <div className="relative w-full px-4 pb-12 overflow-x-auto">
+              <div className="min-w-[700px]"> {/* Ensure horizontal scroll if needed */}
+                {/* Main Horizontal Line */}
+                <div className="absolute top-[80px] left-16 right-16 h-2 bg-gradient-to-r from-blue-200 via-purple-200 to-emerald-200 rounded-full" />
+
+                <div className="grid grid-cols-4 gap-4 relative z-10">
+                  {/* Phase 1 */}
+                  <div className="flex flex-col items-center group">
+                    <div className="mb-8 flex flex-col items-center">
+                      <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center border-2 border-blue-100 shadow-lg mb-4">
+                        <Play className="w-8 h-8 text-blue-600 ml-1" />
+                      </div>
+                      <h3 className="font-bold text-[#1e3a5f] text-[18px]">Kick-off</h3>
+                      <p className="text-slate-500 text-[14px]">Semana 0</p>
+                    </div>
+                    <div className="w-6 h-6 bg-blue-600 rounded-full border-4 border-white shadow-lg z-20 mb-8" />
+                    <div className="p-4 bg-white rounded-xl border-2 border-blue-100 shadow-md flex items-center gap-3 w-48">
+                      <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-sm">40%</div>
+                      <div><p className="font-bold text-slate-700 text-sm">Adjudicação</p><p className="text-slate-400 text-xs text-left">Início imediato</p></div>
+                    </div>
+                  </div>
+
+                  {/* Phase 2 */}
+                  <div className="flex flex-col items-center group">
+                    <div className="mb-8 flex flex-col items-center">
+                      <div className="w-16 h-16 bg-purple-50 rounded-2xl flex items-center justify-center border-2 border-purple-100 shadow-lg mb-4">
+                        <Lightbulb className="w-8 h-8 text-purple-600" />
+                      </div>
+                      <h3 className="font-bold text-[#1e3a5f] text-[18px]">Design Freeze</h3>
+                      <p className="text-slate-500 text-[14px]">Semana 3-4</p>
+                    </div>
+                    <div className="w-6 h-6 bg-purple-600 rounded-full border-4 border-white shadow-lg z-20 mb-8" />
+                    <div className="p-4 bg-white rounded-xl border-2 border-purple-100 shadow-md flex items-center gap-3 w-48">
+                      <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 font-bold text-sm">40%</div>
+                      <div><p className="font-bold text-slate-700 text-sm">Aprovação</p><p className="text-slate-400 text-xs text-left">Antes do código</p></div>
+                    </div>
+                  </div>
+
+                  {/* Phase 3 */}
+                  <div className="flex flex-col items-center group">
+                    <div className="mb-8 flex flex-col items-center">
+                      <div className="w-16 h-16 bg-amber-50 rounded-2xl flex items-center justify-center border-2 border-amber-100 shadow-lg mb-4">
+                        <Settings className="w-8 h-8 text-amber-600" />
+                      </div>
+                      <h3 className="font-bold text-[#1e3a5f] text-[18px]">Desenvolvimento</h3>
+                      <p className="text-slate-500 text-[14px]">Semana 5-7</p>
+                    </div>
+                    <div className="w-6 h-6 bg-amber-500 rounded-full border-4 border-white shadow-lg z-20 mb-8" />
+                    <div className="p-3 bg-amber-50 rounded-lg border border-amber-100 shadow-sm w-40 text-center">
+                      <p className="text-amber-700 text-xs font-semibold uppercase tracking-wide">Work in Progress</p>
+                      <p className="text-amber-600/70 text-[10px]">Reuniões semanais</p>
+                    </div>
+                  </div>
+
+                  {/* Phase 4 */}
+                  <div className="flex flex-col items-center group">
+                    <div className="mb-8 flex flex-col items-center">
+                      <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center border-2 border-emerald-100 shadow-lg mb-4">
+                        <Rocket className="w-8 h-8 text-emerald-600" />
+                      </div>
+                      <h3 className="font-bold text-[#1e3a5f] text-[18px]">Go-Live</h3>
+                      <p className="text-slate-500 text-[14px]">Semana 8</p>
+                    </div>
+                    <div className="w-6 h-6 bg-emerald-600 rounded-full border-4 border-white shadow-lg z-20 mb-8" />
+                    <div className="p-4 bg-white rounded-xl border-2 border-emerald-100 shadow-md flex items-center gap-3 w-48">
+                      <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-sm">20%</div>
+                      <div><p className="font-bold text-slate-700 text-sm">Lançamento</p><p className="text-slate-400 text-xs text-left">Validação final</p></div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </Card>
-
-          {/* Portfolio & Services Screenshots */}
-          <div className="grid md:grid-cols-2 gap-6">
-            <Card className="overflow-hidden">
-              <CardHeader className="bg-purple-500/10">
-                <CardTitle className="flex items-center gap-2 text-purple-700 dark:text-purple-400">
-                  <Briefcase className="w-5 h-5" />
-                  Portfolio de Projetos
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-0">
-                <img
-                  src={screenshotPortfolio}
-                  alt="Screenshot real do Portfolio ARIFA"
-                  className="w-full h-auto"
-                />
-              </CardContent>
-              <div className="p-4 bg-muted/30">
-                <ul className="space-y-1 text-sm">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span>Filtros por categoria e localização</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span>Segmentação por tipo de cliente</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span>Estados visuais dos projetos</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span>Pesquisa instantânea</span>
-                  </li>
-                </ul>
-              </div>
-            </Card>
-
-            <Card className="overflow-hidden">
-              <CardHeader className="bg-blue-500/10">
-                <CardTitle className="flex items-center gap-2 text-blue-700 dark:text-blue-400">
-                  <Zap className="w-5 h-5" />
-                  Página de Serviços
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-0">
-                <img
-                  src={screenshotServicos}
-                  alt="Screenshot real da página de Serviços ARIFA"
-                  className="w-full h-auto"
-                />
-              </CardContent>
-              <div className="p-4 bg-muted/30">
-                <ul className="space-y-1 text-sm">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span>Apresentação profissional</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span>CTAs de conversão</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span>Design responsivo</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span>Animações suaves</span>
-                  </li>
-                </ul>
-              </div>
-            </Card>
           </div>
-
-          {/* NEW: Lightbox Premium Feature Highlight */}
-          <Card className="mt-6 overflow-hidden border-2 border-violet-500/30 bg-gradient-to-br from-violet-500/5 to-purple-500/5">
-            <CardHeader className="bg-gradient-to-r from-violet-500/10 to-purple-500/10">
-              <CardTitle className="flex items-center gap-2 text-violet-700 dark:text-violet-400">
-                <Camera className="w-5 h-5" />
-                Galeria de Fotos com Lightbox Premium
-                <Badge className="ml-2 bg-violet-500">Destaque</Badge>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <p className="text-muted-foreground mb-4">
-                    Sistema de visualização de imagens profissional com experiência premium para clientes explorarem cada detalhe dos seus projetos.
-                  </p>
-                  <ul className="space-y-2">
-                    <li className="flex items-center gap-2 text-sm">
-                      <CheckCircle className="w-4 h-4 text-green-500" />
-                      <span><strong>Zoom até 400%</strong> com pan suave</span>
-                    </li>
-                    <li className="flex items-center gap-2 text-sm">
-                      <CheckCircle className="w-4 h-4 text-green-500" />
-                      <span><strong>Organização por fase</strong> do projeto</span>
-                    </li>
-                    <li className="flex items-center gap-2 text-sm">
-                      <CheckCircle className="w-4 h-4 text-green-500" />
-                      <span><strong>Slideshow automático</strong> com timer configurável</span>
-                    </li>
-                    <li className="flex items-center gap-2 text-sm">
-                      <CheckCircle className="w-4 h-4 text-green-500" />
-                      <span><strong>Rotação de imagem</strong> 90°, 180°, 270°</span>
-                    </li>
-                    <li className="flex items-center gap-2 text-sm">
-                      <CheckCircle className="w-4 h-4 text-green-500" />
-                      <span><strong>Download</strong> individual ou em lote</span>
-                    </li>
-                    <li className="flex items-center gap-2 text-sm">
-                      <CheckCircle className="w-4 h-4 text-green-500" />
-                      <span><strong>Navegação por teclado</strong> (← → Esc)</span>
-                    </li>
-                  </ul>
-                </div>
-                <div className="bg-slate-900 rounded-xl p-4">
-                  <div className="flex justify-between items-center mb-3 text-white/60">
-                    <span className="text-xs">← Anterior</span>
-                    <div className="flex gap-2">
-                      <div className="p-1.5 bg-white/10 rounded"><ZoomIn className="w-4 h-4" /></div>
-                      <div className="p-1.5 bg-white/10 rounded"><Rotate3D className="w-4 h-4" /></div>
-                      <div className="p-1.5 bg-white/10 rounded"><Play className="w-4 h-4" /></div>
-                      <div className="p-1.5 bg-white/10 rounded"><Download className="w-4 h-4" /></div>
-                    </div>
-                    <span className="text-xs">Próximo →</span>
-                  </div>
-                  <div className="bg-gradient-to-br from-white/10 to-white/5 rounded-lg h-40 flex items-center justify-center border border-white/10">
-                    <div className="text-center">
-                      <Camera className="w-12 h-12 mx-auto mb-2 text-white/30" />
-                      <p className="text-white/50 text-sm">Imagem com Zoom 400%</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-1.5 justify-center mt-3">
-                    {[1, 2, 3, 4, 5, 6].map(i => (
-                      <div key={i} className={`w-10 h-7 rounded ${i === 3 ? 'ring-2 ring-violet-400 bg-white/30' : 'bg-white/15'}`} />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Note about protected areas */}
-          <Card className="mt-6 border-dashed border-2">
-            <CardContent className="p-6">
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-amber-500/10 rounded-lg">
-                  <Lock className="w-6 h-6 text-amber-600" />
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-2">Áreas Protegidas por Autenticação</h4>
-                  <p className="text-muted-foreground text-sm mb-3">
-                    O <strong>Portal do Cliente</strong> e o <strong>Painel de Administração</strong> são áreas
-                    privadas protegidas por autenticação segura com MFA opcional.
-                  </p>
-                  <div className="grid md:grid-cols-3 gap-4 mt-4">
-                    <div className="p-3 bg-purple-500/10 rounded-lg">
-                      <h5 className="font-medium text-purple-700 dark:text-purple-400 flex items-center gap-2 mb-2">
-                        <Users className="w-4 h-4" />
-                        Portal do Cliente
-                      </h5>
-                      <ul className="text-xs space-y-1 text-muted-foreground">
-                        <li>• Timeline visual do projeto</li>
-                        <li>• Documentos com versionamento</li>
-                        <li>• Chat em tempo real</li>
-                        <li>• AI Weekly Updates</li>
-                      </ul>
-                    </div>
-                    <div className="p-3 bg-violet-500/10 rounded-lg">
-                      <h5 className="font-medium text-violet-700 dark:text-violet-400 flex items-center gap-2 mb-2">
-                        <Camera className="w-4 h-4" />
-                        Galeria de Fotos
-                      </h5>
-                      <ul className="text-xs space-y-1 text-muted-foreground">
-                        <li>• Lightbox premium</li>
-                        <li>• Zoom até 400%</li>
-                        <li>• Organização por fase</li>
-                        <li>• Download em lote</li>
-                      </ul>
-                    </div>
-                    <div className="p-3 bg-blue-500/10 rounded-lg">
-                      <h5 className="font-medium text-blue-700 dark:text-blue-400 flex items-center gap-2 mb-2">
-                        <Shield className="w-4 h-4" />
-                        Painel Admin
-                      </h5>
-                      <ul className="text-xs space-y-1 text-muted-foreground">
-                        <li>• Dashboard com KPIs</li>
-                        <li>• CRM Kanban de leads</li>
-                        <li>• Sistema de cotações</li>
-                        <li>• Audit logs</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
         </section>
 
         <Separator className="my-8" />
@@ -1891,21 +1737,38 @@ export default function Documentation() {
               <p className="text-muted-foreground mb-6">
                 2 opções à medida das necessidades do teu estúdio. Investimento único, sem mensalidades.
               </p>
-              <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-                {/* Tier 1: Profissional - Recommended */}
-                <div className="rounded-xl p-5 bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] text-white ring-4 ring-primary/30 shadow-xl relative">
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                    <Badge className="bg-amber-400 text-amber-900 font-bold px-3 py-1">
-                      RECOMENDADO
-                    </Badge>
+              <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mt-12">
+                {/* Tier 1: Profissional - O VOSSO PEDIDO */}
+                <div className="rounded-3xl p-7 bg-white border-2 border-slate-200 shadow-xl relative">
+                  <div className="absolute -top-5 left-1/2 -translate-x-1/2 w-full flex justify-center">
+                    <span className="bg-gradient-to-r from-slate-100 to-slate-200 text-slate-700 text-[12px] font-semibold px-4 py-2 rounded-full shadow-md border border-slate-300 flex items-center gap-2 whitespace-nowrap">
+                      <CheckCircle className="w-4 h-4 text-[#3D7081]" />
+                      O VOSSO PEDIDO
+                    </span>
                   </div>
-                  <h4 className="text-xl font-bold mt-2 mb-1">Profissional</h4>
-                  <p className="text-sm text-blue-200 mb-4">Solução completa</p>
+
+                  {/* Icon + Title */}
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#3D7081] to-[#1e3a5f] flex items-center justify-center shadow-lg mt-3">
+                      <Rocket className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-[26px] font-bold text-[#1e3a5f]">Profissional</h3>
+                      <p className="text-[14px] text-slate-500">Para crescer</p>
+                    </div>
+                  </div>
+
+                  <p className="text-[13px] mb-4 italic text-slate-400">
+                    Ideal para estúdios com 10-50 projetos/ano que precisam de portal cliente
+                  </p>
+
                   <div className="flex items-baseline gap-1 mb-5">
-                    <span className="text-4xl font-bold">5.888</span>
-                    <span className="text-xl text-blue-200">€</span>
+                    <span className="text-4xl font-bold text-[#1e3a5f]">5.888</span>
+                    <span className="text-xl text-slate-400">€</span>
                   </div>
-                  <ul className="space-y-2 text-sm">
+
+                  {/* Features */}
+                  <ul className="space-y-2.5">
                     {[
                       "Site público completo",
                       "Portal Cliente completo",
@@ -1915,42 +1778,66 @@ export default function Documentation() {
                       "Blog + Newsletter",
                       "60 dias suporte"
                     ].map((feature, i) => (
-                      <li key={i} className="flex items-center gap-2">
-                        <CheckCircle className="w-4 h-4 text-green-300 flex-shrink-0" />
-                        <span className="text-blue-100">{feature}</span>
+                      <li key={i} className="flex items-center gap-2.5">
+                        <CheckCircle className="w-5 h-5 flex-shrink-0 text-[#3D7081]" />
+                        <span className="text-[15px] text-slate-700">{feature}</span>
                       </li>
                     ))}
                   </ul>
-                  <div className="mt-4 pt-3 border-t border-white/20">
-                    <p className="text-blue-200 text-xs flex items-center gap-1">
-                      <Sparkles className="w-3 h-3" />
-                      Escolha mais popular
-                    </p>
-                  </div>
                 </div>
 
-                {/* Tier 2: Premium */}
-                <div className="rounded-xl border-2 border-slate-200 p-5 bg-gradient-to-br from-slate-50 to-white">
-                  <h4 className="text-xl font-bold text-foreground mb-1">Premium</h4>
-                  <p className="text-sm text-muted-foreground mb-4">Tudo + manutenção</p>
-                  <div className="flex items-baseline gap-1 mb-5">
-                    <span className="text-4xl font-bold text-foreground">7.888</span>
-                    <span className="text-xl text-muted-foreground">€</span>
+                {/* Tier 2: Premium - RECOMENDADO */}
+                <div className="rounded-3xl p-7 bg-gradient-to-br from-[#1e3a5f] via-[#2a4a6f] to-[#3D7081] text-white ring-4 ring-[#3D7081]/30 shadow-2xl relative scale-[1.03] z-10">
+                  <div className="absolute -top-5 left-1/2 -translate-x-1/2 w-full flex justify-center">
+                    <span className="bg-gradient-to-r from-amber-400 to-yellow-500 text-amber-900 text-[12px] font-bold px-4 py-2 rounded-full shadow-lg flex items-center gap-2 whitespace-nowrap">
+                      <Crown className="w-4 h-4" />
+                      A NOSSA RECOMENDAÇÃO
+                    </span>
                   </div>
-                  <ul className="space-y-2 text-sm">
+
+                  {/* Icon + Title */}
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-yellow-500 flex items-center justify-center shadow-lg mt-3">
+                      <Crown className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-[26px] font-bold text-white">Premium</h3>
+                      <p className="text-[14px] text-blue-200">A solução completa</p>
+                    </div>
+                  </div>
+
+                  <p className="text-[13px] mb-4 italic text-blue-100/80">
+                    Tudo incluído. Zero preocupações. Nós cuidamos da tua plataforma 12 meses.
+                  </p>
+
+                  <div className="flex items-baseline gap-1 mb-5">
+                    <span className="text-4xl font-bold text-white">7.888</span>
+                    <span className="text-xl text-blue-200">€</span>
+                  </div>
+
+                  <ul className="space-y-2.5">
                     {[
-                      "Tudo do Profissional",
+                      "Site + Portal + Backoffice",
                       "CRM + Lead Scoring IA",
-                      "Automações + Cotações",
+                      "Cotações + Contratos digitais",
+                      "Automações inteligentes",
                       "12 meses manutenção incluída",
-                      "Suporte prioritário"
+                      "Suporte prioritário 24/7",
+                      "4h Formação IA GRÁTIS"
                     ].map((feature, i) => (
-                      <li key={i} className="flex items-center gap-2">
-                        <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
-                        <span>{feature}</span>
+                      <li key={i} className="flex items-center gap-2.5">
+                        <CheckCircle className="w-5 h-5 flex-shrink-0 text-green-300" />
+                        <span className={`text-[15px] text-blue-100 ${feature.includes("GRÁTIS") ? "font-bold" : ""}`}>{feature}</span>
                       </li>
                     ))}
                   </ul>
+
+                  <div className="mt-5 pt-4 border-t border-white/20">
+                    <p className="text-blue-200 text-xs flex items-center gap-1">
+                      <Star className="w-3 h-3 text-amber-300" />
+                      Tranquilidade total durante 12 meses
+                    </p>
+                  </div>
                 </div>
               </div>
 

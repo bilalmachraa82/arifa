@@ -2371,13 +2371,13 @@ const SlidePricing = () => {
                 }`}
             >
               {tier.recommended && (
-                <div className="absolute -top-5 left-1/2 -translate-x-1/2">
+                <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-full flex justify-center">
                   <motion.span
                     animate={{ scale: [1, 1.05, 1] }}
                     transition={{ duration: 2, repeat: Infinity }}
-                    className="bg-gradient-to-r from-purple-500 to-indigo-500 text-white text-[14px] font-bold px-6 py-2.5 rounded-full shadow-lg flex items-center gap-2"
+                    className="bg-gradient-to-r from-amber-400 to-yellow-500 text-amber-900 text-[14px] font-bold px-6 py-2.5 rounded-full shadow-lg flex items-center gap-2 whitespace-nowrap"
                   >
-                    <Sparkles className="w-5 h-5" />
+                    <Crown className="w-5 h-5" />
                     A NOSSA RECOMENDAÇÃO
                   </motion.span>
                 </div>
@@ -2385,9 +2385,9 @@ const SlidePricing = () => {
 
               {/* Badge for Profissional - "O Vosso Pedido" */}
               {tier.name === "Profissional" && (
-                <div className="absolute -top-5 left-1/2 -translate-x-1/2">
-                  <span className="bg-gradient-to-r from-amber-400 to-yellow-400 text-amber-900 text-[14px] font-bold px-6 py-2.5 rounded-full shadow-lg flex items-center gap-2">
-                    <CheckCircle2 className="w-5 h-5" />
+                <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-full flex justify-center">
+                  <span className="bg-gradient-to-r from-slate-100 to-slate-200 text-slate-700 text-[14px] font-semibold px-6 py-2.5 rounded-full shadow-md border border-slate-300 flex items-center gap-2 whitespace-nowrap">
+                    <CheckCircle2 className="w-5 h-5 text-[#3D7081]" />
                     O VOSSO PEDIDO
                   </span>
                 </div>
