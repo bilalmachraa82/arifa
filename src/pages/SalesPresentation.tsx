@@ -118,6 +118,14 @@ const SalesPresentation = () => {
   const [stageScale, setStageScale] = useState(1);
   const [direction, setDirection] = useState(0);
   const [hideControls, setHideControls] = useState(false);
+  const [isPrintingMode, setIsPrintingMode] = useState(false);
+
+  // Handle exiting print mode
+  useEffect(() => {
+    const handleAfterPrint = () => setIsPrintingMode(false);
+    window.addEventListener("afterprint", handleAfterPrint);
+    return () => window.removeEventListener("afterprint", handleAfterPrint);
+  }, []);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
@@ -284,6 +292,48 @@ const SalesPresentation = () => {
     setDirection(index > currentSlide ? 1 : -1);
     setCurrentSlide(index);
   }, [currentSlide]);
+
+  // PRINT MODE RENDER
+  if (isPrintingMode) {
+    return (
+      <div className="bg-white min-h-screen text-slate-900">
+        <style>{`
+          @media print {
+            @page { size: landscape; margin: 0; }
+            body { -webkit-print-color-adjust: exact; }
+            .print-slide { break-after: page; page-break-after: always; width: 100vw; height: 100vh; overflow: hidden; position: relative; }
+          }
+        `}</style>
+        {[
+          SlideCover,
+          SlideProblem,
+          SlideTransformation,
+          SlideSolution,
+          SlidePublicSite,
+          SlidePortfolio,
+          SlideBlog,
+          SlideClientPortal,
+          SlidePhotoGallery,
+          SlideAdminDashboard,
+          SlideCRM,
+          SlideAutomations,
+          SlideContacto,
+          SlideTimeline,
+          SlideFAQ,
+          SlideComparison,
+          SlidePricing,
+          SlideTerms,
+          SlideNextSteps
+        ].map((SlideComponent, index) => (
+          <div key={index} className="print-slide relative w-full h-screen overflow-hidden border-b-2 border-slate-100 print:border-none">
+            <div className="origin-top-left transform scale-[0.5] print:scale-100 w-[1920px] h-[1080px] absolute top-0 left-0">
+              <SlideComponent />
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-900 flex flex-col overflow-hidden">
@@ -2318,6 +2368,7 @@ const SlidePricing = () => {
         "CRM + Lead Scoring IA",
         "Cotações + Contratos digitais",
         "Automações inteligentes",
+        "Integrações Personalizadas (Sage, etc.)",
         "12 meses manutenção incluída",
         "Suporte prioritário 24/7",
         "4h Formação IA GRÁTIS",

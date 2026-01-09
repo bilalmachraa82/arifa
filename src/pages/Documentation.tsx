@@ -1821,6 +1821,7 @@ export default function Documentation() {
                       "CRM + Lead Scoring IA",
                       "Cotações + Contratos digitais",
                       "Automações inteligentes",
+                      "Integrações Personalizadas (Sage, etc.)",
                       "12 meses manutenção incluída",
                       "Suporte prioritário 24/7",
                       "4h Formação IA GRÁTIS"
@@ -1904,7 +1905,7 @@ export default function Documentation() {
                       "Sessões de formação adicionais",
                       "Manutenção mensal (opcional €150-250/mês)",
                       "Novas línguas além de PT/EN",
-                      "Integração com softwares externos",
+                      "Integração com softwares externos (Incluído no Premium)",
                       "Desenvolvimento de novas funcionalidades",
                       "Suporte após 60 dias bug-fix"
                     ].map((item) => (
