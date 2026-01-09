@@ -3,12 +3,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { 
-  Printer, 
-  Globe, 
-  Users, 
-  Shield, 
-  Smartphone, 
+import {
+  Printer,
+  Globe,
+  Users,
+  Shield,
+  Smartphone,
   Database,
   Bot,
   FileText,
@@ -81,9 +81,9 @@ export default function Documentation() {
       <div ref={printRef} className="max-w-5xl mx-auto p-8 print:p-4">
         {/* Header */}
         <header className="text-center mb-12 print:mb-8">
-          <img 
-            src={arifaLogo} 
-            alt="ARIFA Studio" 
+          <img
+            src={arifaLogo}
+            alt="ARIFA Studio"
             className="h-20 mx-auto mb-6 print:h-16"
           />
           <h1 className="text-4xl font-bold mb-4 print:text-3xl">
@@ -364,7 +364,7 @@ export default function Documentation() {
               <div className="flex items-center gap-3">
                 <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
                 <p className="text-sm font-medium text-green-700">
-                  Todos os screenshots abaixo são do sistema ARIFA real em funcionamento. 
+                  Todos os screenshots abaixo são do sistema ARIFA real em funcionamento.
                   Nenhuma imagem foi gerada por IA ou manipulada.
                 </p>
               </div>
@@ -380,9 +380,9 @@ export default function Documentation() {
               </CardTitle>
             </CardHeader>
             <CardContent className="p-0">
-              <img 
-                src={screenshotHomepage} 
-                alt="Screenshot real da Homepage ARIFA" 
+              <img
+                src={screenshotHomepage}
+                alt="Screenshot real da Homepage ARIFA"
                 className="w-full h-auto border-b"
               />
             </CardContent>
@@ -407,9 +407,9 @@ export default function Documentation() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-0">
-                <img 
-                  src={screenshotPortfolio} 
-                  alt="Screenshot real do Portfolio ARIFA" 
+                <img
+                  src={screenshotPortfolio}
+                  alt="Screenshot real do Portfolio ARIFA"
                   className="w-full h-auto"
                 />
               </CardContent>
@@ -443,9 +443,9 @@ export default function Documentation() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-0">
-                <img 
-                  src={screenshotServicos} 
-                  alt="Screenshot real da página de Serviços ARIFA" 
+                <img
+                  src={screenshotServicos}
+                  alt="Screenshot real da página de Serviços ARIFA"
                   className="w-full h-auto"
                 />
               </CardContent>
@@ -532,7 +532,7 @@ export default function Documentation() {
                     </div>
                   </div>
                   <div className="flex gap-1.5 justify-center mt-3">
-                    {[1,2,3,4,5,6].map(i => (
+                    {[1, 2, 3, 4, 5, 6].map(i => (
                       <div key={i} className={`w-10 h-7 rounded ${i === 3 ? 'ring-2 ring-violet-400 bg-white/30' : 'bg-white/15'}`} />
                     ))}
                   </div>
@@ -551,7 +551,7 @@ export default function Documentation() {
                 <div>
                   <h4 className="font-semibold mb-2">Áreas Protegidas por Autenticação</h4>
                   <p className="text-muted-foreground text-sm mb-3">
-                    O <strong>Portal do Cliente</strong> e o <strong>Painel de Administração</strong> são áreas 
+                    O <strong>Portal do Cliente</strong> e o <strong>Painel de Administração</strong> são áreas
                     privadas protegidas por autenticação segura com MFA opcional.
                   </p>
                   <div className="grid md:grid-cols-3 gap-4 mt-4">
@@ -749,7 +749,7 @@ export default function Documentation() {
                     </div>
                   </div>
                   <div className="flex gap-1 justify-center">
-                    {[1,2,3,4,5,6].map(i => (
+                    {[1, 2, 3, 4, 5, 6].map(i => (
                       <div key={i} className={`w-6 h-4 rounded ${i === 3 ? 'bg-violet-400/60 ring-1 ring-violet-400' : 'bg-white/20'}`}></div>
                     ))}
                   </div>
@@ -784,16 +784,15 @@ export default function Documentation() {
                   <div className="grid grid-cols-4 gap-2">
                     {['Novo', 'Contactado', 'Proposta', 'Fechado'].map((col, i) => (
                       <div key={col} className="space-y-1">
-                        <div className={`text-center text-[10px] font-medium py-1 rounded ${
-                          i === 0 ? 'bg-blue-500/20 text-blue-600' :
+                        <div className={`text-center text-[10px] font-medium py-1 rounded ${i === 0 ? 'bg-blue-500/20 text-blue-600' :
                           i === 1 ? 'bg-yellow-500/20 text-yellow-600' :
-                          i === 2 ? 'bg-purple-500/20 text-purple-600' :
-                          'bg-green-500/20 text-green-600'
-                        }`}>{col}</div>
+                            i === 2 ? 'bg-purple-500/20 text-purple-600' :
+                              'bg-green-500/20 text-green-600'
+                          }`}>{col}</div>
                         <div className="space-y-1">
-                          {[1,2].slice(0, i === 3 ? 1 : 2).map(j => (
+                          {[1, 2].slice(0, i === 3 ? 1 : 2).map(j => (
                             <div key={j} className="bg-background border rounded p-1 text-[10px] text-muted-foreground">
-                              Lead {i+1}.{j}
+                              Lead {i + 1}.{j}
                             </div>
                           ))}
                         </div>
@@ -834,7 +833,7 @@ export default function Documentation() {
               </div>
             </CardContent>
           </Card>
-          
+
           <Card className="mb-6 border-blue-500/20 bg-blue-500/5">
             <CardContent className="pt-4 pb-4">
               <div className="flex items-start gap-3">
@@ -945,7 +944,7 @@ export default function Documentation() {
               </div>
             </CardContent>
           </Card>
-          
+
           {/* Call Highlight */}
           <Card className="mb-6 border-purple-500/20 bg-purple-500/5 call-highlight">
             <CardContent className="pt-4 pb-4">
@@ -962,7 +961,7 @@ export default function Documentation() {
               </div>
             </CardContent>
           </Card>
-          
+
           <div className="grid md:grid-cols-2 gap-4">
             <FeatureCard
               icon={<BarChart3 className="w-5 h-5" />}
@@ -1080,7 +1079,7 @@ export default function Documentation() {
               </div>
             </CardContent>
           </Card>
-          
+
           <Card className="mb-6 border-blue-500/20 bg-blue-500/5">
             <CardContent className="pt-4 pb-4">
               <div className="flex items-start gap-3">
@@ -1092,7 +1091,7 @@ export default function Documentation() {
               </div>
             </CardContent>
           </Card>
-          
+
           <div className="grid md:grid-cols-2 gap-4">
             <FeatureCard
               icon={<BarChart3 className="w-5 h-5" />}
@@ -1224,7 +1223,7 @@ export default function Documentation() {
               </div>
             </CardContent>
           </Card>
-          
+
           <Card className="mb-6 border-green-500/20 bg-green-500/5">
             <CardContent className="pt-4 pb-4">
               <div className="flex items-start gap-3">
@@ -1236,7 +1235,7 @@ export default function Documentation() {
               </div>
             </CardContent>
           </Card>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             <Card className="text-center border-green-500/20">
               <CardContent className="pt-6">
@@ -1364,7 +1363,7 @@ export default function Documentation() {
               </div>
             </CardContent>
           </Card>
-          
+
           <Card className="mb-6 border-cyan-500/20 bg-cyan-500/5">
             <CardContent className="pt-4 pb-4">
               <div className="flex items-start gap-3">
@@ -1459,7 +1458,7 @@ export default function Documentation() {
               </div>
             </CardContent>
           </Card>
-          
+
           {/* Call Highlight */}
           <Card className="mb-6 border-indigo-500/20 bg-indigo-500/5 call-highlight">
             <CardContent className="pt-4 pb-4">
@@ -1535,7 +1534,7 @@ export default function Documentation() {
                   <ArrowRight className="w-4 h-4 text-muted-foreground" />
                   <FlowStep label="7. Em Uso" highlight implemented />
                 </div>
-                
+
                 <div className="flex justify-center">
                   <ArrowDown className="w-6 h-6 text-muted-foreground" />
                 </div>
@@ -1632,7 +1631,7 @@ export default function Documentation() {
               <p className="text-muted-foreground mt-1">Base sólida — arquitectura preparada para crescer com o seu negócio</p>
             </div>
           </div>
-          
+
           <Card className="mb-6 border-emerald-500/20 bg-emerald-500/5">
             <CardContent className="pt-4 pb-4">
               <div className="flex items-start gap-3">
@@ -1758,8 +1757,8 @@ export default function Documentation() {
               <div className="text-center">
                 <h3 className="text-xl font-bold mb-3">Resumo Executivo</h3>
                 <p className="text-lg max-w-2xl mx-auto">
-                  No mercado, pagarias aproximadamente <strong className="text-red-600">€8.500-10.500 no 1º ano + ~4.500 €/ano</strong> em SaaS recorrentes (~17.500-19.500€ em 3 anos). 
-                  Com a ARIFA, investes a partir de <strong className="text-green-600">€3.590 uma única vez</strong> e ficas 
+                  No mercado, pagarias aproximadamente <strong className="text-red-600">€8.500-10.500 no 1º ano + ~4.500 €/ano</strong> em SaaS recorrentes (~17.500-19.500€ em 3 anos).
+                  Com a ARIFA, investes a partir de <strong className="text-green-600">€3.590 uma única vez</strong> e ficas
                   com tudo à medida do teu estúdio. <strong>Sem subscrições mensais, sem surpresas.</strong>
                 </p>
               </div>
@@ -1890,34 +1889,10 @@ export default function Documentation() {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground mb-6">
-                3 opções à medida das necessidades do teu estúdio. Investimento único, sem mensalidades.
+                2 opções à medida das necessidades do teu estúdio. Investimento único, sem mensalidades.
               </p>
-              <div className="grid md:grid-cols-3 gap-6">
-                {/* Tier 1: Essencial */}
-                <div className="rounded-xl border-2 border-slate-200 p-5 bg-gradient-to-br from-slate-50 to-white">
-                  <h4 className="text-xl font-bold text-foreground mb-1">Essencial</h4>
-                  <p className="text-sm text-muted-foreground mb-4">Para começar</p>
-                  <div className="flex items-baseline gap-1 mb-5">
-                    <span className="text-4xl font-bold text-foreground">3.590</span>
-                    <span className="text-xl text-muted-foreground">€</span>
-                  </div>
-                  <ul className="space-y-2 text-sm">
-                    {[
-                      "Site público (5 páginas)",
-                      "Portfólio básico",
-                      "Formulário de contacto",
-                      "SEO otimizado",
-                      "30 dias suporte"
-                    ].map((feature, i) => (
-                      <li key={i} className="flex items-center gap-2">
-                        <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Tier 2: Profissional - Recommended */}
+              <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                {/* Tier 1: Profissional - Recommended */}
                 <div className="rounded-xl p-5 bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] text-white ring-4 ring-primary/30 shadow-xl relative">
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                     <Badge className="bg-amber-400 text-amber-900 font-bold px-3 py-1">
@@ -1932,9 +1907,10 @@ export default function Documentation() {
                   </div>
                   <ul className="space-y-2 text-sm">
                     {[
-                      "Tudo do Essencial",
+                      "Site público completo",
                       "Portal Cliente completo",
                       "Dashboard Admin",
+                      "CRM + Gestão de Leads",
                       "Mensagens + Documentos",
                       "Blog + Newsletter",
                       "60 dias suporte"
@@ -1953,7 +1929,7 @@ export default function Documentation() {
                   </div>
                 </div>
 
-                {/* Tier 3: Premium */}
+                {/* Tier 2: Premium */}
                 <div className="rounded-xl border-2 border-slate-200 p-5 bg-gradient-to-br from-slate-50 to-white">
                   <h4 className="text-xl font-bold text-foreground mb-1">Premium</h4>
                   <p className="text-sm text-muted-foreground mb-4">Tudo + manutenção</p>
@@ -2218,9 +2194,9 @@ export default function Documentation() {
 
         {/* Footer */}
         <footer className="text-center py-8 border-t mt-12 print:mt-8">
-          <img 
-            src={arifaLogo} 
-            alt="ARIFA Studio" 
+          <img
+            src={arifaLogo}
+            alt="ARIFA Studio"
             className="h-12 mx-auto mb-4"
           />
           <p className="text-muted-foreground">
@@ -2252,19 +2228,19 @@ export default function Documentation() {
           border-left: 4px solid hsl(var(--primary));
         }
       `}</style>
-    </div>
+    </div >
   );
 }
 
 // Feature Card Component
-function FeatureCard({ 
-  icon, 
-  title, 
-  features 
-}: { 
-  icon: React.ReactNode; 
-  title: string; 
-  features: string[] 
+function FeatureCard({
+  icon,
+  title,
+  features
+}: {
+  icon: React.ReactNode;
+  title: string;
+  features: string[]
 }) {
   return (
     <Card>
@@ -2289,14 +2265,14 @@ function FeatureCard({
 }
 
 // Tech Card Component
-function TechCard({ 
-  icon, 
-  title, 
-  description 
-}: { 
-  icon: React.ReactNode; 
-  title: string; 
-  description: string 
+function TechCard({
+  icon,
+  title,
+  description
+}: {
+  icon: React.ReactNode;
+  title: string;
+  description: string
 }) {
   return (
     <Card className="text-center">
