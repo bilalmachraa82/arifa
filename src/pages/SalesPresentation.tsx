@@ -170,63 +170,14 @@ const SalesPresentation = () => {
   }, []);
 
   // Export to PDF
-  const exportToPDF = useCallback(async () => {
-    if (!stageRef.current || isExporting) return;
-
-    setIsExporting(true);
-    toast.info("A gerar PDF... Aguarda enquanto cada slide é capturado.");
-
-    await document.fonts.ready;
-
-    const originalSlide = currentSlide;
-    const pdf = new jsPDF({
-      orientation: "landscape",
-      unit: "px",
-      format: [STAGE_WIDTH, STAGE_HEIGHT]
-    });
-
-    try {
-      for (let i = 0; i < TOTAL_SLIDES; i++) {
-        setCurrentSlide(i);
-        await new Promise(resolve => setTimeout(resolve, 300));
-
-        const canvas = await html2canvas(stageRef.current!, {
-          scale: 1,
-          useCORS: true,
-          allowTaint: true,
-          backgroundColor: "#ffffff",
-          logging: false,
-          width: STAGE_WIDTH,
-          height: STAGE_HEIGHT,
-          onclone: (clonedDoc) => {
-            const motionElements = clonedDoc.querySelectorAll('[style*="opacity"]');
-            motionElements.forEach((el) => {
-              (el as HTMLElement).style.opacity = '1';
-              (el as HTMLElement).style.transform = 'none';
-            });
-          }
-        });
-
-        const imgData = canvas.toDataURL("image/jpeg", 0.95);
-
-        if (i > 0) {
-          pdf.addPage([STAGE_WIDTH, STAGE_HEIGHT], "landscape");
-        }
-
-        pdf.addImage(imgData, "JPEG", 0, 0, STAGE_WIDTH, STAGE_HEIGHT);
-        toast.info(`Slide ${i + 1} de ${TOTAL_SLIDES} capturado...`);
-      }
-
-      pdf.save("ARIFA-Proposta-Comercial.pdf");
-      toast.success("PDF exportado com sucesso!");
-    } catch (error) {
-      console.error("Erro ao exportar PDF:", error);
-      toast.error("Erro ao exportar PDF. Tenta novamente.");
-    } finally {
-      setCurrentSlide(originalSlide);
-      setIsExporting(false);
-    }
-  }, [currentSlide, isExporting]);
+  // Native Print (Save as PDF)
+  const exportToPDF = useCallback(() => {
+    setIsPrintingMode(true);
+    // Give React time to render all slides
+    setTimeout(() => {
+      window.print();
+    }, 500);
+  }, []);
 
   // Keyboard navigation
   useEffect(() => {
