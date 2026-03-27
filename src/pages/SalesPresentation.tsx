@@ -2658,7 +2658,7 @@ const SlideTerms = () => {
           </div>
           <div className="flex-1 border-r border-slate-100 pr-8">
             <h4 className="text-[18px] font-bold text-[#1e3a5f] mb-1">Garantia & Manutenção</h4>
-            <p className="text-slate-500 text-sm">O teu investimento está protegido. Inclui 12 meses de atualizações, alojamento e suporte prioritário.</p>
+            <p className="text-slate-500 text-sm">Profissional: 60 dias suporte. Premium: 12 meses de atualizações, alojamento e suporte prioritário.</p>
           </div>
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
