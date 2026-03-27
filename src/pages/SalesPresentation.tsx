@@ -2561,7 +2561,6 @@ const SlideTerms = () => {
 
             {/* PHASE 1: START */}
             <div className="flex flex-col items-center group">
-              {/* TOP: Phase Info */}
               <div className="mb-8 flex flex-col items-center transition-transform hover:-translate-y-2 duration-300">
                 <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center border-2 border-blue-100 shadow-lg mb-4">
                   <Play className="w-8 h-8 text-blue-600 ml-1" />
@@ -2569,14 +2568,10 @@ const SlideTerms = () => {
                 <h3 className="font-bold text-[#1e3a5f] text-[20px]">Kick-off</h3>
                 <p className="text-slate-500 text-[15px]">Semana 0</p>
               </div>
-
-              {/* CENTRAL DOT */}
               <div className="w-6 h-6 bg-blue-600 rounded-full border-4 border-white shadow-lg z-20" />
-
-              {/* BOTTOM: Payment Info */}
               <div className="mt-8 p-4 bg-white rounded-xl border-2 border-blue-100 shadow-md flex items-center gap-3 w-48 transition-transform hover:translate-y-2 duration-300">
                 <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-sm">
-                  40%
+                  30%
                 </div>
                 <div>
                   <p className="font-bold text-slate-700 text-sm">Adjudicação</p>
@@ -2587,7 +2582,6 @@ const SlideTerms = () => {
 
             {/* PHASE 2: DESIGN */}
             <div className="flex flex-col items-center group">
-              {/* TOP: Phase Info */}
               <div className="mb-8 flex flex-col items-center transition-transform hover:-translate-y-2 duration-300">
                 <div className="w-16 h-16 bg-purple-50 rounded-2xl flex items-center justify-center border-2 border-purple-100 shadow-lg mb-4">
                   <Lightbulb className="w-8 h-8 text-purple-600" />
@@ -2595,14 +2589,10 @@ const SlideTerms = () => {
                 <h3 className="font-bold text-[#1e3a5f] text-[20px]">Design Freeze</h3>
                 <p className="text-slate-500 text-[15px]">Semana 3-4</p>
               </div>
-
-              {/* CENTRAL DOT */}
               <div className="w-6 h-6 bg-purple-600 rounded-full border-4 border-white shadow-lg z-20" />
-
-              {/* BOTTOM: Payment Info */}
               <div className="mt-8 p-4 bg-white rounded-xl border-2 border-purple-100 shadow-md flex items-center gap-3 w-48 transition-transform hover:translate-y-2 duration-300">
                 <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 font-bold text-sm">
-                  40%
+                  30%
                 </div>
                 <div>
                   <p className="font-bold text-slate-700 text-sm">Aprovação</p>
@@ -2611,45 +2601,40 @@ const SlideTerms = () => {
               </div>
             </div>
 
-            {/* PHASE 3: DEV */}
+            {/* PHASE 3: DEV + INTEGRAÇÕES */}
             <div className="flex flex-col items-center group">
-              {/* TOP: Phase Info */}
               <div className="mb-8 flex flex-col items-center transition-transform hover:-translate-y-2 duration-300">
                 <div className="w-16 h-16 bg-amber-50 rounded-2xl flex items-center justify-center border-2 border-amber-100 shadow-lg mb-4">
                   <Settings className="w-8 h-8 text-amber-600" />
                 </div>
-                <h3 className="font-bold text-[#1e3a5f] text-[20px]">Desenvolvimento</h3>
-                <p className="text-slate-500 text-[15px]">Semana 5-7</p>
+                <h3 className="font-bold text-[#1e3a5f] text-[20px]">Dev + Integrações</h3>
+                <p className="text-slate-500 text-[15px]">Semana 5-10</p>
               </div>
-
-              {/* CENTRAL DOT */}
               <div className="w-6 h-6 bg-amber-500 rounded-full border-4 border-white shadow-lg z-20" />
-
-              {/* BOTTOM: Status */}
-              <div className="mt-8 p-3 bg-amber-50 rounded-lg border border-amber-100 shadow-sm w-40 text-center transition-transform hover:translate-y-2 duration-300">
-                <p className="text-amber-700 text-xs font-semibold uppercase tracking-wide">Work in Progress</p>
-                <p className="text-amber-600/70 text-[10px]">Reuniões semanais</p>
+              <div className="mt-8 p-4 bg-white rounded-xl border-2 border-amber-100 shadow-md flex items-center gap-3 w-48 transition-transform hover:translate-y-2 duration-300">
+                <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-700 font-bold text-sm">
+                  30%
+                </div>
+                <div>
+                  <p className="font-bold text-slate-700 text-sm">Entrega parcial</p>
+                  <p className="text-slate-400 text-xs">Odoo + DALUX</p>
+                </div>
               </div>
             </div>
 
             {/* PHASE 4: LAUNCH */}
             <div className="flex flex-col items-center group">
-              {/* TOP: Phase Info */}
               <div className="mb-8 flex flex-col items-center transition-transform hover:-translate-y-2 duration-300">
                 <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center border-2 border-emerald-100 shadow-lg mb-4">
                   <Rocket className="w-8 h-8 text-emerald-600" />
                 </div>
                 <h3 className="font-bold text-[#1e3a5f] text-[20px]">Go-Live</h3>
-                <p className="text-slate-500 text-[15px]">Semana 8</p>
+                <p className="text-slate-500 text-[15px]">Semana 12</p>
               </div>
-
-              {/* CENTRAL DOT */}
               <div className="w-6 h-6 bg-emerald-600 rounded-full border-4 border-white shadow-lg z-20" />
-
-              {/* BOTTOM: Payment Info */}
               <div className="mt-8 p-4 bg-white rounded-xl border-2 border-emerald-100 shadow-md flex items-center gap-3 w-48 transition-transform hover:translate-y-2 duration-300">
                 <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-sm">
-                  20%
+                  10%
                 </div>
                 <div>
                   <p className="font-bold text-slate-700 text-sm">Lançamento</p>
