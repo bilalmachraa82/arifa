@@ -2701,12 +2701,12 @@ const SlideFAQ = () => {
     },
     {
       q: "Quanto tempo demora a ficar pronto?",
-      a: "8 Semanas. Do briefing inicial ao lançamento final, com reuniões semanais de ponto de situação.",
+      a: "12 Semanas. Do briefing inicial ao lançamento, incluindo integrações Odoo e DALUX, com reuniões semanais.",
       icon: Calendar
     },
     {
       q: "E se precisar de ajustes após o lançamento?",
-      a: "Tens 60 dias de garantia total incluídos. Após esse período, tens a nossa manutenção ou podes gerir tu mesmo.",
+      a: "Profissional: 60 dias de suporte incluídos. Premium: 12 meses de manutenção, atualizações e suporte prioritário.",
       icon: Settings
     },
     {
