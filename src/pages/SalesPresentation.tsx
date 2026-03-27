@@ -789,9 +789,14 @@ const SlideSolution = () => {
             >
               {item.badge && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
-                  <span className={`text-[12px] font-bold px-3 py-1 rounded-full whitespace-nowrap ${item.badge === "PRIVADO"
-                    ? "bg-indigo-100 text-indigo-700 border border-indigo-200"
-                    : "bg-emerald-100 text-emerald-700 border border-emerald-200"
+                  <span className={`text-[12px] font-bold px-3 py-1 rounded-full whitespace-nowrap ${
+                    item.badge === "PRIVADO"
+                      ? "bg-indigo-100 text-indigo-700 border border-indigo-200"
+                      : item.badge === "PREMIUM"
+                        ? "bg-amber-100 text-amber-700 border border-amber-200"
+                        : item.badge === "API"
+                          ? "bg-cyan-100 text-cyan-700 border border-cyan-200"
+                          : "bg-emerald-100 text-emerald-700 border border-emerald-200"
                     }`}>
                     {item.badge}
                   </span>
