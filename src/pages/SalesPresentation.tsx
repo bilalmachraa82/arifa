@@ -520,7 +520,7 @@ const SlideCover = () => (
       >
         <Timer className="w-8 h-8 text-white/70" />
         <span className="text-[28px] text-white/90 font-light">
-          Transformar em 6-8 semanas
+          Transformar em 12 semanas
         </span>
       </motion.div>
 
