@@ -742,6 +742,12 @@ const SlideSolution = () => {
       badge: null
     },
     {
+      icon: Puzzle,
+      title: "Integrações",
+      desc: "Odoo + DALUX",
+      badge: "API"
+    },
+    {
       icon: Lock,
       title: "Portal do Cliente",
       desc: "Área privada",
@@ -750,20 +756,14 @@ const SlideSolution = () => {
     {
       icon: LayoutDashboard,
       title: "Backoffice",
-      desc: "Gestão centralizada",
+      desc: "Gestão + CRM",
       badge: "ADMIN"
     },
     {
-      icon: Zap,
-      title: "Automações",
-      desc: "Follow-up automático",
-      badge: null
-    },
-    {
-      icon: Shield,
-      title: "Segurança",
-      desc: "RGPD compliant",
-      badge: null
+      icon: Sparkles,
+      title: "IA + Automações",
+      desc: "Chatbot + Scoring",
+      badge: "PREMIUM"
     },
   ];
 
