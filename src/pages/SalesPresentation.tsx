@@ -2779,14 +2779,12 @@ const SlideContacto = () => {
   return (
     <SlideFrame className="bg-gradient-to-br from-white to-purple-50/30 relative">
       <div className="flex items-center gap-5 mb-6">
-        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-600 to-purple-700 flex items-center justify-center shadow-xl">
+        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] flex items-center justify-center shadow-xl">
           <Mail className="w-8 h-8 text-white" />
         </div>
         <div>
-          <div className="flex items-center gap-3 mb-1">
-            <span className="text-[14px] font-bold text-purple-600 uppercase tracking-wider bg-purple-100 px-3 py-1 rounded-full">Premium Only</span>
-          </div>
-          <h2 className="text-[44px] font-light text-[#1e3a5f]">Página de Contacto Premium</h2>
+          <span className="text-[16px] font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 9</span>
+          <h2 className="text-[44px] font-light text-[#1e3a5f]">Página de Contacto Inteligente</h2>
         </div>
       </div>
 
