@@ -2129,7 +2129,7 @@ const SlideTimeline = () => {
     <SlideFrame className="bg-white relative">
       <div className="mb-10">
         <span className="text-[18px] font-semibold text-[#3D7081] uppercase tracking-wider bg-[#3D7081]/10 px-4 py-2 rounded-full">Plano de entrega</span>
-        <h2 className="text-[56px] font-light text-[#1e3a5f] mt-6">8 Semanas até ao lançamento</h2>
+        <h2 className="text-[56px] font-light text-[#1e3a5f] mt-6">12 Semanas até ao lançamento</h2>
       </div>
 
       <div className="flex-1 flex items-center">
