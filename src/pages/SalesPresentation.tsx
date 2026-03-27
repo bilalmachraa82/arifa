@@ -1869,10 +1869,10 @@ const SlideCRM = () => {
 
   const features = [
     "Kanban visual drag & drop (5 etapas)",
-    "AI Lead Scoring automático (0-100)",
     "Histórico de atividades por lead",
     "Fases personalizáveis com cores",
     "Conversão automática lead → cliente",
+    "AI Lead Scoring automático (0-100) ★ Premium",
   ];
 
   return (
