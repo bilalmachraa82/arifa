@@ -2922,7 +2922,7 @@ const SlideNextSteps = () => {
       >
         <p className="text-white/80 text-[20px] font-medium flex items-center justify-center gap-4">
           <Timer className="w-5 h-5" />
-          Preços de lançamento válidos até <span className="font-bold text-white">31 Janeiro 2026</span>
+          Preços válidos até <span className="font-bold text-white">30 Abril 2026</span>
         </p>
         <p className="text-amber-300 text-[14px] font-medium mt-2">Após esta data, os preços sobem 15%</p>
       </motion.div>
