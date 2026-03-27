@@ -2183,16 +2183,17 @@ const SlideComparison = () => {
     { name: "Gestão Docs (Notion/ano)", cost: "240 €/ano" },
     { name: "Chat/Suporte (Intercom/ano)", cost: "500 €/ano" },
     { name: "Email Marketing (Mailchimp/ano)", cost: "360 €/ano" },
-    { name: "Analytics (Plausible/ano)", cost: "100 €/ano" },
+    { name: "Integração Odoo (custom)", cost: "2.000-4.000 €" },
+    { name: "Integração DALUX (custom)", cost: "1.500-3.000 €" },
     { name: "Hosting + SSL + Domínio", cost: "300 €/ano" },
     { name: "Automações (Zapier/ano)", cost: "240 €/ano" },
     { name: "AI Chatbot (Intercom AI/ano)", cost: "600 €/ano" },
     { name: "Gestão Contratos (DocuSign/ano)", cost: "300 €/ano" },
-    { name: "Backups + Segurança", cost: "200 €/ano" },
   ];
 
   const arifaBenefits = [
     "Tudo integrado em 1 plataforma",
+    "Odoo + DALUX incluídos",
     "100% à medida do teu estúdio",
     "Sem subscrições mensais SaaS",
     "Suporte direto AiParaTi",
@@ -2237,7 +2238,7 @@ const SlideComparison = () => {
             <div className="mt-5 pt-4 border-t-2 border-red-200">
               <div className="flex justify-between items-center mb-2">
                 <span className="font-bold text-red-700 text-[18px]">1º ANO</span>
-                <span className="font-bold text-red-700 text-[28px]">~8.500-10.500 €</span>
+                <span className="font-bold text-red-700 text-[28px]">~12.000-16.000 €</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-red-600 text-[16px]">Anos seguintes</span>
@@ -2246,7 +2247,7 @@ const SlideComparison = () => {
               <div className="mt-4 p-3 bg-red-100 rounded-xl">
                 <div className="flex justify-between items-center">
                   <span className="font-bold text-red-800 text-[16px]">TOTAL 3 ANOS</span>
-                  <span className="font-bold text-red-800 text-[24px]">~17.500-19.500 €</span>
+                  <span className="font-bold text-red-800 text-[24px]">~22.000-25.000 €</span>
                 </div>
               </div>
             </div>
@@ -2264,7 +2265,6 @@ const SlideComparison = () => {
             <Check className="w-5 h-5" /> Solução ARIFA
           </h3>
           <div className="bg-gradient-to-br from-[#1e3a5f] via-[#2a4a6f] to-[#3D7081] rounded-3xl p-6 flex-1 text-white shadow-[0_25px_60px_-15px_rgba(30,58,95,0.5)] relative overflow-hidden">
-            {/* Decorative elements */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
             <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2" />
 
@@ -2283,21 +2283,22 @@ const SlideComparison = () => {
               ))}
             </div>
             <div className="pt-5 border-t border-white/20 relative z-10">
-              <span className="text-blue-200 text-[16px]">Plano Premium</span>
+              <span className="text-blue-200 text-[16px]">Desde</span>
               <div className="flex items-baseline gap-2 mt-1">
-                <span className="text-[48px] font-bold leading-none">7.888</span>
+                <span className="text-[48px] font-bold leading-none">8.000</span>
                 <span className="text-[24px] text-blue-200">€</span>
               </div>
-              <p className="text-blue-300 text-[14px] mt-1">investimento único</p>
+              <p className="text-blue-300 text-[14px] mt-1">investimento único • até 18.000€ com IA</p>
               <div className="mt-4 p-3 bg-emerald-500/20 rounded-xl">
                 <div className="flex items-center gap-3">
                   <TrendingUp className="w-6 h-6 text-emerald-300" />
-                  <span className="text-emerald-200 font-semibold text-[18px]">Poupança: ~10.000 € em 3 anos</span>
+                  <span className="text-emerald-200 font-semibold text-[18px]">Poupança: ~4.000-7.000 € em 3 anos</span>
                 </div>
               </div>
               <div className="mt-3 flex gap-2">
-                <span className="text-[12px] bg-white/20 text-white font-bold px-3 py-1 rounded-full">Premium 7.888€</span>
-                <span className="text-[12px] bg-white/10 text-white/70 px-3 py-1 rounded-full">Outros desde 3.590€</span>
+                <span className="text-[12px] bg-amber-400/30 text-amber-200 font-bold px-3 py-1 rounded-full">Premium 18.000€</span>
+                <span className="text-[12px] bg-white/20 text-white font-bold px-3 py-1 rounded-full">Profissional 14.000€</span>
+                <span className="text-[12px] bg-white/10 text-white/70 px-3 py-1 rounded-full">Essencial 8.000€</span>
               </div>
             </div>
           </div>
@@ -2313,58 +2314,97 @@ const SlideComparison = () => {
 // SLIDE 14: PRICING
 // ============================================
 const SlidePricing = () => {
-  // Price Anchoring: Premium first (left) with maximum visual prominence - this is what we want to sell
   const tiers = [
     {
-      name: "Premium",
-      price: "7.888",
-      description: "A solução completa",
-      valueStatement: "Tudo incluído. Zero preocupações. Nós cuidamos da tua plataforma 12 meses.",
-      icon: Crown,
-      iconBg: "bg-gradient-to-br from-amber-400 to-yellow-500",
+      name: "Essencial",
+      price: "8.000",
+      description: "Website Profissional",
+      valueStatement: "Presença digital completa com design premium e SEO técnico",
+      icon: Globe,
+      iconBg: "bg-gradient-to-br from-slate-500 to-slate-700",
       features: [
-        "Site + Portal + Backoffice",
-        "CRM + Lead Scoring IA",
-        "Cotações + Contratos digitais",
-        "Automações inteligentes",
-        "Integrações Personalizadas (Sage, etc.)",
-        "12 meses manutenção incluída",
-        "Suporte prioritário 24/7",
-        "4h Formação IA GRÁTIS",
+        { text: "Website institucional responsivo", included: true },
+        { text: "Página 'Quem Somos'", included: true },
+        { text: "Segmentos (Particulares/Empresas/Investidores)", included: true },
+        { text: "Portfolio + Galeria", included: true },
+        { text: "Testemunhos", included: true },
+        { text: "Formulário de contacto", included: true },
+        { text: "SEO Técnico (meta, sitemap, robots)", included: true },
+        { text: "Blog + CMS", included: true },
+        { text: "PDFs para download", included: true },
+        { text: "PWA (Progressive Web App)", included: true },
+        { text: "Design mobile/tablet", included: true },
       ],
-      recommended: true,
-      highlight: true,
+      notIncluded: [
+        "Portal Cliente",
+        "Integrações Odoo/DALUX",
+        "Funcionalidades IA",
+      ],
+      recommended: false,
+      highlight: false,
     },
     {
       name: "Profissional",
-      price: "5.888",
-      description: "Para crescer",
-      valueStatement: "Ideal para estúdios com 10-50 projetos/ano que precisam de portal cliente",
+      price: "14.000",
+      description: "O Vosso Pedido",
+      valueStatement: "Tudo o que pediram: website + portal + Odoo + DALUX + SEO",
       icon: Rocket,
       iconBg: "bg-gradient-to-br from-[#3D7081] to-[#1e3a5f]",
       features: [
-        "Site público completo",
-        "Portal Cliente completo",
-        "Dashboard Admin",
-        "CRM + Gestão de Leads",
-        "Mensagens + Documentos",
-        "Blog + Newsletter",
-        "60 dias suporte",
+        { text: "Tudo do Essencial", included: true },
+        { text: "Login/Autenticação segura", included: true },
+        { text: "Portal Cliente (projetos, docs, mensagens)", included: true },
+        { text: "Dashboard Admin", included: true },
+        { text: "CRM + Gestão de Leads", included: true },
+        { text: "Fotografias de obra", included: true },
+        { text: "Cronograma/fases do projeto", included: true },
+        { text: "Integração Odoo (contratos, faturas, estado)", included: true },
+        { text: "Integração DALUX (plantas, 3D, relatórios)", included: true },
+        { text: "SEO Intermédio (keywords, artigos, GBP)", included: true },
+        { text: "Documentação técnica + Manual", included: true },
+        { text: "60 dias suporte", included: true },
+      ],
+      notIncluded: [
+        "Funcionalidades IA",
+        "Contratos digitais",
+        "12 meses manutenção",
       ],
       recommended: false,
+      highlight: true,
+    },
+    {
+      name: "Premium",
+      price: "18.000",
+      description: "A solução completa",
+      valueStatement: "Tudo incluído + IA + contratos digitais + 12 meses de tranquilidade",
+      icon: Crown,
+      iconBg: "bg-gradient-to-br from-amber-400 to-yellow-500",
+      features: [
+        { text: "Tudo do Profissional", included: true },
+        { text: "AI Chatbot 24/7", included: true },
+        { text: "AI Lead Scoring automático", included: true },
+        { text: "AI Weekly Updates para clientes", included: true },
+        { text: "Contratos digitais (e-signature)", included: true },
+        { text: "Automações inteligentes", included: true },
+        { text: "12 meses manutenção incluída", included: true },
+        { text: "Suporte prioritário", included: true },
+        { text: "4h Formação IA GRÁTIS", included: true },
+      ],
+      notIncluded: [],
+      recommended: true,
       highlight: false,
     },
   ];
 
   return (
     <SlideFrame className="bg-gradient-to-br from-white to-slate-50 relative">
-      <div className="mb-6 text-center">
+      <div className="mb-5 text-center">
         <span className="text-[18px] font-semibold text-[#3D7081] uppercase tracking-wider bg-[#3D7081]/10 px-4 py-2 rounded-full">Escolhe o teu plano</span>
-        <h2 className="text-[48px] font-light text-[#1e3a5f] mt-4">2 opções à tua medida</h2>
+        <h2 className="text-[48px] font-light text-[#1e3a5f] mt-4">3 opções à tua medida</h2>
         <p className="text-slate-500 text-[18px] mt-2">Investimento único • Sem mensalidades</p>
       </div>
 
-      <div className="flex-1 grid grid-cols-2 gap-8 items-stretch max-w-4xl mx-auto">
+      <div className="flex-1 grid grid-cols-3 gap-5 items-stretch">
         {tiers.map((tier, i) => {
           const IconComponent = tier.icon;
           return (
@@ -2373,90 +2413,96 @@ const SlidePricing = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              className={`rounded-3xl p-7 flex flex-col relative ${tier.recommended
-                ? "bg-gradient-to-br from-[#1e3a5f] via-[#2a4a6f] to-[#3D7081] text-white ring-4 ring-[#3D7081]/30 shadow-[0_25px_60px_-15px_rgba(30,58,95,0.5)] z-10 scale-[1.03]"
+              className={`rounded-3xl p-5 flex flex-col relative ${tier.recommended
+                ? "bg-gradient-to-br from-[#1e3a5f] via-[#2a4a6f] to-[#3D7081] text-white ring-4 ring-amber-400/40 shadow-[0_25px_60px_-15px_rgba(30,58,95,0.5)] z-20 scale-[1.04]"
                 : tier.highlight
-                  ? "bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-300 shadow-xl scale-[1.05] z-20 ring-2 ring-purple-400/50"
-                  : "bg-white border-2 border-slate-200 shadow-xl hover:shadow-2xl transition-shadow"
+                  ? "bg-gradient-to-br from-[#3D7081]/5 to-[#3D7081]/10 border-2 border-[#3D7081] shadow-xl z-10"
+                  : "bg-white border-2 border-slate-200 shadow-xl"
                 }`}
             >
               {tier.recommended && (
-                <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-full flex justify-center">
+                <div className="absolute -top-7 left-1/2 -translate-x-1/2 w-full flex justify-center">
                   <motion.span
                     animate={{ scale: [1, 1.05, 1] }}
                     transition={{ duration: 2, repeat: Infinity }}
-                    className="bg-gradient-to-r from-amber-400 to-yellow-500 text-amber-900 text-[14px] font-bold px-6 py-2.5 rounded-full shadow-lg flex items-center gap-2 whitespace-nowrap"
+                    className="bg-gradient-to-r from-amber-400 to-yellow-500 text-amber-900 text-[13px] font-bold px-5 py-2 rounded-full shadow-lg flex items-center gap-2 whitespace-nowrap"
                   >
-                    <Crown className="w-5 h-5" />
+                    <Crown className="w-4 h-4" />
                     A NOSSA RECOMENDAÇÃO
                   </motion.span>
                 </div>
               )}
 
-              {/* Badge for Profissional - "O Vosso Pedido" */}
-              {tier.name === "Profissional" && (
-                <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-full flex justify-center">
-                  <span className="bg-gradient-to-r from-slate-100 to-slate-200 text-slate-700 text-[14px] font-semibold px-6 py-2.5 rounded-full shadow-md border border-slate-300 flex items-center gap-2 whitespace-nowrap">
-                    <CheckCircle2 className="w-5 h-5 text-[#3D7081]" />
+              {tier.highlight && (
+                <div className="absolute -top-7 left-1/2 -translate-x-1/2 w-full flex justify-center">
+                  <span className="bg-gradient-to-r from-[#3D7081] to-[#1e3a5f] text-white text-[13px] font-bold px-5 py-2 rounded-full shadow-md flex items-center gap-2 whitespace-nowrap">
+                    <CheckCircle2 className="w-4 h-4" />
                     O VOSSO PEDIDO
                   </span>
                 </div>
               )}
 
-              {/* Icon Badge */}
-              <div className="flex items-center gap-3 mb-2">
+              {/* Header */}
+              <div className="flex items-center gap-3 mb-2 mt-2">
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: i * 0.1 + 0.2, type: "spring", stiffness: 200 }}
-                  className={`w-12 h-12 rounded-2xl ${tier.iconBg} flex items-center justify-center shadow-lg mt-3`}
+                  className={`w-10 h-10 rounded-xl ${tier.iconBg} flex items-center justify-center shadow-lg`}
                 >
-                  <IconComponent className="w-6 h-6 text-white" />
+                  <IconComponent className="w-5 h-5 text-white" />
                 </motion.div>
                 <div>
-                  <h3 className={`text-[26px] font-bold ${tier.recommended ? "text-white" : tier.highlight ? "text-purple-800" : "text-[#1e3a5f]"}`}>
+                  <h3 className={`text-[22px] font-bold ${tier.recommended ? "text-white" : "text-[#1e3a5f]"}`}>
                     {tier.name}
                   </h3>
-                  <p className={`text-[14px] ${tier.recommended ? "text-blue-200" : tier.highlight ? "text-purple-600" : "text-slate-500"}`}>
+                  <p className={`text-[12px] ${tier.recommended ? "text-blue-200" : "text-slate-500"}`}>
                     {tier.description}
                   </p>
                 </div>
               </div>
 
-              <p className={`text-[13px] mb-4 italic ${tier.recommended ? "text-blue-100/80" : tier.highlight ? "text-purple-500" : "text-slate-400"}`}>
+              <p className={`text-[11px] mb-3 italic ${tier.recommended ? "text-blue-100/80" : "text-slate-400"}`}>
                 {tier.valueStatement}
               </p>
-              <div className="flex items-baseline gap-1 mb-5">
-                <span className={`text-[48px] font-bold leading-none ${tier.recommended ? "text-white" : tier.highlight ? "text-purple-800" : "text-[#1e3a5f]"}`}>
+
+              <div className="flex items-baseline gap-1 mb-4">
+                <span className={`text-[40px] font-bold leading-none ${tier.recommended ? "text-white" : "text-[#1e3a5f]"}`}>
                   {tier.price}
                 </span>
-                <span className={`text-[22px] ${tier.recommended ? "text-blue-200" : tier.highlight ? "text-purple-500" : "text-slate-400"}`}>€</span>
+                <span className={`text-[20px] ${tier.recommended ? "text-blue-200" : "text-slate-400"}`}>€</span>
               </div>
 
-              <div className="flex-1 space-y-2.5">
+              {/* Features */}
+              <div className="flex-1 space-y-1.5">
                 {tier.features.map((feature, j) => (
                   <motion.div
                     key={j}
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.1 + j * 0.05 + 0.3 }}
-                    className="flex items-center gap-2.5"
+                    transition={{ delay: i * 0.1 + j * 0.03 + 0.3 }}
+                    className="flex items-start gap-2"
                   >
-                    <CheckCircle2 className={`w-5 h-5 flex-shrink-0 ${tier.recommended ? "text-green-300" :
-                      tier.highlight ? "text-purple-600" :
-                        "text-[#3D7081]"
-                      }`} />
-                    <span className={`text-[15px] ${tier.recommended ? "text-blue-100" :
-                      tier.highlight ? "text-purple-700" :
-                        "text-slate-700"
-                      } ${feature.includes("GRÁTIS") ? "font-bold" : ""}`}>{feature}</span>
+                    <CheckCircle2 className={`w-4 h-4 flex-shrink-0 mt-0.5 ${tier.recommended ? "text-green-300" : tier.highlight ? "text-[#3D7081]" : "text-emerald-500"}`} />
+                    <span className={`text-[12px] leading-tight ${tier.recommended ? "text-blue-100" : "text-slate-700"} ${feature.text.includes("GRÁTIS") ? "font-bold" : ""}`}>
+                      {feature.text}
+                    </span>
                   </motion.div>
+                ))}
+                {/* Not included items */}
+                {tier.notIncluded.map((item, j) => (
+                  <div key={`no-${j}`} className="flex items-start gap-2 opacity-40">
+                    <X className={`w-4 h-4 flex-shrink-0 mt-0.5 ${tier.recommended ? "text-white/50" : "text-slate-400"}`} />
+                    <span className={`text-[12px] leading-tight line-through ${tier.recommended ? "text-white/50" : "text-slate-400"}`}>
+                      {item}
+                    </span>
+                  </div>
                 ))}
               </div>
 
               {tier.recommended && (
-                <div className="mt-5 pt-4 border-t border-white/20">
-                  <p className="text-blue-200 text-[14px] flex items-center gap-2">
+                <div className="mt-4 pt-3 border-t border-white/20">
+                  <p className="text-blue-200 text-[12px] flex items-center gap-2">
                     <Star className="w-4 h-4 text-amber-300" />
                     Tranquilidade total durante 12 meses
                   </p>
@@ -2472,17 +2518,17 @@ const SlidePricing = () => {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
-        className="mt-6 p-4 bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl border-2 border-amber-200 flex items-center justify-between"
+        className="mt-4 p-3 bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl border-2 border-amber-200 flex items-center justify-between"
       >
         <div className="flex items-center gap-4">
           <Timer className="w-6 h-6 text-amber-600" />
           <div>
-            <span className="text-slate-700 text-[18px]">Preços de lançamento válidos até <strong>31 Janeiro 2026</strong></span>
-            <p className="text-amber-600 text-[14px] font-medium mt-0.5">Após esta data, os preços sobem 15%</p>
+            <span className="text-slate-700 text-[16px]">Preços válidos até <strong>30 Abril 2026</strong></span>
+            <p className="text-amber-600 text-[13px] font-medium mt-0.5">Após esta data, os preços sobem 15%</p>
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <span className="text-slate-500 text-[14px]">Pagamento flexível: 40% + 40% + 20%</span>
+          <span className="text-slate-500 text-[13px]">Pagamento flexível: 30% + 30% + 30% + 10%</span>
         </div>
       </motion.div>
 
@@ -2515,7 +2561,6 @@ const SlideTerms = () => {
 
             {/* PHASE 1: START */}
             <div className="flex flex-col items-center group">
-              {/* TOP: Phase Info */}
               <div className="mb-8 flex flex-col items-center transition-transform hover:-translate-y-2 duration-300">
                 <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center border-2 border-blue-100 shadow-lg mb-4">
                   <Play className="w-8 h-8 text-blue-600 ml-1" />
@@ -2523,14 +2568,10 @@ const SlideTerms = () => {
                 <h3 className="font-bold text-[#1e3a5f] text-[20px]">Kick-off</h3>
                 <p className="text-slate-500 text-[15px]">Semana 0</p>
               </div>
-
-              {/* CENTRAL DOT */}
               <div className="w-6 h-6 bg-blue-600 rounded-full border-4 border-white shadow-lg z-20" />
-
-              {/* BOTTOM: Payment Info */}
               <div className="mt-8 p-4 bg-white rounded-xl border-2 border-blue-100 shadow-md flex items-center gap-3 w-48 transition-transform hover:translate-y-2 duration-300">
                 <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-sm">
-                  40%
+                  30%
                 </div>
                 <div>
                   <p className="font-bold text-slate-700 text-sm">Adjudicação</p>
@@ -2541,7 +2582,6 @@ const SlideTerms = () => {
 
             {/* PHASE 2: DESIGN */}
             <div className="flex flex-col items-center group">
-              {/* TOP: Phase Info */}
               <div className="mb-8 flex flex-col items-center transition-transform hover:-translate-y-2 duration-300">
                 <div className="w-16 h-16 bg-purple-50 rounded-2xl flex items-center justify-center border-2 border-purple-100 shadow-lg mb-4">
                   <Lightbulb className="w-8 h-8 text-purple-600" />
@@ -2549,14 +2589,10 @@ const SlideTerms = () => {
                 <h3 className="font-bold text-[#1e3a5f] text-[20px]">Design Freeze</h3>
                 <p className="text-slate-500 text-[15px]">Semana 3-4</p>
               </div>
-
-              {/* CENTRAL DOT */}
               <div className="w-6 h-6 bg-purple-600 rounded-full border-4 border-white shadow-lg z-20" />
-
-              {/* BOTTOM: Payment Info */}
               <div className="mt-8 p-4 bg-white rounded-xl border-2 border-purple-100 shadow-md flex items-center gap-3 w-48 transition-transform hover:translate-y-2 duration-300">
                 <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 font-bold text-sm">
-                  40%
+                  30%
                 </div>
                 <div>
                   <p className="font-bold text-slate-700 text-sm">Aprovação</p>
@@ -2565,45 +2601,40 @@ const SlideTerms = () => {
               </div>
             </div>
 
-            {/* PHASE 3: DEV */}
+            {/* PHASE 3: DEV + INTEGRAÇÕES */}
             <div className="flex flex-col items-center group">
-              {/* TOP: Phase Info */}
               <div className="mb-8 flex flex-col items-center transition-transform hover:-translate-y-2 duration-300">
                 <div className="w-16 h-16 bg-amber-50 rounded-2xl flex items-center justify-center border-2 border-amber-100 shadow-lg mb-4">
                   <Settings className="w-8 h-8 text-amber-600" />
                 </div>
-                <h3 className="font-bold text-[#1e3a5f] text-[20px]">Desenvolvimento</h3>
-                <p className="text-slate-500 text-[15px]">Semana 5-7</p>
+                <h3 className="font-bold text-[#1e3a5f] text-[20px]">Dev + Integrações</h3>
+                <p className="text-slate-500 text-[15px]">Semana 5-10</p>
               </div>
-
-              {/* CENTRAL DOT */}
               <div className="w-6 h-6 bg-amber-500 rounded-full border-4 border-white shadow-lg z-20" />
-
-              {/* BOTTOM: Status */}
-              <div className="mt-8 p-3 bg-amber-50 rounded-lg border border-amber-100 shadow-sm w-40 text-center transition-transform hover:translate-y-2 duration-300">
-                <p className="text-amber-700 text-xs font-semibold uppercase tracking-wide">Work in Progress</p>
-                <p className="text-amber-600/70 text-[10px]">Reuniões semanais</p>
+              <div className="mt-8 p-4 bg-white rounded-xl border-2 border-amber-100 shadow-md flex items-center gap-3 w-48 transition-transform hover:translate-y-2 duration-300">
+                <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-700 font-bold text-sm">
+                  30%
+                </div>
+                <div>
+                  <p className="font-bold text-slate-700 text-sm">Entrega parcial</p>
+                  <p className="text-slate-400 text-xs">Odoo + DALUX</p>
+                </div>
               </div>
             </div>
 
             {/* PHASE 4: LAUNCH */}
             <div className="flex flex-col items-center group">
-              {/* TOP: Phase Info */}
               <div className="mb-8 flex flex-col items-center transition-transform hover:-translate-y-2 duration-300">
                 <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center border-2 border-emerald-100 shadow-lg mb-4">
                   <Rocket className="w-8 h-8 text-emerald-600" />
                 </div>
                 <h3 className="font-bold text-[#1e3a5f] text-[20px]">Go-Live</h3>
-                <p className="text-slate-500 text-[15px]">Semana 8</p>
+                <p className="text-slate-500 text-[15px]">Semana 12</p>
               </div>
-
-              {/* CENTRAL DOT */}
               <div className="w-6 h-6 bg-emerald-600 rounded-full border-4 border-white shadow-lg z-20" />
-
-              {/* BOTTOM: Payment Info */}
               <div className="mt-8 p-4 bg-white rounded-xl border-2 border-emerald-100 shadow-md flex items-center gap-3 w-48 transition-transform hover:translate-y-2 duration-300">
                 <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-sm">
-                  20%
+                  10%
                 </div>
                 <div>
                   <p className="font-bold text-slate-700 text-sm">Lançamento</p>
@@ -2891,7 +2922,7 @@ const SlideNextSteps = () => {
       >
         <p className="text-white/80 text-[20px] font-medium flex items-center justify-center gap-4">
           <Timer className="w-5 h-5" />
-          Preços de lançamento válidos até <span className="font-bold text-white">31 Janeiro 2026</span>
+          Preços válidos até <span className="font-bold text-white">30 Abril 2026</span>
         </p>
         <p className="text-amber-300 text-[14px] font-medium mt-2">Após esta data, os preços sobem 15%</p>
       </motion.div>
