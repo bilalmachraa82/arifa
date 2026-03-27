@@ -2183,16 +2183,17 @@ const SlideComparison = () => {
     { name: "Gestão Docs (Notion/ano)", cost: "240 €/ano" },
     { name: "Chat/Suporte (Intercom/ano)", cost: "500 €/ano" },
     { name: "Email Marketing (Mailchimp/ano)", cost: "360 €/ano" },
-    { name: "Analytics (Plausible/ano)", cost: "100 €/ano" },
+    { name: "Integração Odoo (custom)", cost: "2.000-4.000 €" },
+    { name: "Integração DALUX (custom)", cost: "1.500-3.000 €" },
     { name: "Hosting + SSL + Domínio", cost: "300 €/ano" },
     { name: "Automações (Zapier/ano)", cost: "240 €/ano" },
     { name: "AI Chatbot (Intercom AI/ano)", cost: "600 €/ano" },
     { name: "Gestão Contratos (DocuSign/ano)", cost: "300 €/ano" },
-    { name: "Backups + Segurança", cost: "200 €/ano" },
   ];
 
   const arifaBenefits = [
     "Tudo integrado em 1 plataforma",
+    "Odoo + DALUX incluídos",
     "100% à medida do teu estúdio",
     "Sem subscrições mensais SaaS",
     "Suporte direto AiParaTi",
@@ -2237,7 +2238,7 @@ const SlideComparison = () => {
             <div className="mt-5 pt-4 border-t-2 border-red-200">
               <div className="flex justify-between items-center mb-2">
                 <span className="font-bold text-red-700 text-[18px]">1º ANO</span>
-                <span className="font-bold text-red-700 text-[28px]">~8.500-10.500 €</span>
+                <span className="font-bold text-red-700 text-[28px]">~12.000-16.000 €</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-red-600 text-[16px]">Anos seguintes</span>
@@ -2246,7 +2247,7 @@ const SlideComparison = () => {
               <div className="mt-4 p-3 bg-red-100 rounded-xl">
                 <div className="flex justify-between items-center">
                   <span className="font-bold text-red-800 text-[16px]">TOTAL 3 ANOS</span>
-                  <span className="font-bold text-red-800 text-[24px]">~17.500-19.500 €</span>
+                  <span className="font-bold text-red-800 text-[24px]">~22.000-25.000 €</span>
                 </div>
               </div>
             </div>
@@ -2264,7 +2265,6 @@ const SlideComparison = () => {
             <Check className="w-5 h-5" /> Solução ARIFA
           </h3>
           <div className="bg-gradient-to-br from-[#1e3a5f] via-[#2a4a6f] to-[#3D7081] rounded-3xl p-6 flex-1 text-white shadow-[0_25px_60px_-15px_rgba(30,58,95,0.5)] relative overflow-hidden">
-            {/* Decorative elements */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
             <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2" />
 
@@ -2283,21 +2283,22 @@ const SlideComparison = () => {
               ))}
             </div>
             <div className="pt-5 border-t border-white/20 relative z-10">
-              <span className="text-blue-200 text-[16px]">Plano Premium</span>
+              <span className="text-blue-200 text-[16px]">Desde</span>
               <div className="flex items-baseline gap-2 mt-1">
-                <span className="text-[48px] font-bold leading-none">7.888</span>
+                <span className="text-[48px] font-bold leading-none">8.000</span>
                 <span className="text-[24px] text-blue-200">€</span>
               </div>
-              <p className="text-blue-300 text-[14px] mt-1">investimento único</p>
+              <p className="text-blue-300 text-[14px] mt-1">investimento único • até 18.000€ com IA</p>
               <div className="mt-4 p-3 bg-emerald-500/20 rounded-xl">
                 <div className="flex items-center gap-3">
                   <TrendingUp className="w-6 h-6 text-emerald-300" />
-                  <span className="text-emerald-200 font-semibold text-[18px]">Poupança: ~10.000 € em 3 anos</span>
+                  <span className="text-emerald-200 font-semibold text-[18px]">Poupança: ~4.000-7.000 € em 3 anos</span>
                 </div>
               </div>
               <div className="mt-3 flex gap-2">
-                <span className="text-[12px] bg-white/20 text-white font-bold px-3 py-1 rounded-full">Premium 7.888€</span>
-                <span className="text-[12px] bg-white/10 text-white/70 px-3 py-1 rounded-full">Outros desde 3.590€</span>
+                <span className="text-[12px] bg-amber-400/30 text-amber-200 font-bold px-3 py-1 rounded-full">Premium 18.000€</span>
+                <span className="text-[12px] bg-white/20 text-white font-bold px-3 py-1 rounded-full">Profissional 14.000€</span>
+                <span className="text-[12px] bg-white/10 text-white/70 px-3 py-1 rounded-full">Essencial 8.000€</span>
               </div>
             </div>
           </div>
