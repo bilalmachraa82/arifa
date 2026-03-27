@@ -2119,10 +2119,10 @@ const SlideAutomations = () => {
 // ============================================
 const SlideTimeline = () => {
   const weeks = [
-    { week: "Semana 1-2", title: "Discovery", icon: Target, color: "bg-blue-100", iconColor: "text-blue-600", tasks: ["Briefing", "Análise", "Wireframes"] },
-    { week: "Semana 3-4", title: "Design", icon: Lightbulb, color: "bg-purple-100", iconColor: "text-purple-600", tasks: ["Visual", "Protótipo", "Feedback"] },
-    { week: "Semana 5-6", title: "Desenvolvimento", icon: Settings, color: "bg-amber-100", iconColor: "text-amber-600", tasks: ["Frontend", "Backend", "Testes"] },
-    { week: "Semana 7-8", title: "Launch", icon: Rocket, color: "bg-green-100", iconColor: "text-green-600", tasks: ["Deploy", "Formação", "Go-live"] },
+    { week: "Semana 1-3", title: "Discovery", icon: Target, color: "bg-blue-100", iconColor: "text-blue-600", tasks: ["Briefing", "Análise", "Wireframes"] },
+    { week: "Semana 4-6", title: "Design", icon: Lightbulb, color: "bg-purple-100", iconColor: "text-purple-600", tasks: ["Visual", "Protótipo", "Feedback"] },
+    { week: "Semana 7-10", title: "Dev + Integrações", icon: Settings, color: "bg-amber-100", iconColor: "text-amber-600", tasks: ["Frontend", "Backend", "Odoo + DALUX"] },
+    { week: "Semana 11-12", title: "Launch", icon: Rocket, color: "bg-green-100", iconColor: "text-green-600", tasks: ["Testes", "Formação", "Go-live"] },
   ];
 
   return (
