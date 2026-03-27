@@ -37,8 +37,8 @@ export const Lightbox = ({
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [showControls, setShowControls] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
-  const controlsTimeoutRef = useRef<NodeJS.Timeout>();
-  const slideshowIntervalRef = useRef<NodeJS.Timeout>();
+  const controlsTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const slideshowIntervalRef = useRef<ReturnType<typeof setInterval>>();
 
   // Reset state when opening
   useEffect(() => {
