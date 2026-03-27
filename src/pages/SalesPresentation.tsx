@@ -1307,10 +1307,10 @@ const SlideBlog = () => {
 const SlideClientPortal = () => {
   const features = [
     "Timeline RIBA (7 fases) + Milestones",
-    "AI Weekly Updates (resumo inteligente)",
     "Fotos de progresso + Galeria Premium",
-    "Orçamento + Contratos + Documentos versionados",
+    "Orçamento + Documentos versionados",
     "Mensagens internas em tempo real",
+    "AI Weekly Updates (resumo inteligente) ★ Premium",
   ];
 
   const tabs = [
