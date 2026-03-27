@@ -520,7 +520,7 @@ const SlideCover = () => (
       >
         <Timer className="w-8 h-8 text-white/70" />
         <span className="text-[28px] text-white/90 font-light">
-          Transformar em 6-8 semanas
+          Transformar em 12 semanas
         </span>
       </motion.div>
 
@@ -742,6 +742,12 @@ const SlideSolution = () => {
       badge: null
     },
     {
+      icon: Puzzle,
+      title: "Integrações",
+      desc: "Odoo + DALUX",
+      badge: "API"
+    },
+    {
       icon: Lock,
       title: "Portal do Cliente",
       desc: "Área privada",
@@ -750,20 +756,14 @@ const SlideSolution = () => {
     {
       icon: LayoutDashboard,
       title: "Backoffice",
-      desc: "Gestão centralizada",
+      desc: "Gestão + CRM",
       badge: "ADMIN"
     },
     {
-      icon: Zap,
-      title: "Automações",
-      desc: "Follow-up automático",
-      badge: null
-    },
-    {
-      icon: Shield,
-      title: "Segurança",
-      desc: "RGPD compliant",
-      badge: null
+      icon: Sparkles,
+      title: "IA + Automações",
+      desc: "Chatbot + Scoring",
+      badge: "PREMIUM"
     },
   ];
 
@@ -789,9 +789,14 @@ const SlideSolution = () => {
             >
               {item.badge && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
-                  <span className={`text-[12px] font-bold px-3 py-1 rounded-full whitespace-nowrap ${item.badge === "PRIVADO"
-                    ? "bg-indigo-100 text-indigo-700 border border-indigo-200"
-                    : "bg-emerald-100 text-emerald-700 border border-emerald-200"
+                  <span className={`text-[12px] font-bold px-3 py-1 rounded-full whitespace-nowrap ${
+                    item.badge === "PRIVADO"
+                      ? "bg-indigo-100 text-indigo-700 border border-indigo-200"
+                      : item.badge === "PREMIUM"
+                        ? "bg-amber-100 text-amber-700 border border-amber-200"
+                        : item.badge === "API"
+                          ? "bg-cyan-100 text-cyan-700 border border-cyan-200"
+                          : "bg-emerald-100 text-emerald-700 border border-emerald-200"
                     }`}>
                     {item.badge}
                   </span>
@@ -1302,10 +1307,10 @@ const SlideBlog = () => {
 const SlideClientPortal = () => {
   const features = [
     "Timeline RIBA (7 fases) + Milestones",
-    "AI Weekly Updates (resumo inteligente)",
     "Fotos de progresso + Galeria Premium",
-    "Orçamento + Contratos + Documentos versionados",
+    "Orçamento + Documentos versionados",
     "Mensagens internas em tempo real",
+    "AI Weekly Updates (resumo inteligente) ★ Premium",
   ];
 
   const tabs = [
@@ -1864,10 +1869,10 @@ const SlideCRM = () => {
 
   const features = [
     "Kanban visual drag & drop (5 etapas)",
-    "AI Lead Scoring automático (0-100)",
     "Histórico de atividades por lead",
     "Fases personalizáveis com cores",
     "Conversão automática lead → cliente",
+    "AI Lead Scoring automático (0-100) ★ Premium",
   ];
 
   return (
@@ -2114,17 +2119,17 @@ const SlideAutomations = () => {
 // ============================================
 const SlideTimeline = () => {
   const weeks = [
-    { week: "Semana 1-2", title: "Discovery", icon: Target, color: "bg-blue-100", iconColor: "text-blue-600", tasks: ["Briefing", "Análise", "Wireframes"] },
-    { week: "Semana 3-4", title: "Design", icon: Lightbulb, color: "bg-purple-100", iconColor: "text-purple-600", tasks: ["Visual", "Protótipo", "Feedback"] },
-    { week: "Semana 5-6", title: "Desenvolvimento", icon: Settings, color: "bg-amber-100", iconColor: "text-amber-600", tasks: ["Frontend", "Backend", "Testes"] },
-    { week: "Semana 7-8", title: "Launch", icon: Rocket, color: "bg-green-100", iconColor: "text-green-600", tasks: ["Deploy", "Formação", "Go-live"] },
+    { week: "Semana 1-3", title: "Discovery", icon: Target, color: "bg-blue-100", iconColor: "text-blue-600", tasks: ["Briefing", "Análise", "Wireframes"] },
+    { week: "Semana 4-6", title: "Design", icon: Lightbulb, color: "bg-purple-100", iconColor: "text-purple-600", tasks: ["Visual", "Protótipo", "Feedback"] },
+    { week: "Semana 7-10", title: "Dev + Integrações", icon: Settings, color: "bg-amber-100", iconColor: "text-amber-600", tasks: ["Frontend", "Backend", "Odoo + DALUX"] },
+    { week: "Semana 11-12", title: "Launch", icon: Rocket, color: "bg-green-100", iconColor: "text-green-600", tasks: ["Testes", "Formação", "Go-live"] },
   ];
 
   return (
     <SlideFrame className="bg-white relative">
       <div className="mb-10">
         <span className="text-[18px] font-semibold text-[#3D7081] uppercase tracking-wider bg-[#3D7081]/10 px-4 py-2 rounded-full">Plano de entrega</span>
-        <h2 className="text-[56px] font-light text-[#1e3a5f] mt-6">8 Semanas até ao lançamento</h2>
+        <h2 className="text-[56px] font-light text-[#1e3a5f] mt-6">12 Semanas até ao lançamento</h2>
       </div>
 
       <div className="flex-1 flex items-center">
@@ -2653,7 +2658,7 @@ const SlideTerms = () => {
           </div>
           <div className="flex-1 border-r border-slate-100 pr-8">
             <h4 className="text-[18px] font-bold text-[#1e3a5f] mb-1">Garantia & Manutenção</h4>
-            <p className="text-slate-500 text-sm">O teu investimento está protegido. Inclui 12 meses de atualizações, alojamento e suporte prioritário.</p>
+            <p className="text-slate-500 text-sm">Profissional: 60 dias suporte. Premium: 12 meses de atualizações, alojamento e suporte prioritário.</p>
           </div>
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
@@ -2696,12 +2701,12 @@ const SlideFAQ = () => {
     },
     {
       q: "Quanto tempo demora a ficar pronto?",
-      a: "8 Semanas. Do briefing inicial ao lançamento final, com reuniões semanais de ponto de situação.",
+      a: "12 Semanas. Do briefing inicial ao lançamento, incluindo integrações Odoo e DALUX, com reuniões semanais.",
       icon: Calendar
     },
     {
       q: "E se precisar de ajustes após o lançamento?",
-      a: "Tens 60 dias de garantia total incluídos. Após esse período, tens a nossa manutenção ou podes gerir tu mesmo.",
+      a: "Profissional: 60 dias de suporte incluídos. Premium: 12 meses de manutenção, atualizações e suporte prioritário.",
       icon: Settings
     },
     {
@@ -2766,22 +2771,20 @@ const SlideFAQ = () => {
 const SlideContacto = () => {
   const features = [
     "Formulário inteligente com segmento",
-    "Notificação instantânea",
-    "AI Lead Scoring automático",
+    "Notificação instantânea por email",
     "Integração com WhatsApp",
+    "AI Lead Scoring automático ★ Premium",
   ];
 
   return (
     <SlideFrame className="bg-gradient-to-br from-white to-purple-50/30 relative">
       <div className="flex items-center gap-5 mb-6">
-        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-600 to-purple-700 flex items-center justify-center shadow-xl">
+        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#1e3a5f] to-[#3D7081] flex items-center justify-center shadow-xl">
           <Mail className="w-8 h-8 text-white" />
         </div>
         <div>
-          <div className="flex items-center gap-3 mb-1">
-            <span className="text-[14px] font-bold text-purple-600 uppercase tracking-wider bg-purple-100 px-3 py-1 rounded-full">Premium Only</span>
-          </div>
-          <h2 className="text-[44px] font-light text-[#1e3a5f]">Página de Contacto Premium</h2>
+          <span className="text-[16px] font-semibold text-[#3D7081] uppercase tracking-wider">Funcionalidade 9</span>
+          <h2 className="text-[44px] font-light text-[#1e3a5f]">Página de Contacto Inteligente</h2>
         </div>
       </div>
 
