@@ -2771,9 +2771,9 @@ const SlideFAQ = () => {
 const SlideContacto = () => {
   const features = [
     "Formulário inteligente com segmento",
-    "Notificação instantânea",
-    "AI Lead Scoring automático",
+    "Notificação instantânea por email",
     "Integração com WhatsApp",
+    "AI Lead Scoring automático ★ Premium",
   ];
 
   return (
