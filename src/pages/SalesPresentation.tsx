@@ -2314,58 +2314,97 @@ const SlideComparison = () => {
 // SLIDE 14: PRICING
 // ============================================
 const SlidePricing = () => {
-  // Price Anchoring: Premium first (left) with maximum visual prominence - this is what we want to sell
   const tiers = [
     {
-      name: "Premium",
-      price: "7.888",
-      description: "A solução completa",
-      valueStatement: "Tudo incluído. Zero preocupações. Nós cuidamos da tua plataforma 12 meses.",
-      icon: Crown,
-      iconBg: "bg-gradient-to-br from-amber-400 to-yellow-500",
+      name: "Essencial",
+      price: "8.000",
+      description: "Website Profissional",
+      valueStatement: "Presença digital completa com design premium e SEO técnico",
+      icon: Globe,
+      iconBg: "bg-gradient-to-br from-slate-500 to-slate-700",
       features: [
-        "Site + Portal + Backoffice",
-        "CRM + Lead Scoring IA",
-        "Cotações + Contratos digitais",
-        "Automações inteligentes",
-        "Integrações Personalizadas (Sage, etc.)",
-        "12 meses manutenção incluída",
-        "Suporte prioritário 24/7",
-        "4h Formação IA GRÁTIS",
+        { text: "Website institucional responsivo", included: true },
+        { text: "Página 'Quem Somos'", included: true },
+        { text: "Segmentos (Particulares/Empresas/Investidores)", included: true },
+        { text: "Portfolio + Galeria", included: true },
+        { text: "Testemunhos", included: true },
+        { text: "Formulário de contacto", included: true },
+        { text: "SEO Técnico (meta, sitemap, robots)", included: true },
+        { text: "Blog + CMS", included: true },
+        { text: "PDFs para download", included: true },
+        { text: "PWA (Progressive Web App)", included: true },
+        { text: "Design mobile/tablet", included: true },
       ],
-      recommended: true,
-      highlight: true,
+      notIncluded: [
+        "Portal Cliente",
+        "Integrações Odoo/DALUX",
+        "Funcionalidades IA",
+      ],
+      recommended: false,
+      highlight: false,
     },
     {
       name: "Profissional",
-      price: "5.888",
-      description: "Para crescer",
-      valueStatement: "Ideal para estúdios com 10-50 projetos/ano que precisam de portal cliente",
+      price: "14.000",
+      description: "O Vosso Pedido",
+      valueStatement: "Tudo o que pediram: website + portal + Odoo + DALUX + SEO",
       icon: Rocket,
       iconBg: "bg-gradient-to-br from-[#3D7081] to-[#1e3a5f]",
       features: [
-        "Site público completo",
-        "Portal Cliente completo",
-        "Dashboard Admin",
-        "CRM + Gestão de Leads",
-        "Mensagens + Documentos",
-        "Blog + Newsletter",
-        "60 dias suporte",
+        { text: "Tudo do Essencial", included: true },
+        { text: "Login/Autenticação segura", included: true },
+        { text: "Portal Cliente (projetos, docs, mensagens)", included: true },
+        { text: "Dashboard Admin", included: true },
+        { text: "CRM + Gestão de Leads", included: true },
+        { text: "Fotografias de obra", included: true },
+        { text: "Cronograma/fases do projeto", included: true },
+        { text: "Integração Odoo (contratos, faturas, estado)", included: true },
+        { text: "Integração DALUX (plantas, 3D, relatórios)", included: true },
+        { text: "SEO Intermédio (keywords, artigos, GBP)", included: true },
+        { text: "Documentação técnica + Manual", included: true },
+        { text: "60 dias suporte", included: true },
+      ],
+      notIncluded: [
+        "Funcionalidades IA",
+        "Contratos digitais",
+        "12 meses manutenção",
       ],
       recommended: false,
+      highlight: true,
+    },
+    {
+      name: "Premium",
+      price: "18.000",
+      description: "A solução completa",
+      valueStatement: "Tudo incluído + IA + contratos digitais + 12 meses de tranquilidade",
+      icon: Crown,
+      iconBg: "bg-gradient-to-br from-amber-400 to-yellow-500",
+      features: [
+        { text: "Tudo do Profissional", included: true },
+        { text: "AI Chatbot 24/7", included: true },
+        { text: "AI Lead Scoring automático", included: true },
+        { text: "AI Weekly Updates para clientes", included: true },
+        { text: "Contratos digitais (e-signature)", included: true },
+        { text: "Automações inteligentes", included: true },
+        { text: "12 meses manutenção incluída", included: true },
+        { text: "Suporte prioritário", included: true },
+        { text: "4h Formação IA GRÁTIS", included: true },
+      ],
+      notIncluded: [],
+      recommended: true,
       highlight: false,
     },
   ];
 
   return (
     <SlideFrame className="bg-gradient-to-br from-white to-slate-50 relative">
-      <div className="mb-6 text-center">
+      <div className="mb-5 text-center">
         <span className="text-[18px] font-semibold text-[#3D7081] uppercase tracking-wider bg-[#3D7081]/10 px-4 py-2 rounded-full">Escolhe o teu plano</span>
-        <h2 className="text-[48px] font-light text-[#1e3a5f] mt-4">2 opções à tua medida</h2>
+        <h2 className="text-[48px] font-light text-[#1e3a5f] mt-4">3 opções à tua medida</h2>
         <p className="text-slate-500 text-[18px] mt-2">Investimento único • Sem mensalidades</p>
       </div>
 
-      <div className="flex-1 grid grid-cols-2 gap-8 items-stretch max-w-4xl mx-auto">
+      <div className="flex-1 grid grid-cols-3 gap-5 items-stretch">
         {tiers.map((tier, i) => {
           const IconComponent = tier.icon;
           return (
@@ -2374,90 +2413,96 @@ const SlidePricing = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              className={`rounded-3xl p-7 flex flex-col relative ${tier.recommended
-                ? "bg-gradient-to-br from-[#1e3a5f] via-[#2a4a6f] to-[#3D7081] text-white ring-4 ring-[#3D7081]/30 shadow-[0_25px_60px_-15px_rgba(30,58,95,0.5)] z-10 scale-[1.03]"
+              className={`rounded-3xl p-5 flex flex-col relative ${tier.recommended
+                ? "bg-gradient-to-br from-[#1e3a5f] via-[#2a4a6f] to-[#3D7081] text-white ring-4 ring-amber-400/40 shadow-[0_25px_60px_-15px_rgba(30,58,95,0.5)] z-20 scale-[1.04]"
                 : tier.highlight
-                  ? "bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-300 shadow-xl scale-[1.05] z-20 ring-2 ring-purple-400/50"
-                  : "bg-white border-2 border-slate-200 shadow-xl hover:shadow-2xl transition-shadow"
+                  ? "bg-gradient-to-br from-[#3D7081]/5 to-[#3D7081]/10 border-2 border-[#3D7081] shadow-xl z-10"
+                  : "bg-white border-2 border-slate-200 shadow-xl"
                 }`}
             >
               {tier.recommended && (
-                <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-full flex justify-center">
+                <div className="absolute -top-7 left-1/2 -translate-x-1/2 w-full flex justify-center">
                   <motion.span
                     animate={{ scale: [1, 1.05, 1] }}
                     transition={{ duration: 2, repeat: Infinity }}
-                    className="bg-gradient-to-r from-amber-400 to-yellow-500 text-amber-900 text-[14px] font-bold px-6 py-2.5 rounded-full shadow-lg flex items-center gap-2 whitespace-nowrap"
+                    className="bg-gradient-to-r from-amber-400 to-yellow-500 text-amber-900 text-[13px] font-bold px-5 py-2 rounded-full shadow-lg flex items-center gap-2 whitespace-nowrap"
                   >
-                    <Crown className="w-5 h-5" />
+                    <Crown className="w-4 h-4" />
                     A NOSSA RECOMENDAÇÃO
                   </motion.span>
                 </div>
               )}
 
-              {/* Badge for Profissional - "O Vosso Pedido" */}
-              {tier.name === "Profissional" && (
-                <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-full flex justify-center">
-                  <span className="bg-gradient-to-r from-slate-100 to-slate-200 text-slate-700 text-[14px] font-semibold px-6 py-2.5 rounded-full shadow-md border border-slate-300 flex items-center gap-2 whitespace-nowrap">
-                    <CheckCircle2 className="w-5 h-5 text-[#3D7081]" />
+              {tier.highlight && (
+                <div className="absolute -top-7 left-1/2 -translate-x-1/2 w-full flex justify-center">
+                  <span className="bg-gradient-to-r from-[#3D7081] to-[#1e3a5f] text-white text-[13px] font-bold px-5 py-2 rounded-full shadow-md flex items-center gap-2 whitespace-nowrap">
+                    <CheckCircle2 className="w-4 h-4" />
                     O VOSSO PEDIDO
                   </span>
                 </div>
               )}
 
-              {/* Icon Badge */}
-              <div className="flex items-center gap-3 mb-2">
+              {/* Header */}
+              <div className="flex items-center gap-3 mb-2 mt-2">
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: i * 0.1 + 0.2, type: "spring", stiffness: 200 }}
-                  className={`w-12 h-12 rounded-2xl ${tier.iconBg} flex items-center justify-center shadow-lg mt-3`}
+                  className={`w-10 h-10 rounded-xl ${tier.iconBg} flex items-center justify-center shadow-lg`}
                 >
-                  <IconComponent className="w-6 h-6 text-white" />
+                  <IconComponent className="w-5 h-5 text-white" />
                 </motion.div>
                 <div>
-                  <h3 className={`text-[26px] font-bold ${tier.recommended ? "text-white" : tier.highlight ? "text-purple-800" : "text-[#1e3a5f]"}`}>
+                  <h3 className={`text-[22px] font-bold ${tier.recommended ? "text-white" : "text-[#1e3a5f]"}`}>
                     {tier.name}
                   </h3>
-                  <p className={`text-[14px] ${tier.recommended ? "text-blue-200" : tier.highlight ? "text-purple-600" : "text-slate-500"}`}>
+                  <p className={`text-[12px] ${tier.recommended ? "text-blue-200" : "text-slate-500"}`}>
                     {tier.description}
                   </p>
                 </div>
               </div>
 
-              <p className={`text-[13px] mb-4 italic ${tier.recommended ? "text-blue-100/80" : tier.highlight ? "text-purple-500" : "text-slate-400"}`}>
+              <p className={`text-[11px] mb-3 italic ${tier.recommended ? "text-blue-100/80" : "text-slate-400"}`}>
                 {tier.valueStatement}
               </p>
-              <div className="flex items-baseline gap-1 mb-5">
-                <span className={`text-[48px] font-bold leading-none ${tier.recommended ? "text-white" : tier.highlight ? "text-purple-800" : "text-[#1e3a5f]"}`}>
+
+              <div className="flex items-baseline gap-1 mb-4">
+                <span className={`text-[40px] font-bold leading-none ${tier.recommended ? "text-white" : "text-[#1e3a5f]"}`}>
                   {tier.price}
                 </span>
-                <span className={`text-[22px] ${tier.recommended ? "text-blue-200" : tier.highlight ? "text-purple-500" : "text-slate-400"}`}>€</span>
+                <span className={`text-[20px] ${tier.recommended ? "text-blue-200" : "text-slate-400"}`}>€</span>
               </div>
 
-              <div className="flex-1 space-y-2.5">
+              {/* Features */}
+              <div className="flex-1 space-y-1.5">
                 {tier.features.map((feature, j) => (
                   <motion.div
                     key={j}
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.1 + j * 0.05 + 0.3 }}
-                    className="flex items-center gap-2.5"
+                    transition={{ delay: i * 0.1 + j * 0.03 + 0.3 }}
+                    className="flex items-start gap-2"
                   >
-                    <CheckCircle2 className={`w-5 h-5 flex-shrink-0 ${tier.recommended ? "text-green-300" :
-                      tier.highlight ? "text-purple-600" :
-                        "text-[#3D7081]"
-                      }`} />
-                    <span className={`text-[15px] ${tier.recommended ? "text-blue-100" :
-                      tier.highlight ? "text-purple-700" :
-                        "text-slate-700"
-                      } ${feature.includes("GRÁTIS") ? "font-bold" : ""}`}>{feature}</span>
+                    <CheckCircle2 className={`w-4 h-4 flex-shrink-0 mt-0.5 ${tier.recommended ? "text-green-300" : tier.highlight ? "text-[#3D7081]" : "text-emerald-500"}`} />
+                    <span className={`text-[12px] leading-tight ${tier.recommended ? "text-blue-100" : "text-slate-700"} ${feature.text.includes("GRÁTIS") ? "font-bold" : ""}`}>
+                      {feature.text}
+                    </span>
                   </motion.div>
+                ))}
+                {/* Not included items */}
+                {tier.notIncluded.map((item, j) => (
+                  <div key={`no-${j}`} className="flex items-start gap-2 opacity-40">
+                    <X className={`w-4 h-4 flex-shrink-0 mt-0.5 ${tier.recommended ? "text-white/50" : "text-slate-400"}`} />
+                    <span className={`text-[12px] leading-tight line-through ${tier.recommended ? "text-white/50" : "text-slate-400"}`}>
+                      {item}
+                    </span>
+                  </div>
                 ))}
               </div>
 
               {tier.recommended && (
-                <div className="mt-5 pt-4 border-t border-white/20">
-                  <p className="text-blue-200 text-[14px] flex items-center gap-2">
+                <div className="mt-4 pt-3 border-t border-white/20">
+                  <p className="text-blue-200 text-[12px] flex items-center gap-2">
                     <Star className="w-4 h-4 text-amber-300" />
                     Tranquilidade total durante 12 meses
                   </p>
@@ -2473,17 +2518,17 @@ const SlidePricing = () => {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
-        className="mt-6 p-4 bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl border-2 border-amber-200 flex items-center justify-between"
+        className="mt-4 p-3 bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl border-2 border-amber-200 flex items-center justify-between"
       >
         <div className="flex items-center gap-4">
           <Timer className="w-6 h-6 text-amber-600" />
           <div>
-            <span className="text-slate-700 text-[18px]">Preços de lançamento válidos até <strong>31 Janeiro 2026</strong></span>
-            <p className="text-amber-600 text-[14px] font-medium mt-0.5">Após esta data, os preços sobem 15%</p>
+            <span className="text-slate-700 text-[16px]">Preços válidos até <strong>30 Abril 2026</strong></span>
+            <p className="text-amber-600 text-[13px] font-medium mt-0.5">Após esta data, os preços sobem 15%</p>
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <span className="text-slate-500 text-[14px]">Pagamento flexível: 40% + 40% + 20%</span>
+          <span className="text-slate-500 text-[13px]">Pagamento flexível: 30% + 30% + 30% + 10%</span>
         </div>
       </motion.div>
 
