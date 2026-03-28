@@ -47,7 +47,6 @@ const App = () => (
             <Sonner />
             <AnalyticsScripts />
             <InstallPWAPrompt />
-            <InstallPWAPrompt />
             <BrowserRouter>
               <ScrollToTop />
               <AnalyticsProvider>
