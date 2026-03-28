@@ -32,6 +32,8 @@ import NotFound from "./pages/NotFound";
 import Documentation from "./pages/Documentation";
 import DesignerReport from "./pages/DesignerReport";
 import SalesPresentation from "./pages/SalesPresentation";
+import QuemSomos from "./pages/QuemSomos";
+import Insights from "./pages/Insights";
 
 const queryClient = new QueryClient();
 
@@ -44,7 +46,6 @@ const App = () => (
             <Toaster />
             <Sonner />
             <AnalyticsScripts />
-            <InstallPWAPrompt />
             <InstallPWAPrompt />
             <BrowserRouter>
               <ScrollToTop />
@@ -73,6 +74,8 @@ const App = () => (
                     <Route path="/documentacao" element={<Documentation />} />
                     <Route path="/designer_report" element={<DesignerReport />} />
                     <Route path="/apresentacao" element={<SalesPresentation />} />
+                    <Route path="/quem-somos" element={<QuemSomos />} />
+                    <Route path="/insights" element={<Insights />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </PageTransition>
