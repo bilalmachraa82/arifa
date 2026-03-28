@@ -32,6 +32,8 @@ import NotFound from "./pages/NotFound";
 import Documentation from "./pages/Documentation";
 import DesignerReport from "./pages/DesignerReport";
 import SalesPresentation from "./pages/SalesPresentation";
+import QuemSomos from "./pages/QuemSomos";
+import Insights from "./pages/Insights";
 
 const queryClient = new QueryClient();
 
