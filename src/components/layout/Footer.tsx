@@ -19,9 +19,10 @@ export function Footer() {
       { name: t("segments.investors.title"), href: "/investidores" },
     ],
     company: [
-      { name: t("footer.aboutUs"), href: "/#sobre" },
+      { name: t("footer.aboutUs"), href: "/quem-somos" },
       { name: t("nav.portfolio"), href: "/portfolio" },
       { name: t("nav.blog"), href: "/blog" },
+      { name: "Insights", href: "/insights" },
       { name: t("nav.contact"), href: "/contacto" },
     ],
     legal: [

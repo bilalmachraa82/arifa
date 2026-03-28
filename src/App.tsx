@@ -75,6 +75,8 @@ const App = () => (
                     <Route path="/documentacao" element={<Documentation />} />
                     <Route path="/designer_report" element={<DesignerReport />} />
                     <Route path="/apresentacao" element={<SalesPresentation />} />
+                    <Route path="/quem-somos" element={<QuemSomos />} />
+                    <Route path="/insights" element={<Insights />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </PageTransition>
