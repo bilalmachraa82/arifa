@@ -553,6 +553,17 @@ const translations = {
     "client.contracts.pending": "Pendente de Assinatura",
     "client.contracts.download": "Descarregar",
     
+    // Odoo & DALUX Integration
+    "client.noOdooData": "Sem dados Odoo disponíveis",
+    "client.odooDataPending": "Os dados de contratos e faturas serão sincronizados quando a integração Odoo estiver ativa.",
+    "client.contracts": "Contratos",
+    "client.invoices": "Faturas",
+    "client.noDaluxData": "Sem dados DALUX disponíveis",
+    "client.daluxDataPending": "Os documentos técnicos e modelos 3D serão sincronizados quando a integração DALUX estiver ativa.",
+    "client.technicalDocuments": "Documentos Técnicos",
+    "client.models3d": "Modelos 3D",
+    "client.viewModel": "Visualizar",
+
     // AI Features
     "ai.weeklyUpdate.title": "Resumo Semanal AI",
     "ai.weeklyUpdate.description": "Atualização inteligente do progresso",
