@@ -11,12 +11,12 @@ import { supabase } from "@/integrations/supabase/client";
 import arifaLogo from "@/assets/arifa-logo.png";
 import { cn } from "@/lib/utils";
 
-// Brand Book: Cores por rota
+// Brand Book: route-based accent colors
 const getActiveColor = (pathname: string): string => {
   if (pathname === "/privado") return "bg-arifa-coral";
   if (pathname === "/empresas") return "bg-arifa-yellow";
   if (pathname === "/investidores") return "bg-arifa-blue";
-  return "bg-arifa-blue"; // Default: Academy
+  return "bg-arifa-blue";
 };
 
 export function Header() {
@@ -54,7 +54,6 @@ export function Header() {
         .select("id", { count: "exact", head: true })
         .eq("is_read", false);
 
-      // Admins see all unread, clients see their own
       if (!isAdminUser.data) {
         query = query.eq("client_id", user.id);
       }
@@ -65,7 +64,6 @@ export function Header() {
 
     fetchUnreadCount();
 
-    // Realtime subscription for new messages
     const channel = supabase
       .channel("header-messages")
       .on(
@@ -89,11 +87,13 @@ export function Header() {
   const navigation = [
     { name: t("nav.home"), href: "/" },
     { name: t("nav.services"), href: "/servicos" },
+    { name: t("nav.aboutUs"), href: "/quem-somos" },
     { name: t("nav.private"), href: "/privado" },
     { name: t("nav.companies"), href: "/empresas" },
     { name: t("nav.investors"), href: "/investidores" },
     { name: t("nav.portfolio"), href: "/portfolio" },
     { name: t("nav.blog"), href: "/blog" },
+    { name: t("nav.insights"), href: "/insights" },
     { name: t("nav.contact"), href: "/contacto" },
   ];
 
@@ -155,41 +155,41 @@ export function Header() {
           {user ? (
             <>
               {isAdmin && (
-                <Button variant="ghost" size="sm" asChild className="gap-2 relative" aria-label="Painel de administração">
+                <Button variant="ghost" size="sm" asChild className="gap-2 relative" aria-label={t("nav.adminPanel")}>
                   <Link to="/admin">
                     <Shield className="h-4 w-4" aria-hidden="true" />
                     Admin
                     {unreadCount > 0 && (
-                      <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 min-w-5 px-1 text-xs" aria-label={`${unreadCount} mensagens não lidas`}>
+                      <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 min-w-5 px-1 text-xs" aria-label={`${unreadCount} ${t("nav.unreadMessages")}`}>
                         {unreadCount > 99 ? "99+" : unreadCount}
                       </Badge>
                     )}
                   </Link>
                 </Button>
               )}
-              <Button variant="ghost" size="sm" asChild className="gap-2 relative" aria-label="Área de cliente">
+              <Button variant="ghost" size="sm" asChild className="gap-2 relative" aria-label={t("nav.clientArea")}>
                 <Link to="/dashboard">
                   <LayoutDashboard className="h-4 w-4" aria-hidden="true" />
                   {t("nav.clientArea")}
                   {!isAdmin && unreadCount > 0 && (
-                    <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 min-w-5 px-1 text-xs" aria-label={`${unreadCount} mensagens não lidas`}>
+                    <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 min-w-5 px-1 text-xs" aria-label={`${unreadCount} ${t("nav.unreadMessages")}`}>
                       {unreadCount > 99 ? "99+" : unreadCount}
                     </Badge>
                   )}
                 </Link>
               </Button>
-              <Button variant="ghost" size="icon" asChild aria-label="Definições da conta">
+              <Button variant="ghost" size="icon" asChild aria-label={t("nav.accountSettings")}>
                 <Link to="/dashboard/settings">
                   <Settings className="h-4 w-4" aria-hidden="true" />
                 </Link>
               </Button>
-              <Button variant="ghost" size="sm" onClick={signOut} className="gap-2" aria-label="Terminar sessão">
+              <Button variant="ghost" size="sm" onClick={signOut} className="gap-2" aria-label={t("nav.signOut")}>
                 <LogOut className="h-4 w-4" aria-hidden="true" />
                 {t("nav.logout")}
               </Button>
             </>
           ) : (
-            <Button variant="ghost" size="sm" asChild className="gap-2" aria-label="Iniciar sessão">
+            <Button variant="ghost" size="sm" asChild className="gap-2" aria-label={t("nav.signIn")}>
               <Link to="/auth">
                 <LogIn className="h-4 w-4" aria-hidden="true" />
                 {t("nav.login")}
@@ -197,7 +197,7 @@ export function Header() {
             </Button>
           )}
           
-          <Button variant="outline" size="sm" asChild aria-label="Pedir orçamento">
+          <Button variant="outline" size="sm" asChild aria-label={t("nav.getQuote")}>
             <Link to="/contacto">{t("nav.quote")}</Link>
           </Button>
         </div>
@@ -290,7 +290,7 @@ export function Header() {
                     <Button variant="ghost" className="w-full" asChild>
                       <Link to="/dashboard/settings" onClick={() => setMobileMenuOpen(false)}>
                         <Settings className="h-4 w-4 mr-2" />
-                        Definições
+                        {t("nav.settings")}
                       </Link>
                     </Button>
                     <Button 

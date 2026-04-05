@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Layout } from "@/components/layout/Layout";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
@@ -75,6 +76,7 @@ interface Message {
 
 const ClientDashboard = () => {
   const { user, loading: authLoading } = useAuth();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const { toast } = useToast();
   
@@ -203,16 +205,16 @@ const ClientDashboard = () => {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-bold">Área de Cliente</h1>
+              <h1 className="text-3xl font-bold">{t("client.dashboard.title")}</h1>
               <p className="text-muted-foreground">
-                Bem-vindo de volta! Acompanhe os seus projetos e comunicações.
+                {t("client.dashboard.welcomeDesc")}
               </p>
             </div>
             <div className="flex items-center gap-2">
               <GuidedTour />
-              <Button onClick={() => setShowMessageForm(true)} data-tour="new-message" aria-label="Enviar nova mensagem à equipa ARIFA">
+              <Button onClick={() => setShowMessageForm(true)} data-tour="new-message" aria-label={t("nav.sendNewMessage")}>
                 <Send className="mr-2 h-4 w-4" aria-hidden="true" />
-                Nova Mensagem
+                {t("client.dashboard.newMessage")}
               </Button>
             </div>
           </div>
@@ -224,7 +226,7 @@ const ClientDashboard = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium">Projetos Ativos</CardTitle>
+              <CardTitle className="text-sm font-medium">{t("client.dashboard.activeProjects")}</CardTitle>
               <FolderOpen className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -233,7 +235,7 @@ const ClientDashboard = () => {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium">Documentos</CardTitle>
+              <CardTitle className="text-sm font-medium">{t("client.dashboard.documents")}</CardTitle>
               <FileText className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -242,7 +244,7 @@ const ClientDashboard = () => {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium">Mensagens</CardTitle>
+              <CardTitle className="text-sm font-medium">{t("client.dashboard.messages")}</CardTitle>
               <MessageSquare className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -250,7 +252,7 @@ const ClientDashboard = () => {
                 {messages.length}
                 {unreadCount > 0 && (
                   <Badge variant="destructive" className="ml-2">
-                    {unreadCount} nova{unreadCount > 1 ? "s" : ""}
+                    {unreadCount} {unreadCount > 1 ? t("client.dashboard.newMessagesPlural") : t("client.dashboard.newMessages")}
                   </Badge>
                 )}
               </div>
@@ -260,32 +262,32 @@ const ClientDashboard = () => {
 
         {/* Main Content Tabs */}
         <Tabs defaultValue="projects" className="space-y-6">
-          <TabsList className="flex flex-wrap h-auto gap-2 lg:w-auto" role="tablist" aria-label="Secções do portal de cliente">
-            <TabsTrigger value="projects" data-tour="projects" aria-label="Ver projetos">
+          <TabsList className="flex flex-wrap h-auto gap-2 lg:w-auto" role="tablist" aria-label={t("client.dashboard.portalSections")}>
+            <TabsTrigger value="projects" data-tour="projects" aria-label={t("client.dashboard.viewProjects")}>
               <FolderOpen className="mr-2 h-4 w-4" aria-hidden="true" />
-              Projetos
+              {t("client.tabs.projects")}
             </TabsTrigger>
-            <TabsTrigger value="photos" data-tour="photos" aria-label="Ver fotos do projeto">
+            <TabsTrigger value="photos" data-tour="photos" aria-label={t("client.dashboard.viewPhotos")}>
               <Camera className="mr-2 h-4 w-4" aria-hidden="true" />
-              Fotos
+              {t("client.tabs.photos")}
             </TabsTrigger>
-            <TabsTrigger value="budget" aria-label="Ver orçamento">
+            <TabsTrigger value="budget" aria-label={t("client.dashboard.viewBudget")}>
               <Wallet className="mr-2 h-4 w-4" aria-hidden="true" />
-              Orçamento
+              {t("client.tabs.budget")}
             </TabsTrigger>
-            <TabsTrigger value="documents" data-tour="documents" aria-label="Ver documentos">
+            <TabsTrigger value="documents" data-tour="documents" aria-label={t("client.dashboard.viewDocuments")}>
               <FileText className="mr-2 h-4 w-4" aria-hidden="true" />
-              Documentos
+              {t("client.tabs.documents")}
             </TabsTrigger>
-            <TabsTrigger value="contracts" aria-label="Ver contratos">
+            <TabsTrigger value="contracts" aria-label={t("client.dashboard.viewContracts")}>
               <FileSignature className="mr-2 h-4 w-4" aria-hidden="true" />
-              Contratos
+              {t("client.tabs.contracts")}
             </TabsTrigger>
-            <TabsTrigger value="messages" data-tour="messages" aria-label={`Ver mensagens${unreadCount > 0 ? `, ${unreadCount} não lidas` : ''}`}>
+            <TabsTrigger value="messages" data-tour="messages" aria-label={`${t("client.dashboard.viewMessages")}${unreadCount > 0 ? `, ${unreadCount} ${t("client.dashboard.unreadMessages")}` : ''}`}>
               <MessageSquare className="mr-2 h-4 w-4" aria-hidden="true" />
-              Mensagens
+              {t("client.tabs.messages")}
               {unreadCount > 0 && (
-                <Badge variant="destructive" className="ml-2 h-5 w-5 p-0 flex items-center justify-center" aria-label={`${unreadCount} mensagens não lidas`}>
+                <Badge variant="destructive" className="ml-2 h-5 w-5 p-0 flex items-center justify-center" aria-label={`${unreadCount} ${t("client.dashboard.unreadMessages")}`}>
                   {unreadCount}
                 </Badge>
               )}
@@ -298,12 +300,12 @@ const ClientDashboard = () => {
               <Card>
                 <CardContent className="flex flex-col items-center justify-center py-12">
                   <FolderOpen className="h-12 w-12 text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">Sem projetos ativos</h3>
+                  <h3 className="text-lg font-semibold mb-2">{t("client.projects.noProjects")}</h3>
                   <p className="text-muted-foreground text-center max-w-md">
-                    Ainda não tem projetos associados à sua conta. Entre em contacto connosco para iniciar o seu projeto.
+                    {t("client.dashboard.noProjectsContact")}
                   </p>
                   <Button className="mt-4" onClick={() => navigate("/contacto")}>
-                    Iniciar Projeto
+                    {t("client.projects.startProject")}
                   </Button>
                 </CardContent>
               </Card>
@@ -360,7 +362,7 @@ const ClientDashboard = () => {
                             size="sm"
                             onClick={() => navigate(`/portfolio/${project.slug}`)}
                           >
-                            Ver Detalhes
+                            {t("client.projects.viewDetails")}
                             <ChevronRight className="ml-2 h-4 w-4" />
                           </Button>
                         </div>
@@ -391,9 +393,9 @@ const ClientDashboard = () => {
               <Card>
                 <CardContent className="flex flex-col items-center justify-center py-12">
                   <Camera className="h-12 w-12 text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">Sem projetos ativos</h3>
+                  <h3 className="text-lg font-semibold mb-2">{t("client.photos.noProjects")}</h3>
                   <p className="text-muted-foreground text-center max-w-md">
-                    Quando tiver projetos, as fotos de progresso aparecerão aqui.
+                    {t("client.dashboard.noProjectsPhotos")}
                   </p>
                 </CardContent>
               </Card>
@@ -416,9 +418,9 @@ const ClientDashboard = () => {
               <Card>
                 <CardContent className="flex flex-col items-center justify-center py-12">
                   <Wallet className="h-12 w-12 text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">Sem projetos ativos</h3>
+                  <h3 className="text-lg font-semibold mb-2">{t("client.budget.noProjects")}</h3>
                   <p className="text-muted-foreground text-center max-w-md">
-                    Quando tiver projetos, as informações de orçamento aparecerão aqui.
+                    {t("client.dashboard.noProjectsBudget")}
                   </p>
                 </CardContent>
               </Card>
@@ -459,12 +461,12 @@ const ClientDashboard = () => {
                 <CardContent className="flex flex-col items-center justify-center py-12">
                   <FileText className="h-12 w-12 text-muted-foreground mb-4" />
                   <h3 className="text-lg font-semibold mb-2">
-                    {currentFolderId ? "Pasta vazia" : "Sem documentos"}
+                    {currentFolderId ? t("client.documents.emptyFolder") : t("client.documents.noDocuments")}
                   </h3>
                   <p className="text-muted-foreground text-center max-w-md">
                     {currentFolderId 
-                      ? "Esta pasta não contém documentos." 
-                      : "Ainda não existem documentos partilhados consigo. Os documentos do seu projeto aparecerão aqui."}
+                      ? t("client.dashboard.noDocumentsFolder")
+                      : t("client.dashboard.noDocumentsDesc")}
                   </p>
                 </CardContent>
               </Card>
@@ -552,9 +554,9 @@ const ClientDashboard = () => {
                   <Card>
                     <CardContent className="flex flex-col items-center justify-center py-12">
                       <MessageSquare className="h-12 w-12 text-muted-foreground mb-4" />
-                      <h3 className="text-lg font-semibold mb-2">Sem mensagens</h3>
+                      <h3 className="text-lg font-semibold mb-2">{t("client.messages.noMessages")}</h3>
                       <p className="text-muted-foreground text-center">
-                        Ainda não tem mensagens.
+                        {t("client.dashboard.noMessages")}
                       </p>
                     </CardContent>
                   </Card>
@@ -585,7 +587,7 @@ const ClientDashboard = () => {
                             </span>
                             {message.sender_id === user?.id && (
                               <Badge variant="outline" className="text-xs">
-                                Enviada
+                                {t("client.dashboard.sent")}
                               </Badge>
                             )}
                           </div>
@@ -610,7 +612,7 @@ const ClientDashboard = () => {
                             {selectedMessage.sender_id === user?.id && (
                               <Badge variant="outline" className="ml-2">
                                 <Check className="h-3 w-3 mr-1" />
-                                Enviada por si
+                                {t("client.dashboard.sentByYou")}
                               </Badge>
                             )}
                           </CardDescription>
@@ -630,7 +632,7 @@ const ClientDashboard = () => {
                         <div className="mt-6 pt-6 border-t">
                           <Button onClick={() => setShowMessageForm(true)}>
                             <Send className="mr-2 h-4 w-4" />
-                            Responder
+                            {t("client.dashboard.reply")}
                           </Button>
                         </div>
                       )}
@@ -641,7 +643,7 @@ const ClientDashboard = () => {
                     <CardContent className="flex flex-col items-center justify-center py-12">
                       <MessageSquare className="h-12 w-12 text-muted-foreground mb-4" />
                       <p className="text-muted-foreground">
-                        Selecione uma mensagem para ver os detalhes
+                        {t("client.dashboard.selectMessage")}
                       </p>
                     </CardContent>
                   </Card>
@@ -659,8 +661,8 @@ const ClientDashboard = () => {
         onSuccess={() => {
           fetchData();
           toast({
-            title: "Mensagem enviada",
-            description: "A sua mensagem foi enviada com sucesso.",
+            title: t("client.dashboard.messageSent"),
+            description: t("client.dashboard.messageSentDesc"),
           });
         }}
         projects={projects}
