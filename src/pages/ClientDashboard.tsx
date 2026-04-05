@@ -468,7 +468,6 @@ const ClientDashboard = () => {
                       ? t("client.dashboard.noDocumentsFolder")
                       : t("client.dashboard.noDocumentsDesc")}
                   </p>
-                  </p>
                 </CardContent>
               </Card>
             ) : (
