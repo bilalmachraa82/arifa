@@ -26,17 +26,17 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://www.arifa.studio/blog</loc>
+    <loc>https://www.arifa.studio/insights</loc>
     <priority>0.8</priority>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://www.arifa.studio/contacto</loc>
+    <loc>https://www.arifa.studio/quem-somos</loc>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://www.arifa.studio/servicos</loc>
+    <loc>https://www.arifa.studio/contacto</loc>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>

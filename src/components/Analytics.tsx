@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { onCLS, onINP, onLCP, onFCP, onTTFB } from "web-vitals";
 
 // Configuration - Set your analytics provider
 const ANALYTICS_CONFIG = {
@@ -93,9 +94,30 @@ export function AnalyticsScripts() {
   return null;
 }
 
+// Report Core Web Vitals to Plausible
+function reportWebVitals() {
+  const sendToPlausible = (metric: { name: string; value: number }) => {
+    trackEvent("Web Vitals", {
+      metric: metric.name,
+      value: Math.round(metric.name === "CLS" ? metric.value * 1000 : metric.value),
+      rating: metric.name,
+    });
+  };
+
+  onCLS(sendToPlausible);
+  onINP(sendToPlausible);
+  onLCP(sendToPlausible);
+  onFCP(sendToPlausible);
+  onTTFB(sendToPlausible);
+}
+
 // Analytics provider component
 export function AnalyticsProvider({ children }: { children: React.ReactNode }) {
   usePageTracking();
+
+  useEffect(() => {
+    reportWebVitals();
+  }, []);
 
   return <>{children}</>;
 }

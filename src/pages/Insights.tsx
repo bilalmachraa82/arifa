@@ -169,22 +169,22 @@ export default function Insights() {
             </div>
           )}
 
-          {/* Newsletter CTA */}
+          {/* Contact CTA */}
           <AnimatedSection animation="fade-up" delay={300}>
             <div className="mt-16 text-center p-8 rounded-xl bg-card border border-border">
               <h3 className="text-2xl font-bold text-foreground mb-3">
                 {language === "pt"
-                  ? "Quer receber novos recursos?"
-                  : "Want to receive new resources?"}
+                  ? "Precisa de ajuda com o seu projecto?"
+                  : "Need help with your project?"}
               </h3>
               <p className="text-muted-foreground mb-6 max-w-md mx-auto">
                 {language === "pt"
-                  ? "Subscreva a nossa newsletter para receber guias, artigos e insights diretamente no seu email."
-                  : "Subscribe to our newsletter to receive guides, articles and insights directly to your email."}
+                  ? "Fale connosco para discutir as suas necessidades e descobrir como podemos ajudar."
+                  : "Talk to us to discuss your needs and find out how we can help."}
               </p>
               <Button asChild>
-                <a href="/#newsletter">
-                  {language === "pt" ? "Subscrever Newsletter" : "Subscribe to Newsletter"}
+                <a href="/contacto">
+                  {language === "pt" ? "Contactar" : "Contact Us"}
                 </a>
               </Button>
             </div>
