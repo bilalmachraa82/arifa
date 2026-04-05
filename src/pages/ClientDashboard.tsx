@@ -262,32 +262,32 @@ const ClientDashboard = () => {
 
         {/* Main Content Tabs */}
         <Tabs defaultValue="projects" className="space-y-6">
-          <TabsList className="flex flex-wrap h-auto gap-2 lg:w-auto" role="tablist" aria-label="Secções do portal de cliente">
-            <TabsTrigger value="projects" data-tour="projects" aria-label="Ver projetos">
+          <TabsList className="flex flex-wrap h-auto gap-2 lg:w-auto" role="tablist" aria-label={t("client.dashboard.portalSections")}>
+            <TabsTrigger value="projects" data-tour="projects" aria-label={t("client.dashboard.viewProjects")}>
               <FolderOpen className="mr-2 h-4 w-4" aria-hidden="true" />
-              Projetos
+              {t("client.tabs.projects")}
             </TabsTrigger>
-            <TabsTrigger value="photos" data-tour="photos" aria-label="Ver fotos do projeto">
+            <TabsTrigger value="photos" data-tour="photos" aria-label={t("client.dashboard.viewPhotos")}>
               <Camera className="mr-2 h-4 w-4" aria-hidden="true" />
-              Fotos
+              {t("client.tabs.photos")}
             </TabsTrigger>
-            <TabsTrigger value="budget" aria-label="Ver orçamento">
+            <TabsTrigger value="budget" aria-label={t("client.dashboard.viewBudget")}>
               <Wallet className="mr-2 h-4 w-4" aria-hidden="true" />
-              Orçamento
+              {t("client.tabs.budget")}
             </TabsTrigger>
-            <TabsTrigger value="documents" data-tour="documents" aria-label="Ver documentos">
+            <TabsTrigger value="documents" data-tour="documents" aria-label={t("client.dashboard.viewDocuments")}>
               <FileText className="mr-2 h-4 w-4" aria-hidden="true" />
-              Documentos
+              {t("client.tabs.documents")}
             </TabsTrigger>
-            <TabsTrigger value="contracts" aria-label="Ver contratos">
+            <TabsTrigger value="contracts" aria-label={t("client.dashboard.viewContracts")}>
               <FileSignature className="mr-2 h-4 w-4" aria-hidden="true" />
-              Contratos
+              {t("client.tabs.contracts")}
             </TabsTrigger>
-            <TabsTrigger value="messages" data-tour="messages" aria-label={`Ver mensagens${unreadCount > 0 ? `, ${unreadCount} não lidas` : ''}`}>
+            <TabsTrigger value="messages" data-tour="messages" aria-label={`${t("client.dashboard.viewMessages")}${unreadCount > 0 ? `, ${unreadCount} ${t("client.dashboard.unreadMessages")}` : ''}`}>
               <MessageSquare className="mr-2 h-4 w-4" aria-hidden="true" />
-              Mensagens
+              {t("client.tabs.messages")}
               {unreadCount > 0 && (
-                <Badge variant="destructive" className="ml-2 h-5 w-5 p-0 flex items-center justify-center" aria-label={`${unreadCount} mensagens não lidas`}>
+                <Badge variant="destructive" className="ml-2 h-5 w-5 p-0 flex items-center justify-center" aria-label={`${unreadCount} ${t("client.dashboard.unreadMessages")}`}>
                   {unreadCount}
                 </Badge>
               )}
