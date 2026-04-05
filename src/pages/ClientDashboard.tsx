@@ -300,12 +300,12 @@ const ClientDashboard = () => {
               <Card>
                 <CardContent className="flex flex-col items-center justify-center py-12">
                   <FolderOpen className="h-12 w-12 text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">Sem projetos ativos</h3>
+                  <h3 className="text-lg font-semibold mb-2">{t("client.projects.noProjects")}</h3>
                   <p className="text-muted-foreground text-center max-w-md">
-                    Ainda não tem projetos associados à sua conta. Entre em contacto connosco para iniciar o seu projeto.
+                    {t("client.dashboard.noProjectsContact")}
                   </p>
                   <Button className="mt-4" onClick={() => navigate("/contacto")}>
-                    Iniciar Projeto
+                    {t("client.projects.startProject")}
                   </Button>
                 </CardContent>
               </Card>
@@ -362,7 +362,7 @@ const ClientDashboard = () => {
                             size="sm"
                             onClick={() => navigate(`/portfolio/${project.slug}`)}
                           >
-                            Ver Detalhes
+                            {t("client.projects.viewDetails")}
                             <ChevronRight className="ml-2 h-4 w-4" />
                           </Button>
                         </div>
@@ -393,9 +393,9 @@ const ClientDashboard = () => {
               <Card>
                 <CardContent className="flex flex-col items-center justify-center py-12">
                   <Camera className="h-12 w-12 text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">Sem projetos ativos</h3>
+                  <h3 className="text-lg font-semibold mb-2">{t("client.photos.noProjects")}</h3>
                   <p className="text-muted-foreground text-center max-w-md">
-                    Quando tiver projetos, as fotos de progresso aparecerão aqui.
+                    {t("client.dashboard.noProjectsPhotos")}
                   </p>
                 </CardContent>
               </Card>
@@ -418,9 +418,9 @@ const ClientDashboard = () => {
               <Card>
                 <CardContent className="flex flex-col items-center justify-center py-12">
                   <Wallet className="h-12 w-12 text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">Sem projetos ativos</h3>
+                  <h3 className="text-lg font-semibold mb-2">{t("client.budget.noProjects")}</h3>
                   <p className="text-muted-foreground text-center max-w-md">
-                    Quando tiver projetos, as informações de orçamento aparecerão aqui.
+                    {t("client.dashboard.noProjectsBudget")}
                   </p>
                 </CardContent>
               </Card>
@@ -461,12 +461,13 @@ const ClientDashboard = () => {
                 <CardContent className="flex flex-col items-center justify-center py-12">
                   <FileText className="h-12 w-12 text-muted-foreground mb-4" />
                   <h3 className="text-lg font-semibold mb-2">
-                    {currentFolderId ? "Pasta vazia" : "Sem documentos"}
+                    {currentFolderId ? t("client.documents.emptyFolder") : t("client.documents.noDocuments")}
                   </h3>
                   <p className="text-muted-foreground text-center max-w-md">
                     {currentFolderId 
-                      ? "Esta pasta não contém documentos." 
-                      : "Ainda não existem documentos partilhados consigo. Os documentos do seu projeto aparecerão aqui."}
+                      ? t("client.dashboard.noDocumentsFolder")
+                      : t("client.dashboard.noDocumentsDesc")}
+                  </p>
                   </p>
                 </CardContent>
               </Card>
@@ -554,9 +555,9 @@ const ClientDashboard = () => {
                   <Card>
                     <CardContent className="flex flex-col items-center justify-center py-12">
                       <MessageSquare className="h-12 w-12 text-muted-foreground mb-4" />
-                      <h3 className="text-lg font-semibold mb-2">Sem mensagens</h3>
+                      <h3 className="text-lg font-semibold mb-2">{t("client.messages.noMessages")}</h3>
                       <p className="text-muted-foreground text-center">
-                        Ainda não tem mensagens.
+                        {t("client.dashboard.noMessages")}
                       </p>
                     </CardContent>
                   </Card>
@@ -587,7 +588,7 @@ const ClientDashboard = () => {
                             </span>
                             {message.sender_id === user?.id && (
                               <Badge variant="outline" className="text-xs">
-                                Enviada
+                                {t("client.dashboard.sent")}
                               </Badge>
                             )}
                           </div>
@@ -612,7 +613,7 @@ const ClientDashboard = () => {
                             {selectedMessage.sender_id === user?.id && (
                               <Badge variant="outline" className="ml-2">
                                 <Check className="h-3 w-3 mr-1" />
-                                Enviada por si
+                                {t("client.dashboard.sentByYou")}
                               </Badge>
                             )}
                           </CardDescription>
@@ -632,7 +633,7 @@ const ClientDashboard = () => {
                         <div className="mt-6 pt-6 border-t">
                           <Button onClick={() => setShowMessageForm(true)}>
                             <Send className="mr-2 h-4 w-4" />
-                            Responder
+                            {t("client.dashboard.reply")}
                           </Button>
                         </div>
                       )}
@@ -643,7 +644,7 @@ const ClientDashboard = () => {
                     <CardContent className="flex flex-col items-center justify-center py-12">
                       <MessageSquare className="h-12 w-12 text-muted-foreground mb-4" />
                       <p className="text-muted-foreground">
-                        Selecione uma mensagem para ver os detalhes
+                        {t("client.dashboard.selectMessage")}
                       </p>
                     </CardContent>
                   </Card>
@@ -661,8 +662,8 @@ const ClientDashboard = () => {
         onSuccess={() => {
           fetchData();
           toast({
-            title: "Mensagem enviada",
-            description: "A sua mensagem foi enviada com sucesso.",
+            title: t("client.dashboard.messageSent"),
+            description: t("client.dashboard.messageSentDesc"),
           });
         }}
         projects={projects}
