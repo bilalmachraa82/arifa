@@ -553,6 +553,17 @@ const translations = {
     "client.contracts.pending": "Pendente de Assinatura",
     "client.contracts.download": "Descarregar",
     
+    // Odoo & DALUX Integration
+    "client.noOdooData": "Sem dados Odoo disponíveis",
+    "client.odooDataPending": "Os dados de contratos e faturas serão sincronizados quando a integração Odoo estiver ativa.",
+    "client.contracts": "Contratos",
+    "client.invoices": "Faturas",
+    "client.noDaluxData": "Sem dados DALUX disponíveis",
+    "client.daluxDataPending": "Os documentos técnicos e modelos 3D serão sincronizados quando a integração DALUX estiver ativa.",
+    "client.technicalDocuments": "Documentos Técnicos",
+    "client.models3d": "Modelos 3D",
+    "client.viewModel": "Visualizar",
+
     // AI Features
     "ai.weeklyUpdate.title": "Resumo Semanal AI",
     "ai.weeklyUpdate.description": "Atualização inteligente do progresso",
@@ -1261,6 +1272,17 @@ const translations = {
     "client.contracts.pending": "Pending Signature",
     "client.contracts.download": "Download",
     
+    // Odoo & DALUX Integration
+    "client.noOdooData": "No Odoo data available",
+    "client.odooDataPending": "Contract and invoice data will be synced when the Odoo integration is active.",
+    "client.contracts": "Contracts",
+    "client.invoices": "Invoices",
+    "client.noDaluxData": "No DALUX data available",
+    "client.daluxDataPending": "Technical documents and 3D models will be synced when the DALUX integration is active.",
+    "client.technicalDocuments": "Technical Documents",
+    "client.models3d": "3D Models",
+    "client.viewModel": "View",
+
     // AI Features
     "ai.weeklyUpdate.title": "AI Weekly Summary",
     "ai.weeklyUpdate.description": "Intelligent progress update",
