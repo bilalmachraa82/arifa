@@ -364,6 +364,124 @@ export type Database = {
           },
         ]
       }
+      dalux_documents: {
+        Row: {
+          created_at: string
+          description: string | null
+          document_type: string | null
+          external_id: string | null
+          file_url: string | null
+          id: string
+          phase: string | null
+          project_id: string | null
+          raw_data: Json | null
+          synced_at: string | null
+          thumbnail_url: string | null
+          title: string
+          updated_at: string
+          version: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          document_type?: string | null
+          external_id?: string | null
+          file_url?: string | null
+          id?: string
+          phase?: string | null
+          project_id?: string | null
+          raw_data?: Json | null
+          synced_at?: string | null
+          thumbnail_url?: string | null
+          title: string
+          updated_at?: string
+          version?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          document_type?: string | null
+          external_id?: string | null
+          file_url?: string | null
+          id?: string
+          phase?: string | null
+          project_id?: string | null
+          raw_data?: Json | null
+          synced_at?: string | null
+          thumbnail_url?: string | null
+          title?: string
+          updated_at?: string
+          version?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "dalux_documents_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      dalux_models: {
+        Row: {
+          created_at: string
+          description: string | null
+          external_id: string | null
+          file_size: number | null
+          file_url: string | null
+          id: string
+          model_type: string | null
+          name: string
+          project_id: string | null
+          raw_data: Json | null
+          synced_at: string | null
+          thumbnail_url: string | null
+          updated_at: string
+          viewer_url: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          external_id?: string | null
+          file_size?: number | null
+          file_url?: string | null
+          id?: string
+          model_type?: string | null
+          name: string
+          project_id?: string | null
+          raw_data?: Json | null
+          synced_at?: string | null
+          thumbnail_url?: string | null
+          updated_at?: string
+          viewer_url?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          external_id?: string | null
+          file_size?: number | null
+          file_url?: string | null
+          id?: string
+          model_type?: string | null
+          name?: string
+          project_id?: string | null
+          raw_data?: Json | null
+          synced_at?: string | null
+          thumbnail_url?: string | null
+          updated_at?: string
+          viewer_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "dalux_models_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       document_folders: {
         Row: {
           client_id: string
@@ -588,6 +706,149 @@ export type Database = {
           is_active?: boolean | null
         }
         Relationships: []
+      }
+      odoo_contracts: {
+        Row: {
+          contract_number: string | null
+          created_at: string
+          currency: string | null
+          description: string | null
+          end_date: string | null
+          external_id: string | null
+          id: string
+          paid_amount: number | null
+          project_id: string | null
+          raw_data: Json | null
+          start_date: string | null
+          status: string | null
+          synced_at: string | null
+          title: string
+          total_amount: number | null
+          updated_at: string
+        }
+        Insert: {
+          contract_number?: string | null
+          created_at?: string
+          currency?: string | null
+          description?: string | null
+          end_date?: string | null
+          external_id?: string | null
+          id?: string
+          paid_amount?: number | null
+          project_id?: string | null
+          raw_data?: Json | null
+          start_date?: string | null
+          status?: string | null
+          synced_at?: string | null
+          title: string
+          total_amount?: number | null
+          updated_at?: string
+        }
+        Update: {
+          contract_number?: string | null
+          created_at?: string
+          currency?: string | null
+          description?: string | null
+          end_date?: string | null
+          external_id?: string | null
+          id?: string
+          paid_amount?: number | null
+          project_id?: string | null
+          raw_data?: Json | null
+          start_date?: string | null
+          status?: string | null
+          synced_at?: string | null
+          title?: string
+          total_amount?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "odoo_contracts_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      odoo_invoices: {
+        Row: {
+          amount: number
+          contract_id: string | null
+          created_at: string
+          currency: string | null
+          description: string | null
+          due_date: string | null
+          external_id: string | null
+          id: string
+          invoice_number: string | null
+          issue_date: string | null
+          payment_date: string | null
+          payment_status: string | null
+          project_id: string | null
+          raw_data: Json | null
+          synced_at: string | null
+          tax_amount: number | null
+          total_amount: number
+          updated_at: string
+        }
+        Insert: {
+          amount?: number
+          contract_id?: string | null
+          created_at?: string
+          currency?: string | null
+          description?: string | null
+          due_date?: string | null
+          external_id?: string | null
+          id?: string
+          invoice_number?: string | null
+          issue_date?: string | null
+          payment_date?: string | null
+          payment_status?: string | null
+          project_id?: string | null
+          raw_data?: Json | null
+          synced_at?: string | null
+          tax_amount?: number | null
+          total_amount?: number
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          contract_id?: string | null
+          created_at?: string
+          currency?: string | null
+          description?: string | null
+          due_date?: string | null
+          external_id?: string | null
+          id?: string
+          invoice_number?: string | null
+          issue_date?: string | null
+          payment_date?: string | null
+          payment_status?: string | null
+          project_id?: string | null
+          raw_data?: Json | null
+          synced_at?: string | null
+          tax_amount?: number | null
+          total_amount?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "odoo_invoices_contract_id_fkey"
+            columns: ["contract_id"]
+            isOneToOne: false
+            referencedRelation: "odoo_contracts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "odoo_invoices_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
