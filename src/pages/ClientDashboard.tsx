@@ -205,16 +205,16 @@ const ClientDashboard = () => {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-bold">Área de Cliente</h1>
+              <h1 className="text-3xl font-bold">{t("client.dashboard.title")}</h1>
               <p className="text-muted-foreground">
-                Bem-vindo de volta! Acompanhe os seus projetos e comunicações.
+                {t("client.dashboard.welcomeDesc")}
               </p>
             </div>
             <div className="flex items-center gap-2">
               <GuidedTour />
-              <Button onClick={() => setShowMessageForm(true)} data-tour="new-message" aria-label="Enviar nova mensagem à equipa ARIFA">
+              <Button onClick={() => setShowMessageForm(true)} data-tour="new-message" aria-label={t("nav.sendNewMessage")}>
                 <Send className="mr-2 h-4 w-4" aria-hidden="true" />
-                Nova Mensagem
+                {t("client.dashboard.newMessage")}
               </Button>
             </div>
           </div>
@@ -226,7 +226,7 @@ const ClientDashboard = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium">Projetos Ativos</CardTitle>
+              <CardTitle className="text-sm font-medium">{t("client.dashboard.activeProjects")}</CardTitle>
               <FolderOpen className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -235,7 +235,7 @@ const ClientDashboard = () => {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium">Documentos</CardTitle>
+              <CardTitle className="text-sm font-medium">{t("client.dashboard.documents")}</CardTitle>
               <FileText className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -244,7 +244,7 @@ const ClientDashboard = () => {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium">Mensagens</CardTitle>
+              <CardTitle className="text-sm font-medium">{t("client.dashboard.messages")}</CardTitle>
               <MessageSquare className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -252,7 +252,7 @@ const ClientDashboard = () => {
                 {messages.length}
                 {unreadCount > 0 && (
                   <Badge variant="destructive" className="ml-2">
-                    {unreadCount} nova{unreadCount > 1 ? "s" : ""}
+                    {unreadCount} {unreadCount > 1 ? t("client.dashboard.newMessagesPlural") : t("client.dashboard.newMessages")}
                   </Badge>
                 )}
               </div>
