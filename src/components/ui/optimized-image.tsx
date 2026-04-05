@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface OptimizedImageProps {
   src: string;
@@ -29,6 +31,7 @@ export function OptimizedImage({
   const [hasError, setHasError] = useState(false);
   const [isInView, setIsInView] = useState(priority);
   const imgRef = useRef<HTMLImageElement>(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (priority) return;
@@ -74,9 +77,9 @@ export function OptimizedImage({
         )}
         style={{ width, height }}
         role="img"
-        aria-label={`Imagem não disponível: ${alt}`}
+        aria-label={`${t("image.unavailable")}: ${alt}`}
       >
-        <span>Imagem não disponível</span>
+        <span>{t("image.unavailable")}</span>
       </div>
     );
   }

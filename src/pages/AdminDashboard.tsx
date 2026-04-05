@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -23,6 +24,7 @@ import { AdminContracts } from "@/components/admin/AdminContracts";
 
 const AdminDashboard = () => {
   const { user, loading: authLoading } = useAuth();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const [isAdmin, setIsAdmin] = useState(false);
   const [checkingRole, setCheckingRole] = useState(true);
@@ -73,9 +75,9 @@ const AdminDashboard = () => {
       <Layout>
         <div className="container mx-auto px-4 py-20 text-center">
           <Shield className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-          <h1 className="text-2xl font-bold mb-2">Acesso Restrito</h1>
+          <h1 className="text-2xl font-bold mb-2">{t("admin.restricted")}</h1>
           <p className="text-muted-foreground">
-            Não tem permissões para aceder a esta área.
+            {t("admin.restrictedDesc")}
           </p>
         </div>
       </Layout>
@@ -89,9 +91,9 @@ const AdminDashboard = () => {
           <div className="flex items-center gap-3">
             <Shield className="h-8 w-8 text-primary" />
             <div>
-              <h1 className="text-2xl font-bold">Painel de Administração</h1>
+              <h1 className="text-2xl font-bold">{t("admin.title")}</h1>
               <p className="text-muted-foreground text-sm">
-                Gerir projetos, blog, documentos e clientes
+                {t("admin.subtitle")}
               </p>
             </div>
           </div>
@@ -103,55 +105,55 @@ const AdminDashboard = () => {
           <TabsList className="flex flex-wrap h-auto gap-2">
             <TabsTrigger value="overview" className="gap-2">
               <LayoutDashboard className="h-4 w-4" />
-              Dashboard
+              {t("admin.tabs.dashboard")}
             </TabsTrigger>
             <TabsTrigger value="projects" className="gap-2">
               <FolderOpen className="h-4 w-4" />
-              Projetos
+              {t("admin.tabs.projects")}
             </TabsTrigger>
             <TabsTrigger value="milestones" className="gap-2">
               <Target className="h-4 w-4" />
-              Milestones
+              {t("admin.tabs.milestones")}
             </TabsTrigger>
             <TabsTrigger value="blog" className="gap-2">
               <FileText className="h-4 w-4" />
-              Blog
+              {t("admin.tabs.blog")}
             </TabsTrigger>
             <TabsTrigger value="documents" className="gap-2">
               <FileText className="h-4 w-4" />
-              Documentos
+              {t("admin.tabs.documents")}
             </TabsTrigger>
             <TabsTrigger value="messages" className="gap-2">
               <MessageSquare className="h-4 w-4" />
-              Mensagens
+              {t("admin.tabs.messages")}
             </TabsTrigger>
             <TabsTrigger value="leads" className="gap-2">
               <Mail className="h-4 w-4" />
-              Leads
+              {t("admin.tabs.leads")}
             </TabsTrigger>
             <TabsTrigger value="clients" className="gap-2">
               <Users className="h-4 w-4" />
-              Clientes
+              {t("admin.tabs.clients")}
             </TabsTrigger>
             <TabsTrigger value="quotes" className="gap-2">
               <Receipt className="h-4 w-4" />
-              Cotações
+              {t("admin.tabs.quotes")}
             </TabsTrigger>
             <TabsTrigger value="contracts" className="gap-2">
               <FileSignature className="h-4 w-4" />
-              Contratos
+              {t("admin.tabs.contracts")}
             </TabsTrigger>
             <TabsTrigger value="photos" className="gap-2">
               <Camera className="h-4 w-4" />
-              Fotos
+              {t("admin.tabs.photos")}
             </TabsTrigger>
             <TabsTrigger value="budget" className="gap-2">
               <Wallet className="h-4 w-4" />
-              Orçamentos
+              {t("admin.tabs.budget")}
             </TabsTrigger>
             <TabsTrigger value="audit" className="gap-2">
               <History className="h-4 w-4" />
-              Auditoria
+              {t("admin.tabs.audit")}
             </TabsTrigger>
           </TabsList>
 

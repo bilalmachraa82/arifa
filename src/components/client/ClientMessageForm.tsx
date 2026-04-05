@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Dialog,
@@ -51,6 +52,7 @@ const ClientMessageForm = ({
   replyTo,
 }: ClientMessageFormProps) => {
   const { user } = useAuth();
+  const { t } = useLanguage();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [subject, setSubject] = useState("");
@@ -58,7 +60,6 @@ const ClientMessageForm = ({
   const [projectId, setProjectId] = useState<string>("");
   const [attachments, setAttachments] = useState<Attachment[]>([]);
   
-  // Typing indicator - use user.id as conversation ID for simplicity
   const { typingUsers, handleInputChange, stopTyping } = useTypingIndicator(
     user?.id || "default"
   );
@@ -78,7 +79,7 @@ const ClientMessageForm = ({
     if (!user) return;
 
     setLoading(true);
-    stopTyping(); // Stop typing indicator on submit
+    stopTyping();
 
     try {
       const { error } = await supabase.from("client_messages").insert({
@@ -101,8 +102,8 @@ const ClientMessageForm = ({
     } catch (error) {
       console.error("Error sending message:", error);
       toast({
-        title: "Erro ao enviar",
-        description: "Não foi possível enviar a mensagem. Tente novamente.",
+        title: t("messageForm.error"),
+        description: t("messageForm.errorDesc"),
         variant: "destructive",
       });
     } finally {
@@ -112,7 +113,7 @@ const ClientMessageForm = ({
 
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
-    handleInputChange(); // Trigger typing indicator
+    handleInputChange();
   };
 
   return (
@@ -120,23 +121,23 @@ const ClientMessageForm = ({
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>
-            {replyTo ? "Responder Mensagem" : "Nova Mensagem"}
+            {replyTo ? t("messageForm.replyTitle") : t("messageForm.newTitle")}
           </DialogTitle>
           <DialogDescription>
-            Envie uma mensagem para a equipa ARIFA Studio.
+            {t("messageForm.description")}
           </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {projects.length > 0 && (
             <div className="space-y-2">
-              <Label htmlFor="project">Projeto (opcional)</Label>
+              <Label htmlFor="project">{t("messageForm.project")}</Label>
               <Select value={projectId || "__none__"} onValueChange={(v) => setProjectId(v === "__none__" ? "" : v)}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Selecione um projeto" />
+                  <SelectValue placeholder={t("messageForm.selectProject")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="__none__">Nenhum projeto específico</SelectItem>
+                  <SelectItem value="__none__">{t("messageForm.noProject")}</SelectItem>
                   {projects.map((project) => (
                     <SelectItem key={project.id} value={project.id}>
                       {project.title}
@@ -148,23 +149,23 @@ const ClientMessageForm = ({
           )}
 
           <div className="space-y-2">
-            <Label htmlFor="subject">Assunto</Label>
+            <Label htmlFor="subject">{t("messageForm.subject")}</Label>
             <Input
               id="subject"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
-              placeholder="Assunto da mensagem"
+              placeholder={t("messageForm.subjectPlaceholder")}
               required
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="content">Mensagem</Label>
+            <Label htmlFor="content">{t("messageForm.message")}</Label>
             <Textarea
               id="content"
               value={content}
               onChange={handleContentChange}
-              placeholder="Escreva a sua mensagem..."
+              placeholder={t("messageForm.messagePlaceholder")}
               rows={6}
               required
             />
@@ -182,18 +183,18 @@ const ClientMessageForm = ({
               variant="outline"
               onClick={() => onOpenChange(false)}
             >
-              Cancelar
+              {t("common.cancel")}
             </Button>
             <Button type="submit" disabled={loading}>
               {loading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  A enviar...
+                  {t("messageForm.sending")}
                 </>
               ) : (
                 <>
                   <Send className="mr-2 h-4 w-4" />
-                  Enviar Mensagem
+                  {t("messageForm.send")}
                 </>
               )}
             </Button>

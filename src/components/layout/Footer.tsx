@@ -22,7 +22,7 @@ export function Footer() {
       { name: t("footer.aboutUs"), href: "/quem-somos" },
       { name: t("nav.portfolio"), href: "/portfolio" },
       { name: t("nav.blog"), href: "/blog" },
-      { name: "Insights", href: "/insights" },
+      { name: t("nav.insights"), href: "/insights" },
       { name: t("nav.contact"), href: "/contacto" },
     ],
     legal: [

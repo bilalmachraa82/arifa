@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -23,6 +24,7 @@ interface Profile {
 
 export default function ClientSettings() {
   const { user, loading: authLoading } = useAuth();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const { toast } = useToast();
   const { mfaEnabled, loading: mfaLoading, refreshMFAStatus } = useMFA();
@@ -90,13 +92,13 @@ export default function ClientSettings() {
       if (error) throw error;
 
       toast({
-        title: "Perfil atualizado",
-        description: "As suas informações foram guardadas com sucesso.",
+        title: t("settings.saved"),
+        description: t("settings.savedDesc"),
       });
     } catch (error: any) {
       toast({
-        title: "Erro ao guardar",
-        description: error.message || "Não foi possível guardar as alterações.",
+        title: t("settings.saveError"),
+        description: error.message || t("settings.saveErrorDesc"),
         variant: "destructive",
       });
     } finally {
@@ -131,44 +133,43 @@ export default function ClientSettings() {
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-4"
           >
             <ArrowLeft className="h-4 w-4" />
-            Voltar ao Dashboard
+            {t("settings.backToDashboard")}
           </Link>
-          <h1 className="text-3xl font-bold">Definições da Conta</h1>
+          <h1 className="text-3xl font-bold">{t("settings.title")}</h1>
           <p className="text-muted-foreground">
-            Gerencie as suas informações pessoais e segurança.
+            {t("settings.subtitle")}
           </p>
         </div>
       </div>
 
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-2xl space-y-6">
-          {/* Profile Information */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <User className="h-5 w-5" />
-                Informações Pessoais
+                {t("settings.personalInfo")}
               </CardTitle>
               <CardDescription>
-                Atualize os seus dados de perfil.
+                {t("settings.personalInfoDesc")}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <label className="text-sm font-medium">Nome Completo</label>
+                <label className="text-sm font-medium">{t("settings.fullName")}</label>
                 <div className="relative">
                   <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     value={profile.full_name || ""}
                     onChange={(e) => setProfile({ ...profile, full_name: e.target.value })}
                     className="pl-10"
-                    placeholder="O seu nome"
+                    placeholder={t("settings.namePlaceholder")}
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium">Email</label>
+                <label className="text-sm font-medium">{t("settings.email")}</label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
@@ -178,12 +179,12 @@ export default function ClientSettings() {
                   />
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  O email não pode ser alterado.
+                  {t("settings.emailReadonly")}
                 </p>
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium">Telefone</label>
+                <label className="text-sm font-medium">{t("settings.phone")}</label>
                 <div className="relative">
                   <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
@@ -196,33 +197,31 @@ export default function ClientSettings() {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium">Empresa</label>
+                <label className="text-sm font-medium">{t("settings.company")}</label>
                 <div className="relative">
                   <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     value={profile.company || ""}
                     onChange={(e) => setProfile({ ...profile, company: e.target.value })}
                     className="pl-10"
-                    placeholder="Nome da empresa"
+                    placeholder={t("settings.companyPlaceholder")}
                   />
                 </div>
               </div>
 
               <Button onClick={handleSave} disabled={saving}>
                 {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Guardar Alterações
+                {t("settings.saveChanges")}
               </Button>
             </CardContent>
           </Card>
 
-          {/* MFA Section */}
           {mfaLoading ? (
             <Skeleton className="h-48 w-full" />
           ) : (
             <MFASetup mfaEnabled={mfaEnabled} onMFAChange={refreshMFAStatus} />
           )}
 
-          {/* Push Notifications Section */}
           <PushNotificationSettings />
         </div>
       </div>
