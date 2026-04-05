@@ -113,22 +113,24 @@ export default function Contacto() {
 
       if (dbError) throw dbError;
 
-      // Try to send email (will fail silently if RESEND_API_KEY not configured)
-      try {
-        await supabase.functions.invoke("send-contact-email", {
-          body: {
-            name: formData.name.trim(),
-            email: formData.email.trim(),
-            phone: formData.phone.trim(),
-            segment: formData.segment,
-            service: formData.service,
-            message: formData.message.trim(),
-          },
-        });
-      } catch {
-        // Email sending failed, but lead was saved - that's OK
+      // Send email and score lead in parallel (non-blocking)
+      const leadData = {
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone.trim(),
+        segment: formData.segment,
+        service: formData.service,
+        message: formData.message.trim(),
+      };
+
+      // Fire-and-forget: email + AI lead scoring
+      supabase.functions.invoke("send-contact-email", { body: leadData }).catch(() => {
         console.log("Email not sent - RESEND_API_KEY may not be configured");
-      }
+      });
+
+      supabase.functions.invoke("score-lead", { body: leadData }).catch((err) => {
+        console.log("Lead scoring skipped:", err.message);
+      });
 
       toast({
         title: t("contact.successTitle"),
