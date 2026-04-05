@@ -99,8 +99,10 @@ export default function Contacto() {
     setLoading(true);
 
     try {
-      // Save lead to database
+      // Save lead to database and get the ID for scoring
+      const leadId = crypto.randomUUID();
       const { error: dbError } = await supabase.from("leads").insert({
+        id: leadId,
         name: formData.name.trim(),
         email: formData.email.trim(),
         phone: formData.phone.trim() || null,
@@ -113,7 +115,7 @@ export default function Contacto() {
 
       if (dbError) throw dbError;
 
-      // Send email and score lead in parallel (non-blocking)
+      // Fire-and-forget: email + AI lead scoring (non-blocking)
       const leadData = {
         name: formData.name.trim(),
         email: formData.email.trim(),
@@ -123,12 +125,11 @@ export default function Contacto() {
         message: formData.message.trim(),
       };
 
-      // Fire-and-forget: email + AI lead scoring
       supabase.functions.invoke("send-contact-email", { body: leadData }).catch(() => {
         console.log("Email not sent - RESEND_API_KEY may not be configured");
       });
 
-      supabase.functions.invoke("score-lead", { body: leadData }).catch((err) => {
+      supabase.functions.invoke("score-lead", { body: { leadId } }).catch((err) => {
         console.log("Lead scoring skipped:", err.message);
       });
 
