@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Skeleton } from "@/components/ui/skeleton";
 
 interface OptimizedImageProps {
   src: string;
