@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Instagram, Linkedin } from "lucide-react";
 import arifaLogo from "@/assets/arifa-logo.png";
-import { NewsletterForm } from "@/components/NewsletterForm";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const social = [
@@ -21,7 +20,6 @@ export function Footer() {
     company: [
       { name: t("footer.aboutUs"), href: "/quem-somos" },
       { name: t("nav.portfolio"), href: "/portfolio" },
-      { name: t("nav.blog"), href: "/blog" },
       { name: t("nav.insights"), href: "/insights" },
       { name: t("nav.contact"), href: "/contacto" },
     ],
@@ -108,40 +106,30 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Contact & Newsletter */}
-          <div className="space-y-8">
-            <div>
-              <h3 className="text-sm font-semibold tracking-wider uppercase">{t("footer.contact")}</h3>
-              <ul role="list" className="mt-6 space-y-4">
-                <li className="flex items-start gap-3">
-                  <MapPin className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
-                  <span className="text-sm text-background/70">
-                    Avenida de Berna, 31, 2º Dto, sala 9<br />
-                    1050-038 Lisboa, Portugal
-                  </span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Phone className="h-5 w-5 text-accent flex-shrink-0" />
-                  <a href="tel:+351928272198" className="text-sm text-background/70 hover:text-background transition-colors">
-                    +351 928 272 198
-                  </a>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Mail className="h-5 w-5 text-accent flex-shrink-0" />
-                  <a href="mailto:info@arifa.studio" className="text-sm text-background/70 hover:text-background transition-colors">
-                    info@arifa.studio
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="text-sm font-semibold tracking-wider uppercase">{t("footer.newsletter")}</h3>
-              <p className="mt-4 text-sm text-background/70 mb-4">
-                {t("footer.newsletterDesc")}
-              </p>
-              <NewsletterForm />
-            </div>
+          {/* Contact */}
+          <div>
+            <h3 className="text-sm font-semibold tracking-wider uppercase">{t("footer.contact")}</h3>
+            <ul role="list" className="mt-6 space-y-4">
+              <li className="flex items-start gap-3">
+                <MapPin className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-background/70">
+                  Avenida de Berna, 31, 2º Dto, sala 9<br />
+                  1050-038 Lisboa, Portugal
+                </span>
+              </li>
+              <li className="flex items-center gap-3">
+                <Phone className="h-5 w-5 text-accent flex-shrink-0" />
+                <a href="tel:+351928272198" className="text-sm text-background/70 hover:text-background transition-colors">
+                  +351 928 272 198
+                </a>
+              </li>
+              <li className="flex items-center gap-3">
+                <Mail className="h-5 w-5 text-accent flex-shrink-0" />
+                <a href="mailto:info@arifa.studio" className="text-sm text-background/70 hover:text-background transition-colors">
+                  info@arifa.studio
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 

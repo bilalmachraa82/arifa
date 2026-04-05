@@ -50,7 +50,23 @@ src/
 | `quotes` | Quote proposals with items |
 | `contracts` | Boldsign e-signature integration |
 | `blog_posts` | Blog content |
+| `blog_categories` | Blog categorization |
 | `audit_logs` | All DB changes tracked |
+| `newsletter_subscribers` | Newsletter signups |
+| `push_subscriptions` | PWA push notification subscriptions |
+| `document_folders` | Document folder organization |
+| `document_versions` | Document version history |
+| `lead_activities` | Lead interaction tracking |
+| `lead_stages` | Lead pipeline stages |
+| `quote_items` | Individual quote line items |
+| `quote_templates` | Reusable quote templates |
+| `quote_events` | Quote lifecycle events |
+| `project_change_orders` | Project change order tracking |
+| `client_invitations` | Client portal invitations |
+| `odoo_contracts` | Odoo-synced contracts (external integration) |
+| `odoo_invoices` | Odoo-synced invoices (external integration) |
+| `dalux_documents` | DALUX-synced technical documents |
+| `dalux_models` | DALUX-synced 3D/BIM models |
 
 Full types in `src/integrations/supabase/types.ts`.
 
@@ -75,6 +91,8 @@ Located in `supabase/functions/`:
 | `boldsign-webhook` | Boldsign webhook handler | No |
 | `get-boldsign-signing-url` | Signing URL generation | Yes |
 | `optimize-image` | Image optimization | No |
+| `odoo-sync` | Odoo contract/invoice sync | Yes |
+| `dalux-sync` | DALUX document/model sync | Yes |
 | `sitemap` | SEO sitemap | No |
 
 Email provider: Resend (requires `RESEND_API_KEY` env var).

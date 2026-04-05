@@ -5,14 +5,13 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { X, Download, Loader2, ExternalLink, Box } from "lucide-react";
+import { X, Download, Loader2, ExternalLink } from "lucide-react";
 import FallbackPreview from "./FallbackPreview";
 
 // Lazy load heavy preview components
 const ImagePreview = lazy(() => import("./ImagePreview"));
 const PDFPreview = lazy(() => import("./PDFPreview"));
 const OfficePreview = lazy(() => import("./OfficePreview"));
-const Model3DPreview = lazy(() => import("./Model3DPreview"));
 
 export interface FilePreviewDialogProps {
   isOpen: boolean;
@@ -23,7 +22,7 @@ export interface FilePreviewDialogProps {
   fileSize?: number;
 }
 
-type PreviewType = "image" | "pdf" | "office" | "3d" | "fallback";
+type PreviewType = "image" | "pdf" | "office" | "fallback";
 
 const getPreviewType = (fileType: string): PreviewType => {
   const ext = fileType.toLowerCase();
@@ -43,9 +42,9 @@ const getPreviewType = (fileType: string): PreviewType => {
     return "office";
   }
   
-  // 3D models
+  // 3D models — client wants deeplink only, no embedded viewer
   if (["stl", "obj", "glb", "gltf", "3ds", "fbx"].includes(ext)) {
-    return "3d";
+    return "fallback";
   }
   
   return "fallback";
@@ -65,11 +64,11 @@ const formatFileSize = (bytes?: number) => {
 };
 
 // Loading fallback component for lazy loaded previews
-const PreviewLoadingFallback = ({ type }: { type: PreviewType }) => (
+const PreviewLoadingFallback = () => (
   <div className="flex flex-col items-center justify-center gap-4 p-8">
     <Loader2 className="h-12 w-12 animate-spin text-primary" />
     <p className="text-sm text-muted-foreground">
-      {type === "3d" ? "A carregar visualizador 3D..." : "A carregar pré-visualização..."}
+      A carregar pré-visualização...
     </p>
   </div>
 );
@@ -101,7 +100,7 @@ const FilePreviewDialog = ({
     switch (previewType) {
       case "image":
         return (
-          <Suspense fallback={<PreviewLoadingFallback type="image" />}>
+          <Suspense fallback={<PreviewLoadingFallback />}>
             <ImagePreview 
               fileUrl={fileUrl} 
               fileName={fileName} 
@@ -111,7 +110,7 @@ const FilePreviewDialog = ({
         );
       case "pdf":
         return (
-          <Suspense fallback={<PreviewLoadingFallback type="pdf" />}>
+          <Suspense fallback={<PreviewLoadingFallback />}>
             <PDFPreview 
               fileUrl={fileUrl} 
               onLoad={handleLoad}
@@ -120,19 +119,9 @@ const FilePreviewDialog = ({
         );
       case "office":
         return (
-          <Suspense fallback={<PreviewLoadingFallback type="office" />}>
+          <Suspense fallback={<PreviewLoadingFallback />}>
             <OfficePreview 
               fileUrl={fileUrl} 
-              onLoad={handleLoad}
-            />
-          </Suspense>
-        );
-      case "3d":
-        return (
-          <Suspense fallback={<PreviewLoadingFallback type="3d" />}>
-            <Model3DPreview 
-              fileUrl={fileUrl} 
-              fileType={ext}
               onLoad={handleLoad}
             />
           </Suspense>

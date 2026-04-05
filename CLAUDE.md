@@ -173,7 +173,7 @@ Migration → supabase db diff → review antes de push
 | Frontend | React 18 + TypeScript + Vite + SWC |
 | UI | shadcn/ui (~54 componentes) + Tailwind CSS + Radix UI |
 | Animacoes | Framer Motion + Three.js + React Three Fiber/Drei |
-| Backend / DB | Supabase (25 tabelas, 16 edge functions) |
+| Backend / DB | Supabase (29 tabelas, 18 edge functions) |
 | Auth | Supabase Auth (roles: admin, client, investor) |
 | Forms | React Hook Form + Zod |
 | Server state | TanStack Query |
@@ -187,10 +187,10 @@ Migration → supabase db diff → review antes de push
 `LOVABLE_API_KEY` usada em 4 edge functions (ai-chat, score-lead, generate-weekly-update, send-welcome-email) como proxy para LLM via `ai.gateway.lovable.dev`.
 Se migrar fora do Lovable, estas funcoes quebram. Antes de qualquer mudanca nestas funcoes: verificar esta dependencia.
 
-### Integracoes pendentes
-- **Odoo REST API** — gestao de projectos / CRM
-- **DALUX API** — gestao de obra / BIM
-- **SEO** — conteudo optimizado para arquitectura PT/ES
+### Integracoes
+- **Odoo REST API** — componentes + edge function prontos, aguarda credenciais (ODOO_API_URL, ODOO_API_KEY, ODOO_DB)
+- **DALUX API** — componentes + edge function prontos, aguarda credenciais (DALUX_API_URL, DALUX_API_KEY)
+- **SEO** — conteudo optimizado para arquitectura PT/ES (pendente)
 
 ### Comandos
 | Accao | Comando |
@@ -253,14 +253,11 @@ VITE_SUPABASE_PUBLISHABLE_KEY  # Usado em src/integrations/supabase/client.ts
   Stack: React + Vite + TS + Supabase + shadcn/ui
 
   Auditado contra: package.json, tsconfig.json, eslint.config.js,
-  vite.config.ts, types.ts (25 tabelas), supabase/functions/ (16 dirs),
-  git remote, grep LOVABLE_API_KEY
+  vite.config.ts, types.ts, supabase/functions/, git remote
 
-  Correcoes vs draft v3.0:
-  - 17 edge functions → 16 (contagem real)
-  - TS strict → TS relaxed (noImplicitAny: false, strictNullChecks: false)
-  - ESLint + Prettier → ESLint only (sem .prettierrc)
-  - Ficheiros ARIFA_*.xlsx → removidos (nao existem no repo)
-  - VITE_SUPABASE_PROJECT_ID → removido (nao referenciado no codigo)
-  - LOVABLE_API_KEY: especificadas as 4 funcoes afectadas
+  v3.0 → v3.1 (2026-04-05):
+  - 16 edge functions → 18 (adicionados odoo-sync, dalux-sync)
+  - 25 tabelas → 29 (adicionados odoo_contracts, odoo_invoices, dalux_documents, dalux_models)
+  - Integracoes Odoo/DALUX: componentes + edge functions prontos, aguarda credenciais
+  - i18n expandido (~620 keys por lingua)
 -->

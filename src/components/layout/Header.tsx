@@ -86,13 +86,11 @@ export function Header() {
 
   const navigation = [
     { name: t("nav.home"), href: "/" },
-    { name: t("nav.services"), href: "/servicos" },
     { name: t("nav.aboutUs"), href: "/quem-somos" },
     { name: t("nav.private"), href: "/privado" },
     { name: t("nav.companies"), href: "/empresas" },
     { name: t("nav.investors"), href: "/investidores" },
     { name: t("nav.portfolio"), href: "/portfolio" },
-    { name: t("nav.blog"), href: "/blog" },
     { name: t("nav.insights"), href: "/insights" },
     { name: t("nav.contact"), href: "/contacto" },
   ];

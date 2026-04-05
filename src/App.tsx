@@ -15,10 +15,7 @@ import Empresas from "./pages/Empresas";
 import Investidores from "./pages/Investidores";
 import Portfolio from "./pages/Portfolio";
 import ProjectDetail from "./pages/ProjectDetail";
-import Blog from "./pages/Blog";
-import BlogPost from "./pages/BlogPost";
 import Contacto from "./pages/Contacto";
-import Servicos from "./pages/Servicos";
 import Auth from "./pages/Auth";
 import ClientDashboard from "./pages/ClientDashboard";
 import ClientSettings from "./pages/ClientSettings";
@@ -58,10 +55,7 @@ const App = () => (
                     <Route path="/investidores" element={<Investidores />} />
                     <Route path="/portfolio" element={<Portfolio />} />
                     <Route path="/portfolio/:slug" element={<ProjectDetail />} />
-                    <Route path="/blog" element={<Blog />} />
-                    <Route path="/blog/:slug" element={<BlogPost />} />
                     <Route path="/contacto" element={<Contacto />} />
-                    <Route path="/servicos" element={<Servicos />} />
                     <Route path="/auth" element={<Auth />} />
                     <Route path="/dashboard" element={<ClientDashboard />} />
                     <Route path="/dashboard/settings" element={<ClientSettings />} />
