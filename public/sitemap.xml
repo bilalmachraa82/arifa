@@ -41,6 +41,21 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://www.arifa.studio/insights/guia-construcao-portugal</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.arifa.studio/insights/reabilitacao-eficiencia-energetica</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.arifa.studio/insights/investimento-imobiliario-lisboa</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://www.arifa.studio/privacidade</loc>
     <priority>0.3</priority>
     <changefreq>yearly</changefreq>

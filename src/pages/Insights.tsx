@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -6,80 +5,48 @@ import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Download, FileText, Eye } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
-import { Skeleton } from "@/components/ui/skeleton";
-
-interface InsightDocument {
-  id: string;
-  title: string;
-  description: string | null;
-  file_url: string;
-  file_type: string | null;
-  file_size: number | null;
-  category: string | null;
-  created_at: string;
-}
+import { FileText, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function Insights() {
   const { language } = useLanguage();
-  const [documents, setDocuments] = useState<InsightDocument[]>([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchDocuments();
-  }, []);
-
-  const fetchDocuments = async () => {
-    try {
-      const { data } = await supabase.storage
-        .from("public-downloads")
-        .list("", { limit: 100 });
-
-      // For now, show placeholder content since the bucket may not exist yet
-      setDocuments([]);
-    } catch (error) {
-      console.error("Error fetching documents:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const formatFileSize = (bytes: number | null) => {
-    if (!bytes) return "";
-    if (bytes < 1024) return `${bytes} B`;
-    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-  };
-
-  // Placeholder insights for when storage is empty
-  const placeholderInsights = [
+  const insights = [
     {
-      id: "1",
-      title: language === "pt" ? "Guia BIM para Proprietários" : "BIM Guide for Owners",
+      id: "guia-construcao-portugal",
+      title: language === "pt"
+        ? "Guia Completo para Construir Casa em Portugal em 2026"
+        : "Complete Guide to Building a House in Portugal in 2026",
       description: language === "pt"
-        ? "Descubra como a metodologia BIM pode reduzir custos e prazos no seu projeto de construção."
-        : "Discover how BIM methodology can reduce costs and timelines in your construction project.",
-      category: "BIM",
-      file_type: "pdf",
+        ? "Da escolha do terreno à entrega das chaves: custos, prazos, licenciamento e como escolher o arquitecto certo."
+        : "From choosing the land to handing over the keys: costs, timelines, licensing and how to choose the right architect.",
+      category: language === "pt" ? "Particulares" : "Private",
+      readTime: "12 min",
+      href: "/insights/guia-construcao-portugal",
     },
     {
-      id: "2",
-      title: language === "pt" ? "Tendências de Arquitetura 2026" : "Architecture Trends 2026",
+      id: "reabilitacao-eficiencia-energetica",
+      title: language === "pt"
+        ? "Reabilitação de Escritórios: BIM e Eficiência Energética"
+        : "Office Renovation: BIM and Energy Efficiency",
       description: language === "pt"
-        ? "As principais tendências em design sustentável, materiais inovadores e eficiência energética."
-        : "Key trends in sustainable design, innovative materials and energy efficiency.",
-      category: language === "pt" ? "Tendências" : "Trends",
-      file_type: "pdf",
+        ? "Como a tecnologia BIM e o design sustentável transformam espaços comerciais, reduzem custos e valorizam o imóvel."
+        : "How BIM technology and sustainable design transform commercial spaces, reduce costs and increase property value.",
+      category: language === "pt" ? "Empresas" : "Companies",
+      readTime: "10 min",
+      href: "/insights/reabilitacao-eficiencia-energetica",
     },
     {
-      id: "3",
-      title: language === "pt" ? "Checklist de Projeto Residencial" : "Residential Project Checklist",
+      id: "investimento-imobiliario-lisboa",
+      title: language === "pt"
+        ? "Investir em Imobiliário em Lisboa: Guia para Investidores 2026"
+        : "Real Estate Investment in Lisbon: Investor Guide 2026",
       description: language === "pt"
-        ? "Tudo o que precisa de preparar antes de iniciar o projeto da sua nova casa."
-        : "Everything you need to prepare before starting your new home project.",
-      category: language === "pt" ? "Guias" : "Guides",
-      file_type: "pdf",
+        ? "Zonas com maior potencial, retorno esperado, benefícios fiscais e o papel da arquitectura na valorização."
+        : "Areas with highest potential, expected returns, tax benefits and the role of architecture in value creation.",
+      category: language === "pt" ? "Investidores" : "Investors",
+      readTime: "15 min",
+      href: "/insights/investimento-imobiliario-lisboa",
     },
   ];
 
@@ -119,55 +86,44 @@ export default function Insights() {
         </div>
       </section>
 
-      {/* Documents Grid */}
+      {/* Articles Grid */}
       <section className="py-24">
         <div className="container-arifa">
-          {loading ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[1, 2, 3].map((i) => (
-                <Skeleton key={i} className="h-64 rounded-lg" />
-              ))}
-            </div>
-          ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {placeholderInsights.map((doc, i) => (
-                <AnimatedSection key={doc.id} animation="fade-up" delay={i * 100}>
-                  <Card className="h-full hover:shadow-lg transition-shadow border-border">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {insights.map((insight, i) => (
+              <AnimatedSection key={insight.id} animation="fade-up" delay={i * 100}>
+                <Link to={insight.href} className="block h-full">
+                  <Card className="h-full hover:shadow-lg transition-shadow border-border group">
                     <CardContent className="p-6 flex flex-col h-full">
                       <div className="flex items-start justify-between mb-4">
                         <div className="w-12 h-12 rounded-lg bg-accent/50 flex items-center justify-center">
                           <FileText className="h-6 w-6 text-accent-foreground" />
                         </div>
                         <Badge variant="secondary" className="text-xs">
-                          {doc.category}
+                          {insight.category}
                         </Badge>
                       </div>
 
-                      <h3 className="text-lg font-bold text-foreground mb-2">{doc.title}</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-6">
-                        {doc.description}
+                      <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+                        {insight.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-4">
+                        {insight.description}
                       </p>
 
-                      <div className="flex gap-2">
-                        <Button size="sm" variant="outline" className="flex-1 gap-2" disabled>
-                          <Eye className="h-4 w-4" />
-                          {language === "pt" ? "Pré-visualizar" : "Preview"}
-                        </Button>
-                        <Button size="sm" className="flex-1 gap-2" disabled>
-                          <Download className="h-4 w-4" />
-                          {language === "pt" ? "Descarregar" : "Download"}
-                        </Button>
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-muted-foreground">{insight.readTime}</span>
+                        <span className="inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:gap-2 transition-all">
+                          {language === "pt" ? "Ler artigo" : "Read article"}
+                          <ArrowRight className="h-4 w-4" />
+                        </span>
                       </div>
-
-                      <p className="text-xs text-muted-foreground text-center mt-3">
-                        {language === "pt" ? "Em breve disponível" : "Coming soon"}
-                      </p>
                     </CardContent>
                   </Card>
-                </AnimatedSection>
-              ))}
-            </div>
-          )}
+                </Link>
+              </AnimatedSection>
+            ))}
+          </div>
 
           {/* Contact CTA */}
           <AnimatedSection animation="fade-up" delay={300}>

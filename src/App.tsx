@@ -31,6 +31,9 @@ import DesignerReport from "./pages/DesignerReport";
 import SalesPresentation from "./pages/SalesPresentation";
 import QuemSomos from "./pages/QuemSomos";
 import Insights from "./pages/Insights";
+import GuiaConstrucaoPortugal from "./pages/insights/GuiaConstrucaoPortugal";
+import ReabilitacaoEficienciaEnergetica from "./pages/insights/ReabilitacaoEficienciaEnergetica";
+import InvestimentoImobiliarioLisboa from "./pages/insights/InvestimentoImobiliarioLisboa";
 
 const queryClient = new QueryClient();
 
@@ -70,6 +73,9 @@ const App = () => (
                     <Route path="/apresentacao" element={<SalesPresentation />} />
                     <Route path="/quem-somos" element={<QuemSomos />} />
                     <Route path="/insights" element={<Insights />} />
+                    <Route path="/insights/guia-construcao-portugal" element={<GuiaConstrucaoPortugal />} />
+                    <Route path="/insights/reabilitacao-eficiencia-energetica" element={<ReabilitacaoEficienciaEnergetica />} />
+                    <Route path="/insights/investimento-imobiliario-lisboa" element={<InvestimentoImobiliarioLisboa />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </PageTransition>
