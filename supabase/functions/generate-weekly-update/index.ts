@@ -16,21 +16,20 @@ serve(async (req) => {
     
     if (!projectId) {
       return new Response(
-        JSON.stringify({ error: 'projectId é obrigatório' }),
+        JSON.stringify({ error: 'projectId is required' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
     const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
     if (!LOVABLE_API_KEY) {
-      console.error('LOVABLE_API_KEY não configurada');
+      console.error('LOVABLE_API_KEY not configured');
       return new Response(
-        JSON.stringify({ error: 'API key não configurada' }),
+        JSON.stringify({ error: 'API key not configured' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    // Create Supabase client
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseKey);
@@ -43,14 +42,14 @@ serve(async (req) => {
       .single();
 
     if (projectError || !project) {
-      console.error('Erro ao buscar projeto:', projectError);
+      console.error('Error fetching project:', projectError);
       return new Response(
-        JSON.stringify({ error: 'Projeto não encontrado' }),
+        JSON.stringify({ error: 'Project not found' }),
         { status: 404, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    // Fetch recent documents for this project
+    // Fetch recent documents
     const { data: documents } = await supabase
       .from('client_documents')
       .select('title, created_at, current_version')
@@ -58,7 +57,7 @@ serve(async (req) => {
       .order('created_at', { ascending: false })
       .limit(5);
 
-    // Fetch recent messages for this project
+    // Fetch recent messages
     const { data: messages } = await supabase
       .from('client_messages')
       .select('subject, created_at')
@@ -66,6 +65,7 @@ serve(async (req) => {
       .order('created_at', { ascending: false })
       .limit(5);
 
+    // AI prompt content stays in PT for user-facing output
     const systemPrompt = language === 'pt' 
       ? `És um assistente de arquitetura profissional. Gera um resumo semanal conciso e informativo sobre o progresso de um projeto de arquitetura. 
          O tom deve ser profissional mas acessível, focando em conquistas e próximos passos.
@@ -94,7 +94,7 @@ ${messages?.map(m => `- ${m.subject}`).join('\n') || 'Nenhuma mensagem recente'}
       ? `Gera um resumo semanal para o cliente sobre este projeto de arquitetura:\n\n${projectContext}`
       : `Generate a weekly summary for the client about this architecture project:\n\n${projectContext}`;
 
-    console.log('Gerando resumo para projeto:', project.title);
+    console.log('Generating weekly update for project:', project.title);
 
     const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
       method: 'POST',
@@ -113,23 +113,23 @@ ${messages?.map(m => `- ${m.subject}`).join('\n') || 'Nenhuma mensagem recente'}
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('Erro da AI Gateway:', response.status, errorText);
+      console.error('AI Gateway error:', response.status, errorText);
       
       if (response.status === 429) {
         return new Response(
-          JSON.stringify({ error: 'Limite de requisições excedido. Tente novamente mais tarde.' }),
+          JSON.stringify({ error: 'Rate limit exceeded. Try again later.' }),
           { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       }
       if (response.status === 402) {
         return new Response(
-          JSON.stringify({ error: 'Créditos esgotados. Adicione créditos à sua conta.' }),
+          JSON.stringify({ error: 'Credits exhausted. Add credits to your account.' }),
           { status: 402, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       }
       
       return new Response(
-        JSON.stringify({ error: 'Erro ao gerar resumo' }),
+        JSON.stringify({ error: 'Error generating summary' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
@@ -138,14 +138,14 @@ ${messages?.map(m => `- ${m.subject}`).join('\n') || 'Nenhuma mensagem recente'}
     const summary = data.choices?.[0]?.message?.content;
 
     if (!summary) {
-      console.error('Resposta da AI sem conteúdo:', data);
+      console.error('Empty AI response:', data);
       return new Response(
-        JSON.stringify({ error: 'Resposta da AI inválida' }),
+        JSON.stringify({ error: 'Invalid AI response' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    console.log('Resumo gerado com sucesso para:', project.title);
+    console.log('Weekly update generated successfully for:', project.title);
 
     return new Response(
       JSON.stringify({ 
@@ -161,9 +161,9 @@ ${messages?.map(m => `- ${m.subject}`).join('\n') || 'Nenhuma mensagem recente'}
     );
 
   } catch (error) {
-    console.error('Erro na função generate-weekly-update:', error);
+    console.error('Error in generate-weekly-update function:', error);
     return new Response(
-      JSON.stringify({ error: error instanceof Error ? error.message : 'Erro desconhecido' }),
+      JSON.stringify({ error: error instanceof Error ? error.message : 'Unknown error' }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }

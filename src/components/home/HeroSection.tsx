@@ -7,7 +7,7 @@ export function HeroSection() {
   const { t, language } = useLanguage();
   const isPt = language === "pt";
   
-  // Brand Book: Métricas inline com dados concretos
+  // Inline metrics with concrete data
   const metrics = [
     { 
       icon: Cuboid, 

@@ -7,7 +7,7 @@ interface GeometricFrameProps {
   frameClassName?: string;
 }
 
-// Brand Book: Molduras geométricas premium baseadas no pattern visual
+// Premium geometric frames based on brand visual pattern
 export function GeometricFrame({ 
   children, 
   variant = "default",

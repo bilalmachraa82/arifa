@@ -16,21 +16,20 @@ serve(async (req) => {
     
     if (!leadId) {
       return new Response(
-        JSON.stringify({ error: 'leadId é obrigatório' }),
+        JSON.stringify({ error: 'leadId is required' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
     const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
     if (!LOVABLE_API_KEY) {
-      console.error('LOVABLE_API_KEY não configurada');
+      console.error('LOVABLE_API_KEY not configured');
       return new Response(
-        JSON.stringify({ error: 'API key não configurada' }),
+        JSON.stringify({ error: 'API key not configured' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    // Create Supabase client
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseKey);
@@ -43,13 +42,14 @@ serve(async (req) => {
       .single();
 
     if (leadError || !lead) {
-      console.error('Erro ao buscar lead:', leadError);
+      console.error('Error fetching lead:', leadError);
       return new Response(
-        JSON.stringify({ error: 'Lead não encontrado' }),
+        JSON.stringify({ error: 'Lead not found' }),
         { status: 404, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
+    // System prompt in PT for the AI (user-facing content stays in PT)
     const systemPrompt = `És um especialista em qualificação de leads para um estúdio de arquitetura premium.
 Analisa os dados do lead e atribui uma pontuação de 1 a 100 baseada em:
 - Segmento (investidores=alto, empresas=médio-alto, privados=médio)
@@ -71,7 +71,7 @@ Mensagem: ${lead.message}
 Fonte: ${lead.source || 'website'}
 `;
 
-    console.log('Classificando lead:', lead.name);
+    console.log('Scoring lead:', lead.name);
 
     const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
       method: 'POST',
@@ -90,23 +90,23 @@ Fonte: ${lead.source || 'website'}
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('Erro da AI Gateway:', response.status, errorText);
+      console.error('AI Gateway error:', response.status, errorText);
       
       if (response.status === 429) {
         return new Response(
-          JSON.stringify({ error: 'Limite de requisições excedido. Tente novamente mais tarde.' }),
+          JSON.stringify({ error: 'Rate limit exceeded. Try again later.' }),
           { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       }
       if (response.status === 402) {
         return new Response(
-          JSON.stringify({ error: 'Créditos esgotados. Adicione créditos à sua conta.' }),
+          JSON.stringify({ error: 'Credits exhausted. Add credits to your account.' }),
           { status: 402, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       }
       
       return new Response(
-        JSON.stringify({ error: 'Erro ao classificar lead' }),
+        JSON.stringify({ error: 'Error scoring lead' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
@@ -115,9 +115,9 @@ Fonte: ${lead.source || 'website'}
     const aiResponse = data.choices?.[0]?.message?.content;
 
     if (!aiResponse) {
-      console.error('Resposta da AI sem conteúdo:', data);
+      console.error('Empty AI response:', data);
       return new Response(
-        JSON.stringify({ error: 'Resposta da AI inválida' }),
+        JSON.stringify({ error: 'Invalid AI response' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
@@ -125,19 +125,18 @@ Fonte: ${lead.source || 'website'}
     // Parse AI response
     let scoreData;
     try {
-      // Clean the response (remove markdown code blocks if present)
       const cleanedResponse = aiResponse.replace(/```json\n?|\n?```/g, '').trim();
       scoreData = JSON.parse(cleanedResponse);
     } catch (parseError) {
-      console.error('Erro ao fazer parse da resposta AI:', aiResponse);
+      console.error('Error parsing AI response:', aiResponse);
       return new Response(
-        JSON.stringify({ error: 'Formato de resposta inválido' }),
+        JSON.stringify({ error: 'Invalid response format' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
     const score = Math.min(100, Math.max(1, parseInt(scoreData.score) || 50));
-    const reason = scoreData.reason || 'Classificação automática';
+    const reason = scoreData.reason || 'Automatic scoring';
 
     // Update lead with AI score
     const { error: updateError } = await supabase
@@ -150,14 +149,14 @@ Fonte: ${lead.source || 'website'}
       .eq('id', leadId);
 
     if (updateError) {
-      console.error('Erro ao atualizar lead:', updateError);
+      console.error('Error updating lead:', updateError);
       return new Response(
-        JSON.stringify({ error: 'Erro ao guardar pontuação' }),
+        JSON.stringify({ error: 'Error saving score' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    console.log('Lead classificado com sucesso:', lead.name, 'Score:', score);
+    console.log('Lead scored successfully:', lead.name, 'Score:', score);
 
     return new Response(
       JSON.stringify({ 
@@ -170,9 +169,9 @@ Fonte: ${lead.source || 'website'}
     );
 
   } catch (error) {
-    console.error('Erro na função score-lead:', error);
+    console.error('Error in score-lead function:', error);
     return new Response(
-      JSON.stringify({ error: error instanceof Error ? error.message : 'Erro desconhecido' }),
+      JSON.stringify({ error: error instanceof Error ? error.message : 'Unknown error' }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }
