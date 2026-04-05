@@ -27,14 +27,14 @@ serve(async (req) => {
 
     const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
     if (!LOVABLE_API_KEY) {
-      console.error('LOVABLE_API_KEY não configurada');
+      console.error('LOVABLE_API_KEY not configured');
       return new Response(
-        JSON.stringify({ error: 'API key não configurada' }),
+        JSON.stringify({ error: 'API key not configured' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    // Build context-aware system prompt
+    // Build context-aware system prompt (PT content for end-user interaction)
     let systemPrompt = `Você é o assistente virtual da ARIFA Studio, uma empresa portuguesa de arquitetura de luxo sediada em Lisboa.
 
 PERSONALIDADE:
@@ -117,19 +117,19 @@ Para questões específicas sobre prazos ou valores, sugira contactar o gestor d
 
       if (response.status === 429) {
         return new Response(
-          JSON.stringify({ error: 'Limite de requisições excedido. Tente novamente mais tarde.' }),
+          JSON.stringify({ error: 'Rate limit exceeded. Try again later.' }),
           { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       }
       if (response.status === 402) {
         return new Response(
-          JSON.stringify({ error: 'Créditos esgotados.' }),
+          JSON.stringify({ error: 'Credits exhausted.' }),
           { status: 402, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       }
 
       return new Response(
-        JSON.stringify({ error: 'Erro ao processar mensagem' }),
+        JSON.stringify({ error: 'Error processing message' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
@@ -140,7 +140,7 @@ Para questões específicas sobre prazos ou valores, sugira contactar o gestor d
     if (!reply) {
       console.error('Empty AI response:', data);
       return new Response(
-        JSON.stringify({ error: 'Resposta vazia do assistente' }),
+        JSON.stringify({ error: 'Empty assistant response' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
@@ -158,7 +158,7 @@ Para questões específicas sobre prazos ou valores, sugira contactar o gestor d
   } catch (error) {
     console.error('Error in ai-chat function:', error);
     return new Response(
-      JSON.stringify({ error: error instanceof Error ? error.message : 'Erro desconhecido' }),
+      JSON.stringify({ error: error instanceof Error ? error.message : 'Unknown error' }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }
