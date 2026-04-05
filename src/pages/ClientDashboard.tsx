@@ -35,6 +35,8 @@ import { FilePreviewDialog } from "@/components/preview";
 import ClientProjectPhotos from "@/components/client/ClientProjectPhotos";
 import ClientBudgetView from "@/components/client/ClientBudgetView";
 import { ClientContracts } from "@/components/client/ClientContracts";
+import { ClientOdooData } from "@/components/client/ClientOdooData";
+import { ClientDaluxData } from "@/components/client/ClientDaluxData";
 import AIWeeklyUpdate from "@/components/client/AIWeeklyUpdate";
 import AIChatbot from "@/components/chat/AIChatbot";
 import { GuidedTour } from "@/components/onboarding/GuidedTour";
